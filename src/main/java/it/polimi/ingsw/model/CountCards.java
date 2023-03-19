@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
