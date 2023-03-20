@@ -27,8 +27,7 @@ public class Bookshelf {
             if (obtainedCard.isPresent()){
                 bookshelf[i][column].setCard(Optional.ofNullable(cards.get(iteratoreCards)));
                 iteratoreCards++;
-            }
-            else {
+            } else {
                 i = -1;
             }
 
