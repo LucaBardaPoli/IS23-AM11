@@ -11,7 +11,8 @@ public class Position {
     }
 
     public Position(){
-
+        row = 0;
+        column = 0;
     }
 
     public Integer getRow() {
