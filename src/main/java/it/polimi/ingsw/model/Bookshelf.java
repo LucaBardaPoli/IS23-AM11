@@ -8,7 +8,6 @@ public class Bookshelf {
     private Integer rows;
     private Integer columns;
 
-
     //costruttore
     public Bookshelf (Integer columns, Integer rows){
         this.columns = columns;
@@ -45,7 +44,6 @@ public class Bookshelf {
 
         }
     }
-
 
     //restituisce la cella della bookshelf relativa alla position data
     public Cell getCell(Position position){
