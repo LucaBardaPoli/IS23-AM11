@@ -126,155 +126,155 @@ public class Board {
 
         if(numPlayers == 4){
             //RIGA 0:
-            board.put(new Position(0,0),null);
-            board.put(new Position(0,1),null);
+            board.put(new Position(0,0), Optional.empty());
+            board.put(new Position(0,1), Optional.empty());
 
             //RIGA 1:
-            board.put(new Position(1,0),null);
-            board.put(new Position(1,1),null);
-            board.put(new Position(1,2),null);
+            board.put(new Position(1,0), Optional.empty());
+            board.put(new Position(1,1), Optional.empty());
+            board.put(new Position(1,2), Optional.empty());
 
             //RIGA 2:
-            board.put(new Position(2,-1),null);
-            board.put(new Position(2,0),null);
-            board.put(new Position(2,2),null);
-            board.put(new Position(2,3),null);
+            board.put(new Position(2,-1), Optional.empty());
+            board.put(new Position(2,0), Optional.empty());
+            board.put(new Position(2,2), Optional.empty());
+            board.put(new Position(2,3), Optional.empty());
 
             //RIGA 3:
-            board.put(new Position(3,-2),null);
-            board.put(new Position(3,-1),null);
-            board.put(new Position(3,1),null);
-            board.put(new Position(3,2),null);
-            board.put(new Position(3,3),null);
-            board.put(new Position(3,5),null);
+            board.put(new Position(3,-2), Optional.empty());
+            board.put(new Position(3,-1), Optional.empty());
+            board.put(new Position(3,1), Optional.empty());
+            board.put(new Position(3,2), Optional.empty());
+            board.put(new Position(3,3), Optional.empty());
+            board.put(new Position(3,5), Optional.empty());
 
             //RIGA 4:
-            board.put(new Position(4,-3),null);
-            board.put(new Position(4,-2),null);
-            board.put(new Position(4,-1),null);
-            board.put(new Position(4,0),null);
-            board.put(new Position(4,1),null);
-            board.put(new Position(4,3),null);
-            board.put(new Position(4,4),null);
-            board.put(new Position(4,5),null);
+            board.put(new Position(4,-3), Optional.empty());
+            board.put(new Position(4,-2), Optional.empty());
+            board.put(new Position(4,-1), Optional.empty());
+            board.put(new Position(4,0), Optional.empty());
+            board.put(new Position(4,1), Optional.empty());
+            board.put(new Position(4,3), Optional.empty());
+            board.put(new Position(4,4), Optional.empty());
+            board.put(new Position(4,5), Optional.empty());
 
             //RIGA 5:
-            board.put(new Position(5,-3),null);
-            board.put(new Position(5,-2),null);
-            board.put(new Position(5,-1),null);
-            board.put(new Position(5,0),null);
-            board.put(new Position(5,1),null);
-            board.put(new Position(5,2),null);
-            board.put(new Position(5,3),null);
-            board.put(new Position(5,4),null);
+            board.put(new Position(5,-3), Optional.empty());
+            board.put(new Position(5,-2), Optional.empty());
+            board.put(new Position(5,-1), Optional.empty());
+            board.put(new Position(5,0), Optional.empty());
+            board.put(new Position(5,1), Optional.empty());
+            board.put(new Position(5,2), Optional.empty());
+            board.put(new Position(5,3), Optional.empty());
+            board.put(new Position(5,4), Optional.empty());
 
             //RIGA 6:
-            board.put(new Position(6,-1),null);
-            board.put(new Position(6,0),null);
-            board.put(new Position(6,2),null);
-            board.put(new Position(6,3),null);
+            board.put(new Position(6,-1), Optional.empty());
+            board.put(new Position(6,0), Optional.empty());
+            board.put(new Position(6,2), Optional.empty());
+            board.put(new Position(6,3), Optional.empty());
 
             //RIGA 7:
-            board.put(new Position(7,0),null);
-            board.put(new Position(7,1),null);
-            board.put(new Position(7,2),null);
+            board.put(new Position(7,0), Optional.empty());
+            board.put(new Position(7,1), Optional.empty());
+            board.put(new Position(7,2), Optional.empty());
 
             //RIGA 8:
-            board.put(new Position(8,1),null);
-            board.put(new Position(8,2),null);
+            board.put(new Position(8,1), Optional.empty());
+            board.put(new Position(8,2), Optional.empty());
         }
 
 
         if(numPlayers == 3){
-            board.put(new Position(0,0),null);
+            board.put(new Position(0,0), Optional.empty());
 
             //RIGA 1:
-            board.put(new Position(1,0),null);
-            board.put(new Position(1,1),null);
+            board.put(new Position(1,0), Optional.empty());
+            board.put(new Position(1,1), Optional.empty());
 
             //RIGA 2:
-            board.put(new Position(2,-1),null);
-            board.put(new Position(2,0),null);
-            board.put(new Position(2,2),null);
-            board.put(new Position(2,3),null);
+            board.put(new Position(2,-1), Optional.empty());
+            board.put(new Position(2,0), Optional.empty());
+            board.put(new Position(2,2), Optional.empty());
+            board.put(new Position(2,3), Optional.empty());
 
             //RIGA 3:
-            board.put(new Position(3,-1),null);
-            board.put(new Position(3,1),null);
-            board.put(new Position(3,2),null);
-            board.put(new Position(3,3),null);
-            board.put(new Position(3,5),null);
+            board.put(new Position(3,-1), Optional.empty());
+            board.put(new Position(3,1), Optional.empty());
+            board.put(new Position(3,2), Optional.empty());
+            board.put(new Position(3,3), Optional.empty());
+            board.put(new Position(3,5), Optional.empty());
 
             //RIGA 4:
-            board.put(new Position(4,-2),null);
-            board.put(new Position(4,-1),null);
-            board.put(new Position(4,0),null);
-            board.put(new Position(4,1),null);
-            board.put(new Position(4,3),null);
-            board.put(new Position(4,4),null);
+            board.put(new Position(4,-2), Optional.empty());
+            board.put(new Position(4,-1), Optional.empty());
+            board.put(new Position(4,0), Optional.empty());
+            board.put(new Position(4,1), Optional.empty());
+            board.put(new Position(4,3), Optional.empty());
+            board.put(new Position(4,4), Optional.empty());
 
             //RIGA 5:
-            board.put(new Position(5,-3),null);
-            board.put(new Position(5,-2),null);
-            board.put(new Position(5,-1),null);
-            board.put(new Position(5,0),null);
-            board.put(new Position(5,1),null);
-            board.put(new Position(5,2),null);
-            board.put(new Position(5,3),null);
+            board.put(new Position(5,-3), Optional.empty());
+            board.put(new Position(5,-2), Optional.empty());
+            board.put(new Position(5,-1), Optional.empty());
+            board.put(new Position(5,0), Optional.empty());
+            board.put(new Position(5,1), Optional.empty());
+            board.put(new Position(5,2), Optional.empty());
+            board.put(new Position(5,3), Optional.empty());
 
             //RIGA 6:
-            board.put(new Position(6,-1),null);
-            board.put(new Position(6,0),null);
-            board.put(new Position(6,2),null);
-            board.put(new Position(6,3),null);
+            board.put(new Position(6,-1), Optional.empty());
+            board.put(new Position(6,0), Optional.empty());
+            board.put(new Position(6,2), Optional.empty());
+            board.put(new Position(6,3), Optional.empty());
 
             //RIGA 7:
-            board.put(new Position(7,1),null);
-            board.put(new Position(7,2),null);
+            board.put(new Position(7,1), Optional.empty());
+            board.put(new Position(7,2), Optional.empty());
 
             //RIGA 8:
-            board.put(new Position(8,2),null);
+            board.put(new Position(8,2), Optional.empty());
         }
 
         if(numPlayers == 2){
 
             //RIGA 1:
-            board.put(new Position(1,0),null);
-            board.put(new Position(1,1),null);
+            board.put(new Position(1,0), Optional.empty());
+            board.put(new Position(1,1), Optional.empty());
 
             //RIGA 2:
-            board.put(new Position(2,0),null);
-            board.put(new Position(2,2),null);
+            board.put(new Position(2,0), Optional.empty());
+            board.put(new Position(2,2), Optional.empty());
 
             //RIGA 3:
-            board.put(new Position(3,-1),null);
-            board.put(new Position(3,1),null);
-            board.put(new Position(3,2),null);
-            board.put(new Position(3,3),null);
+            board.put(new Position(3,-1), Optional.empty());
+            board.put(new Position(3,1), Optional.empty());
+            board.put(new Position(3,2), Optional.empty());
+            board.put(new Position(3,3), Optional.empty());
 
             //RIGA 4:
-            board.put(new Position(4,-2),null);
-            board.put(new Position(4,-1),null);
-            board.put(new Position(4,0),null);
-            board.put(new Position(4,1),null);
-            board.put(new Position(4,3),null);
-            board.put(new Position(4,4),null);
+            board.put(new Position(4,-2), Optional.empty());
+            board.put(new Position(4,-1), Optional.empty());
+            board.put(new Position(4,0), Optional.empty());
+            board.put(new Position(4,1), Optional.empty());
+            board.put(new Position(4,3), Optional.empty());
+            board.put(new Position(4,4), Optional.empty());
 
             //RIGA 5:
-            board.put(new Position(5,-2),null);
-            board.put(new Position(5,-1),null);
-            board.put(new Position(5,0),null);
-            board.put(new Position(5,1),null);
-            board.put(new Position(5,2),null);
-            board.put(new Position(5,3),null);
+            board.put(new Position(5,-2), Optional.empty());
+            board.put(new Position(5,-1), Optional.empty());
+            board.put(new Position(5,0), Optional.empty());
+            board.put(new Position(5,1), Optional.empty());
+            board.put(new Position(5,2), Optional.empty());
+            board.put(new Position(5,3), Optional.empty());
 
             //RIGA 6:
-            board.put(new Position(6,0),null);
-            board.put(new Position(6,2),null);
+            board.put(new Position(6,0), Optional.empty());
+            board.put(new Position(6,2), Optional.empty());
 
             //RIGA 7:
-            board.put(new Position(7,1),null);
-            board.put(new Position(7,2),null);
+            board.put(new Position(7,1), Optional.empty());
+            board.put(new Position(7,2), Optional.empty());
 
         }
 

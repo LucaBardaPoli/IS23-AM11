@@ -8,8 +8,6 @@ public class Cell {
 
     //al costruttore passo la poszione e il flag della cella di modo tale che
     // la carta possa essere istanziata in un secondo momento
-
-
     public Cell(Position position, Optional<Card> card) {
         this.position = position;
         this.card = card;
@@ -19,7 +17,6 @@ public class Cell {
     public void setPosition(Position position) {
         this.position = position;
     }
-
 
     public Position getPosition() {
         return position;

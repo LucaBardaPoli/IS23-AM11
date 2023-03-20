@@ -5,11 +5,23 @@ import java.util.Optional;
 public class Bookshelf {
 
     private Cell bookshelf[][];
+    private Integer rows;
+    private Integer columns;
 
 
     //costruttore
-    public Bookshelf (){
-        this.bookshelf = new Cell[6][5];
+    public Bookshelf (Integer columns, Integer rows){
+        this.columns = columns;
+        this.rows = rows;
+        this.bookshelf = new Cell[this.columns][this.rows];
+    }
+
+    public Integer getRows() {
+        return this.rows;
+    }
+
+    public Integer getColumns() {
+        return this.columns;
     }
 
     //aggiunge le massimo 3 carte passate da input alla bookshelf
@@ -48,7 +60,7 @@ public class Bookshelf {
         ArrayList<Card> colonnaDiCarte = new ArrayList(6);
         Position position = new Position();
         position.setColumn(columnNumber);
-        for(int i=0; i<6; i++){
+        for(int i=0; i<this.rows; i++){
             position.setRow(i);
             Optional<Card> cardOptional = getCell(position).getCard();
             cardOptional.ifPresent(colonnaDiCarte::add);
@@ -61,7 +73,7 @@ public class Bookshelf {
         ArrayList<Card> rigaDiCarte = new ArrayList(6);
         Position position = new Position();
         position.setRow(rowNumber);
-        for(int i=0; i<5; i++){
+        for(int i=0; i<this.columns; i++){
             position.setColumn(i);
             Optional<Card> cardOptional = getCell(position).getCard();
             cardOptional.ifPresent(rigaDiCarte::add);
@@ -74,11 +86,11 @@ public class Bookshelf {
 
         //per usare la funzione ifPresent() ho deciso di contare al
         // contrario scalando il contatore se una cella contiene una carta
-        int contatore = 30;
+        int contatore = this.rows * this.columns;
 
         Position position = new Position();
-        for (int i=0 ; i<5; i++){
-            for(int j=0; j<6; j++){
+        for (int i=0 ; i<this.columns; i++){
+            for(int j=0; j<this.rows; j++){
 
                 //salvo la posizone ed estraggo la carta
                 position.setRow(j);
@@ -97,7 +109,7 @@ public class Bookshelf {
 
     //restituisce le celle libere data una determinata colonna
     public Integer getFreeCells(Integer columnNumber){
-        return (6 - getColumn(columnNumber).size());
+        return (this.rows - getColumn(columnNumber).size());
     }
 
 
