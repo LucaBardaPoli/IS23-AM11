@@ -9,14 +9,19 @@ public class Player {
     private PersonalGoal personalGoal;
     private Game game;
     private Bookshelf bookshelf;
-    private Integer points;
+
+    private Integer personalGoalPoints;
+    private Integer commonGoalPoints;
+    private Integer adjacentPoints;
     private List<Boolean> commonGoalFullfilled;
 
     public Player(String nickname, PersonalGoal personalGoal, Game game) {
         this.nickname = nickname;
         this.personalGoal = personalGoal;
         this.game = game;
-        this.points = 0;
+        this.personalGoalPoints = 0;
+        this.commonGoalPoints = 0;
+        this.adjacentPoints = 0;
         this.bookshelf = new Bookshelf(6,5);
         this.commonGoalFullfilled = new ArrayList<>(List.of(false, false));
     }
@@ -31,10 +36,6 @@ public class Player {
 
     public Bookshelf getBookshelf() {
         return bookshelf;
-    }
-
-    private void addPoints(Integer points){
-        this.points += points;
     }
 
     private boolean isFullBookshelf(){
@@ -59,22 +60,27 @@ public class Player {
 
     public boolean checkBookshelf(List<CommonGoal> commonGoals){
 
-        Optional<Integer> points = Optional.of(this.personalGoal.checkGoal(this.bookshelf));
 
+        // Checking Personal Goal Points
+        Optional<Integer> points = Optional.of(this.personalGoal.checkGoal(this.bookshelf));
         if(!points.isEmpty()) {
-            this.addPoints(points.get());
+            this.personalGoalPoints = points.get();
         }
 
+        // Checking Common Goal Points
         for(int i = 0; i < 2; i++) {
             if(!this.commonGoalFullfilled.get(i)) {
                 Optional<Token> pointsCommon = commonGoals.get(i).checkGoal(this.bookshelf);
                 if (pointsCommon.isPresent()) {
-                    this.addPoints(pointsCommon.get().getValue());
+                    this.commonGoalPoints += points.get();
                     this.commonGoalFullfilled.set(i, true);
                 }
             }
         }
+        // Checking Adjacency
 
+
+        // Checking if Bookshelf is full
         if(this.isFullBookshelf()) return true;
 
         return false;

@@ -373,10 +373,6 @@ public class GameManager implements GameManagerInterface{
     private void initializeCommonGoals(){
 
         Predicate<Bookshelf> bookshelfPredicate;
-        this.tokenList.add(new Token(2));
-        this.tokenList.add(new Token(4));
-        this.tokenList.add(new Token(6));
-        this.tokenList.add(new Token(8));
 
         // Common Goal: Ladder Goal
         bookshelfPredicate = new LadderGoal();
@@ -407,7 +403,13 @@ public class GameManager implements GameManagerInterface{
         this.commonGoals.add(new CommonGoal("Same Kind X",  bookshelfPredicate));
 
         // Common Goal: GivenPositions Goal
-        bookshelfPredicate = new GivenPositionsGoal();
+        List<Position> positionList = new ArrayList<>();
+        positionList.add(new Position(0,0));
+        positionList.add(new Position(0,4));
+        positionList.add(new Position(5,0));
+        positionList.add(new Position(5,4));
+
+        bookshelfPredicate = new GivenPositionsGoal(positionList);
         this.commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
 
 
