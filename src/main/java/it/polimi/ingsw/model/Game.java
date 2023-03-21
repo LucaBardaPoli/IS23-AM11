@@ -30,7 +30,7 @@ public class Game {
     public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
         this.id = id;
         this.countCards = new CountCards();
-        this.board = new Board();
+        this.board = new Board(players.size());
         this.board.fillBoard(players.size(), this.countCards);
         this.players = new ArrayList<Player>();
         this.personalGoals = personalGoals;
@@ -108,7 +108,7 @@ public class Game {
      */
     public Optional<PersonalGoal> getPersonalGoal(String player) {
         for (Player p : this.players) {
-            if (p.getNickname().equals(nickname)) {
+            if (p.getNickname().equals(player)) {
                 return Optional.of(p.getPersonalGoal());
             }
         }
@@ -122,7 +122,7 @@ public class Game {
      */
     public Optional<Bookshelf> getBookshelf(String player) {
         for (Player p : this.players) {
-            if (p.getNickname().equals(nickname)) {
+            if (p.getNickname().equals(player)) {
                 return Optional.of(p.getBookshelf());
             }
         }
