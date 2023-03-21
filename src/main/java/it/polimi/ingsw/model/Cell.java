@@ -6,8 +6,8 @@ public class Cell {
     private Position position;
     private Optional<Card> card;
 
-    //al costruttore passo la poszione e il flag della cella di modo tale che
-    // la carta possa essere istanziata in un secondo momento
+    // I pass the cell position and flag to the constructor so that
+    // the card can be instantiated later
 
 
     public Cell(Position position, Optional<Card> card) {
@@ -15,7 +15,7 @@ public class Cell {
         this.card = card;
     }
 
-    //getter e setter degli attributi
+    //getter e setter
     public void setPosition(Position position) {
         this.position = position;
     }

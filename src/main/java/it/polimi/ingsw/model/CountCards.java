@@ -12,7 +12,7 @@ public class CountCards {
     public CountCards() {
         countCardType = new LinkedHashMap<CardType,Integer>();
 
-        //istanzio staticamente tutte le carte con i rispettivi colori
+        // statically instantiate all cards with their respective colors
         countCardType.put(CardType.GREEN,22);
         countCardType.put(CardType.WHITE,22);
         countCardType.put(CardType.YELLOW,22);
@@ -21,49 +21,49 @@ public class CountCards {
         countCardType.put(CardType.PINK,22);
     }
 
-    //funzione pubblica per chiamare generateCard
+    //public function to call generateCard
     public Card PickCard(){
         Card newCard = GenerateCard();
         return newCard;
     }
 
-    //genera una carta scalando tutti gli indici del caso dalla hashMap:
-    /* FUNZIONAMENTO:
-    -itera su le chiave della hashMap (che sono i valori della enum CardType)
-    -aggiorna man mano il valore dell'intero count per capire in che intervallo sia caduto
+    //generate a card scaling all the indexes of the case from the hashMap:
+    /* OPERATION:
+    -iterate over the keys of the hashMap (which are the values ​​of the CardType enum)
+    - gradually updates the value of the entire count to understand in which interval it fell
         randomNumber
-    -ogni volta che viene creata una carta il valore di MAX_NUM_CARDS_TYPE viene aggiornato
-        di modo tale che il numero casuale venga generato nell'intervallo logicamente valido
-    -una volta trovato l'intervallo giusto crea la carta del colore corrispondente e diminuisce il
-        valore Integer di countCardType
+    - every time a card is created the value of MAX_NUM_CARDS_TYPE is updated
+        so that the random number is generated in the logically valid range
+    -once you find the right interval create the card of the corresponding color and decrease the
+        Integer value of countCardType
      */
     private Card GenerateCard() {
         Random random = new Random();
         Integer count = 0, flag = 0;
 
-        //genero un numero tra 1 e MAX_NUM_CARDS_TYPE
+        //generate a number between 1 and MAX_NUM_CARDS_TYPE
         int randomNumber = random.nextInt(getMaxNumCardsType()) + 1;
 
-        //creo la carta che poi istanzierò dinamicamente nell'if
+        // I create the card which I will then dynamically instantiate in the if
         Card newCard = null;
         for (Map.Entry<CardType, Integer> entry : countCardType.entrySet()) {
-            //aggiorna il valore del contatore
+            //update the counter value
             count = count + entry.getValue();
 
-            //se dobbiamo procedere con la lista dei colori
+            //if we have to proceed with the color list
             if (count <= randomNumber && flag == 0) {
                 //genera la nuova carta
                 newCard = new Card(entry.getKey());
 
-                //diminiusce il numero totale di carte rimaste
-                int nuovoValore = getMaxNumCardsType() - 1;
-                setMaxNumCardsType(nuovoValore);
+                //decreases the total number of cards left
+                int newValue1 = getMaxNumCardsType() - 1;
+                setMaxNumCardsType(newValue1);
 
-                //modifica l'elemento della mappa con la chiave specificata
-                int nuovoValore2 = countCardType.get(entry.getKey()) - 1;
-                countCardType.put(entry.getKey(), nuovoValore2);
+                //modify the map element with the specified key
+                int newValue2 = countCardType.get(entry.getKey()) - 1;
+                countCardType.put(entry.getKey(), newValue2);
 
-                //alza il flag per comunicare che la carta nuova è stata generata
+                //raise the flag to communicate that the new card has been generated
                 flag = 1;
             }
         }

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class Board {
     private HashMap<Position,Optional<Card>> board;
-    private Integer flag; //valore che determina se una casella è utilizzabile o meno in base al numero di giocatori
+    private Integer flag; //value that determines if a square is usable or not based on the number of players
 
     /*
     Cellflag potential values:  valori dipendono dal numero giocatori
@@ -26,10 +26,9 @@ public class Board {
      */
     public void fillBoard (Integer numPlayers, CountCards countCards){
 
-        /* SVOLGE LE SEGUENTI OPERAZIONI:
-        - itera su tutte le BoardCell della board
-        - controlla se nella BoardCell sia gia presente una carta o meno e se la Board Cell è utilizzabile in questa partita
-
+        /* CARRY OUT THE FOLLOWING OPERATIONS:
+        - iterates on all the BoardCells of the board
+        - checks whether or not a card is already present in the BoardCell and whether the BoardCell is usable in this game
          */
         for (HashMap.Entry<Position, Optional<Card>> entry : board.entrySet()) {
             if(entry.getValue().isEmpty() && validPick(entry.getKey())){
@@ -38,8 +37,8 @@ public class Board {
         }
     }
 
-    //crea un optional con la carta presente nella board nella posizione passata in input
-    // se e solo se la carta è in una posizone VALIDA!!!!!!
+    //creates an optional with the card present on the board in the position passed in input
+    // if and only if the card is in a VALID position!!!!!!
     public Optional<Card> getCard(Position position){
 
         if(validPick(position)){
@@ -48,7 +47,7 @@ public class Board {
         else return Optional.empty();
     }
 
-    // controlla se la board va re-fillata
+    // check if the board needs to be re-filled
     public boolean validBoard (){
 
         int flag = 0;
@@ -66,7 +65,7 @@ public class Board {
 
     }
 
-    //restituisce TRUE se la carta è selezionabile controllando che ci sia almeno una cella libera intorno alla cella
+    //returns TRUE if the card is selectable by checking that there is at least one free cell around the cell
     public boolean validPick(Position position){
         int flag = 0;
         int row = position.getRow();;
@@ -101,7 +100,7 @@ public class Board {
     }
 
 
-    //controlla che la cella considerata non sia nulla e sia modificabile e non solo estetica
+    // check that the considered cell is not null and is modifiable and not just aesthetic
     public boolean checkAllConditions(Position position){
         if( checkValidCell(position) && board.get(position).isPresent()){
             return true;
@@ -110,7 +109,7 @@ public class Board {
     }
 
 
-    //restituisce TRUE se la posizione position è una cella dove si possono mettere carte
+    //returns TRUE if the position position is a cell where cards can be placed
     public boolean checkValidCell (Position position){
         int row = position.getRow();;
         int column = position.getColumn();
