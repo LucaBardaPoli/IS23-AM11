@@ -52,7 +52,7 @@ public class CountCards {
 
             //if we have to proceed with the color list
             if (count <= randomNumber && flag == 0) {
-                //genera la nuova carta
+                //generate the new card
                 newCard = new Card(entry.getKey());
 
                 //decreases the total number of cards left

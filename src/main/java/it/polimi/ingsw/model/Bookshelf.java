@@ -8,7 +8,7 @@ public class Bookshelf {
     private Cell bookshelf[][];
 
 
-    //costruttore
+    //costructor
     public Bookshelf (){
         this.bookshelf = new Cell[6][5];
     }
@@ -17,7 +17,7 @@ public class Bookshelf {
     // !!!!! it is important that a check has been made first on the number of cells available in the column
     public void addCells(ArrayList<Card> cards, Integer column){
 
-        int i; // i scorre le righe di bookshelf
+        int i; // i scrolls through bookshelf rows
         int k = getFreeCells(); // k are the free cells of the considered column
         int iteratorCards = 0; // iteratoreCards iterates over Cards three times
 
