@@ -8,22 +8,21 @@ public class Board {
     private Integer flag; //value that determines if a square is usable or not based on the number of players
 
     /*
-    Cellflag potential values:  valori dipendono dal numero giocatori
-    -5: celle non valide: esclusivamente a scopo grafico
-    -2: celle usate in ogni partita
-    -3: celle usate se e solo se i giocatori sono un numero minore o uguale a 3
-    -4: celle usate se e solo se i giocatori sono un numero minore o uguale a 4
+    Cellflag potential values: values depend on the number of players
+    -5: Invalid Cells: For graphics purposes only
+    -2: cells used in each game
+    -3: cells used if and only if the number of players is less than or equal to 3
+    -4: cells used if and only if the number of players is less than or equal to 4
      */
-
     public Board(Integer numPlayers) {
         board = new HashMap<Position,Optional<Card>>();
         createBoardCells(numPlayers);
     }
 
     /*
-    riempe la board tenendo conto del fatto che ci saranno gia delle carte al suo interno residue,
-        del numero dei giocatori e del numero di carte residue nel sacchetto per ogni colore
-     */
+     fills the board taking into account the fact that there will already be cards left inside it,
+         the number of players and the number of remaining cards in the bag for each color
+      */
     public void fillBoard (Integer numPlayers, CountCards countCards){
 
         /* CARRY OUT THE FOLLOWING OPERATIONS:
