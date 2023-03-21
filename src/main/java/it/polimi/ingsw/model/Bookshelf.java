@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Bookshelf {
@@ -12,16 +13,16 @@ public class Bookshelf {
         this.bookshelf = new Cell[6][5];
     }
 
-    //aggiunge le massimo 3 carte passate da input alla bookshelf
-    // !!!!! è importante che sia stato effettuato prima un controllo sul numero di celle disponibili nella colonna
+    //add the maximum 3 cards passed from input to the bookshelf
+    // !!!!! it is important that a check has been made first on the number of cells available in the column
     public void addCells(ArrayList<Card> cards, Integer column){
 
         int i; // i scorre le righe di bookshelf
         int k = getFreeCells(); // k sono le caselle libere della colonna considerata
         int iteratoreCards = 0; // iteratoreCards itera su Cards per tre volte
 
-        //nelle tre posizioni libere aggiunge fino a massimo 3 carte,
-        // si interrompe prima se le carte sono meno di 3 mettendo l'indice a -1
+        //in the three free positions it adds up to a maximum of 3 cards,
+        // stops early if the cards are less than 3 by setting the index to -1
         for(i = k-1; i >= k-3; i--){
             Optional<Card> obtainedCard = Optional.ofNullable(cards.get(iteratoreCards));
             if (obtainedCard.isPresent()){
@@ -36,14 +37,14 @@ public class Bookshelf {
     }
 
 
-    //restituisce la cella della bookshelf relativa alla position data
+    //returns the bookshelf cell related to the position data
     public Cell getCell(Position position){
         int row =  position.getRow();
         int column = position.getColumn();
         return bookshelf[row][column];
     }
 
-    //restituisce un ArrayList con tutte le carte contenute nella colonna indicata in input
+    //returns an ArrayList with all the cards contained in the column indicated in input
     public ArrayList<Card> getColumn(Integer columnNumber){
         ArrayList<Card> colonnaDiCarte = new ArrayList(6);
         Position position = new Position();
@@ -56,7 +57,7 @@ public class Bookshelf {
         return colonnaDiCarte;
     }
 
-    //restituisce un ArrayList con tutte le carte contenute nella riga indicata in input
+    //returns an ArrayList with all the cards contained in the row indicated in input
     public ArrayList<Card> getRow(Integer rowNumber){
         ArrayList<Card> rigaDiCarte = new ArrayList(6);
         Position position = new Position();
@@ -69,24 +70,24 @@ public class Bookshelf {
         return rigaDiCarte;
     }
 
-    //restituisce il numero totale di casella null nella bookshelf
+    //returns the total number of null boxes in the bookshelf
     public Integer getFreeCells() {
 
-        //per usare la funzione ifPresent() ho deciso di contare al
-        // contrario scalando il contatore se una cella contiene una carta
+        //to use the ifPresent() function I decided to count al
+        // reverse scaling the counter if a cell contains a card
         int contatore = 30;
 
         Position position = new Position();
         for (int i=0 ; i<5; i++){
             for(int j=0; j<6; j++){
 
-                //salvo la posizone ed estraggo la carta
+                //save the position and extract the card
                 position.setRow(j);
                 position.setColumn(i);
 
                 Optional<Card> cardOptional = getCell(position).getCard();
 
-                //sotraggo se la cella NON contiene NULL
+                //subtract if the cell does NOT contain NULL
                 if (cardOptional.isPresent()) {
                     contatore--;
                 }
@@ -95,7 +96,7 @@ public class Bookshelf {
         return contatore;
     }
 
-    //restituisce le celle libere data una determinata colonna
+    //return the free cells given a given column
     public Integer getFreeCells(Integer columnNumber){
         return (6 - getColumn(columnNumber).size());
     }
