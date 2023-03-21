@@ -9,16 +9,16 @@ public class SameKindDiagonal implements Predicate<Bookshelf> {
 
     private boolean checkDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Integer limit = Math.min(bookshelf.getColumns(), bookshelf.getRows());
-        Optional<Card> card;
+        Optional<CardType> card;
         CardType currentType;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn)).getCard();
+        card = bookshelf.getCell(new Position(startRow, startColumn));
         if(card.isPresent()) {
-            currentType = card.get().getType();
+            currentType = card.get();
             for (int i = 0; i < limit; i++) {
-                card = bookshelf.getCell(new Position(startRow+i, startColumn+i)).getCard();
+                card = bookshelf.getCell(new Position(startRow+i, startColumn+i));
                 if (card.isPresent()) {
-                    if (!card.get().getType().equals(currentType)) {
+                    if (!card.get().equals(currentType)) {
                         return false;
                     }
                 } else {

@@ -13,10 +13,6 @@ public class GameManager implements GameManagerInterface{
     private Integer currentGameNumPlayers;
     private final List<CommonGoal> commonGoals;
     private final List<PersonalGoal> personalGoals;
-    private final List<Token> tokenList;
-
-
-
 
     // Costruttore invisibile
     private GameManager() {
@@ -26,13 +22,9 @@ public class GameManager implements GameManagerInterface{
         this.currentGameNumPlayers = 0;
         this.commonGoals = new ArrayList<CommonGoal>();
         this.personalGoals = new ArrayList<PersonalGoal>();
-        this.tokenList  = new ArrayList<Token>();
-
 
         this.initializePersonalGoals();
         this.initializeCommonGoals();
-
-
     }
 
     public static GameManager getInstance() {
@@ -50,7 +42,6 @@ public class GameManager implements GameManagerInterface{
 
         this.gameList.add(new Game(counterGames, this.lobby, commonGoals.subList(0,2), personalGoals.subList(0,players.size())));
         this.counterGames++;
-
     }
 
     public void addPlayer(String nickname, Integer numPlayers) {
@@ -71,7 +62,6 @@ public class GameManager implements GameManagerInterface{
         this.lobby.remove(nickname);
     }
 
-
     private void initializePersonalGoals(){
 
         List<Position> positions = new ArrayList<Position>();
@@ -84,7 +74,6 @@ public class GameManager implements GameManagerInterface{
         rewards.put(4,6);
         rewards.put(5,9);
         rewards.put(6,12);
-
 
         //Personal Goal x1
         positions.add(new Position( 0,0 ) );
@@ -411,8 +400,6 @@ public class GameManager implements GameManagerInterface{
 
         bookshelfPredicate = new GivenPositionsGoal(positionList);
         this.commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
-
-
     }
 
     @Override

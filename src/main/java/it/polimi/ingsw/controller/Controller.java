@@ -1,5 +1,8 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.GameManager;
+import it.polimi.ingsw.model.Player;
+
 /**
  * Controller class that handles the games creation and the communication between View and Model
  */
@@ -10,7 +13,7 @@ public class Controller {
      * Class constructor
      */
     public Controller() {
-        this.model = new GameManager();
+        this.model = GameManager.getInstance();
     }
 
     /**

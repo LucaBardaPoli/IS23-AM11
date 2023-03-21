@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.Card;
 import it.polimi.ingsw.model.Bookshelf;
 import it.polimi.ingsw.model.Position;
 
@@ -18,21 +17,21 @@ public class GivenPositionsGoal implements Predicate<Bookshelf> {
 
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Optional<Card> card;
+        Optional<CardType> card;
         CardType cardTypeReference, cardType;
 
-        card = bookshelf.getCell(positions.get(0)).getCard();
+        card = bookshelf.getCell(positions.get(0));
         if(!card.isPresent()){
             return false;
         }
-        cardTypeReference = card.get().getType();
+        cardTypeReference = card.get();
 
         for(Position position: positions){
-            card = bookshelf.getCell(position).getCard();
+            card = bookshelf.getCell(position);
             if(!card.isPresent()){
                 return false;
             }
-            cardType = card.get().getType();
+            cardType = card.get();
             if(cardType != cardTypeReference){
                 return false;
             }

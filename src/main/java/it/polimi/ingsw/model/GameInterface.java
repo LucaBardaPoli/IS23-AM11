@@ -5,12 +5,10 @@ import java.util.Optional;
 
 public interface GameInterface {
     public Player getCurrentPlayer();
-    public Optional<Card> pickCard(Position position);
+    public Optional<CardType> pickCard(Position position);
     public boolean confirmChoice();
-    public Optional<List<Card>> confirmColumn(Integer column);
-
-    public List<Card> rearrangeCards(Integer position);
-
+    public Optional<List<CardType>> confirmColumn(Integer column);
+    public List<CardType> rearrangeCards(Integer position);
     public void confirmOrderSelectedCards();
 
 }

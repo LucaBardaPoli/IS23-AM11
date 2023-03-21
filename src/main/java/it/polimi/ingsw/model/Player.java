@@ -9,7 +9,6 @@ public class Player {
     private PersonalGoal personalGoal;
     private Game game;
     private Bookshelf bookshelf;
-
     private Integer personalGoalPoints;
     private Integer commonGoalPoints;
     private Integer adjacentPoints;
@@ -43,7 +42,7 @@ public class Player {
         return true;
     }
 
-    public void insertCards(Integer column, List<Card> cardList){
+    public void insertCards(Integer column, List<CardType> cardList){
         this.bookshelf.addCells(cardList, column);
     }
 
@@ -58,9 +57,7 @@ public class Player {
         else return Optional.of(calculatedPoints);
     }
 
-    public boolean checkBookshelf(List<CommonGoal> commonGoals){
-
-
+    public boolean checkBookshelf(List<CommonGoal> commonGoals) {
         // Checking Personal Goal Points
         Optional<Integer> points = Optional.of(this.personalGoal.checkGoal(this.bookshelf));
         if(!points.isEmpty()) {
@@ -70,9 +67,8 @@ public class Player {
         // Checking Common Goal Points
         for(int i = 0; i < 2; i++) {
             if(!this.commonGoalFullfilled.get(i)) {
-                Optional<Token> pointsCommon = commonGoals.get(i).checkGoal(this.bookshelf);
-                if (pointsCommon.isPresent()) {
-                    this.commonGoalPoints += points.get();
+                if(commonGoals.get(i).checkGoal(this.bookshelf)) {
+                    this.commonGoalPoints += this.game.winToken(i);
                     this.commonGoalFullfilled.set(i, true);
                 }
             }
@@ -84,6 +80,10 @@ public class Player {
         if(this.isFullBookshelf()) return true;
 
         return false;
+    }
+
+    public Integer getPoints() {
+        return this.adjacentPoints + this.commonGoalPoints + this.personalGoalPoints;
     }
 }
 

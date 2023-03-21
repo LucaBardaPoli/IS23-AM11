@@ -22,8 +22,8 @@ public class CountCards {
     }
 
     //public function to call generateCard
-    public Card PickCard(){
-        Card newCard = GenerateCard();
+    public CardType PickCard(){
+        CardType newCard = GenerateCard();
         return newCard;
     }
 
@@ -37,7 +37,7 @@ public class CountCards {
     -once you find the right interval create the card of the corresponding color and decrease the
         Integer value of countCardType
      */
-    private Card GenerateCard() {
+    private CardType GenerateCard() {
         Random random = new Random();
         Integer count = 0, flag = 0;
 
@@ -45,7 +45,7 @@ public class CountCards {
         int randomNumber = random.nextInt(getMaxNumCardsType()) + 1;
 
         // I create the card which I will then dynamically instantiate in the if
-        Card newCard = null;
+        CardType newCard = null;
         for (Map.Entry<CardType, Integer> entry : countCardType.entrySet()) {
             //update the counter value
             count = count + entry.getValue();
@@ -53,7 +53,7 @@ public class CountCards {
             //if we have to proceed with the color list
             if (count <= randomNumber && flag == 0) {
                 //generate the new card
-                newCard = new Card(entry.getKey());
+                newCard = entry.getKey();
 
                 //decreases the total number of cards left
                 int newValue1 = getMaxNumCardsType() - 1;

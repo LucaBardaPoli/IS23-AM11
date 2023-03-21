@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class Board {
-    private HashMap<Position,Optional<Card>> board;
-    private Integer flag; //value that determines if a square is usable or not based on the number of players
+    private HashMap<Position,Optional<CardType>> board;
 
     /*
     Cellflag potential values: values depend on the number of players
@@ -15,7 +14,7 @@ public class Board {
     -4: cells used if and only if the number of players is less than or equal to 4
      */
     public Board(Integer numPlayers) {
-        board = new HashMap<Position,Optional<Card>>();
+        board = new HashMap<Position,Optional<CardType>>();
         createBoardCells(numPlayers);
     }
 
@@ -29,7 +28,7 @@ public class Board {
         - iterates on all the BoardCells of the board
         - checks whether or not a card is already present in the BoardCell and whether the BoardCell is usable in this game
          */
-        for (HashMap.Entry<Position, Optional<Card>> entry : board.entrySet()) {
+        for (HashMap.Entry<Position, Optional<CardType>> entry : board.entrySet()) {
             if(entry.getValue().isEmpty() && validPick(entry.getKey())){
                 board.put(entry.getKey(), Optional.ofNullable(countCards.PickCard()));
             }
@@ -38,7 +37,7 @@ public class Board {
 
     //creates an optional with the card present on the board in the position passed in input
     // if and only if the card is in a VALID position!!!!!!
-    public Optional<Card> getCard(Position position){
+    public Optional<CardType> getCard(Position position){
 
         if(validPick(position)){
             return board.get(position);
@@ -51,7 +50,7 @@ public class Board {
 
         int flag = 0;
 
-        for (HashMap.Entry<Position, Optional<Card>> entry : board.entrySet()) {
+        for (HashMap.Entry<Position, Optional<CardType>> entry : board.entrySet()) {
             if(entry.getValue().isPresent() && validPick(entry.getKey())){
                 flag = 1;
             }
@@ -101,7 +100,7 @@ public class Board {
 
     // check that the considered cell is not null and is modifiable and not just aesthetic
     public boolean checkAllConditions(Position position){
-        if( checkValidCell(position) && board.get(position).isPresent()){
+        if(checkValidCell(position) && board.get(position).isPresent()){
             return true;
         }
         else return false;

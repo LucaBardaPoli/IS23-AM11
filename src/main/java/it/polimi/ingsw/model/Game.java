@@ -11,9 +11,10 @@ public class Game {
     private final List<Player> players;
     private Integer turn;
     private boolean isLastTurn;
-    private final List<CommonGoal> commonGoals;
     private final List<PersonalGoal> personalGoals;
-    private final List<Card> pickedCards;
+    private final List<CommonGoal> commonGoals;
+    private final List<List<Token>> tokens;
+    private final List<CardType> pickedCards;
     private GameStatus gameStatus;
     private final CountCards countCards;
     private Integer currentSelectedColumn;
@@ -43,8 +44,27 @@ public class Game {
         this.isLastTurn = false;
         this.commonGoals = commonGoals;
         this.gameStatus = GameStatus.PICK_CARDS;
-        this.pickedCards = new ArrayList<Card>();
+        this.pickedCards = new ArrayList<CardType>();
         this.currentSelectedColumn = 0;
+
+        // Assigns tokens based on the number of players
+        this.tokens = new ArrayList<>();
+        List<Token> tmpTokens = new ArrayList<>();
+        if(this.players.size() == 2) {
+            tmpTokens.add(new Token(8));
+            tmpTokens.add(new Token(4));
+        } else if(this.players.size() == 3) {
+            tmpTokens.add(new Token(8));
+            tmpTokens.add(new Token(6));
+            tmpTokens.add(new Token(4));
+        } else if(this.players.size() == 4) {
+            tmpTokens.add(new Token(8));
+            tmpTokens.add(new Token(6));
+            tmpTokens.add(new Token(4));
+            tmpTokens.add(new Token(2));
+        }
+        this.tokens.add(tmpTokens);
+        this.tokens.add(tmpTokens);
     }
 
     /**
@@ -172,8 +192,8 @@ public class Game {
      * @param position position where to pick the card
      * @return the picked card only if it's a valid pick
      */
-    public Optional<Card> pickCard(Position position) {
-        Optional<Card> pickedCard = Optional.empty();
+    public Optional<CardType> pickCard(Position position) {
+        Optional<CardType> pickedCard = Optional.empty();
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             if (this.pickedCards.size() < MAX_SELECTABLE_CARDS) {
                 pickedCard = this.board.getCard(position);
@@ -204,7 +224,7 @@ public class Game {
      * @param column column where to insert the picked cards
      * @return the inserted cards only if the insertion is valid
      */
-    public Optional<List<Card>> confirmColumn(Integer column) {
+    public Optional<List<CardType>> confirmColumn(Integer column) {
         if (this.gameStatus.equals(GameStatus.SELECT_COLUMN)) {
             if (this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
                 this.gameStatus = GameStatus.SELECT_ORDER;
@@ -220,9 +240,9 @@ public class Game {
      * @param position position of the selected card
      * @return the new sorted list of cards
      */
-    public List<Card> rearrangeCards(Integer position) {
+    public List<CardType> rearrangeCards(Integer position) {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
-            Card tmp = this.pickedCards.get(position);
+            CardType tmp = this.pickedCards.get(position);
             this.pickedCards.set(position, this.pickedCards.get(this.pickedCards.size() - 1));
             this.pickedCards.set(this.pickedCards.size() - 1, tmp);
         }
@@ -269,5 +289,15 @@ public class Game {
                 Game.GAME_MANAGER.endGame(this);
             }
         }
+    }
+
+    /**
+     * Assigns the score of the token at the top of the stack related to the given common goal
+     * @param commonGoal index (0 or 1) that selects which common goal we are referring to
+     * @return score of the token
+     */
+    public Integer winToken(Integer commonGoal) {
+        Token wonToken = this.tokens.get(commonGoal).remove(0);
+        return wonToken.getValue();
     }
 }

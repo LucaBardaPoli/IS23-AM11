@@ -22,11 +22,11 @@ public class PersonalGoal {
 
     public int checkGoal(Bookshelf bookshelf){
         int n_cards = 0;
-        Cell cell;
+        Optional<CardType> card;
         for(int index = 0; index < positions.size(); index++){
-            cell = bookshelf.getCell(positions.get(index));
+            card = bookshelf.getCell(positions.get(index));
             // CardType is an enumeration so equality corresponds with identity
-            if(!cell.getCard().isPresent() && cell.getCard().get().getType() == cardTypes.get(index)){
+            if(!card.isEmpty() && card.get() == cardTypes.get(index)){
                 n_cards++;
             }
         }

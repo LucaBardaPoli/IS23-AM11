@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.goals;
 import java.util.Optional;
 import java.util.function.Predicate;
 import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.Card;
+import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.Position;
 
 public class LadderGoal implements Predicate<Bookshelf> {
@@ -11,7 +11,6 @@ public class LadderGoal implements Predicate<Bookshelf> {
     public boolean test(Bookshelf bookshelf) {
         Integer columns = bookshelf.getColumns();
         Integer rows = bookshelf.getRows();
-        Optional<Card> card;
         Position position = new Position();
 
         int row_idx, col_idx;
@@ -23,14 +22,14 @@ public class LadderGoal implements Predicate<Bookshelf> {
                 // check the empty cells
                 position.setColumn(col_idx);
                 position.setRow(row_idx);
-                if(bookshelf.getCell(position).getCard().isPresent()){
+                if(bookshelf.getCell(position).isPresent()){
                     return false;
                 }
             }
             // there must be a card below the empty cells
             position.setColumn(col_idx);
             position.setRow(row_idx);
-            if(!bookshelf.getCell(position).getCard().isPresent()){
+            if(!bookshelf.getCell(position).isPresent()){
                 return false;
             }
         }

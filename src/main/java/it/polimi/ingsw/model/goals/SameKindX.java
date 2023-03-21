@@ -7,43 +7,43 @@ import java.util.function.Predicate;
 
 public class SameKindX implements Predicate<Bookshelf> {
     private boolean checkX(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Optional<Card> card;
+        Optional<CardType> card;
         CardType currentType;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn)).getCard();
+        card = bookshelf.getCell(new Position(startRow, startColumn));
         if(card.isPresent()) {
-            currentType = card.get().getType();
+            currentType = card.get();
 
-            card = bookshelf.getCell(new Position(startRow - 1, startColumn - 1)).getCard();
+            card = bookshelf.getCell(new Position(startRow - 1, startColumn - 1));
             if (card.isPresent()) {
-                if (!card.get().getType().equals(currentType)) {
+                if (!card.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow - 1, startColumn + 1)).getCard();
+            card = bookshelf.getCell(new Position(startRow - 1, startColumn + 1));
             if (card.isPresent()) {
-                if (!card.get().getType().equals(currentType)) {
+                if (!card.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow + 1, startColumn - 1)).getCard();
+            card = bookshelf.getCell(new Position(startRow + 1, startColumn - 1));
             if (card.isPresent()) {
-                if (!card.get().getType().equals(currentType)) {
+                if (!card.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow + 1, startColumn + 1)).getCard();
+            card = bookshelf.getCell(new Position(startRow + 1, startColumn + 1));
             if (card.isPresent()) {
-                if (!card.get().getType().equals(currentType)) {
+                if (!card.get().equals(currentType)) {
                     return false;
                 }
             } else {
