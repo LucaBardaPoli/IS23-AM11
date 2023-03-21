@@ -28,7 +28,7 @@ public class CommonGoal {
 
     public Optional<Token> checkGoal(Bookshelf bookshelf){
         Optional<Token> token;
-        if(predicate.test(bookshelf) == true){
+        if(predicate.test(bookshelf)){
             token = removeToken();
         }else{
             token = Optional.empty();

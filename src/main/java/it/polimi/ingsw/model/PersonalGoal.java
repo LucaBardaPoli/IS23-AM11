@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 public class PersonalGoal {
@@ -19,7 +20,7 @@ public class PersonalGoal {
         this.rewards = new HashMap<Integer, Integer>(rewards);
     }
 
-    public int checkGoal(Bookshelf bookhself){
+    public int checkGoal(Bookshelf bookshelf){
         int n_cards = 0;
         Cell cell;
         for(int index = 0; index < positions.size(); index++){
