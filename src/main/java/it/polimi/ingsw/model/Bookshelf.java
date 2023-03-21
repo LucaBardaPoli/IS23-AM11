@@ -5,17 +5,24 @@ import java.util.Optional;
 
 public class Bookshelf {
 
-    private Cell bookshelf[][];
+    private Integer rows;
+    private Integer columns;
+    private Cell bookshelf [][];
 
+    public Bookshelf(Integer rows, Integer columns, Cell[][] bookshelf) {
+        this.rows = rows;
+        this.columns = columns;
+        this.bookshelf = bookshelf;
+    }
 
-    //costructor
-    public Bookshelf (){
-        this.bookshelf = new Cell[6][5];
+    public Bookshelf(Integer rows, Integer columns) {
+        this.rows = rows;
+        this.columns = columns;
     }
 
     //add the maximum 3 cards passed from input to the bookshelf
-    // !!!!! it is important that a check has been made first on the number of cells available in the column
-    public void addCells(ArrayList<Card> cards, Integer column){
+    //it is important that a check has been made first on the number of cells available in the column
+    public void addCells(List<Card> cards, Integer column){
 
         int i; // i scrolls through bookshelf rows
         int k = getFreeCells(); // k are the free cells of the considered column
@@ -46,10 +53,10 @@ public class Bookshelf {
 
     //returns an ArrayList with all the cards contained in the column indicated in input
     public ArrayList<Card> getColumn(Integer columnNumber){
-        ArrayList<Card> colonnaDiCarte = new ArrayList(6);
+        ArrayList<Card> colonnaDiCarte = new ArrayList(getColumns());
         Position position = new Position();
         position.setColumn(columnNumber);
-        for(int i=0; i<6; i++){
+        for(int i=0; i < getColumns(); i++){
             position.setRow(i);
             Optional<Card> cardOptional = getCell(position).getCard();
             cardOptional.ifPresent(colonnaDiCarte::add);
@@ -59,10 +66,10 @@ public class Bookshelf {
 
     //returns an ArrayList with all the cards contained in the row indicated in input
     public ArrayList<Card> getRow(Integer rowNumber){
-        ArrayList<Card> rigaDiCarte = new ArrayList(6);
+        ArrayList<Card> rigaDiCarte = new ArrayList(getRows());
         Position position = new Position();
         position.setRow(rowNumber);
-        for(int i=0; i<5; i++){
+        for(int i = 0 ; i < getRows(); i++){
             position.setColumn(i);
             Optional<Card> cardOptional = getCell(position).getCard();
             cardOptional.ifPresent(rigaDiCarte::add);
@@ -78,8 +85,8 @@ public class Bookshelf {
         int contatore = 30;
 
         Position position = new Position();
-        for (int i=0 ; i<5; i++){
-            for(int j=0; j<6; j++){
+        for (int i=0 ; i < getColumns(); i++){
+            for(int j=0; j < getRows(); j++){
 
                 //save the position and extract the card
                 position.setRow(j);
@@ -96,10 +103,17 @@ public class Bookshelf {
         return contatore;
     }
 
+
     //return the free cells given a given column
     public Integer getFreeCells(Integer columnNumber){
-        return (6 - getColumn(columnNumber).size());
+        return (getRows() - getColumn(columnNumber).size());
     }
 
+    public Integer getRows() {
+        return rows;
+    }
 
+    public Integer getColumns() {
+        return columns;
+    }
 }
