@@ -18,16 +18,16 @@ public class Bookshelf {
     public void addCells(ArrayList<Card> cards, Integer column){
 
         int i; // i scorre le righe di bookshelf
-        int k = getFreeCells(); // k sono le caselle libere della colonna considerata
-        int iteratoreCards = 0; // iteratoreCards itera su Cards per tre volte
+        int k = getFreeCells(); // k are the free cells of the considered column
+        int iteratorCards = 0; // iteratoreCards iterates over Cards three times
 
         //in the three free positions it adds up to a maximum of 3 cards,
         // stops early if the cards are less than 3 by setting the index to -1
         for(i = k-1; i >= k-3; i--){
-            Optional<Card> obtainedCard = Optional.ofNullable(cards.get(iteratoreCards));
+            Optional<Card> obtainedCard = Optional.ofNullable(cards.get(iteratorCards));
             if (obtainedCard.isPresent()){
-                bookshelf[i][column].setCard(Optional.ofNullable(cards.get(iteratoreCards)));
-                iteratoreCards++;
+                bookshelf[i][column].setCard(Optional.ofNullable(cards.get(iteratorCards)));
+                iteratorCards++;
             }
             else {
                 i = -1;
