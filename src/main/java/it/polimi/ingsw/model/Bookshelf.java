@@ -5,9 +5,9 @@ import java.util.Optional;
 
 public class Bookshelf {
 
-    private Integer rows;
-    private Integer columns;
-    private Optional<CardType> bookshelf [][];
+    private final Integer rows;
+    private final Integer columns;
+    private Optional<CardType>[][] bookshelf;
 
     public Bookshelf(Integer rows, Integer columns) {
         this.rows = rows;
@@ -41,6 +41,9 @@ public class Bookshelf {
     public Optional<CardType> getCell(Position position){
         int row =  position.getRow();
         int column = position.getColumn();
+        if(row < 0 || row >= rows || column < 0 || column >= columns){
+            return Optional.empty();
+        }
         return bookshelf[row][column];
     }
 
