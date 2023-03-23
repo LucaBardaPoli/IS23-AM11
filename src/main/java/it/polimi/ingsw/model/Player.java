@@ -6,15 +6,20 @@ import java.util.Optional;
 
 public class Player {
     private final String nickname;
-    private PersonalGoal personalGoal;
-    private Game game;
-    private Bookshelf bookshelf;
+    private final PersonalGoal personalGoal;
+    private final Game game;
+    private final Bookshelf bookshelf;
     private Integer personalGoalPoints;
     private Integer commonGoalPoints;
     private Integer adjacentPoints;
-    private  List<Boolean> commonGoalFullfilled;
+    private final  List<Boolean> commonGoalFulfilled;
 
-
+    /**
+     * Class Constructor
+     * @param nickname of the player
+     * @param personalGoal of the player that should fulfill
+     * @param game in which the player will play
+     */
     public Player(String nickname, PersonalGoal personalGoal, Game game) {
         this.nickname = nickname;
         this.personalGoal = personalGoal;
@@ -23,36 +28,63 @@ public class Player {
         this.commonGoalPoints = 0;
         this.adjacentPoints = 0;
         this.bookshelf = new Bookshelf(6,5);
-        this.commonGoalFullfilled = new ArrayList<>(List.of(false, false));
+        this.commonGoalFulfilled = new ArrayList<>(List.of(false, false));
     }
 
+    /**
+     * Getter of Player's nickname
+     * @return Player's nickname
+     */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * Getter of Player's Personal Goal
+     * @return Player's Personal Goal
+     */
     public PersonalGoal getPersonalGoal() {
         return personalGoal;
     }
 
+    /**
+     * Player's Bookshelf
+     * @return Player's Bookshelf
+     */
     public Bookshelf getBookshelf() {
         return bookshelf;
     }
 
+    /**
+     * Check if the Bookshelf full or not
+     * @return a Boolean that depends on the state of the library
+     */
     private boolean isFullBookshelf(){
-        if(this.bookshelf.getFreeCells() == 0){
-            return false;
-        }
-        else return true;
+        return this.bookshelf.getFreeCells() != 0;
     }
 
+    /**
+     * Insert the selected Cards in the bookshelf
+     * @param column where the card should be placed
+     * @param cardList of the selected cards
+     */
     public void insertCards(Integer column, List<CardType> cardList){
         this.bookshelf.addCells(cardList, column);
     }
 
+    /**
+     * Getter of the free cells in a certain column of the bookshelf
+     * @param column where to check
+     * @return number of free cells in a certain column of the bookshelf
+     */
     public Integer getFreeCells(Integer column){
         return this.bookshelf.getFreeCells(column);
     }
 
+    /**
+     * Check the Player's Personal Goal
+     * @return the score based on the completion status of your goal
+     */
     private Optional<Integer> checkPersonalGoal(){
         Integer calculatedPoints = this.personalGoal.checkGoal(this.bookshelf);
 
@@ -60,6 +92,11 @@ public class Player {
         else return Optional.of(calculatedPoints);
     }
 
+    /**
+     * Check the progress of a player's goals & adjacency and update their score based on this.
+     * @param commonGoals List of common goals that should be completed
+     * @return a boolean depending on whether the player has or not filled his bookshelf
+     */
     public boolean checkBookshelf(List<CommonGoal> commonGoals) {
         /* Checking Personal Goal Points */
         Optional<Integer> points = Optional.of(this.personalGoal.checkGoal(this.bookshelf));
@@ -67,10 +104,10 @@ public class Player {
 
         // Checking Common Goal Points
         for(int i = 0; i < 2; i++) {
-            if(!this.commonGoalFullfilled.get(i)) {
+            if(!this.commonGoalFulfilled.get(i)) {
                 if(commonGoals.get(i).checkGoal(this.bookshelf)) {
                     this.commonGoalPoints += this.game.winToken(i);
-                    this.commonGoalFullfilled.set(i, true);
+                    this.commonGoalFulfilled.set(i, true);
                 }
             }
         }
@@ -83,6 +120,10 @@ public class Player {
 
     }
 
+    /**
+     * Getter of the points
+     * @return points scored by the player (based on Common, Personal Goals and on the Adjacency)
+     */
     public Integer getPoints() {
         return this.adjacentPoints + this.commonGoalPoints + this.personalGoalPoints;
     }
@@ -90,7 +131,7 @@ public class Player {
     /**
      Static method that checks if the player has in his bookshelf adjacency Goals
      @param bshelf is the bookshelf of the player
-     @return the score based on the number of adjacencies present in the player's bookshelf
+     @return the score based on the number of adjacency present in the player's bookshelf
      */
     public static int checkAdjacency(Bookshelf bshelf) {
         //int numGroup = 0;
@@ -139,7 +180,7 @@ public class Player {
 
         Position posToCheck = new Position(row, column);
 
-        // Check out of bounds + Alredy Visited
+        // Check out of bounds + Already Visited
         if ( (row < 0 || row >= 6 || column < 0 || column >= 5) || visited[row][column]) {
             return 0;
         } else if( bshelf.getCell(posToCheck).isEmpty() || type.isEmpty()){

@@ -15,6 +15,11 @@ public class GameManager implements GameManagerInterface{
     private final List<PersonalGoal> personalGoals;
 
     // Costruttore invisibile
+
+    /**
+     * &#064;SingletonPattern
+     * Class contructor
+     */
     private GameManager() {
         this.gameList = new ArrayList<Game>();
         this.lobby = new ArrayList<String>();
@@ -27,6 +32,10 @@ public class GameManager implements GameManagerInterface{
         this.initializeCommonGoals();
     }
 
+    /**
+     * Getter of GameManager's instance
+     * @return GameManager's instance if present, otherwise it return @null
+     */
     public static GameManager getInstance() {
         // Crea l'oggetto solo se NON esiste:
         if (instance == null) {
@@ -35,6 +44,10 @@ public class GameManager implements GameManagerInterface{
         return instance;
     }
 
+    /**
+     * Creates a new game
+     * @param players is a list containing the names of the players who will play the new game
+     */
     private void addGame(List<String> players){
         // Funzione rand
         Collections.shuffle(personalGoals);
@@ -44,6 +57,11 @@ public class GameManager implements GameManagerInterface{
         this.counterGames++;
     }
 
+    /**
+     * Add a player to the lobby if one already exists, otherwise it creates another one
+     * @param nickname of the player
+     * @param numPlayers number of the players who will participate in a game (only the first player joining the lobby has the privilege to set that number)
+     */
     public void addPlayer(String nickname, Integer numPlayers) {
         if (this.lobby.size() == 0) {
             this.currentGameNumPlayers = numPlayers;
@@ -58,6 +76,10 @@ public class GameManager implements GameManagerInterface{
         }
     }
 
+    /**
+     * Removes a player from the lobby
+     * @param nickname of the player which must be removed
+     */
     public void removePlayer(String nickname){
         this.lobby.remove(nickname);
     }
@@ -402,6 +424,10 @@ public class GameManager implements GameManagerInterface{
         this.commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
     }
 
+    /**
+     *  Ends the game for the players
+     * @param game that should be ended
+     */
     @Override
     public void endGame(Game game) {
         this.gameList.remove(game);
