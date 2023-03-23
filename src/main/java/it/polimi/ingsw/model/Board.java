@@ -6,23 +6,20 @@ import java.util.Optional;
 public class Board {
     private HashMap<Position,Optional<CardType>> board;
 
-    /*
-    Cellflag potential values: values depend on the number of players
-    -5: Invalid Cells: For graphics purposes only
-    -2: cells used in each game
-    -3: cells used if and only if the number of players is less than or equal to 3
-    -4: cells used if and only if the number of players is less than or equal to 4
+    /**
+     * constructor di board
+     * @param numPlayers creates a different board depending on the number of playes
      */
     public Board(Integer numPlayers) {
         board = new HashMap<Position,Optional<CardType>>();
         createBoardCells(numPlayers);
     }
 
-    /*
-     fills the board taking into account the fact that there will already be cards left inside it,
-         the number of players and the number of remaining cards in the bag for each color
-      */
-    public void fillBoard (Integer numPlayers, CountCards countCards){
+    /**
+     * fills the board in all the free spots
+     * @param countCards counts how many cards of a given color have been created up untl the moment the method is called
+     */
+    public void fillBoard (CountCards countCards){
 
         /* CARRY OUT THE FOLLOWING OPERATIONS:
         - iterates on all the BoardCells of the board
@@ -35,8 +32,11 @@ public class Board {
         }
     }
 
-    //creates an optional with the card present on the board in the position passed in input
-    // if and only if the card is in a VALID position!!!!!!
+    /**
+     * creates an optional with the card present on the board in the position passed in input
+     * @param position indicates the position where the card is supposed to be
+     * @return return an optional of card
+     */
     public Optional<CardType> getCard(Position position){
 
         if(validPick(position)){
@@ -47,9 +47,11 @@ public class Board {
         else return Optional.empty();
     }
 
-    // check if the board needs to be re-filled
+    /**
+     * checks if the board needs to be re-filled
+     * @return true if its valid, false otherwise
+     */
     public boolean validBoard (){
-
         int flag = 0;
 
         for (HashMap.Entry<Position, Optional<CardType>> entry : board.entrySet()) {
@@ -60,12 +62,14 @@ public class Board {
         if(flag == 1){
             return true;
         }
-
         else return false;
-
     }
 
-    //returns TRUE if the card is selectable by checking that there is at least one free cell around the cell
+    /**
+     * returns TRUE if the card is selectable by checking that there is at least one free cell around the position indicated
+     * @param position indicates the position where the picked card is
+     * @return return true if the card is selectable
+     */
     public boolean validPick(Position position){
         int flag = 0;
         int row = position.getRow();;
@@ -99,7 +103,11 @@ public class Board {
         else return false;
     }
 
-    //returns TRUE if the position position is a cell where cards can be placed
+    /**
+     * returns TRUE if the position is a cell where cards can be placed
+     * @param position position on the board that needs to be checked
+     * @return returns TRUE if the position is a cell where cards can be placed
+     */
     public boolean checkValidCell (Position position){
         int row = position.getRow();;
         int column = position.getColumn();
@@ -110,7 +118,10 @@ public class Board {
         else return true;
     }
 
-
+    /**
+     * creates the board
+     * @param numPlayers it creates a different board depending on the number of players
+     */
     public void createBoardCells(Integer numPlayers){
 
         if(numPlayers == 4){
@@ -264,7 +275,6 @@ public class Board {
             //RIGA 7:
             board.put(new Position(7,1), Optional.empty());
             board.put(new Position(7,2), Optional.empty());
-
         }
 
     }

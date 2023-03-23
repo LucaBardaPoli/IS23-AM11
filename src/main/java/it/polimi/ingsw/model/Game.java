@@ -33,7 +33,7 @@ public class Game {
         this.id = id;
         this.countCards = new CountCards();
         this.board = new Board(players.size());
-        this.board.fillBoard(players.size(), this.countCards);
+        this.board.fillBoard(this.countCards);
         this.players = new ArrayList<Player>();
         this.personalGoals = personalGoals;
         Collections.shuffle(this.personalGoals);
@@ -317,7 +317,7 @@ public class Game {
                 this.turn = (this.turn + 1) % this.players.size();
                 this.gameStatus = GameStatus.PICK_CARDS;
                 if(this.board.validBoard()) {
-                    this.board.fillBoard(this.players.size(), this.countCards);
+                    this.board.fillBoard(this.countCards);
                 }
             } else {
                 Game.GAME_MANAGER.endGame(this);
