@@ -40,7 +40,9 @@ public class Board {
     public Optional<CardType> getCard(Position position){
 
         if(validPick(position)){
-            return board.get(position);
+            Optional<CardType> rtn = this.board.get(position);
+            this.board.put(position, Optional.empty());
+            return rtn;
         }
         else return Optional.empty();
     }
@@ -96,16 +98,6 @@ public class Board {
 
         else return false;
     }
-
-
-    // check that the considered cell is not null and is modifiable and not just aesthetic
-    public boolean checkAllConditions(Position position){
-        if(checkValidCell(position) && board.get(position).isPresent()){
-            return true;
-        }
-        else return false;
-    }
-
 
     //returns TRUE if the position position is a cell where cards can be placed
     public boolean checkValidCell (Position position){

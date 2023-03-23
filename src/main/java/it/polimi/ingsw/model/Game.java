@@ -14,6 +14,7 @@ public class Game {
     private final List<PersonalGoal> personalGoals;
     private final List<CommonGoal> commonGoals;
     private final List<List<Token>> tokens;
+    private final List<Position> pickedCardsPositions;
     private final List<CardType> pickedCards;
     private GameStatus gameStatus;
     private final CountCards countCards;
@@ -44,7 +45,8 @@ public class Game {
         this.isLastTurn = false;
         this.commonGoals = commonGoals;
         this.gameStatus = GameStatus.PICK_CARDS;
-        this.pickedCards = new ArrayList<CardType>();
+        this.pickedCards = new ArrayList<>();
+        this.pickedCardsPositions = new ArrayList<>();
         this.currentSelectedColumn = 0;
 
         // Assigns tokens based on the number of players
@@ -194,11 +196,40 @@ public class Game {
      */
     public Optional<CardType> pickCard(Position position) {
         Optional<CardType> pickedCard = Optional.empty();
+
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
+
+            // Checks that the number of picked cards is lower than the limit
             if (this.pickedCards.size() < MAX_SELECTABLE_CARDS) {
-                pickedCard = this.board.getCard(position);
-                if (!pickedCard.isEmpty()) {
-                    this.pickedCards.add(pickedCard.get());
+                if(this.board.validPick(position)) {
+                    if (!this.pickedCards.isEmpty()) {
+                        boolean areAlignedOnRow = true;
+                        for (Position p : this.pickedCardsPositions) {
+                            areAlignedOnRow = p.getRow() == position.getRow();
+                            if (!areAlignedOnRow) {
+                                break;
+                            }
+                        }
+                        if (areAlignedOnRow) {
+                            this.pickedCardsPositions.add(position);
+                            this.pickedCards.add(this.board.getCard(position).get());
+                        }
+
+                        boolean areAlignedOnColumn = true;
+                        for (Position p : this.pickedCardsPositions) {
+                            areAlignedOnColumn = p.getColumn() == position.getColumn();
+                            if (!areAlignedOnColumn) {
+                                break;
+                            }
+                        }
+                        if (areAlignedOnColumn) {
+                            this.pickedCardsPositions.add(position);
+                            this.pickedCards.add(this.board.getCard(position).get());
+                        }
+                    } else {
+                        this.pickedCardsPositions.add(position);
+                        this.pickedCards.add(this.board.getCard(position).get());
+                    }
                 }
             }
         }
@@ -285,6 +316,9 @@ public class Game {
             if ((this.isLastTurn && this.turn < this.players.size() - 1) || !this.isLastTurn) {
                 this.turn = (this.turn + 1) % this.players.size();
                 this.gameStatus = GameStatus.PICK_CARDS;
+                if(this.board.validBoard()) {
+                    this.board.fillBoard(this.players.size(), this.countCards);
+                }
             } else {
                 Game.GAME_MANAGER.endGame(this);
             }

@@ -12,7 +12,7 @@ public class Player {
     private Integer personalGoalPoints;
     private Integer commonGoalPoints;
     private Integer adjacentPoints;
-    private final  List<Boolean> commonGoalFulfilled;
+    private final  List<Boolean> commonGoalFullfilled;
 
     /**
      * Class Constructor
@@ -28,7 +28,7 @@ public class Player {
         this.commonGoalPoints = 0;
         this.adjacentPoints = 0;
         this.bookshelf = new Bookshelf(6,5);
-        this.commonGoalFulfilled = new ArrayList<>(List.of(false, false));
+        this.commonGoalFullfilled = new ArrayList<>(List.of(false, false));
     }
 
     /**
@@ -104,10 +104,10 @@ public class Player {
 
         // Checking Common Goal Points
         for(int i = 0; i < 2; i++) {
-            if(!this.commonGoalFulfilled.get(i)) {
+            if(!this.commonGoalFullfilled.get(i)) {
                 if(commonGoals.get(i).checkGoal(this.bookshelf)) {
                     this.commonGoalPoints += this.game.winToken(i);
-                    this.commonGoalFulfilled.set(i, true);
+                    this.commonGoalFullfilled.set(i, true);
                 }
             }
         }
