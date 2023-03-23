@@ -9,13 +9,21 @@ public class Bookshelf {
     private Integer columns;
     private Optional<CardType> bookshelf [][];
 
+    /**
+     * costructor
+     * @param rows number of rows wanted in the bookshelf
+     * @param columns number of columns wanted in the bookshelf
+     */
     public Bookshelf(Integer rows, Integer columns) {
         this.rows = rows;
         this.columns = columns;
     }
 
-    //add the maximum 3 cards passed from input to the bookshelf
-    //it is important that a check has been made first on the number of cells available in the column
+    /**
+     * add the maximum 3 cards passed from input to the bookshelf
+     * @param cards cards that need to be added to the bookshelf
+     * @param column number of the column of the bookshelf where tha card must be added
+     */
     public void addCells(List<CardType> cards, Integer column){
 
         int i; // i scrolls through bookshelf rows
@@ -33,23 +41,28 @@ public class Bookshelf {
             else {
                 i = -1;
             }
-
         }
     }
 
-    //returns the bookshelf cell related to the position data
+    /**
+     * returns the bookshelf cell related to the position data
+     * @param position position of the card that needs to be returned
+     * @return
+     */
     public Optional<CardType> getCell(Position position){
-        int row =  position.getRow();
-        int column = position.getColumn();
-        return bookshelf[row][column];
+        return bookshelf[position.getRow()][position.getColumn()];
     }
 
-    //returns an ArrayList with all the cards contained in the column indicated in input
+    /**
+     * returns an ArrayList with all the cards contained in the column indicated in input
+     * @param columnNumber indicates the column the cards must be taken from
+     * @return
+     */
     public ArrayList<CardType> getColumn(Integer columnNumber){
         ArrayList<CardType> colonnaDiCarte = new ArrayList(getColumns());
         Position position = new Position();
         position.setColumn(columnNumber);
-        for(int i=0; i < getColumns(); i++){
+        for(int i = 0; i < getColumns(); i++){
             position.setRow(i);
             Optional<CardType> cardOptional = getCell(position);
             cardOptional.ifPresent(colonnaDiCarte::add);
@@ -57,7 +70,12 @@ public class Bookshelf {
         return colonnaDiCarte;
     }
 
-    //returns an ArrayList with all the cards contained in the row indicated in input
+
+    /**
+     * returns an ArrayList with all the cards contained in the row indicated in input
+     * @param rowNumber indicates the row the cards must be taken from
+     * @return
+     */
     public ArrayList<CardType> getRow(Integer rowNumber){
         ArrayList<CardType> rigaDiCarte = new ArrayList(getRows());
         Position position = new Position();
@@ -70,7 +88,10 @@ public class Bookshelf {
         return rigaDiCarte;
     }
 
-    //returns the total number of null boxes in the bookshelf
+    /**
+     * //returns the total number of null boxes in the bookshelf
+     * @return
+     */
     public Integer getFreeCells() {
 
         //to use the ifPresent() function I decided to count al
@@ -96,16 +117,27 @@ public class Bookshelf {
         return contatore;
     }
 
-
-    //return the free cells given a given column
+    /**
+     * return the free cells given a given column
+     * @param columnNumber number that indicates which colomn needs to be examined
+     * @return
+     */
     public Integer getFreeCells(Integer columnNumber){
         return (getRows() - getColumn(columnNumber).size());
     }
 
+    /**
+     * getter dell'attributo rows
+     * @return
+     */
     public Integer getRows() {
         return rows;
     }
 
+    /**
+     * getter dell'attributo columns
+     * @return
+     */
     public Integer getColumns() {
         return columns;
     }

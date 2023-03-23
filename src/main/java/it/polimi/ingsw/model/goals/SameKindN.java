@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 public class SameKindN implements Predicate<Bookshelf> {
     private final int n;
-    private Map<CardType, Integer> count_card;
+    private final Map<CardType, Integer> count_card;
 
     public SameKindN(int n) {
         this.n = n;
