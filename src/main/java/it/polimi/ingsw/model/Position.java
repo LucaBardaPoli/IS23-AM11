@@ -41,7 +41,7 @@ public class Position {
 
     /**
      * setter of row
-     * @param row sets the row t this value
+     * @param row sets the row to this value
      */
     public void setRow(Integer row) {
         this.row = row;

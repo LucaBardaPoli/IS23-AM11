@@ -1,10 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class PersonalGoal {
     // positions and cardTypes must have the same size

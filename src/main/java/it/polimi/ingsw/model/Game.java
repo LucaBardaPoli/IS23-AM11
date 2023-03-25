@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
+import it.polimi.ingsw.controller.*;
 
 /**
  * Game class that handles the game moves and the way it evolves
  */
-public class Game {
+public class Game implements GameInterface {
     private final Integer id;
     private final Board board;
     private final List<Player> players;
@@ -19,7 +20,7 @@ public class Game {
     private GameStatus gameStatus;
     private final CountCards countCards;
     private Integer currentSelectedColumn;
-    private static GameManagerInterface GAME_MANAGER;
+    private final GameControllerInterfaceModel gameController;
     public static Integer MAX_SELECTABLE_CARDS;
 
     /**
@@ -29,7 +30,7 @@ public class Game {
      * @param commonGoals two common goals of the game
      * @param personalGoals players personal goals
      */
-    public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
+    public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals, GameControllerInterfaceModel gameController) {
         this.id = id;
         this.countCards = new CountCards();
         this.board = new Board(players.size());
@@ -48,6 +49,8 @@ public class Game {
         this.pickedCards = new ArrayList<>();
         this.pickedCardsPositions = new ArrayList<>();
         this.currentSelectedColumn = 0;
+        this.gameController = gameController;
+        this.gameController.setModel(this);
 
         // Assigns tokens based on the number of players
         this.tokens = new ArrayList<>();
@@ -205,7 +208,7 @@ public class Game {
                     if (!this.pickedCards.isEmpty()) {
                         boolean areAlignedOnRow = true;
                         for (Position p : this.pickedCardsPositions) {
-                            areAlignedOnRow = p.getRow() == position.getRow();
+                            areAlignedOnRow = p.getRow().equals(position.getRow());
                             if (!areAlignedOnRow) {
                                 break;
                             }
@@ -217,7 +220,7 @@ public class Game {
 
                         boolean areAlignedOnColumn = true;
                         for (Position p : this.pickedCardsPositions) {
-                            areAlignedOnColumn = p.getColumn() == position.getColumn();
+                            areAlignedOnColumn = p.getColumn().equals(position.getColumn());
                             if (!areAlignedOnColumn) {
                                 break;
                             }
@@ -320,7 +323,7 @@ public class Game {
                     this.board.fillBoard(this.countCards);
                 }
             } else {
-                Game.GAME_MANAGER.endGame(this);
+                this.gameController.endGame();
             }
         }
     }

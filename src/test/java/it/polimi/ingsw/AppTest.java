@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.Position;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -9,6 +10,7 @@ import junit.framework.TestSuite;
  */
 public class AppTest extends TestCase
 {
+    Position p;
     /**
      * Create the test case
      *
@@ -17,6 +19,20 @@ public class AppTest extends TestCase
     public AppTest( String testName )
     {
         super( testName );
+        p = new Position(1, 2);
+    }
+
+    /**
+     * Rigourous Test :-)
+     */
+    public void testColumn()
+    {
+        assert( p.getColumn() == 32);
+    }
+
+    public void testRow()
+    {
+        assert( p.getRow() == 1);
     }
 
     /**
@@ -25,13 +41,5 @@ public class AppTest extends TestCase
     public static Test suite()
     {
         return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
     }
 }
