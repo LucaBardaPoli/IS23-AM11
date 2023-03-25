@@ -276,6 +276,15 @@ public class Board {
             board.put(new Position(7,1), Optional.empty());
             board.put(new Position(7,2), Optional.empty());
         }
+    }
 
+    /**
+     * function for testing
+     * @param p postion where the card must be set
+     * @param card card thaty needs to be set
+     * @return re
+     */
+    public void SetCard (Position p, Optional<CardType> card){
+        board.put(p,card);
     }
 }

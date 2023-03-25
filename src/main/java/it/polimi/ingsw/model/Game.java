@@ -15,7 +15,7 @@ public class Game {
     private final List<CommonGoal> commonGoals;
     private final List<List<Token>> tokens;
     private final List<Position> pickedCardsPositions;
-    private final List<CardType> pickedCards;
+    private final List<Optional<CardType>> pickedCards;
     private GameStatus gameStatus;
     private final CountCards countCards;
     private Integer currentSelectedColumn;
@@ -212,7 +212,7 @@ public class Game {
                         }
                         if (areAlignedOnRow) {
                             this.pickedCardsPositions.add(position);
-                            this.pickedCards.add(this.board.getCard(position).get());
+                            this.pickedCards.add(Optional.of(this.board.getCard(position).get()));
                         }
 
                         boolean areAlignedOnColumn = true;
@@ -224,11 +224,11 @@ public class Game {
                         }
                         if (areAlignedOnColumn) {
                             this.pickedCardsPositions.add(position);
-                            this.pickedCards.add(this.board.getCard(position).get());
+                            this.pickedCards.add(Optional.of(this.board.getCard(position).get()));
                         }
                     } else {
                         this.pickedCardsPositions.add(position);
-                        this.pickedCards.add(this.board.getCard(position).get());
+                        this.pickedCards.add(Optional.of(this.board.getCard(position).get()));
                     }
                 }
             }
@@ -252,28 +252,30 @@ public class Game {
 
     /**
      * Checks if the given column can contain the picked cards
+     *
      * @param column column where to insert the picked cards
      * @return the inserted cards only if the insertion is valid
      */
-    public Optional<List<CardType>> confirmColumn(Integer column) {
+    public List<Optional<CardType>> confirmColumn(Integer column) {
         if (this.gameStatus.equals(GameStatus.SELECT_COLUMN)) {
             if (this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
                 this.gameStatus = GameStatus.SELECT_ORDER;
                 this.currentSelectedColumn = column;
-                return Optional.of(this.pickedCards);
+                return this.pickedCards;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     /**
      * Moves the selected card to the last place in the list of cards to insert in the bookshelf
+     *
      * @param position position of the selected card
      * @return the new sorted list of cards
      */
-    public List<CardType> rearrangeCards(Integer position) {
+    public List<Optional<CardType>> rearrangeCards(Integer position) {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
-            CardType tmp = this.pickedCards.get(position);
+            Optional<CardType> tmp = this.pickedCards.get(position);
             this.pickedCards.set(position, this.pickedCards.get(this.pickedCards.size() - 1));
             this.pickedCards.set(this.pickedCards.size() - 1, tmp);
         }

@@ -51,7 +51,7 @@ public class CountCards {
             count = count + entry.getValue();
 
             //if we have to proceed with the color list
-            if (count <= randomNumber && flag == 0) {
+            if (count >= randomNumber && flag == 0) {
                 //generate the new card
                 newCard = entry.getKey();
 

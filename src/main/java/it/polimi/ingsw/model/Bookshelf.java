@@ -24,7 +24,7 @@ public class Bookshelf {
      * @param cards cards that need to be added to the bookshelf
      * @param column number of the column of the bookshelf where tha card must be added
      */
-    public void addCells(List<CardType> cards, Integer column){
+    public void addCells(List<Optional<CardType>> cards, Integer column){
 
         int i; // i scrolls through bookshelf rows
         int k = getFreeCells(); // k are the free cells of the considered column
@@ -33,9 +33,9 @@ public class Bookshelf {
         //in the three free positions it adds up to a maximum of 3 cards,
         // stops early if the cards are less than 3 by setting the index to -1
         for(i = k-1; i >= k-3; i--){
-            Optional<CardType> obtainedCard = Optional.ofNullable(cards.get(iteratorCards));
+            Optional<CardType> obtainedCard =  cards.get(iteratorCards);
             if (obtainedCard.isPresent()){
-                bookshelf[i][column] = Optional.ofNullable(cards.get(iteratorCards));
+                bookshelf[i][column] = cards.get(iteratorCards);
                 iteratorCards++;
             }
             else {

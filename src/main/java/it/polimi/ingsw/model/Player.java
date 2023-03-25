@@ -68,7 +68,7 @@ public class Player {
      * @param column where the card should be placed
      * @param cardList of the selected cards
      */
-    public void insertCards(Integer column, List<CardType> cardList){
+    public void insertCards(Integer column, List<Optional<CardType>> cardList){
         this.bookshelf.addCells(cardList, column);
     }
 

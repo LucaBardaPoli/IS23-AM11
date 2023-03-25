@@ -9,5 +9,4 @@ public enum CardType {
     LBLUE,
     PINK;
 
-
 }
