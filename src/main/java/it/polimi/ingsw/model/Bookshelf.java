@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public class Bookshelf {
     private Optional<CardType> bookshelf [][];
 
     /**
-     * costructor
+     * constructor
      * @param rows number of rows wanted in the bookshelf
      * @param columns number of columns wanted in the bookshelf
      */
@@ -119,7 +120,7 @@ public class Bookshelf {
 
     /**
      * return the free cells given a given column
-     * @param columnNumber number that indicates which colomn needs to be examined
+     * @param columnNumber number that indicates which column needs to be examined
      * @return
      */
     public Integer getFreeCells(Integer columnNumber){
@@ -127,7 +128,7 @@ public class Bookshelf {
     }
 
     /**
-     * getter dell'attributo rows
+     * getter of attribute rows
      * @return
      */
     public Integer getRows() {
@@ -135,7 +136,7 @@ public class Bookshelf {
     }
 
     /**
-     * getter dell'attributo columns
+     * getter of attribute columns
      * @return
      */
     public Integer getColumns() {

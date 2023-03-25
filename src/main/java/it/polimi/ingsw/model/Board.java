@@ -7,8 +7,8 @@ public class Board {
     private HashMap<Position,Optional<CardType>> board;
 
     /**
-     * constructor di board
-     * @param numPlayers creates a different board depending on the number of playes
+     * Class constructor
+     * @param numPlayers creates a different board depending on the number of players
      */
     public Board(Integer numPlayers) {
         board = new HashMap<Position,Optional<CardType>>();
@@ -17,17 +17,17 @@ public class Board {
 
     /**
      * fills the board in all the free spots
-     * @param countCards counts how many cards of a given color have been created up untl the moment the method is called
+     * @param countCards counts how many cards of a given color have been created up until the moment the method is called
      */
     public void fillBoard (CountCards countCards){
 
         /* CARRY OUT THE FOLLOWING OPERATIONS:
         - iterates on all the BoardCells of the board
-        - checks whether or not a card is already present in the BoardCell and whether the BoardCell is usable in this game
+        - checks whether a card is already present in the BoardCell and whether the BoardCell is usable in this game
          */
         for (HashMap.Entry<Position, Optional<CardType>> entry : board.entrySet()) {
             if(entry.getValue().isEmpty() && validPick(entry.getKey())){
-                board.put(entry.getKey(), Optional.ofNullable(countCards.PickCard()));
+                board.put(entry.getKey(), Optional.ofNullable(countCards.pickCard()));
             }
         }
     }
@@ -48,7 +48,7 @@ public class Board {
     }
 
     /**
-     * checks if the board needs to be re-filled
+     * checks if the board needs to be refilled
      * @return true if its valid, false otherwise
      */
     public boolean validBoard (){
@@ -96,11 +96,7 @@ public class Board {
             flag = 1;
         }
 
-        if (flag == 1 ) {
-            return true;
-        }
-
-        else return false;
+        return flag == 1;
     }
 
     /**

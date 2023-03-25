@@ -42,5 +42,11 @@ public interface GameInterface {
      */
     public void confirmOrderSelectedCards();
 
+    /**
+     * Checks if a given nickname is already taken
+     * @param nickname nickname
+     * @return true if exists a player with the given nickname
+     */
+    public boolean isNicknameTaken(String nickname);
 }
 
