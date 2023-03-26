@@ -16,7 +16,7 @@ public class Game implements GameInterface {
     private final List<CommonGoal> commonGoals;
     private final List<List<Token>> tokens;
     private final List<Position> pickedCardsPositions;
-    private final List<Optional<CardType>> pickedCards;
+    private final List<CardType> pickedCards;
     private GameStatus gameStatus;
     private final CountCards countCards;
     private Integer currentSelectedColumn;
@@ -215,7 +215,7 @@ public class Game implements GameInterface {
                         }
                         if (areAlignedOnRow) {
                             this.pickedCardsPositions.add(position);
-                            this.pickedCards.add(Optional.of(this.board.getCard(position).get()));
+                            this.pickedCards.add(this.board.getCard(position).get());
                         }
 
                         boolean areAlignedOnColumn = true;
@@ -227,11 +227,11 @@ public class Game implements GameInterface {
                         }
                         if (areAlignedOnColumn) {
                             this.pickedCardsPositions.add(position);
-                            this.pickedCards.add(Optional.of(this.board.getCard(position).get()));
+                            this.pickedCards.add((this.board.getCard(position).get()));
                         }
                     } else {
                         this.pickedCardsPositions.add(position);
-                        this.pickedCards.add(Optional.of(this.board.getCard(position).get()));
+                        this.pickedCards.add(this.board.getCard(position).get());
                     }
                 }
             }
@@ -259,7 +259,7 @@ public class Game implements GameInterface {
      * @param column column where to insert the picked cards
      * @return the inserted cards only if the insertion is valid
      */
-    public List<Optional<CardType>> confirmColumn(Integer column) {
+    public List<CardType> confirmColumn(Integer column) {
         if (this.gameStatus.equals(GameStatus.SELECT_COLUMN)) {
             if (this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
                 this.gameStatus = GameStatus.SELECT_ORDER;
@@ -276,9 +276,9 @@ public class Game implements GameInterface {
      * @param position position of the selected card
      * @return the new sorted list of cards
      */
-    public List<Optional<CardType>> rearrangeCards(Integer position) {
+    public List<CardType> rearrangeCards(Integer position) {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
-            Optional<CardType> tmp = this.pickedCards.get(position);
+            CardType tmp = this.pickedCards.get(position);
             this.pickedCards.set(position, this.pickedCards.get(this.pickedCards.size() - 1));
             this.pickedCards.set(this.pickedCards.size() - 1, tmp);
         }
