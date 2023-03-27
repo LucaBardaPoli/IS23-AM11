@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BookshelfTest extends TestCase{
 
@@ -17,7 +18,6 @@ public class BookshelfTest extends TestCase{
     public BookshelfTest( String testName )
     {
         super( testName );
-        bookshelf = new Bookshelf(6,5);
         card1 = CardType.BLUE;
         card2 = CardType.GREEN;
         card3 = CardType.PINK;
@@ -30,13 +30,15 @@ public class BookshelfTest extends TestCase{
 
     //checks the addCells method
     public void testApp1(){
+        bookshelf = new Bookshelf(6,5);
         assertEquals(0, 6 - (int) bookshelf.getFreeCells(2));
         bookshelf.addCells(cardList,2);
         assertEquals(2, 6 - (int) bookshelf.getFreeCells(2));
     }
 
-    //test per controllare il funzionamento di getRow
+    //test for checking the getRow method
     public void testApp2(){
+        bookshelf = new Bookshelf(6,5);
         cardList.clear();
         cardList.add(card1);
         cardList2.add(card2);
@@ -46,6 +48,18 @@ public class BookshelfTest extends TestCase{
         assertEquals(bookshelf.getRow(5).get(1).get(),card2);
     }
 
+    //test for checking the getFreeCells method
+    public void testApp3(){
+        bookshelf = new Bookshelf(6,5);
+        assertTrue(bookshelf.getFreeCells() == 30);
+    }
+
+    //test for checking getFreeCells(Integer columnNumber)
+    public void testApp4(){
+        bookshelf = new Bookshelf(6,5);
+        bookshelf.addCells(cardList,4);
+        assertEquals(4,(int) bookshelf.getFreeCells(4));
+    }
 
     public static Test suite()
     {

@@ -68,6 +68,14 @@ public class CountCards {
         }
         return newCard;
     }
+
+    /**
+     * getter of CountCardType attribute
+     * @return returns the attribute
+     */
+    public LinkedHashMap<CardType, Integer> getCountCardType() {
+        return countCardType;
+    }
 }
 
 

@@ -43,7 +43,7 @@ public class Bookshelf {
     /**
      * returns the bookshelf cell related to the position data
      * @param position position of the card that needs to be returned
-     * @return
+     * @return returns an Optional.empty() if the position contains no card, otherwise it returns the card
      */
     public Optional<CardType> getCell(Position position){
         if (bookshelf[position.getRow()][position.getColumn()].isPresent()){
@@ -54,9 +54,8 @@ public class Bookshelf {
 
     /**
      * returns an ArrayList with all the cards contained in the column indicated in input
-     *
      * @param columnNumber indicates the column the cards must be taken from
-     * @return
+     * @return returns all of the cards that are present in the given column
      */
     public ArrayList<Optional<CardType>> getColumn(Integer columnNumber){
 
@@ -64,7 +63,7 @@ public class Bookshelf {
         Position position = new Position();
         position.setColumn(columnNumber);
 
-        for(int i = 0; i < getRows(); i++){
+        for(int i = 0; i < this.rows; i++){
             position.setRow(i);
             Optional<CardType> cardOptional = getCell(position);
             if(cardOptional.isPresent()){
@@ -76,15 +75,14 @@ public class Bookshelf {
 
     /**
      * returns an ArrayList with all the cards contained in the row indicated in input
-     *
      * @param rowNumber indicates the row the cards must be taken from
-     * @return
+     * @return returns all of the cards that are present in the given row
      */
     public ArrayList<Optional<CardType>> getRow(Integer rowNumber){
         ArrayList<Optional<CardType>> rigaDiCarte = new ArrayList();
         Position position = new Position();
         position.setRow(rowNumber);
-        for(int i = 0 ; i < getColumns(); i++){
+        for(int i = 0 ; i < this.columns; i++){
             position.setColumn(i);
             Optional<CardType> cardOptional = getCell(position);
             rigaDiCarte.add(cardOptional);
@@ -93,8 +91,8 @@ public class Bookshelf {
     }
 
     /**
-     * //returns the total number of null boxes in the bookshelf
-     * @return
+     *
+     * @return returns the total number of empty boxes in the bookshelf
      */
     public Integer getFreeCells() {
 
@@ -103,11 +101,11 @@ public class Bookshelf {
         int contatore = 30;
 
         Position position = new Position();
-        for (int i = 0 ; i < getColumns(); i++){
+        for (int i = 0 ; i < this.columns; i++){
 
             position.setColumn(i);
 
-            for(int j = 0; j < getRows(); j++){
+            for(int j = 0; j < this.rows; j++){
 
                 //save the position and extract the card
                 position.setRow(j);
@@ -124,25 +122,24 @@ public class Bookshelf {
     }
 
     /**
-     * return the free cells given a given column
      * @param columnNumber number that indicates which column needs to be examined
-     * @return
+     * @return return the free cells given a given column
      */
     public Integer getFreeCells(Integer columnNumber){
-        return (getRows() - getColumn(columnNumber).size());
+        return (this.rows - getColumn(columnNumber).size());
     }
 
     /**
-     * getter of attribute rows
-     * @return
+     * getter of attribute Rows
+     * @return returns the attribute
      */
     public Integer getRows() {
         return rows;
     }
 
     /**
-     * getter of attribute columns
-     * @return
+     * getter of attribute Columns
+     * @return returns the attribute
      */
     public Integer getColumns() {
         return columns;

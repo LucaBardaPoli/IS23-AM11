@@ -39,7 +39,7 @@ public class Board {
      */
     public Optional<CardType> getCard(Position position){
 
-        if(validPick(position)){
+        if(validPick(position) && this.board.containsKey(position)){
             Optional<CardType> rtn = this.board.get(position);
             this.board.put(position, Optional.empty());
             return rtn;
@@ -76,23 +76,23 @@ public class Board {
         int column = position.getColumn();
 
         position.setRow(row + 1);
-        if(checkValidCell(position) && board.get(position).isEmpty()){
+        if(checkValidCell(position) && board.get(position).isEmpty() && this.board.containsKey(position)){
             flag = 1;
         }
 
         position.setRow(row -1);
-        if(checkValidCell(position) && board.get(position).isEmpty()){
+        if(checkValidCell(position) && board.get(position).isEmpty() && this.board.containsKey(position)){
             flag = 1;
         }
 
         position.setRow(row);
         position.setColumn(column + 1);
-        if(checkValidCell(position) && board.get(position).isEmpty()){
+        if(checkValidCell(position) && board.get(position).isEmpty() && this.board.containsKey(position)){
             flag = 1;
         }
 
         position.setColumn(column - 1);
-        if(checkValidCell(position) && board.get(position).isEmpty()){
+        if(checkValidCell(position) && board.get(position).isEmpty() && this.board.containsKey(position)){
             flag = 1;
         }
 

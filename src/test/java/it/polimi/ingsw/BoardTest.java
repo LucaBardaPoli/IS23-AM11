@@ -38,6 +38,7 @@ public class BoardTest extends TestCase
         pos6 = new Position(4,3);
         pos7 = new Position(4,5);
         pos8 = new Position(2,1);
+        board.fillBoard(countCards);
     }
 
 
@@ -54,26 +55,21 @@ public class BoardTest extends TestCase
     }
 
     //testing the good functioning of the fillBoard method
-    /*public void testApp2(){
-        board.fillBoard(countCards);
-        assertTrue(board.getCard(pos6).isPresent());
-        assertTrue(board.getCard(pos7).isEmpty());
-    }*/
      //checks the card selection process happens correctly
      public void testApp2(){
-         board.fillBoard(countCards);
          board.SetCard(pos1,card);
          board.SetCard(pos2,card);
          board.SetCard(pos3,card);
          board.SetCard(pos4,card);
          board.SetCard(pos5,card);
 
-
-         assertTrue(!board.validPick(pos1));
+         assertFalse(board.validPick(pos1));
      }
 
      //check on the method checkValidCell
      public void testApp3(){
          assertFalse(board.checkValidCell(pos8));
      }
+
+
 }
