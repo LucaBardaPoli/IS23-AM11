@@ -1,9 +1,7 @@
 package it.polimi.ingsw.model;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 public class Bookshelf {
 
     private Integer rows;
@@ -18,6 +16,12 @@ public class Bookshelf {
     public Bookshelf(Integer rows, Integer columns) {
         this.rows = rows;
         this.columns = columns;
+        this.bookshelf = new Optional[6][5];
+        for(int i = 0; i < this.rows; i++){
+            for(int j = 0; j < this.columns; j++){
+                this.bookshelf[i][j] = Optional.empty();
+            }
+        }
     }
 
     /**
@@ -27,16 +31,12 @@ public class Bookshelf {
      */
     public void addCells(List<CardType> cards, Integer column){
 
-        int i; // i scrolls through bookshelf rows
         int k = getFreeCells(column); // k are the free cells of the considered column
-        int iteratorCards = 0;
+        int i = k - 1; // i scrolls through bookshelf rows
 
-        //in the three free positions it adds up to a maximum of 3 cards,
-        // stops early if the cards are less than 3 by setting the index to -1
-        for(i = k; i > k - cards.size(); i--){
-            CardType obtainedCard =  cards.get(iteratorCards);
+        for(CardType obtainedCard : cards){
             bookshelf[i][column] = Optional.ofNullable(obtainedCard);
-            iteratorCards++;
+            i--;
         }
     }
 
@@ -46,40 +46,48 @@ public class Bookshelf {
      * @return
      */
     public Optional<CardType> getCell(Position position){
-        return bookshelf[position.getRow()][position.getColumn()];
+        if (bookshelf[position.getRow()][position.getColumn()].isPresent()){
+            return Optional.of(bookshelf[position.getRow()][position.getColumn()].get());
+        }
+        else return Optional.empty();
     }
 
     /**
      * returns an ArrayList with all the cards contained in the column indicated in input
+     *
      * @param columnNumber indicates the column the cards must be taken from
      * @return
      */
-    public ArrayList<CardType> getColumn(Integer columnNumber){
-        ArrayList<CardType> colonnaDiCarte = new ArrayList(getColumns());
+    public ArrayList<Optional<CardType>> getColumn(Integer columnNumber){
+
+        ArrayList<Optional<CardType>> cardColumn = new ArrayList();
         Position position = new Position();
         position.setColumn(columnNumber);
-        for(int i = 0; i < getColumns(); i++){
+
+        for(int i = 0; i < getRows(); i++){
             position.setRow(i);
             Optional<CardType> cardOptional = getCell(position);
-            cardOptional.ifPresent(colonnaDiCarte::add);
+            if(cardOptional.isPresent()){
+                cardColumn.add(cardOptional);
+            }
         }
-        return colonnaDiCarte;
+        return cardColumn;
     }
-
 
     /**
      * returns an ArrayList with all the cards contained in the row indicated in input
+     *
      * @param rowNumber indicates the row the cards must be taken from
      * @return
      */
-    public ArrayList<CardType> getRow(Integer rowNumber){
-        ArrayList<CardType> rigaDiCarte = new ArrayList(getRows());
+    public ArrayList<Optional<CardType>> getRow(Integer rowNumber){
+        ArrayList<Optional<CardType>> rigaDiCarte = new ArrayList();
         Position position = new Position();
         position.setRow(rowNumber);
-        for(int i = 0 ; i < getRows(); i++){
+        for(int i = 0 ; i < getColumns(); i++){
             position.setColumn(i);
             Optional<CardType> cardOptional = getCell(position);
-            cardOptional.ifPresent(rigaDiCarte::add);
+            rigaDiCarte.add(cardOptional);
         }
         return rigaDiCarte;
     }
@@ -95,12 +103,14 @@ public class Bookshelf {
         int contatore = 30;
 
         Position position = new Position();
-        for (int i=0 ; i < getColumns(); i++){
-            for(int j=0; j < getRows(); j++){
+        for (int i = 0 ; i < getColumns(); i++){
+
+            position.setColumn(i);
+
+            for(int j = 0; j < getRows(); j++){
 
                 //save the position and extract the card
                 position.setRow(j);
-                position.setColumn(i);
 
                 Optional<CardType> cardOptional = getCell(position);
 
