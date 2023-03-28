@@ -2,18 +2,25 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Class that handles the evolution of the game (communication with view and model)
  */
 public class GameController implements GameControllerInterfaceView, GameControllerInterfaceModel {
     private GameInterface model;
+    // private view;
 
     /**
-     * Setter of the model
+     * Class constructor
      * @param model game to handle
      */
-    public void setModel(GameInterface model) {
+    public GameController(GameInterface model) {
         this.model = model;
+        this.model.setGameController(this);
+        // this.view = view;
+        // this.view.setController(this);
     }
 
     /**
@@ -25,14 +32,23 @@ public class GameController implements GameControllerInterfaceView, GameControll
     }
 
     /**
+     * Getter of the players
+     * @return list of players
+     */
+    public List<Player> getPlayers() {
+        return this.model.getPlayers();
+    }
+
+    /**
      * Picks a card from the board
      * @param player player who played the move
      * @param position position of the card to pick on the board
      */
-    public void pickCard(Player player, Position position) {
+    public Optional<CardType> pickCard(Player player, Position position) {
         if(checkPlayer(player)) {
-            this.model.pickCard(position);
+            return this.model.pickCard(position);
         }
+        return Optional.empty();
     }
 
     /**

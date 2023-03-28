@@ -1,13 +1,10 @@
-package it.polimi.ingsw;
-import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
+package it.polimi.ingsw.model;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class BookshelfTest extends TestCase{
 

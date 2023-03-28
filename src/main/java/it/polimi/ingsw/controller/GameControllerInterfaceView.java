@@ -1,15 +1,23 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
+import java.util.List;
+import java.util.Optional;
 
 public interface GameControllerInterfaceView {
+
+    /**
+     * Getter of the players
+     * @return list of players
+     */
+    public List<Player> getPlayers();
 
     /**
      * Picks a card from the board
      * @param player player who played the move
      * @param position position of the card to pick on the board
      */
-    public void pickCard(Player player, Position position);
+    public Optional<CardType> pickCard(Player player, Position position);
 
     /**
      * Confirms the cards picked from the board

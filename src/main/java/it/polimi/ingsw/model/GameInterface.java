@@ -1,9 +1,24 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.GameControllerInterfaceModel;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface GameInterface {
+
+    /**
+     * Getter of the players
+     * @return list of players
+     */
+    public List<Player> getPlayers();
+
+    /**
+     * Setter of the game's controller
+     * @param gameController game's controller
+     */
+    public void setGameController(GameControllerInterfaceModel gameController);
+
     /**
      * Getter of the player who's currently playing
      * @return player

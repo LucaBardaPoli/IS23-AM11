@@ -1,13 +1,8 @@
-package it.polimi.ingsw;
-import it.polimi.ingsw.model.Board;
-import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.CountCards;
+package it.polimi.ingsw.model;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 

@@ -58,7 +58,7 @@ public class SameKindSquare implements Predicate<Bookshelf> {
                         startRowLastSquare = Optional.of(r);
                         startColumnLastSquare = Optional.of(c);
                     } else {
-                        if(r - startRowLastSquare.get() >= 2 && c - startColumnLastSquare.get() >= 2) {
+                        if(Math.abs(r - startRowLastSquare.get()) >= 2 || Math.abs(c - startColumnLastSquare.get()) >= 2) {
                             return true;
                         }
                     }

@@ -1,13 +1,9 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Board;
-import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.CountCards;
-import it.polimi.ingsw.model.Position;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import java.util.HashMap;
+
 import java.util.Optional;
 
 public class BoardTest extends TestCase

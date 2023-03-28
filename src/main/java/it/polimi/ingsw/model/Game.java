@@ -20,7 +20,7 @@ public class Game implements GameInterface {
     private GameStatus gameStatus;
     private final CountCards countCards;
     private Integer currentSelectedColumn;
-    private final GameControllerInterfaceModel gameController;
+    private GameControllerInterfaceModel gameController;
     public static Integer MAX_SELECTABLE_CARDS;
 
     /**
@@ -30,7 +30,7 @@ public class Game implements GameInterface {
      * @param commonGoals two common goals of the game
      * @param personalGoals players personal goals
      */
-    public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals, GameControllerInterfaceModel gameController) {
+    public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
         this.id = id;
         this.countCards = new CountCards();
         this.board = new Board(players.size());
@@ -49,8 +49,8 @@ public class Game implements GameInterface {
         this.pickedCards = new ArrayList<>();
         this.pickedCardsPositions = new ArrayList<>();
         this.currentSelectedColumn = 0;
-        this.gameController = gameController;
-        this.gameController.setModel(this);
+        this.gameController = null;
+        Game.MAX_SELECTABLE_CARDS = 3;
 
         // Assigns tokens based on the number of players
         this.tokens = new ArrayList<>();
@@ -70,6 +70,14 @@ public class Game implements GameInterface {
         }
         this.tokens.add(tmpTokens);
         this.tokens.add(tmpTokens);
+    }
+
+    /**
+     * Setter of the game's controller
+     * @param gameController game's controller
+     */
+    public void setGameController(GameControllerInterfaceModel gameController) {
+        this.gameController = gameController;
     }
 
     /**
@@ -201,7 +209,6 @@ public class Game implements GameInterface {
         Optional<CardType> pickedCard = Optional.empty();
 
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
-
             // Checks that the number of picked cards is lower than the limit
             if (this.pickedCards.size() < MAX_SELECTABLE_CARDS) {
                 if(this.board.validPick(position)) {

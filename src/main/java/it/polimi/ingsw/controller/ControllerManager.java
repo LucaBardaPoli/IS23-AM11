@@ -16,8 +16,8 @@ public class ControllerManager {
     private Integer currentGameNumPlayers;
     private final List<CommonGoal> commonGoals;
     private final List<PersonalGoal> personalGoals;
-    private static Integer MIN_NUM_PLAYERS;
-    private static Integer MAX_NUM_PLAYERS;
+    public static Integer MIN_NUM_PLAYERS;
+    public static Integer MAX_NUM_PLAYERS;
 
     /**
      * Private constructor to implement the Singleton design patter
@@ -48,6 +48,30 @@ public class ControllerManager {
     }
 
     /**
+     * Getter of the lobby
+     * @return the lobby
+     */
+    public List<String> getLobby() {
+        return this.lobby;
+    }
+
+    /**
+     * Getter of the controllers
+     * @return list of controllers
+     */
+    public List<GameController> getControllers() {
+        return this.controllers;
+    }
+
+    /**
+     * Getter of number of players we're currently searching for in order to create a new game
+     * @return the number of players we're currently searching for
+     */
+    public Integer getCurrentGameNumPlayers() {
+        return this.currentGameNumPlayers;
+    }
+
+    /**
      * Creates a new controller that handles the evolution of the new game
      * @param players list containing the names of the players who will play the game
      */
@@ -55,12 +79,12 @@ public class ControllerManager {
         Collections.shuffle(personalGoals);
         Collections.shuffle(commonGoals);
 
-        GameController newController = new GameController();
-        Game newGame = new Game(counterGames, this.lobby, commonGoals.subList(0,2), personalGoals.subList(0,players.size()), newController);
-        this.controllers.add(newController);
+        Game newGame = new Game(counterGames, this.lobby, commonGoals.subList(0,2), personalGoals.subList(0,players.size()));
+        // newView = new View();
+        this.controllers.add(new GameController(newGame)); // newView
         this.counterGames++;
         this.lobby.clear();
-        this.currentGameNumPlayers = 0;
+        this.currentGameNumPlayers = MIN_NUM_PLAYERS;
     }
 
     /**
@@ -74,6 +98,9 @@ public class ControllerManager {
             if(gc.getModel().isNicknameTaken(nickname)) {
                 return false;
             }
+        }
+        if(this.lobby.contains(nickname)) {
+            return false;
         }
         if(this.lobby.isEmpty()) {
             if(numPlayers >= MIN_NUM_PLAYERS && numPlayers <= MAX_NUM_PLAYERS) {

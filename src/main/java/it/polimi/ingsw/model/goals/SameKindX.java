@@ -57,8 +57,8 @@ public class SameKindX implements Predicate<Bookshelf> {
     }
 
     public boolean test(Bookshelf bookshelf) {
-        for(int r = 1; r < bookshelf.getColumns()-1; r++){
-            for(int c = 1; c < bookshelf.getRows()-1; c++) {
+        for(int r = 1; r < bookshelf.getRows()-1; r++){
+            for(int c = 1; c < bookshelf.getColumns()-1; c++) {
                 if(checkX(r, c, bookshelf)) {
                     return true;
                 }

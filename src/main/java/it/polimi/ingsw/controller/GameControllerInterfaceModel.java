@@ -3,11 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.GameInterface;
 
 public interface GameControllerInterfaceModel {
-    /**
-     * Setter of the model
-     * @param model game to handle
-     */
-    public void setModel(GameInterface model);
 
     public void changeTurn();
 
