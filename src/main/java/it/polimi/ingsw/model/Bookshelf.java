@@ -93,7 +93,7 @@ public class Bookshelf {
     }
 
     /**
-     * //returns the total number of null boxes in the bookshelf
+     * returns the total number of null boxes in the bookshelf
      * @return
      */
     public Integer getFreeCells() {
