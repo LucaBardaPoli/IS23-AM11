@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.Position;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class BoardTest extends TestCase
@@ -24,6 +25,7 @@ public class BoardTest extends TestCase
     Position pos8;
     CountCards countCards = new CountCards();
     Optional<CardType> card = Optional.of(CardType.BLUE);
+    Integer counterCells;
 
 
     public BoardTest( String testName )
@@ -39,6 +41,7 @@ public class BoardTest extends TestCase
         pos7 = new Position(4,5);
         pos8 = new Position(2,1);
         board.fillBoard(countCards);
+        counterCells = 0;
     }
 
 
@@ -71,5 +74,14 @@ public class BoardTest extends TestCase
          assertFalse(board.checkValidCell(pos8));
      }
 
+    //ccheck on the correct controll before picking a card from the Board
+     public void testApp4(){
+         board.SetCard(pos1,card);
+         board.SetCard(pos2,card);
+         board.SetCard(pos3,card);
+         board.SetCard(pos4,card);
+
+         assertFalse(board.validPick(pos1));
+     }
 
 }

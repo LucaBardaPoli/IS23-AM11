@@ -34,10 +34,13 @@ public class Bookshelf {
         int k = getFreeCells(column); // k are the free cells of the considered column
         int i = k - 1; // i scrolls through bookshelf rows
 
-        for(CardType obtainedCard : cards){
-            bookshelf[i][column] = Optional.ofNullable(obtainedCard);
-            i--;
+        if(k >= cards.size()){
+            for(CardType obtainedCard : cards){
+                bookshelf[i][column] = Optional.ofNullable(obtainedCard);
+                i--;
+            }
         }
+        //else throw new InsufficientFreeCellsException();
     }
 
     /**
@@ -98,7 +101,7 @@ public class Bookshelf {
 
         //to use the ifPresent() function I decided to count al
         // reverse scaling the counter if a cell contains a card
-        int contatore = 30;
+        int counter = 30;
 
         Position position = new Position();
         for (int i = 0 ; i < this.columns; i++){
@@ -114,11 +117,11 @@ public class Bookshelf {
 
                 //subtract if the cell does NOT contain NULL
                 if (cardOptional.isPresent()) {
-                    contatore--;
+                    counter--;
                 }
             }
         }
-        return contatore;
+        return counter;
     }
 
     /**
