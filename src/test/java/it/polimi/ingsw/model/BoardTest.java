@@ -3,81 +3,96 @@ package it.polimi.ingsw.model;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
 import java.util.Optional;
 
-public class BoardTest extends TestCase
-{
+/**
+ * Testing of Board class
+ */
+public class BoardTest extends TestCase {
 
-    Board board = new Board(3);
-    Position pos0;
-    Position pos6;
-    Position pos7;
-    Position pos1;
-    Position pos2;
-    Position pos3;
-    Position pos4;
-    Position pos5;
-    Position pos8;
-    CountCards countCards = new CountCards();
-    Optional<CardType> card = Optional.of(CardType.BLUE);
-    Integer counterCells;
+    Board board;
+    CountCards countCards;
 
-
-    public BoardTest( String testName )
-    {
+    public BoardTest( String testName ) {
         super( testName );
-        pos0 = new Position(2,3);
-        pos1 = new Position(5,0);
-        pos2 = new Position(4,0);
-        pos3 = new Position(6,0);
-        pos4 = new Position(5,1);
-        pos5 = new Position(5,-1);
-        pos6 = new Position(4,3);
-        pos7 = new Position(4,5);
-        pos8 = new Position(2,1);
-        board.fillBoard(countCards);
-        counterCells = 0;
     }
 
-
-    public static Test suite()
-    {
+    public static Test suite() {
         return new TestSuite( BoardTest.class );
     }
 
+    /**
+     * Tests fill process of the board
+     */
+    public void testFillBoard() {
+        this.board = new Board(3);
+        this.countCards = new CountCards();
+        this.board.fillBoard(countCards);
 
-    //testing the good functioning of the getCard function
-    public void testApp1() {
-        board.SetCard(pos0,card);
-        board.getCard(pos0).equals(card);
+        // Checks if cards are where they should
+        assert(this.board.validPick(new Position(1, 0)));
+        assert(this.board.validPick(new Position(6, 0)));
+        assert(this.board.validPick(new Position(5, -2)));
+        assert(this.board.validPick(new Position(3, 4)));
+
+        // Checks if cards are where they should not
+        assert(!this.board.validPick(new Position(0, 1)));
+        assert(!this.board.validPick(new Position(3, -2)));
+        assert(!this.board.validPick(new Position(1, 2)));
+        assert(!this.board.validPick(new Position(4, 5)));
     }
 
-    //testing the good functioning of the fillBoard method
-     //checks the card selection process happens correctly
-     public void testApp2(){
-         board.SetCard(pos1,card);
-         board.SetCard(pos2,card);
-         board.SetCard(pos3,card);
-         board.SetCard(pos4,card);
-         board.SetCard(pos5,card);
+    /**
+     * Tests getCard method
+     */
+    public void testGetCard() {
+        this.board = new Board(3);
+        this.countCards = new CountCards();
+        this.board.fillBoard(countCards);
 
-         assertFalse(board.validPick(pos1));
-     }
+        assert(this.board.setCard(new Position(2, 3), CardType.WHITE));
+        assert(this.board.getCard(new Position(2, 3)).equals(Optional.of(CardType.WHITE)));
+        assert(this.board.getCard(new Position(10, 10)).equals(Optional.empty()));
+        assert(this.board.getCard(new Position(0, 1)).equals(Optional.empty()));
+    }
 
-     //check on the method checkValidCell
-     public void testApp3(){
-         assertFalse(board.checkValidCell(pos8));
-     }
+    /**
+     * Tests validPick method
+     */
+    public void testValidPick() {
+        this.board = new Board(2);
+        this.countCards = new CountCards();
+        this.board.fillBoard(countCards);
 
-    //ccheck on the correct controll before picking a card from the Board
-     public void testApp4(){
-         board.SetCard(pos1,card);
-         board.SetCard(pos2,card);
-         board.SetCard(pos3,card);
-         board.SetCard(pos4,card);
+        // Checks if cards that should be possible to pick can actually be picked
+        assert(this.board.validPick(new Position(2,0)));
+        assert(this.board.validPick(new Position(3,-1)));
+        assert(this.board.validPick(new Position(3,3)));
+        assert(this.board.validPick(new Position(3,4)));
 
-         assertFalse(board.validPick(pos1));
-     }
+        // Checks if cards that should not be possible to pick can be picked
+        assert(!this.board.validPick(new Position(2,1)));
+        assert(!this.board.validPick(new Position(3,0)));
+        assert(!this.board.validPick(new Position(3,1)));
+        assert(!this.board.validPick(new Position(4,-1)));
+        assert(!this.board.validPick(new Position(5,2)));
+    }
 
+    /**
+     * Tests validBoard method
+     */
+    public void testValidBoard() {
+        this.board = new Board(2);
+
+        assert(this.board.hasToBeRefilled());
+
+        this.board.setCard(new Position(1, 0), CardType.BLUE);
+        assert(this.board.hasToBeRefilled());
+
+        this.board.setCard(new Position(2, 1), CardType.WHITE);
+        assert(this.board.hasToBeRefilled());
+
+        this.board.setCard(new Position(1, 1), CardType.BLUE);
+        assert(!this.board.hasToBeRefilled());
+    }
 }

@@ -87,7 +87,7 @@ public class BookshelfTest extends TestCase{
 
     public static Test suite()
     {
-        return new TestSuite( BoardTest.class );
+        return new TestSuite( BookshelfTest.class );
     }
 
 }

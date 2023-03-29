@@ -137,8 +137,8 @@ public class Player {
         //int numGroup = 0;
         int adjacencyPoints = 0;
 
-        int numRow = bshelf.getRows();
-        int numColumn = bshelf.getColumns();
+        int numRow = Bookshelf.ROWS;
+        int numColumn = Bookshelf.COLUMNS;
 
         boolean[][] visited = new boolean[numRow][numColumn];
 
@@ -181,7 +181,7 @@ public class Player {
         Position posToCheck = new Position(row, column);
 
         // Check out of bounds + Already Visited
-        if ( (row < 0 || row >= 6 || column < 0 || column >= 5) || visited[row][column]) {
+        if ( (row < 0 || row >= Bookshelf.ROWS || column < 0 || column >= Bookshelf.COLUMNS) || visited[row][column]) {
             return 0;
         } else if( bshelf.getCell(posToCheck).isEmpty() || type.isEmpty()){
             return 0;

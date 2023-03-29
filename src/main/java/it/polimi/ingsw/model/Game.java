@@ -328,7 +328,7 @@ public class Game implements GameInterface {
             if ((this.isLastTurn && this.turn < this.players.size() - 1) || !this.isLastTurn) {
                 this.turn = (this.turn + 1) % this.players.size();
                 this.gameStatus = GameStatus.PICK_CARDS;
-                if(this.board.validBoard()) {
+                if(this.board.hasToBeRefilled()) {
                     this.board.fillBoard(this.countCards);
                 }
             } else {

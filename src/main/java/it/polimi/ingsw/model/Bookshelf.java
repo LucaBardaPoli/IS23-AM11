@@ -1,12 +1,13 @@
 package it.polimi.ingsw.model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-public class Bookshelf {
 
-    private Integer rows;
-    private Integer columns;
-    private Optional<CardType> bookshelf [][];
+public class Bookshelf {
+    public static Integer ROWS;
+    public static Integer COLUMNS;
+    private final Optional<CardType>[][] bookshelf;
 
     /**
      * constructor
@@ -14,11 +15,11 @@ public class Bookshelf {
      * @param columns number of columns wanted in the bookshelf
      */
     public Bookshelf(Integer rows, Integer columns) {
-        this.rows = rows;
-        this.columns = columns;
-        this.bookshelf = new Optional[6][5];
-        for(int i = 0; i < this.rows; i++){
-            for(int j = 0; j < this.columns; j++){
+        Bookshelf.ROWS = rows;
+        Bookshelf.COLUMNS = columns;
+        this.bookshelf = new Optional[Bookshelf.ROWS][Bookshelf.COLUMNS];
+        for(int i = 0; i < Bookshelf.ROWS; i++) {
+            for(int j = 0; j < Bookshelf.COLUMNS; j++) {
                 this.bookshelf[i][j] = Optional.empty();
             }
         }
@@ -62,11 +63,11 @@ public class Bookshelf {
      */
     public ArrayList<Optional<CardType>> getColumn(Integer columnNumber){
 
-        ArrayList<Optional<CardType>> cardColumn = new ArrayList();
+        ArrayList<Optional<CardType>> cardColumn = new ArrayList<>();
         Position position = new Position();
         position.setColumn(columnNumber);
 
-        for(int i = 0; i < this.rows; i++){
+        for(int i = 0; i < Bookshelf.ROWS; i++){
             position.setRow(i);
             Optional<CardType> cardOptional = getCell(position);
             if(cardOptional.isPresent()){
@@ -82,15 +83,15 @@ public class Bookshelf {
      * @return returns all of the cards that are present in the given row
      */
     public ArrayList<Optional<CardType>> getRow(Integer rowNumber){
-        ArrayList<Optional<CardType>> rigaDiCarte = new ArrayList();
+        ArrayList<Optional<CardType>> cardRow = new ArrayList<>();
         Position position = new Position();
         position.setRow(rowNumber);
-        for(int i = 0 ; i < this.columns; i++){
+        for(int i = 0; i < Bookshelf.COLUMNS; i++){
             position.setColumn(i);
             Optional<CardType> cardOptional = getCell(position);
-            rigaDiCarte.add(cardOptional);
+            cardRow.add(cardOptional);
         }
-        return rigaDiCarte;
+        return cardRow;
     }
 
     /**
@@ -101,14 +102,14 @@ public class Bookshelf {
 
         //to use the ifPresent() function I decided to count al
         // reverse scaling the counter if a cell contains a card
-        int counter = 30;
+        int counter = Bookshelf.ROWS * Bookshelf.COLUMNS;
 
         Position position = new Position();
-        for (int i = 0 ; i < this.columns; i++){
+        for (int i = 0; i < Bookshelf.COLUMNS; i++){
 
             position.setColumn(i);
 
-            for(int j = 0; j < this.rows; j++){
+            for(int j = 0; j < Bookshelf.ROWS; j++){
 
                 //save the position and extract the card
                 position.setRow(j);
@@ -129,22 +130,6 @@ public class Bookshelf {
      * @return return the free cells given a given column
      */
     public Integer getFreeCells(Integer columnNumber){
-        return (this.rows - getColumn(columnNumber).size());
-    }
-
-    /**
-     * getter of attribute Rows
-     * @return returns the attribute
-     */
-    public Integer getRows() {
-        return rows;
-    }
-
-    /**
-     * getter of attribute Columns
-     * @return returns the attribute
-     */
-    public Integer getColumns() {
-        return columns;
+        return (Bookshelf.ROWS - getColumn(columnNumber).size());
     }
 }

@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
+import java.util.Optional;
 
 public class CountCards {
     private final LinkedHashMap<CardType, Integer> countCardType;
@@ -26,51 +27,42 @@ public class CountCards {
 
     /**
      * Picks a new card from the bag
-     * @return the new card
-     */
-    public CardType pickCard(){
-        return generateCard();
-    }
-
-    /**
-     * Randomly picks a new card from the bag
+     *
      * Generates a random number from 0 to the current number of cards left to pick
      * Based on which interval, given by the number of cards left for each type, the number belongs it generates the new card
      * @return new picked card
      */
-    private CardType generateCard() {
-        Random random = new Random();
-        Integer count = 0, flag = 0;
+    public CardType pickCard() {
+        //keeps track of the interval of cards we're currently checking
+        Integer count = 0;
+        boolean foundInterval = false;
 
-        //Random default value
-        CardType newCard = CardType.GREEN;
-
-        int randomNumber = random.nextInt(this.currentNumberOfCards) + 1;
+        Optional<CardType> newCard = Optional.empty();
+        int randomNumber = ThreadLocalRandom.current().nextInt(0, this.currentNumberOfCards + 1);
 
         for (Map.Entry<CardType, Integer> entry : countCardType.entrySet()) {
             //update the counter value
             count += entry.getValue();
 
-            if (count <= randomNumber && flag == 0) {
+            if(randomNumber <= count && !foundInterval) {
                 //generate the new card
-                newCard = entry.getKey();
+                newCard = Optional.of(entry.getKey());
 
                 //decreases the total number of cards left
                 this.currentNumberOfCards--;
 
                 //modifies the map element with the specified key
-                int newValue2 = countCardType.get(entry.getKey()) - 1;
-                countCardType.put(entry.getKey(), newValue2);
+                countCardType.put(entry.getKey(), countCardType.get(entry.getKey()) - 1);
 
                 //raises the flag to communicate that the new card has been generated
-                flag = 1;
+                foundInterval = true;
             }
         }
-        return newCard;
+        return newCard.get();
     }
 
     /**
-     * getter of CountCardType attribute
+     * Getter of CountCardType attribute
      * @return returns the attribute
      */
     public LinkedHashMap<CardType, Integer> getCountCardType() {

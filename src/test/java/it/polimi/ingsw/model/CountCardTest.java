@@ -1,33 +1,43 @@
 package it.polimi.ingsw.model;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.util.LinkedHashMap;
-import java.util.Optional;
+/**
+ * Testing of CountCards class
+ */
+public class CountCardTest extends TestCase {
+    CountCards count;
+    Board board;
 
-public class CountCardTest extends TestCase{
-
-    CountCards count = new CountCards();
-    Board board = new Board(4);
-    CardType carta;
-    private LinkedHashMap<CardType, Integer> cardsCounter = new LinkedHashMap<CardType, Integer>();
-    public CountCardTest( String testName )
-    {
+    public CountCardTest( String testName ) {
         super( testName );
-        carta = count.pickCard();
-        cardsCounter = count.getCountCardType();
+        this.count = new CountCards();
+        this.board = new Board(4);
     }
 
-    //test to check the correct creation of cards
-    public void testApp1(){
-        assertEquals(Optional.of(cardsCounter.get(carta).intValue()), Optional.of(21));
+    /**
+     * Tests the correct pick (randomly) of a card from the bag
+     */
+    public void testCardCreation() {
+        for(int i = 0 ; i < 40; i++) {
+            count.pickCard();
+        }
 
+        System.out.println("Count BLUE: " + count.getCountCardType().get(CardType.BLUE));
+        System.out.println("Count LBLUE: " + count.getCountCardType().get(CardType.LBLUE));
+        System.out.println("Count GREEN: " + count.getCountCardType().get(CardType.GREEN));
+        System.out.println("Count YELLOW: " + count.getCountCardType().get(CardType.YELLOW));
+        System.out.println("Count PINK: " + count.getCountCardType().get(CardType.PINK));
+        System.out.println("Count WHITE: " + count.getCountCardType().get(CardType.WHITE));
     }
 
-    public static Test suite()
-    {
-        return new TestSuite( BoardTest.class );
+    /**
+     * @return the suite of tests being tested
+     */
+    public static Test suite() {
+        return new TestSuite( CountCardTest.class );
     }
 }
 

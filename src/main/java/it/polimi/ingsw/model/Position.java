@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import java.util.Objects;
+
 public class Position {
 
     private Integer row;
@@ -55,4 +57,25 @@ public class Position {
         this.column = column;
     }
 
+    /**
+     * Equals method
+     * @param o object to compare
+     * @return true if the two object are equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return row == position.row && column == position.column;
+    }
+
+    /**
+     * Hash code method
+     * @return hash code of the object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
 }
