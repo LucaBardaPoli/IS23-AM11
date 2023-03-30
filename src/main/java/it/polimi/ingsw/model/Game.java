@@ -266,15 +266,15 @@ public class Game implements GameInterface {
      * @param column column where to insert the picked cards
      * @return the inserted cards only if the insertion is valid
      */
-    public List<CardType> confirmColumn(Integer column) {
+    public boolean confirmColumn(Integer column) {
         if (this.gameStatus.equals(GameStatus.SELECT_COLUMN)) {
             if (this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
                 this.gameStatus = GameStatus.SELECT_ORDER;
                 this.currentSelectedColumn = column;
-                return this.pickedCards;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     /**

@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class MaxDifferentColumn implements Predicate<Bookshelf> {
     private boolean checkColumn(Integer column, Bookshelf bookshelf) {
-        Integer rows = bookshelf.getRows();
+        Integer rows = Bookshelf.getRows();
         Optional<CardType> card1, card2;
 
         if (bookshelf.getRow(column).size() < rows) {
@@ -34,7 +34,7 @@ public class MaxDifferentColumn implements Predicate<Bookshelf> {
     }
 
     public boolean test(Bookshelf bookshelf) {
-        Integer columns = bookshelf.getColumns();
+        Integer columns = Bookshelf.getColumns();
         boolean foundOne = false;
 
         for(int c = 0; c < columns; c++) {

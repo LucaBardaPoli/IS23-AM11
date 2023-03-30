@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class SameKindDiagonal implements Predicate<Bookshelf> {
 
     private boolean checkDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Integer limit = Math.min(bookshelf.getColumns(), bookshelf.getRows());
+        Integer limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
         Optional<CardType> card;
         CardType currentType;
 

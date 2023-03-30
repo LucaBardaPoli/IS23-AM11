@@ -34,7 +34,7 @@ public class SameKindXTest extends TestCase {
      * Test to detect a group of cards shaped as an X in a corner of the bookshelf
      */
     public void testDetectXInACorner() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.WHITE, CardType.BLUE), 0);
         bookshelf.addCells(List.of(CardType.WHITE, CardType.BLUE, CardType.WHITE), 1);
@@ -46,7 +46,7 @@ public class SameKindXTest extends TestCase {
      * Test to detect a group of cards shaped as an X in the middle of the bookshelf
      */
     public void testDetectXInTheMiddle() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.WHITE, CardType.WHITE, CardType.BLUE), 1);
         bookshelf.addCells(List.of(CardType.WHITE, CardType.BLUE), 1);
@@ -61,7 +61,7 @@ public class SameKindXTest extends TestCase {
      * Test to check if detects a group of cards almost shaped as an X (except for a corner)
      */
     public void testDetectWrongShape() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.WHITE, CardType.BLUE), 0);
         bookshelf.addCells(List.of(CardType.WHITE, CardType.BLUE, CardType.WHITE), 1);

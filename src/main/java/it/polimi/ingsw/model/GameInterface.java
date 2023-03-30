@@ -43,7 +43,7 @@ public interface GameInterface {
      * @param column column where to insert the picked cards
      * @return the inserted cards only if the insertion is valid
      */
-    public List<CardType> confirmColumn(Integer column);
+    public boolean confirmColumn(Integer column);
 
     /**
      * Moves the selected card to the last place in the list of cards to insert in the bookshelf

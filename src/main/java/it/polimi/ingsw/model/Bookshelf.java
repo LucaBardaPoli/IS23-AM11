@@ -5,24 +5,28 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bookshelf {
-    public static Integer ROWS;
-    public static Integer COLUMNS;
+    private final static Integer ROWS = 6;
+    private final static Integer COLUMNS = 5;
     private final Optional<CardType>[][] bookshelf;
 
     /**
-     * constructor
-     * @param rows number of rows wanted in the bookshelf
-     * @param columns number of columns wanted in the bookshelf
+     * Class constructor
      */
-    public Bookshelf(Integer rows, Integer columns) {
-        Bookshelf.ROWS = rows;
-        Bookshelf.COLUMNS = columns;
+    public Bookshelf() {
         this.bookshelf = new Optional[Bookshelf.ROWS][Bookshelf.COLUMNS];
         for(int i = 0; i < Bookshelf.ROWS; i++) {
             for(int j = 0; j < Bookshelf.COLUMNS; j++) {
                 this.bookshelf[i][j] = Optional.empty();
             }
         }
+    }
+
+    public static Integer getRows() {
+        return ROWS;
+    }
+
+    public static Integer getColumns() {
+        return COLUMNS;
     }
 
     /**

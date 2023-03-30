@@ -27,7 +27,7 @@ public class Player {
         this.personalGoalPoints = 0;
         this.commonGoalPoints = 0;
         this.adjacentPoints = 0;
-        this.bookshelf = new Bookshelf(6,5);
+        this.bookshelf = new Bookshelf();
         this.commonGoalFullfilled = new ArrayList<>(List.of(false, false));
     }
 
@@ -133,12 +133,12 @@ public class Player {
      @param bshelf is the bookshelf of the player
      @return the score based on the number of adjacency present in the player's bookshelf
      */
-    public static int checkAdjacency(Bookshelf bshelf) {
+    public int checkAdjacency(Bookshelf bshelf) {
         //int numGroup = 0;
         int adjacencyPoints = 0;
 
-        int numRow = Bookshelf.ROWS;
-        int numColumn = Bookshelf.COLUMNS;
+        int numRow = Bookshelf.getRows();
+        int numColumn = Bookshelf.getColumns();
 
         boolean[][] visited = new boolean[numRow][numColumn];
 
@@ -166,7 +166,6 @@ public class Player {
         return adjacencyPoints;
     }
 
-
     /**
      Finds the Adjacent Cards present in the bookshelf
      @param bshelf is the bookshelf of the player
@@ -176,12 +175,12 @@ public class Player {
      @param type is the type of the card that should be checked
      @return the size of the group with cards of the same type
      */
-    private static int findAdjacentGroupCards(Bookshelf bshelf, boolean[][] visited, int row, int column, Optional<CardType> type) {
+    private int findAdjacentGroupCards(Bookshelf bshelf, boolean[][] visited, int row, int column, Optional<CardType> type) {
 
         Position posToCheck = new Position(row, column);
 
         // Check out of bounds + Already Visited
-        if ( (row < 0 || row >= Bookshelf.ROWS || column < 0 || column >= Bookshelf.COLUMNS) || visited[row][column]) {
+        if ( (row < 0 || row >= Bookshelf.getRows() || column < 0 || column >= Bookshelf.getColumns()) || visited[row][column]) {
             return 0;
         } else if( bshelf.getCell(posToCheck).isEmpty() || type.isEmpty()){
             return 0;
@@ -202,6 +201,5 @@ public class Player {
 
         return groupSize;
     }
-
 }
 

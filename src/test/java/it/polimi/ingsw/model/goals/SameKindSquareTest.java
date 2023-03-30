@@ -34,7 +34,7 @@ public class SameKindSquareTest extends TestCase {
      * Test to detect two groups of cards shaped as a square in a corner of the bookshelf
      */
     public void testDetectSquareInACorner() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 1);
@@ -47,7 +47,7 @@ public class SameKindSquareTest extends TestCase {
      * Test to detect two groups of cards shaped as a square in the middle of the bookshelf
      */
     public void testDetectSquareInTheMiddle() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW), 1);
         bookshelf.addCells(List.of(CardType.YELLOW), 1);
@@ -64,7 +64,7 @@ public class SameKindSquareTest extends TestCase {
      * Test to detect two groups of cards shaped as a square in opposite corners of the bookshelf
      */
     public void testDetectSquareOppositeCorners() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 1);
@@ -79,7 +79,7 @@ public class SameKindSquareTest extends TestCase {
      * Test to detect two groups of cards shaped as a square but potentially overlapping in the bookshelf
      */
     public void testDetectSquareOverlapping() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.LBLUE, CardType.WHITE), 2);
         bookshelf.addCells(List.of(CardType.WHITE), 2);
@@ -94,7 +94,7 @@ public class SameKindSquareTest extends TestCase {
      * Test to check if detects just one group of cards shaped as a square
      */
     public void testDetectJustOneSquare() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 1);
@@ -105,7 +105,7 @@ public class SameKindSquareTest extends TestCase {
      * Test to check if detects two groups of cards almost shaped as a square (except for a corner)
      */
     public void testDetectWrongShape() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.WHITE), 1);

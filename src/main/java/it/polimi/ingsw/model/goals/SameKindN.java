@@ -22,8 +22,8 @@ public class SameKindN implements Predicate<Bookshelf> {
 
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Integer rows = bookshelf.getRows();
-        Integer columns = bookshelf.getColumns();
+        Integer rows = Bookshelf.getRows();
+        Integer columns = Bookshelf.getColumns();
         Optional<CardType> card;
         Position position = new Position();
         int row_idx, col_idx;

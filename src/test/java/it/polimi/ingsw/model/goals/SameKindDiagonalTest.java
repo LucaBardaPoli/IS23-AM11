@@ -32,7 +32,7 @@ public class SameKindDiagonalTest extends TestCase {
      * Test to detect the first of the two possible diagonals in the bookshelf
      */
     public void testDetectFirstDiagonal() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 1);
@@ -46,7 +46,7 @@ public class SameKindDiagonalTest extends TestCase {
      * Test to detect the second of the two possible diagonals in the bookshelf
      */
     public void testDetectSecondDiagonal() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.WHITE), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.WHITE), 1);
@@ -60,7 +60,7 @@ public class SameKindDiagonalTest extends TestCase {
      * Test to check if detects a group of cards almost shaped as a diagonal
      */
     public void testDetectWrongShape() {
-        Bookshelf bookshelf  = new Bookshelf(6, 5);
+        Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.WHITE), 0);
         bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 1);

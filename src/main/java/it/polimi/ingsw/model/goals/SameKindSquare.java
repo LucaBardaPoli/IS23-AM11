@@ -51,8 +51,8 @@ public class SameKindSquare implements Predicate<Bookshelf> {
         Optional<Integer> startRowLastSquare = Optional.empty();
         Optional<Integer> startColumnLastSquare = Optional.empty();
 
-        for(int r = 0; r < bookshelf.getRows()-1; r++) {
-            for(int c = 0; c < bookshelf.getColumns()-1; c++) {
+        for(int r = 0; r < Bookshelf.getRows()-1; r++) {
+            for(int c = 0; c < Bookshelf.getColumns()-1; c++) {
                 if(checkSquare(r, c, bookshelf)) {
                     if(startRowLastSquare.isEmpty()) {
                         startRowLastSquare = Optional.of(r);

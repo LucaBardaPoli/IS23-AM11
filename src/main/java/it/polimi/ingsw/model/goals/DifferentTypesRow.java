@@ -24,8 +24,8 @@ public class DifferentTypesRow implements Predicate<Bookshelf> {
 
     @Override
     public boolean test(Bookshelf bookshelf) {
-        int nrows = bookshelf.getRows();
-        int ncolumns = bookshelf.getColumns();
+        int nrows = Bookshelf.getRows();
+        int ncolumns = Bookshelf.getColumns();
         int ntypes = CardType.values().length;
         int i, j;
         int count_types = 0, count_rows = 0;

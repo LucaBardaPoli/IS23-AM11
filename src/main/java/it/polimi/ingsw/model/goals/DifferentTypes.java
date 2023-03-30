@@ -26,8 +26,8 @@ public class DifferentTypes implements Predicate<Bookshelf> {
     }
 
     private boolean testRows(Bookshelf bookshelf){
-        int nrows = bookshelf.getRows();
-        int ncolumns = bookshelf.getColumns();
+        int nrows = Bookshelf.getRows();
+        int ncolumns = Bookshelf.getColumns();
         int ntypes = CardType.values().length;
         int i, j;
         int count_types = 0, count_rows = 0;
@@ -53,8 +53,8 @@ public class DifferentTypes implements Predicate<Bookshelf> {
     }
 
     private boolean testColumns(Bookshelf bookshelf){
-        int nrows = bookshelf.getRows();
-        int ncolumns = bookshelf.getColumns();
+        int nrows = Bookshelf.getRows();
+        int ncolumns =Bookshelf.getColumns();
         int ntypes = CardType.values().length;
         int i, j;
         int count_types = 0, count_columns = 0;

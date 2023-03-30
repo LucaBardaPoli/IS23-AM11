@@ -9,8 +9,8 @@ import it.polimi.ingsw.model.Position;
 public class LadderGoal implements Predicate<Bookshelf> {
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Integer columns = bookshelf.getColumns();
-        Integer rows = bookshelf.getRows();
+        Integer columns = Bookshelf.getColumns();
+        Integer rows = Bookshelf.getRows();
         Position position = new Position();
 
         int row_idx, col_idx;
