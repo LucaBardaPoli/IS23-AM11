@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Testing of GameControllerIntefaceView class
+ * Testing of GameControllerInterfaceView class
  */
 public class GameControllerInterfaceViewTest extends TestCase {
     GameControllerInterfaceView gameController;

@@ -21,7 +21,7 @@ public class CountCardTest extends TestCase {
      * Tests the correct pick (randomly) of a card from the bag
      */
     public void testCardCreation() {
-        for(int i = 0 ; i < 40; i++) {
+        for(int i = 0 ; i < 100; i++) {
             count.pickCard();
         }
 

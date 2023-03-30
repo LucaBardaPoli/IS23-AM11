@@ -22,7 +22,7 @@ public class CountCards {
         countCardType.put(CardType.LBLUE, MAX_NUM_CARDS_PER_TYPE);
         countCardType.put(CardType.PINK, MAX_NUM_CARDS_PER_TYPE);
 
-        this.currentNumberOfCards = MAX_NUM_CARDS_PER_TYPE * 6;
+        this.currentNumberOfCards = MAX_NUM_CARDS_PER_TYPE * CardType.values().length;
     }
 
     /**
