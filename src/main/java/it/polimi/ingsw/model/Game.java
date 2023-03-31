@@ -222,7 +222,8 @@ public class Game implements GameInterface {
                         }
                         if (areAlignedOnRow) {
                             this.pickedCardsPositions.add(position);
-                            this.pickedCards.add(this.board.getCard(position).get());
+                            pickedCard = this.board.getCard(position);
+                            this.pickedCards.add(pickedCard.get());
                         }
 
                         boolean areAlignedOnColumn = true;
@@ -234,11 +235,13 @@ public class Game implements GameInterface {
                         }
                         if (areAlignedOnColumn) {
                             this.pickedCardsPositions.add(position);
-                            this.pickedCards.add((this.board.getCard(position).get()));
+                            pickedCard = this.board.getCard(position);
+                            this.pickedCards.add(pickedCard.get());
                         }
                     } else {
                         this.pickedCardsPositions.add(position);
-                        this.pickedCards.add(this.board.getCard(position).get());
+                        pickedCard = this.board.getCard(position);
+                        this.pickedCards.add(pickedCard.get());
                     }
                 }
             }
@@ -247,12 +250,34 @@ public class Game implements GameInterface {
     }
 
     /**
+     * Removes the card from the chosen ones
+     * @param position position of the card
+     */
+    public void removeCard(Position position) {
+        if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
+            // Checks that al least one card has been already chosen
+            if (!this.pickedCards.isEmpty()) {
+                for(int i = 0; i < this.pickedCardsPositions.size(); i++) {
+                    if(this.pickedCardsPositions.get(i).equals(position)) {
+                        this.pickedCardsPositions.remove(i);
+                        this.pickedCards.remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Checks if the picked cards are a valid combination
      * @return true if the pick is valid
      */
     public boolean confirmChoice() {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
-            if (this.pickedCards.size() < MAX_SELECTABLE_CARDS && this.pickedCards.size() > 0) {
+            if (this.pickedCards.size() < MAX_SELECTABLE_CARDS && !this.pickedCards.isEmpty()) {
+                for(Position p : this.pickedCardsPositions) {
+                    this.board.pickCard(p);
+                }
                 this.gameStatus = GameStatus.SELECT_COLUMN;
                 return true;
             }
@@ -262,7 +287,6 @@ public class Game implements GameInterface {
 
     /**
      * Checks if the given column can contain the picked cards
-     *
      * @param column column where to insert the picked cards
      * @return the inserted cards only if the insertion is valid
      */
@@ -279,7 +303,6 @@ public class Game implements GameInterface {
 
     /**
      * Moves the selected card to the last place in the list of cards to insert in the bookshelf
-     *
      * @param position position of the selected card
      * @return the new sorted list of cards
      */

@@ -132,11 +132,28 @@ public class Board {
     }
 
     /**
-     * creates an optional with the card present on the board in the position passed in input
+     * Returns the card of the board in the given position
      * @param position indicates the position where the card is supposed to be
      * @return return an optional of card
      */
     public Optional<CardType> getCard(Position position) {
+        ArrayList<Position> keyList = new ArrayList<>(this.board.keySet());
+        Optional<CardType> rtn = Optional.empty();
+        for(Position p : keyList) {
+            if(p.equals(position)) {
+                rtn = this.board.get(p);
+                break;
+            }
+        }
+        return rtn;
+    }
+
+    /**
+     * Returns the card of the board in the given position removing it from the board
+     * @param position indicates the position where the card is supposed to be
+     * @return return an optional of card
+     */
+    public Optional<CardType> pickCard(Position position) {
         if(this.board.containsKey(position) && validPick(position)) {
             ArrayList<Position> keyList = new ArrayList<>(this.board.keySet());
             Optional<CardType> rtn = Optional.empty();
