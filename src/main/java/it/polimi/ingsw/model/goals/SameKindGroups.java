@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import java.util.Optional;
 import java.util.function.Predicate;
 public class SameKindGroups implements Predicate<Bookshelf>{
-    // checks if there are at least min_groups of at least min_size
+    // checks if there are at least min_groups of at least min_size size
     private final int min_groups;
     private final int min_size;
 
@@ -67,8 +67,8 @@ public class SameKindGroups implements Predicate<Bookshelf>{
     public boolean test(Bookshelf bookshelf) {
         int count = 0;
         int nrows, ncols;
-        nrows = Bookshelf.getRows();
-        ncols = Bookshelf.getColumns();
+        nrows = bookshelf.getRows();
+        ncols = bookshelf.getColumns();
         boolean[][] visited = new boolean[nrows][ncols];
 
         for (int i = 0; i < nrows; i++) {

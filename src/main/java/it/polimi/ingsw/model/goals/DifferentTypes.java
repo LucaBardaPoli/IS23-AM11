@@ -15,7 +15,7 @@ public class DifferentTypes implements Predicate<Bookshelf> {
     private final int max_types;
     // the minimum numbers of counted rows/columns required for the goal to be fulfilled
     private final int min_num;
-    // CheckMode.HORIZONTAL is for rows and CheckMode.VERTICAL is for columns
+    // CheckMode.HORIZONTAL checks rows strategy and CheckMode.VERTICAL is checks columns strategy
     private final CheckMode mode;
 
     public DifferentTypes(int min_types, int max_types, int min_num, CheckMode mode) {
@@ -32,19 +32,26 @@ public class DifferentTypes implements Predicate<Bookshelf> {
         int i, j;
         int count_types = 0, count_rows = 0;
         Optional<CardType> cardType;
-        //
+        boolean fullRow;
         boolean[] typeFound = new boolean[ntypes];
 
         for(i = 0; i < nrows; i++){
             // at the start of each row no types have been found, yet
             Arrays.fill(typeFound, false);
-            for(j = 0; j < ncolumns; j++){
+            count_types = 0;
+            fullRow = true;
+            for(j = 0; j < ncolumns && fullRow; j++){
                 cardType = bookshelf.getCell(new Position(i, j));
-                if(cardType.isPresent() && !typeFound[cardType.get().ordinal()]){
-                    count_types++;
+                if(cardType.isPresent()) {
+                    if (!typeFound[cardType.get().ordinal()]) {
+                        count_types++;
+                        typeFound[cardType.get().ordinal()] = true;
+                    }
+                } else {
+                    fullRow = false;
                 }
             }
-            if(count_types >= min_types && count_types <= max_types){
+            if(fullRow && count_types >= min_types && count_types <= max_types){
                 count_rows++;
             }
         }
@@ -54,23 +61,30 @@ public class DifferentTypes implements Predicate<Bookshelf> {
 
     private boolean testColumns(Bookshelf bookshelf){
         int nrows = Bookshelf.getRows();
-        int ncolumns =Bookshelf.getColumns();
+        int ncolumns = Bookshelf.getColumns();
         int ntypes = CardType.values().length;
         int i, j;
         int count_types = 0, count_columns = 0;
         Optional<CardType> cardType;
-
+        boolean fullColumn;
         boolean[] typeFound = new boolean[ntypes];
 
         for(j = 0; j < ncolumns; j++){
             Arrays.fill(typeFound, false);
-            for(i = 0; i < nrows; i++){
+            count_types = 0;
+            fullColumn = true;
+            for(i = 0; i < nrows && fullColumn; i++){
                 cardType = bookshelf.getCell(new Position(i, j));
-                if(cardType.isPresent() && !typeFound[cardType.get().ordinal()]){
-                    count_types++;
+                if(cardType.isPresent()) {
+                    if (!typeFound[cardType.get().ordinal()]) {
+                        count_types++;
+                        typeFound[cardType.get().ordinal()] = true;
+                    }
+                } else {
+                    fullColumn = false;
                 }
             }
-            if(count_types >= min_types && count_types <= max_types){
+            if(fullColumn && count_types >= min_types && count_types <= max_types){
                 count_columns++;
             }
         }

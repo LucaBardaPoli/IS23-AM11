@@ -33,7 +33,7 @@ public class BookshelfTest extends TestCase{
 
     //checks the addCells method
     public void testApp1(){
-        bookshelf = new Bookshelf(6,5);
+        bookshelf = new Bookshelf();
         assertEquals(0, 6 - (int) bookshelf.getFreeCells(2));
         bookshelf.addCells(cardList,2);
         assertEquals(2, 6 - (int) bookshelf.getFreeCells(2));
@@ -41,7 +41,7 @@ public class BookshelfTest extends TestCase{
 
     //test for checking the getRow method
     public void testApp2(){
-        bookshelf = new Bookshelf(6,5);
+        bookshelf = new Bookshelf();
         cardList.clear();
         cardList.add(card1);
         cardList2.add(card2);
@@ -53,20 +53,20 @@ public class BookshelfTest extends TestCase{
 
     //test for checking the getFreeCells method
     public void testApp3(){
-        bookshelf = new Bookshelf(6,5);
+        bookshelf = new Bookshelf();
         assertTrue(bookshelf.getFreeCells() == 30);
     }
 
     //test for checking getFreeCells(Integer columnNumber)
     public void testApp4(){
-        bookshelf = new Bookshelf(6,5);
+        bookshelf = new Bookshelf();
         bookshelf.addCells(cardList,4);
         assertEquals(4,(int) bookshelf.getFreeCells(4));
     }
 
     //another test to check on the good functioning of the class
     public void testApp5(){
-        bookshelf = new Bookshelf(6,5);
+        bookshelf = new Bookshelf();
 
         bookshelf.addCells(Collections.singletonList(card1),0);
         bookshelf.addCells(Collections.singletonList(card2),1);
@@ -79,7 +79,7 @@ public class BookshelfTest extends TestCase{
 
     //checks that the addCell method doesn't add null to the bookshelf  but only Optional of CardType
     public void testApp6(){
-        bookshelf = new Bookshelf(6,5);
+        bookshelf = new Bookshelf();
         bookshelf.addCells(cardList3,0);
 
         assertEquals(1, bookshelf.getColumn(0).size());

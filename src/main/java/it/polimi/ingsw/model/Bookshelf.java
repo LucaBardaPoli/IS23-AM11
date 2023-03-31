@@ -36,10 +36,10 @@ public class Bookshelf {
      */
     public void addCells(List<CardType> cards, Integer column){
 
-        int k = getFreeCells(column); // k are the free cells of the considered column
-        int i = k - 1; // i scrolls through bookshelf rows
+        int freeCells = getFreeCells(column); // k are the free cells of the considered column
+        int i = freeCells - 1; // i scrolls through bookshelf rows from the bottom
 
-        if(k >= cards.size()){
+        if(freeCells >= cards.size()){
             for(CardType obtainedCard : cards){
                 bookshelf[i][column] = Optional.ofNullable(obtainedCard);
                 i--;
@@ -54,10 +54,11 @@ public class Bookshelf {
      * @return returns an Optional.empty() if the position contains no card, otherwise it returns the card
      */
     public Optional<CardType> getCell(Position position){
-        if (bookshelf[position.getRow()][position.getColumn()].isPresent()){
+        /*if (bookshelf[position.getRow()][position.getColumn()].isPresent()){
             return Optional.of(bookshelf[position.getRow()][position.getColumn()].get());
         }
-        else return Optional.empty();
+        else return Optional.empty();*/
+        return bookshelf[position.getRow()][position.getColumn()];
     }
 
     /**

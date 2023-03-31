@@ -9,9 +9,8 @@ import it.polimi.ingsw.model.Position;
 public class LadderGoal implements Predicate<Bookshelf> {
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Integer columns = Bookshelf.getColumns();
-        Integer rows = Bookshelf.getRows();
-        Position position = new Position();
+        Integer columns = bookshelf.getColumns();
+        Integer rows = bookshelf.getRows();
 
         int row_idx, col_idx;
 
@@ -20,16 +19,12 @@ public class LadderGoal implements Predicate<Bookshelf> {
             // from top to bottom
             for(row_idx = rows-1; row_idx >= rows-col_idx && row_idx >= 0; row_idx--){
                 // check the empty cells
-                position.setColumn(col_idx);
-                position.setRow(row_idx);
-                if(bookshelf.getCell(position).isPresent()){
+                if(bookshelf.getCell(new Position(row_idx, col_idx)).isPresent()){
                     return false;
                 }
             }
             // there must be a card below the empty cells
-            position.setColumn(col_idx);
-            position.setRow(row_idx);
-            if(!bookshelf.getCell(position).isPresent()){
+            if(bookshelf.getCell(new Position(row_idx, col_idx)).isEmpty()){
                 return false;
             }
         }
