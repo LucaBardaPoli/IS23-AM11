@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 public class CommonGoal {
     private final String name;
-    private Predicate<Bookshelf> predicate;
+    private final Predicate<Bookshelf> predicate;
 
     public CommonGoal(String name, Predicate<Bookshelf> predicate) {
         this.name = name;

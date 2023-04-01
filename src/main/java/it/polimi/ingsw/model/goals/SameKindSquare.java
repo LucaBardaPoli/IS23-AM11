@@ -34,17 +34,13 @@ public class SameKindSquare implements Predicate<Bookshelf> {
 
             card = bookshelf.getCell(new Position(startRow, startColumn + 1));
             if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
-                    return false;
-                }
+                return card.get().equals(currentType);
             } else {
                 return false;
             }
         } else {
             return false;
         }
-
-        return true;
     }
 
     public boolean test(Bookshelf bookshelf) {

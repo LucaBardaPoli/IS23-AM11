@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.Bookshelf;
 import it.polimi.ingsw.model.Position;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.List;
@@ -12,7 +13,7 @@ public class GivenPositionsGoal implements Predicate<Bookshelf> {
     private final List<Position> positions;
 
     public GivenPositionsGoal(List<Position> positions) {
-        this.positions = positions;
+        this.positions = new ArrayList<>(positions);
     }
 
     @Override
@@ -21,14 +22,14 @@ public class GivenPositionsGoal implements Predicate<Bookshelf> {
         CardType cardTypeReference, cardType;
 
         card = bookshelf.getCell(positions.get(0));
-        if(!card.isPresent()){
+        if(card.isEmpty()){
             return false;
         }
         cardTypeReference = card.get();
 
         for(Position position: positions){
             card = bookshelf.getCell(position);
-            if(!card.isPresent()){
+            if(card.isEmpty()){
                 return false;
             }
             cardType = card.get();
