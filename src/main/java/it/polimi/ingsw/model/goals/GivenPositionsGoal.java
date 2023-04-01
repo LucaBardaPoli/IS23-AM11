@@ -21,6 +21,11 @@ public class GivenPositionsGoal implements Predicate<Bookshelf> {
         Optional<CardType> card;
         CardType cardTypeReference, cardType;
 
+        // if there are no positions to check the goal is fulfilled for any board
+        if(positions.isEmpty()){
+            return  true;
+        }
+
         card = bookshelf.getCell(positions.get(0));
         if(card.isEmpty()){
             return false;
@@ -28,6 +33,7 @@ public class GivenPositionsGoal implements Predicate<Bookshelf> {
         cardTypeReference = card.get();
 
         for(Position position: positions){
+
             card = bookshelf.getCell(position);
             if(card.isEmpty()){
                 return false;
