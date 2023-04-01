@@ -8,7 +8,7 @@ public class Player {
     private final String nickname;
     private final PersonalGoal personalGoal;
     private final Game game;
-    private final Bookshelf bookshelf;
+    private Bookshelf bookshelf;
     private Integer personalGoalPoints;
     private Integer commonGoalPoints;
     private Integer adjacentPoints;
@@ -29,6 +29,10 @@ public class Player {
         this.adjacentPoints = 0;
         this.bookshelf = new Bookshelf();
         this.commonGoalFullfilled = new ArrayList<>(List.of(false, false));
+    }
+
+    public void setBookshelf(Bookshelf bookshelf){
+        this.bookshelf = bookshelf;
     }
 
     /**
@@ -52,7 +56,7 @@ public class Player {
      * @return Player's Bookshelf
      */
     public Bookshelf getBookshelf() {
-        return bookshelf;
+        return this.bookshelf;
     }
 
     /**
@@ -60,7 +64,7 @@ public class Player {
      * @return a Boolean that depends on the state of the library
      */
     private boolean isFullBookshelf(){
-        return this.bookshelf.getFreeCells() != 0;
+        return this.bookshelf.getFreeCells() == 0;
     }
 
     /**

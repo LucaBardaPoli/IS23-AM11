@@ -11,10 +11,13 @@ import java.util.function.Predicate;
 public class DifferentTypes implements Predicate<Bookshelf> {
     // the minimum numbers of different types that have to be on a row/column for it to be counted
     private final int min_types;
+
     // the maximum numbers of different types that have to be on a row/column for it to be counted
     private final int max_types;
+
     // the minimum numbers of counted rows/columns required for the goal to be fulfilled
     private final int min_num;
+
     // CheckMode.HORIZONTAL is for rows and CheckMode.VERTICAL is for columns
     private final CheckMode mode;
 

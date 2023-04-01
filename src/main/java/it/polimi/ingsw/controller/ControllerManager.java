@@ -433,19 +433,23 @@ public class ControllerManager {
         Predicate<Bookshelf> bookshelfPredicate;
 
         // Common Goal: DifferentGroupColumn Goal
+        bookshelfPredicate = new DifferentTypes(6,6,2, CheckMode.VERTICAL);
+        this.commonGoals.add(new CommonGoal("Different Group Column",  bookshelfPredicate));
 
         // Common Goal: DifferentGroupRow Goal
+        bookshelfPredicate = new DifferentTypes(5,5,2, CheckMode.HORIZONTAL);
+        this.commonGoals.add(new CommonGoal("Different Group Row",  bookshelfPredicate));
 
         // Common Goal: Ladder Goal
         bookshelfPredicate = new LadderGoal();
         this.commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
         // Common Goal : MaxDifferentColumn Goal
-        bookshelfPredicate = new MaxDifferentColumn();
+        bookshelfPredicate = new DifferentTypes(1,3,3, CheckMode.VERTICAL);
         this.commonGoals.add(new CommonGoal("Max Different Column",  bookshelfPredicate));
 
         // Common Goal: MaxDifferentRow Goal
-        bookshelfPredicate = new MaxDifferentRow();
+        bookshelfPredicate = new DifferentTypes(1,3,4, CheckMode.HORIZONTAL);
         this.commonGoals.add(new CommonGoal("Max Different Row",  bookshelfPredicate));
 
         // Common Goal: SameKindDiagonal Goal
