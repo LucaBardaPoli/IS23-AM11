@@ -479,9 +479,9 @@ public class ControllerManager {
         // Common Goal: Given Positions Goal
         List<Position> positionList = new ArrayList<>();
         positionList.add(new Position(0,0));
-        positionList.add(new Position(0,4));
-        positionList.add(new Position(5,0));
-        positionList.add(new Position(5,4));
+        positionList.add(new Position(0,Bookshelf.getColumns()-1));
+        positionList.add(new Position(Bookshelf.getRows()-1,0));
+        positionList.add(new Position(Bookshelf.getRows()-1,Bookshelf.getColumns()-1));
         bookshelfPredicate = new GivenPositionsGoal(positionList);
         this.commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
     }

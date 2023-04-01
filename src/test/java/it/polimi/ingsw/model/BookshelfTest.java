@@ -34,9 +34,9 @@ public class BookshelfTest extends TestCase{
     //checks the addCells method
     public void testApp1(){
         bookshelf = new Bookshelf();
-        assertEquals(0, 6 - (int) bookshelf.getFreeCells(2));
+        assertEquals(6, (int) bookshelf.getFreeCells(2));
         bookshelf.addCells(cardList,2);
-        assertEquals(2, 6 - (int) bookshelf.getFreeCells(2));
+        assertEquals(4, (int) bookshelf.getFreeCells(2));
     }
 
     //test for checking the getRow method
@@ -54,7 +54,7 @@ public class BookshelfTest extends TestCase{
     //test for checking the getFreeCells method
     public void testApp3(){
         bookshelf = new Bookshelf();
-        assertTrue(bookshelf.getFreeCells() == 30);
+        assertEquals(30, (int) bookshelf.getFreeCells());
     }
 
     //test for checking getFreeCells(Integer columnNumber)

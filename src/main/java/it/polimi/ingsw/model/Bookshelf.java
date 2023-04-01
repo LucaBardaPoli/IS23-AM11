@@ -58,7 +58,12 @@ public class Bookshelf {
             return Optional.of(bookshelf[position.getRow()][position.getColumn()].get());
         }
         else return Optional.empty();*/
-        return bookshelf[position.getRow()][position.getColumn()];
+        int row = position.getRow();
+        int column = position.getColumn();
+        if(row >= 0 && row < ROWS && column >= 0 && column < COLUMNS){
+            return bookshelf[position.getRow()][position.getColumn()];
+        }
+        return Optional.empty();
     }
 
     /**
