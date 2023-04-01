@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.GameControllerInterfaceModel;
 import it.polimi.ingsw.model.goals.CheckMode;
-import it.polimi.ingsw.model.goals.DifferentTypes;
+import it.polimi.ingsw.model.goals.DifferentTypesGoal;
 import it.polimi.ingsw.model.goals.LadderGoal;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -146,7 +146,7 @@ public class GameTest extends TestCase{
         Predicate<Bookshelf> bookshelfPredicate;
 
         // Common Goal: DifferentGroupColumn Goal
-        bookshelfPredicate = new DifferentTypes(6,6,2, CheckMode.VERTICAL);
+        bookshelfPredicate = new DifferentTypesGoal(6,6,2, CheckMode.VERTICAL);
         commonGoals.add(new CommonGoal("Different Group Column",  bookshelfPredicate));
 
         // Common Goal: Ladder Goal
@@ -283,7 +283,7 @@ public class GameTest extends TestCase{
         Predicate<Bookshelf> bookshelfPredicate;
 
         // Common Goal: DifferentGroupColumn Goal
-        bookshelfPredicate = new DifferentTypes(6,6,2, CheckMode.VERTICAL);
+        bookshelfPredicate = new DifferentTypesGoal(6,6,2, CheckMode.VERTICAL);
         commonGoals.add(new CommonGoal("Different Group Column",  bookshelfPredicate));
 
         // Common Goal: Ladder Goal
@@ -413,7 +413,7 @@ public class GameTest extends TestCase{
         Predicate<Bookshelf> bookshelfPredicate;
 
         // Common Goal: DifferentGroupColumn Goal
-        bookshelfPredicate = new DifferentTypes(6,6,2, CheckMode.VERTICAL);
+        bookshelfPredicate = new DifferentTypesGoal(6,6,2, CheckMode.VERTICAL);
         commonGoals.add(new CommonGoal("Different Group Column",  bookshelfPredicate));
 
         // Common Goal: Ladder Goal
@@ -543,7 +543,7 @@ public class GameTest extends TestCase{
         Predicate<Bookshelf> bookshelfPredicate;
 
         // Common Goal: DifferentGroupColumn Goal
-        bookshelfPredicate = new DifferentTypes(6,6,2, CheckMode.VERTICAL);
+        bookshelfPredicate = new DifferentTypesGoal(6,6,2, CheckMode.VERTICAL);
         commonGoals.add(new CommonGoal("Different Group Column",  bookshelfPredicate));
 
         // Common Goal: Ladder Goal
