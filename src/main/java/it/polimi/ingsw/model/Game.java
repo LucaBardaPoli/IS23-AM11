@@ -324,6 +324,7 @@ public class Game implements GameInterface {
             this.players.get(this.turn).insertCards(this.currentSelectedColumn, this.pickedCards);
             this.currentSelectedColumn = 0;
             this.pickedCards.clear();
+            this.pickedCardsPositions.clear();
             this.updatePoints();
         }
     }

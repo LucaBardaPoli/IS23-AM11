@@ -47,7 +47,7 @@ public interface GameInterface {
     /**
      * Checks if the given column can contain the picked cards
      * @param column column where to insert the picked cards
-     * @return the inserted cards only if the insertion is valid
+     * @return a boolean depending on whether the insertion is valid or not
      */
     public boolean confirmColumn(Integer column);
 

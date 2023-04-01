@@ -64,7 +64,7 @@ public class Bookshelf {
     /**
      * returns an ArrayList with all the cards contained in the column indicated in input
      * @param columnNumber indicates the column the cards must be taken from
-     * @return returns all of the cards that are present in the given column
+     * @return returns all the cards that are present in the given column
      */
     public ArrayList<Optional<CardType>> getColumn(Integer columnNumber){
 
@@ -85,7 +85,7 @@ public class Bookshelf {
     /**
      * returns an ArrayList with all the cards contained in the row indicated in input
      * @param rowNumber indicates the row the cards must be taken from
-     * @return returns all of the cards that are present in the given row
+     * @return returns all the cards that are present in the given row
      */
     public ArrayList<Optional<CardType>> getRow(Integer rowNumber){
         ArrayList<Optional<CardType>> cardRow = new ArrayList<>();
