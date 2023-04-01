@@ -12,7 +12,7 @@ public class Player {
     private Integer personalGoalPoints;
     private Integer commonGoalPoints;
     private Integer adjacentPoints;
-    private final  List<Boolean> commonGoalFullfilled;
+    private final  List<Boolean> commonGoalFulfilled;
 
     /**
      * Class Constructor
@@ -28,7 +28,7 @@ public class Player {
         this.commonGoalPoints = 0;
         this.adjacentPoints = 0;
         this.bookshelf = new Bookshelf();
-        this.commonGoalFullfilled = new ArrayList<>(List.of(false, false));
+        this.commonGoalFulfilled = new ArrayList<>(List.of(false, false));
     }
 
     public void setBookshelf(Bookshelf bookshelf){
@@ -99,7 +99,7 @@ public class Player {
     /**
      * Check the progress of a player's goals & adjacency and update their score based on this.
      * @param commonGoals List of common goals that should be completed
-     * @return a boolean depending on whether the player has or not filled his bookshelf
+     * @return  boolean depending on whether the player has or not filled his bookshelf
      */
     public boolean checkBookshelf(List<CommonGoal> commonGoals) {
         /* Checking Personal Goal Points */
@@ -108,10 +108,10 @@ public class Player {
 
         // Checking Common Goal Points
         for(int i = 0; i < 2; i++) {
-            if(!this.commonGoalFullfilled.get(i)) {
+            if(!this.commonGoalFulfilled.get(i)) {
                 if(commonGoals.get(i).checkGoal(this.bookshelf)) {
                     this.commonGoalPoints += this.game.winToken(i);
-                    this.commonGoalFullfilled.set(i, true);
+                    this.commonGoalFulfilled.set(i, true);
                 }
             }
         }
@@ -173,7 +173,7 @@ public class Player {
     /**
      Finds the Adjacent Cards present in the bookshelf
      @param bshelf is the bookshelf of the player
-     @param visited is a matrix of bool which takes into account whether  a Card has been visited or not
+     @param visited is a matrix of bool which takes into account whether a Card has been visited or not
      @param row is the index of the row of the card that should be checked
      @param column is the index of the column of the Card that should be checked
      @param type is the type of the card that should be checked
@@ -197,13 +197,26 @@ public class Player {
         int groupSize = 1;
 
 
-        // Visit locations adjacent to the position provided - ( it doesn't check for the diagonal e.g. row +-1, column +-1 && row+-1, column -+ 1)
+        // Visit locations adjacent to the position provided -
+        // (it doesn't check for the diagonal e.g. row +-1, column +-1 && row+-1, column -+ 1)
         groupSize += findAdjacentGroupCards(bshelf, visited, row - 1, column, type);
         groupSize += findAdjacentGroupCards(bshelf, visited, row + 1, column, type);
         groupSize += findAdjacentGroupCards(bshelf, visited, row, column - 1, type);
         groupSize += findAdjacentGroupCards(bshelf, visited, row, column + 1, type);
 
         return groupSize;
+    }
+
+    public Integer getPersonalGoalPoints() {
+        return personalGoalPoints;
+    }
+
+    public Integer getCommonGoalPoints() {
+        return commonGoalPoints;
+    }
+
+    public Integer getAdjacentPoints() {
+        return adjacentPoints;
     }
 }
 
