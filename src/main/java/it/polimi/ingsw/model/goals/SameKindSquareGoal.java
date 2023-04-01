@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SameKindSquare implements Predicate<Bookshelf> {
+public class SameKindSquareGoal implements Predicate<Bookshelf> {
     private boolean checkSquare(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Optional<CardType> card;
         CardType currentType;
@@ -33,11 +33,7 @@ public class SameKindSquare implements Predicate<Bookshelf> {
             }
 
             card = bookshelf.getCell(new Position(startRow, startColumn + 1));
-            if (card.isPresent()) {
-                return card.get().equals(currentType);
-            } else {
-                return false;
-            }
+            return card.map(cardType -> cardType.equals(currentType)).orElse(false);
         } else {
             return false;
         }

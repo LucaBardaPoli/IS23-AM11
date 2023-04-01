@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class DifferentTypes implements Predicate<Bookshelf> {
+public class DifferentTypesGoal implements Predicate<Bookshelf> {
     // the minimum numbers of different types that have to be on a row/column for it to be counted
     private final int min_types;
     // the maximum numbers of different types that have to be on a row/column for it to be counted
@@ -18,7 +18,7 @@ public class DifferentTypes implements Predicate<Bookshelf> {
     // CheckMode.HORIZONTAL checks rows strategy and CheckMode.VERTICAL is checks columns strategy
     private final CheckMode mode;
 
-    public DifferentTypes(int min_types, int max_types, int min_num, CheckMode mode) {
+    public DifferentTypesGoal(int min_types, int max_types, int min_num, CheckMode mode) {
         this.min_types = min_types;
         this.max_types = max_types;
         this.min_num = min_num;

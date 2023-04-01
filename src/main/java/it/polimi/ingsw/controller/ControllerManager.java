@@ -432,47 +432,51 @@ public class ControllerManager {
 
         Predicate<Bookshelf> bookshelfPredicate;
 
-        // Common Goal: DifferentGroupColumn Goal
-
-        // Common Goal: DifferentGroupRow Goal
-
         // Common Goal: Ladder Goal
         bookshelfPredicate = new LadderGoal();
         this.commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
-        // Common Goal : MaxDifferentColumn Goal
-        bookshelfPredicate = new MaxDifferentColumn();
-        this.commonGoals.add(new CommonGoal("Max Different Column",  bookshelfPredicate));
+        // Common Goal : Lots Different Columns Goal
+        bookshelfPredicate = new DifferentTypesGoal(6, Bookshelf.getRows(), 2, CheckMode.VERTICAL);
+        this.commonGoals.add(new CommonGoal("Lots Different Columns",  bookshelfPredicate));
 
-        // Common Goal: MaxDifferentRow Goal
-        bookshelfPredicate = new MaxDifferentRow();
-        this.commonGoals.add(new CommonGoal("Max Different Row",  bookshelfPredicate));
+        // Common Goal: Lots Different Rows Goal
+        bookshelfPredicate = new DifferentTypesGoal(5, Bookshelf.getColumns(), 2, CheckMode.HORIZONTAL);
+        this.commonGoals.add(new CommonGoal("Lots Different Rows",  bookshelfPredicate));
 
-        // Common Goal: SameKindDiagonal Goal
-        bookshelfPredicate = new SameKindDiagonal();
+        // Common Goal : Few Different Columns Goal
+        bookshelfPredicate = new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL);
+        this.commonGoals.add(new CommonGoal("Few Different Columns",  bookshelfPredicate));
+
+        // Common Goal: Few Different Rows Goal
+        bookshelfPredicate = new DifferentTypesGoal(1, 3, 4, CheckMode.HORIZONTAL);
+        this.commonGoals.add(new CommonGoal("Few Different Rows",  bookshelfPredicate));
+
+        // Common Goal: Same Kind Diagonal Goal
+        bookshelfPredicate = new SameKindDiagonalGoal();
         this.commonGoals.add(new CommonGoal("Same Kind Diagonal",  bookshelfPredicate));
 
-        // Common Goal: SameKindGroups Goal
-        bookshelfPredicate = new SameKindGroups(6, 2);
+        // Common Goal: Same Kind Groups Goal
+        bookshelfPredicate = new SameKindGroupsGoal(6, 2);
         this.commonGoals.add(new CommonGoal("Same Kind Groups (6 groups of 2 tails each)",  bookshelfPredicate));
 
-        // Common Goal: SameKindGroups Goal
-        bookshelfPredicate = new SameKindGroups(4, 4);
+        // Common Goal: Same Kind Groups Goal
+        bookshelfPredicate = new SameKindGroupsGoal(4, 4);
         this.commonGoals.add(new CommonGoal("Same Kind Groups (4 groups of 4 tails each)",  bookshelfPredicate));
 
-        // Common Goal: SameKindN Goal
-        bookshelfPredicate = new SameKindN(8);
+        // Common Goal: Same Kind N Goal
+        bookshelfPredicate = new SameKindNGoal(8);
         this.commonGoals.add(new CommonGoal("Same Kind N",  bookshelfPredicate));
 
-        // Common Goal: SameKindSquare Goal
-        bookshelfPredicate = new SameKindSquare();
+        // Common Goal: Same Kind Square Goal
+        bookshelfPredicate = new SameKindSquareGoal();
         this.commonGoals.add(new CommonGoal("Same Kind Square",  bookshelfPredicate));
 
-        // Common Goal: SameKindX Goal
-        bookshelfPredicate = new SameKindX();
+        // Common Goal: Same Kind X Goal
+        bookshelfPredicate = new SameKindXGoal();
         this.commonGoals.add(new CommonGoal("Same Kind X",  bookshelfPredicate));
 
-        // Common Goal: GivenPositions Goal
+        // Common Goal: Given Positions Goal
         List<Position> positionList = new ArrayList<>();
         positionList.add(new Position(0,0));
         positionList.add(new Position(0,4));

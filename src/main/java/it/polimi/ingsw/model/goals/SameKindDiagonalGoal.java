@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SameKindDiagonal implements Predicate<Bookshelf> {
+public class SameKindDiagonalGoal implements Predicate<Bookshelf> {
 
     private boolean checkDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Integer limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());

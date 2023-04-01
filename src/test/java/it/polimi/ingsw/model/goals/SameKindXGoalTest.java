@@ -10,16 +10,16 @@ import java.util.List;
 /**
  * Testing of SameKindX class (common goal)
  */
-public class SameKindXTest extends TestCase {
+public class SameKindXGoalTest extends TestCase {
     CommonGoal goal;
 
     /**
      * Create the test case
      * @param testName name of the test case
      */
-    public SameKindXTest( String testName ) {
+    public SameKindXGoalTest(String testName ) {
         super( testName );
-        this.goal = new CommonGoal("", new SameKindX());
+        this.goal = new CommonGoal("", new SameKindXGoal());
     }
 
     /**
@@ -27,7 +27,7 @@ public class SameKindXTest extends TestCase {
      */
     public static Test suite()
     {
-        return new TestSuite( SameKindXTest.class );
+        return new TestSuite( SameKindXGoalTest.class );
     }
 
     /**

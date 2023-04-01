@@ -9,23 +9,23 @@ import java.util.List;
 /**
  * Testing of SameKindDiagonal class (common goal)
  */
-public class SameKindDiagonalTest extends TestCase {
+public class SameKindDiagonalGoalTest extends TestCase {
     CommonGoal goal;
 
     /**
      * Create the test case
      * @param testName name of the test case
      */
-    public SameKindDiagonalTest( String testName ) {
+    public SameKindDiagonalGoalTest(String testName ) {
         super( testName );
-        this.goal = new CommonGoal("", new SameKindDiagonal());
+        this.goal = new CommonGoal("", new SameKindDiagonalGoal());
     }
 
     /**
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite( SameKindDiagonalTest.class );
+        return new TestSuite( SameKindDiagonalGoalTest.class );
     }
 
     /**

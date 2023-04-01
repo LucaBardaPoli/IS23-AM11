@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SameKindX implements Predicate<Bookshelf> {
+public class SameKindXGoal implements Predicate<Bookshelf> {
     private boolean checkX(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Optional<CardType> card;
         CardType currentType;

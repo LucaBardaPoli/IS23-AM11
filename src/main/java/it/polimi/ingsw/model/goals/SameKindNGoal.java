@@ -3,16 +3,14 @@ package it.polimi.ingsw.model.goals;
 import it.polimi.ingsw.model.*;
 
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SameKindN implements Predicate<Bookshelf> {
+public class SameKindNGoal implements Predicate<Bookshelf> {
     private final int n;
     private final int[] count_types;
 
-    public SameKindN(int n) {
+    public SameKindNGoal(int n) {
         this.n = n;
         count_types = new int[CardType.values().length];
         // initialize the counters
