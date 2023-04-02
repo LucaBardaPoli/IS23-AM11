@@ -75,7 +75,7 @@ public class ControllerManager {
      * Creates a new controller that handles the evolution of the new game
      * @param players list containing the names of the players who will play the game
      */
-    private void addGame(List<String> players){
+    private void addGame(List<String> players) {
         Collections.shuffle(personalGoals);
         Collections.shuffle(commonGoals);
 

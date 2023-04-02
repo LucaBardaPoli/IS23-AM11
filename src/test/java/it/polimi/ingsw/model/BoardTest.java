@@ -43,6 +43,67 @@ public class BoardTest extends TestCase {
     }
 
     /**
+     * Tests fill process of the board
+     */
+    public void testRefillBoard() {
+        this.board = new Board(2);
+        this.countCards = new CountCards();
+        this.board.fillBoard(countCards);
+
+        // Picks up a lot of cards until there is no valid pick
+        assert(board.pickCard(new Position(1,0)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(2,0)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(2,1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(3,-1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(3,0)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(3,1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(3,2)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(3,3)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(4,-2)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(4,-1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(4,0)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(4,4)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(4,3)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(4,2)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(5,-2)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(5,-1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(5,0)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(5,1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(5,2)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(6,2)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(6,1)).isPresent());
+        assert(!this.board.hasToBeRefilled());
+        assert(board.pickCard(new Position(7,2)).isPresent());
+
+        // Checks that there is no valid pick on the board, so it has to be refilled
+        assert(this.board.hasToBeRefilled());
+        this.board.fillBoard(countCards);
+
+        // Checks that the board is now full
+        assert(!this.board.hasToBeRefilled());
+    }
+
+    /**
      * Tests getCard method
      */
     public void testGetCard() {

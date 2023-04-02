@@ -64,6 +64,13 @@ public interface GameInterface {
     public void confirmOrderSelectedCards();
 
     /**
+     * Returns the current points of a given player
+     * @param player player's nickname
+     * @return player's points if he exists
+     */
+    public Optional<Integer> getPlayerPoints(String player);
+
+    /**
      * Checks if a given nickname is already taken
      * @param nickname nickname
      * @return true if exists a player with the given nickname

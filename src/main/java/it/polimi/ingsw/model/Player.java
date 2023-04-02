@@ -12,6 +12,7 @@ public class Player {
     private Integer personalGoalPoints;
     private Integer commonGoalPoints;
     private Integer adjacentPoints;
+    private boolean endGamePoint;
     private final  List<Boolean> commonGoalFulfilled;
 
     /**
@@ -27,6 +28,7 @@ public class Player {
         this.personalGoalPoints = 0;
         this.commonGoalPoints = 0;
         this.adjacentPoints = 0;
+        this.endGamePoint = false;
         this.bookshelf = new Bookshelf();
         this.commonGoalFulfilled = new ArrayList<>(List.of(false, false));
     }
@@ -86,17 +88,6 @@ public class Player {
     }
 
     /**
-     * Check the Player's Personal Goal
-     * @return the score based on the completion status of your goal
-     */
-    private Optional<Integer> checkPersonalGoal(){
-        Integer calculatedPoints = this.personalGoal.checkGoal(this.bookshelf);
-
-        if(calculatedPoints == 0) return Optional.empty();
-        else return Optional.of(calculatedPoints);
-    }
-
-    /**
      * Check the progress of a player's goals & adjacency and update their score based on this.
      * @param commonGoals List of common goals that should be completed
      * @return  boolean depending on whether the player has or not filled his bookshelf
@@ -107,7 +98,7 @@ public class Player {
         points.ifPresent(integer -> this.personalGoalPoints = integer);
 
         // Checking Common Goal Points
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < commonGoals.size(); i++) {
             if(!this.commonGoalFulfilled.get(i)) {
                 if(commonGoals.get(i).checkGoal(this.bookshelf)) {
                     this.commonGoalPoints += this.game.winToken(i);
@@ -115,13 +106,16 @@ public class Player {
                 }
             }
         }
+
         // Checking Adjacency
         this.adjacentPoints = checkAdjacency(this.bookshelf);
 
-
         // Checking if Bookshelf is full
-        return this.isFullBookshelf();
-
+        if(this.isFullBookshelf()) {
+            this.endGamePoint = true;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -129,7 +123,11 @@ public class Player {
      * @return points scored by the player (based on Common, Personal Goals and on the Adjacency)
      */
     public Integer getPoints() {
-        return this.adjacentPoints + this.commonGoalPoints + this.personalGoalPoints;
+        Integer points = 0;
+        if(this.endGamePoint) {
+            points += 1;
+        }
+        return points + this.adjacentPoints + this.commonGoalPoints + this.personalGoalPoints;
     }
 
     /**

@@ -68,8 +68,8 @@ public class Game implements GameInterface {
             tmpTokens.add(new Token(4));
             tmpTokens.add(new Token(2));
         }
-        this.tokens.add(tmpTokens);
-        this.tokens.add(tmpTokens);
+        this.tokens.add(new ArrayList<Token>(tmpTokens));
+        this.tokens.add(new ArrayList<Token>(tmpTokens));
     }
 
     /**
@@ -359,6 +359,20 @@ public class Game implements GameInterface {
                 this.gameController.endGame();
             }
         }
+    }
+
+    /**
+     * Returns the current points of a given player
+     * @param player player's nickname
+     * @return player's points if he exists
+     */
+    public Optional<Integer> getPlayerPoints(String player) {
+        for(Player p : this.players) {
+            if(p.getNickname().equals(player)) {
+                return Optional.of(p.getPoints());
+            }
+        }
+        return Optional.empty();
     }
 
     /**
