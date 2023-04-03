@@ -5,6 +5,7 @@ import junit.framework.TestSuite;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class BookshelfTest extends TestCase{
 
@@ -83,6 +84,13 @@ public class BookshelfTest extends TestCase{
         bookshelf.addCells(cardList3,0);
 
         assertEquals(1, bookshelf.getColumn(0).size());
+    }
+
+    //checks the behavior of getCell when it gets a negative position
+    public void testApp7(){
+        bookshelf = new Bookshelf();
+        Position negativePosition = new Position(-1,-1);
+        assertEquals(bookshelf.getCell(negativePosition), Optional.empty());
     }
 
     public static Test suite()

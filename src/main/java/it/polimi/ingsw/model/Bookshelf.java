@@ -54,10 +54,6 @@ public class Bookshelf {
      * @return returns an Optional.empty() if the position contains no card, otherwise it returns the card
      */
     public Optional<CardType> getCell(Position position){
-        /*if (bookshelf[position.getRow()][position.getColumn()].isPresent()){
-            return Optional.of(bookshelf[position.getRow()][position.getColumn()].get());
-        }
-        else return Optional.empty();*/
         int row = position.getRow();
         int column = position.getColumn();
         if(row >= 0 && row < ROWS && column >= 0 && column < COLUMNS){
