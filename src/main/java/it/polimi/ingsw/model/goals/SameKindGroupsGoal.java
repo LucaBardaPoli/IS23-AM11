@@ -15,12 +15,8 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
     }
 
     private int floodFill(Bookshelf bookshelf, boolean[][] visited, int i, int j) {
-        int nrows, ncols;
 
-        nrows = Bookshelf.getRows();
-        ncols = Bookshelf.getColumns();
-
-        if (i < 0 || i >= nrows || j < 0 || j >= ncols) {
+        if (i < 0 || i >= Bookshelf.getRows() || j < 0 || j >= Bookshelf.getColumns()) {
             return 0;
         }
 
