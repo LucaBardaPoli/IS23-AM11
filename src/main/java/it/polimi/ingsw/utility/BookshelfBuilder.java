@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.CardType;
 import java.util.List;
 import java.util.Random;
 
-public class BookshelfBuilder {
+public class BookshelfBuilder{
     public static Bookshelf randomFullBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
         Random rand = new Random();
