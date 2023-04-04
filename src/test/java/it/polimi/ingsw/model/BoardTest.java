@@ -1,29 +1,21 @@
 package it.polimi.ingsw.model;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+
 import java.util.Optional;
 
 /**
  * Testing of Board class
  */
-public class BoardTest extends TestCase {
+public class BoardTest {
 
-    Board board;
-    CountCards countCards;
-
-    public BoardTest( String testName ) {
-        super( testName );
-    }
-
-    public static Test suite() {
-        return new TestSuite( BoardTest.class );
-    }
+    private Board board;
+    private CountCards countCards;
 
     /**
      * Tests fill process of the board
      */
+    @Test
     public void testFillBoard() {
         this.countCards = new CountCards();
         this.board = new Board(3, countCards);
@@ -45,6 +37,7 @@ public class BoardTest extends TestCase {
     /**
      * Tests fill process of the board
      */
+    @Test
     public void testRefillBoard() {
         this.countCards = new CountCards();
         this.board = new Board(2, countCards);
@@ -106,6 +99,7 @@ public class BoardTest extends TestCase {
     /**
      * Tests getCard method
      */
+    @Test
     public void testGetCard() {
         this.countCards = new CountCards();
         this.board = new Board(3, countCards);
@@ -120,6 +114,7 @@ public class BoardTest extends TestCase {
     /**
      * Tests validPick method
      */
+    @Test
     public void testValidPick() {
         this.countCards = new CountCards();
         this.board = new Board(2, countCards);
@@ -142,6 +137,7 @@ public class BoardTest extends TestCase {
     /**
      * Tests validBoard method
      */
+    @Test
     public void testValidBoard() {
         this.countCards = new CountCards();
         this.board = new Board(2, countCards);

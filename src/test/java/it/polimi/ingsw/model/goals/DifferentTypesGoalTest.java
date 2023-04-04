@@ -1,25 +1,18 @@
 package it.polimi.ingsw.model.goals;
 
-import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.CommonGoal;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.BookshelfBuilder;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Random;
 
-public class DifferentTypesGoalTest extends TestCase {
-    public DifferentTypesGoalTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public static Test suite() {
-        return new TestSuite( DifferentTypesGoalTest.class );
-    }
+public class DifferentTypesGoalTest {
 
+    @Test
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
 
@@ -34,6 +27,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertFalse(lotsDifferentRows.checkGoal(bookshelf));
     }
 
+    @Test
     public void testFewDifferentColumns(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal fewDifferentColumns = new CommonGoal("3 full columns with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL));
@@ -55,6 +49,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(fewDifferentColumns.checkGoal(bookshelf));
     }
 
+    @Test
     public void testFewDifferentRows(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal fewDifferentRows = new CommonGoal("3 full rows with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.HORIZONTAL));
@@ -77,6 +72,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(fewDifferentRows.checkGoal(bookshelf));
     }
 
+    @Test
     public void testLotsDifferentColumns(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal lotsDifferentColumns = new CommonGoal("2 columns with min 6 different types", new DifferentTypesGoal(6, Bookshelf.getRows(), 2, CheckMode.VERTICAL));
@@ -102,6 +98,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(lotsDifferentColumns.checkGoal(bookshelf));
     }
 
+    @Test
     public void testLotsDifferentRows(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal lotsDifferentRows = new CommonGoal("2 rows with min 5 different types", new DifferentTypesGoal(5, Bookshelf.getColumns(), 2, CheckMode.HORIZONTAL));
@@ -124,6 +121,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(lotsDifferentRows.checkGoal(bookshelf));
     }
 
+    @Test
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain number of minimum types it should not be fulfilled for any other greater number of minimun types
@@ -170,6 +168,7 @@ public class DifferentTypesGoalTest extends TestCase {
         }
     }
 
+    @Test
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain number of maximum types it should not be fulfilled for any other lower number of maximum types
@@ -216,6 +215,7 @@ public class DifferentTypesGoalTest extends TestCase {
         }
     }
 
+    @Test
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain number of minimum rows/columns it should not be fulfilled for any other greater number of minimum rows/columns

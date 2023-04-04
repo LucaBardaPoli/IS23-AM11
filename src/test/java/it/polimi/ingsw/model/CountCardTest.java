@@ -1,18 +1,15 @@
 package it.polimi.ingsw.model;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 
 /**
  * Testing of CountCards class
  */
-public class CountCardTest extends TestCase {
-    CountCards count;
-    Board board;
+public class CountCardTest {
+    private CountCards count;
+    private Board board;
 
-    public CountCardTest( String testName ) {
-        super( testName );
+    public CountCardTest() {
         this.count = new CountCards();
         this.board = new Board(4, count);
     }
@@ -20,6 +17,7 @@ public class CountCardTest extends TestCase {
     /**
      * Tests the correct pick (randomly) of a card from the bag
      */
+    @Test
     public void testCardCreation() {
         for(int i = 0 ; i < 100; i++) {
             count.pickCard();
@@ -31,13 +29,6 @@ public class CountCardTest extends TestCase {
         System.out.println("Count YELLOW: " + count.getCountCardType().get(CardType.YELLOW));
         System.out.println("Count PINK: " + count.getCountCardType().get(CardType.PINK));
         System.out.println("Count WHITE: " + count.getCountCardType().get(CardType.WHITE));
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite( CountCardTest.class );
     }
 }
 

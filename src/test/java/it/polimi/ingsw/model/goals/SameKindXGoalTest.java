@@ -1,38 +1,26 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.*;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Test;
 import java.util.List;
 
 /**
  * Testing of SameKindX class (common goal)
  */
-public class SameKindXGoalTest extends TestCase {
-    CommonGoal goal;
+public class SameKindXGoalTest {
+    private CommonGoal goal;
 
     /**
      * Create the test case
-     * @param testName name of the test case
      */
-    public SameKindXGoalTest(String testName ) {
-        super( testName );
+    public SameKindXGoalTest() {
         this.goal = new CommonGoal("", new SameKindXGoal());
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( SameKindXGoalTest.class );
     }
 
     /**
      * Test to detect a group of cards shaped as an X in a corner of the bookshelf
      */
+    @Test
     public void testDetectXInACorner() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -45,6 +33,7 @@ public class SameKindXGoalTest extends TestCase {
     /**
      * Test to detect a group of cards shaped as an X in the middle of the bookshelf
      */
+    @Test
     public void testDetectXInTheMiddle() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -60,6 +49,7 @@ public class SameKindXGoalTest extends TestCase {
     /**
      * Test to check if detects a group of cards almost shaped as an X (except for a corner)
      */
+    @Test
     public void testDetectWrongShape() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));

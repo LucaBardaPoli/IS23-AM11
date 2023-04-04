@@ -1,19 +1,14 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.goals.*;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 
 import java.util.*;
 import java.util.function.Predicate;
+import static org.junit.Assert.*;
 
-public class PlayerTest extends TestCase{
-  Game game2;
-  public static Test suite()
-  {
-    return new TestSuite( PlayerTest.class );
-  }
+public class PlayerTest {
+  private Game game2;
 
   private Game InitializeGames2(){
     //Game ID & List of Players
@@ -143,6 +138,7 @@ public class PlayerTest extends TestCase{
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new CountCards());
   }
+
   private Game InitializeGames2DiffGoals(){
     //Game ID & List of Players
     Integer gameId = 0;
@@ -452,11 +448,8 @@ public class PlayerTest extends TestCase{
     //game2.getBoard().fillBoard(new CountCards());
   }
 
-  public PlayerTest( String testName ) {
-    super( testName );
-  }
-
   //checks the addCells method
+  @Test
   public void testValidAdjacency1(){
     this.game2 = InitializeGames2();
 
@@ -526,6 +519,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency2(){
     this.game2 = InitializeGames2();
 
@@ -593,6 +587,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency3(){
 
     this.game2 = InitializeGames2();
@@ -668,6 +663,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency4(){
 
     this.game2 = InitializeGames2();
@@ -743,6 +739,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency5(){
 
     this.game2 = InitializeGames2();
@@ -788,6 +785,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency6(){
 
     this.game2 = InitializeGames2();
@@ -833,6 +831,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency7(){
 
     this.game2 = InitializeGames2();
@@ -882,6 +881,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency8(){
 
     this.game2 = InitializeGames2();
@@ -931,6 +931,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency9(){
 
     this.game2 = InitializeGames2();
@@ -996,6 +997,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testValidAdjacency10(){
 
     this.game2 = InitializeGames2();
@@ -1055,6 +1057,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testEmptyAdjacency(){
 
     this.game2 = InitializeGames2();
@@ -1076,6 +1079,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testCheckBookshelf1(){
     this.game2 = InitializeGames2DiffGoals();
 
@@ -1155,6 +1159,7 @@ public class PlayerTest extends TestCase{
 
   }
 
+  @Test
   public void testCheckBookshelf2(){
     this.game2 = InitializeGames2DiffGoals2();
 
@@ -1218,6 +1223,4 @@ public class PlayerTest extends TestCase{
     assertEquals(currentPlayer.getPoints() , scoreCheckBookshelf);
 
   }
-
-
 }

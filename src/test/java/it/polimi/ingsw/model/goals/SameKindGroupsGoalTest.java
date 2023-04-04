@@ -1,28 +1,19 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.BookshelfTest;
 import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.CommonGoal;
 import it.polimi.ingsw.utility.BookshelfBuilder;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 
-import java.awt.print.Book;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
-public class SameKindGroupsGoalTest extends TestCase {
-    public SameKindGroupsGoalTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public static Test suite() {
-        return new TestSuite( SameKindGroupsGoalTest.class );
-    }
-
+public class SameKindGroupsGoalTest {
+    @Test
     /**
      * tests an empty bookshelf
      */
@@ -55,6 +46,7 @@ public class SameKindGroupsGoalTest extends TestCase {
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
+    @Test
     /**
      * tests detection of small groups (1-3 tiles)
      * */
@@ -111,6 +103,7 @@ public class SameKindGroupsGoalTest extends TestCase {
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
+    @Test
     /**
      * tests detection of big groups (4-7 tiles)
      */
@@ -155,6 +148,7 @@ public class SameKindGroupsGoalTest extends TestCase {
         assertTrue(sameKindGroups.checkGoal(bookshelf));
     }
 
+    @Test
     /**
      * tests a full bookshelf
      */
@@ -209,6 +203,7 @@ public class SameKindGroupsGoalTest extends TestCase {
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
+    @Test
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain number of minimum groups it should not be fulfilled for any other greater number of minimun groups
@@ -243,6 +238,7 @@ public class SameKindGroupsGoalTest extends TestCase {
         }
     }
 
+    @Test
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain value of minimum size it should not be fulfilled for any other greater value of minimun size
@@ -276,6 +272,4 @@ public class SameKindGroupsGoalTest extends TestCase {
             }
         }
     }
-
-
 }
