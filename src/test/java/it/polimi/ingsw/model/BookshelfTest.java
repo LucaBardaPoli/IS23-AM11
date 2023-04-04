@@ -33,7 +33,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //checks the addCells method
-    public void testApp1(){
+    public void testAddCells(){
         bookshelf = new Bookshelf();
         assertEquals(6, (int) bookshelf.getFreeCells(2));
         bookshelf.addCells(cardList,2);
@@ -41,7 +41,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //test for checking the getRow method
-    public void testApp2(){
+    public void testGetRow(){
         bookshelf = new Bookshelf();
         cardList.clear();
         cardList.add(card1);
@@ -53,20 +53,20 @@ public class BookshelfTest extends TestCase{
     }
 
     //test for checking the getFreeCells method
-    public void testApp3(){
+    public void testGetFreeCells(){
         bookshelf = new Bookshelf();
         assertEquals(30, (int) bookshelf.getFreeCells());
     }
 
     //test for checking getFreeCells(Integer columnNumber)
-    public void testApp4(){
+    public void testGetFreeCells2(){
         bookshelf = new Bookshelf();
         bookshelf.addCells(cardList,4);
         assertEquals(4,(int) bookshelf.getFreeCells(4));
     }
 
     //another test to check on the good functioning of the class
-    public void testApp5(){
+    public void testBoardSize(){
         bookshelf = new Bookshelf();
 
         bookshelf.addCells(Collections.singletonList(card1),0);
@@ -79,7 +79,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //checks that the addCell method doesn't add null to the bookshelf  but only Optional of CardType
-    public void testApp6(){
+    public void testAddCell2(){
         bookshelf = new Bookshelf();
         bookshelf.addCells(cardList3,0);
 
@@ -87,7 +87,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //checks the behavior of getCell when it gets a negative position
-    public void testApp7(){
+    public void testAddCell3(){
         bookshelf = new Bookshelf();
         Position negativePosition = new Position(-1,-1);
         assertEquals(bookshelf.getCell(negativePosition), Optional.empty());
