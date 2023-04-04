@@ -3,10 +3,10 @@ package it.polimi.ingsw.model;
 import java.util.Optional;
 
 public enum CardType {
-    GREEN,
-    WHITE,
-    YELLOW,
     BLUE,
+    GREEN,
     LBLUE,
-    PINK;
+    PINK,
+    WHITE,
+    YELLOW;
 }

@@ -15,12 +15,8 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
     }
 
     private int floodFill(Bookshelf bookshelf, boolean[][] visited, int i, int j) {
-        int nrows, ncols;
 
-        nrows = Bookshelf.getRows();
-        ncols = Bookshelf.getColumns();
-
-        if (i < 0 || i >= nrows || j < 0 || j >= ncols) {
+        if (i < 0 || i >= Bookshelf.getRows() || j < 0 || j >= Bookshelf.getColumns()) {
             return 0;
         }
 
@@ -66,7 +62,7 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
     @Override
     public boolean test(Bookshelf bookshelf) {
         int count = 0;
-        int nrows, ncols;
+        int nrows, ncols, groupSize;
         nrows = Bookshelf.getRows();
         ncols = Bookshelf.getColumns();
         boolean[][] visited = new boolean[nrows][ncols];
@@ -74,7 +70,7 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
         for (int i = 0; i < nrows; i++) {
             for (int j = 0; j < ncols; j++) {
                 if (!visited[i][j]) {
-                    int groupSize = floodFill(bookshelf, visited, i, j);
+                    groupSize = floodFill(bookshelf, visited, i, j);
                     if (groupSize >= min_size) {
                         count++;
                     }
