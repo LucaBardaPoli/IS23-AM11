@@ -1,25 +1,17 @@
 package it.polimi.ingsw.model.goals;
 
-import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.CommonGoal;
-import it.polimi.ingsw.model.Position;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import it.polimi.ingsw.model.*;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GivenPositionsGoalTest extends TestCase {
-    public GivenPositionsGoalTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public static Test suite() {
-        return new TestSuite( GivenPositionsGoalTest.class );
-    }
+public class GivenPositionsGoalTest {
 
+    @Test
     public void testNoPositions(){
         Bookshelf bookshelf = new Bookshelf();
         List<Position> positions = new ArrayList<>();
@@ -35,6 +27,7 @@ public class GivenPositionsGoalTest extends TestCase {
         assertTrue(givenPositions.checkGoal(bookshelf));
     }
 
+    @Test
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
         List<Position> positions = new ArrayList<>();
@@ -52,6 +45,7 @@ public class GivenPositionsGoalTest extends TestCase {
         assertFalse(givenPositions.checkGoal(bookshelf));
     }
 
+    @Test
     public void test1Position(){
         Bookshelf bookshelf = new Bookshelf();
         List<Position> positions = new ArrayList<>();
@@ -76,6 +70,7 @@ public class GivenPositionsGoalTest extends TestCase {
         assertTrue(givenPositions.checkGoal(bookshelf));
     }
 
+    @Test
     public void test2Position(){
         Bookshelf bookshelf = new Bookshelf();
         List<Position> positions = new ArrayList<>();
@@ -99,5 +94,4 @@ public class GivenPositionsGoalTest extends TestCase {
         // adds YELLOW and not GREEN to position (1, 2)
         assertFalse(givenPositions.checkGoal(bookshelf));
     }
-
 }

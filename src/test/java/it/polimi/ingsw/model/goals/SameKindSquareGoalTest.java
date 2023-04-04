@@ -1,38 +1,27 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.*;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 
 import java.util.List;
 
 /**
  * Testing of SameKindSquare class (common goal)
  */
-public class SameKindSquareGoalTest extends TestCase {
-    CommonGoal goal;
+public class SameKindSquareGoalTest {
+    private CommonGoal goal;
 
     /**
      * Create the test case
-     * @param testName name of the test case
      */
-    public SameKindSquareGoalTest(String testName ) {
-        super( testName );
+    public SameKindSquareGoalTest() {
         this.goal = new CommonGoal("", new SameKindSquareGoal());
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( SameKindSquareGoalTest.class );
     }
 
     /**
      * Test to detect two groups of cards shaped as a square in a corner of the bookshelf
      */
+    @Test
     public void testDetectSquareInACorner() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -46,6 +35,7 @@ public class SameKindSquareGoalTest extends TestCase {
     /**
      * Test to detect two groups of cards shaped as a square in the middle of the bookshelf
      */
+    @Test
     public void testDetectSquareInTheMiddle() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -63,6 +53,7 @@ public class SameKindSquareGoalTest extends TestCase {
     /**
      * Test to detect two groups of cards shaped as a square in opposite corners of the bookshelf
      */
+    @Test
     public void testDetectSquareOppositeCorners() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -78,6 +69,7 @@ public class SameKindSquareGoalTest extends TestCase {
     /**
      * Test to detect two groups of cards shaped as a square but potentially overlapping in the bookshelf
      */
+    @Test
     public void testDetectSquareOverlapping() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -93,6 +85,7 @@ public class SameKindSquareGoalTest extends TestCase {
     /**
      * Test to check if detects just one group of cards shaped as a square
      */
+    @Test
     public void testDetectJustOneSquare() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -104,6 +97,7 @@ public class SameKindSquareGoalTest extends TestCase {
     /**
      * Test to check if detects two groups of cards almost shaped as a square (except for a corner)
      */
+    @Test
     public void testDetectWrongShape() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));

@@ -1,33 +1,25 @@
 package it.polimi.ingsw.model;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+
 import java.util.Optional;
 
 /**
  * Testing of Board class
  */
-public class BoardTest extends TestCase {
+public class BoardTest {
 
-    Board board;
-    CountCards countCards;
-
-    public BoardTest( String testName ) {
-        super( testName );
-    }
-
-    public static Test suite() {
-        return new TestSuite( BoardTest.class );
-    }
+    private Board board;
+    private CountCards countCards;
 
     /**
      * Tests fill process of the board
      */
+    @Test
     public void testFillBoard() {
-        this.board = new Board(3);
         this.countCards = new CountCards();
-        this.board.fillBoard(countCards);
+        this.board = new Board(3, countCards);
+        this.board.fillBoard();
 
         // Checks if cards are where they should
         assert(this.board.validPick(new Position(1, 0)));
@@ -45,10 +37,11 @@ public class BoardTest extends TestCase {
     /**
      * Tests fill process of the board
      */
+    @Test
     public void testRefillBoard() {
-        this.board = new Board(2);
         this.countCards = new CountCards();
-        this.board.fillBoard(countCards);
+        this.board = new Board(2, countCards);
+        this.board.fillBoard();
 
         // Picks up a lot of cards until there is no valid pick
         assert(board.pickCard(new Position(1,0)).isPresent());
@@ -97,7 +90,7 @@ public class BoardTest extends TestCase {
 
         // Checks that there is no valid pick on the board, so it has to be refilled
         assert(this.board.hasToBeRefilled());
-        this.board.fillBoard(countCards);
+        this.board.fillBoard();
 
         // Checks that the board is now full
         assert(!this.board.hasToBeRefilled());
@@ -106,10 +99,11 @@ public class BoardTest extends TestCase {
     /**
      * Tests getCard method
      */
+    @Test
     public void testGetCard() {
-        this.board = new Board(3);
         this.countCards = new CountCards();
-        this.board.fillBoard(countCards);
+        this.board = new Board(3, countCards);
+        this.board.fillBoard();
 
         assert(this.board.setCard(new Position(2, 3), CardType.WHITE));
         assert(this.board.getCard(new Position(2, 3)).equals(Optional.of(CardType.WHITE)));
@@ -120,10 +114,11 @@ public class BoardTest extends TestCase {
     /**
      * Tests validPick method
      */
+    @Test
     public void testValidPick() {
-        this.board = new Board(2);
         this.countCards = new CountCards();
-        this.board.fillBoard(countCards);
+        this.board = new Board(2, countCards);
+        this.board.fillBoard();
 
         // Checks if cards that should be possible to pick can actually be picked
         assert(this.board.validPick(new Position(2,0)));
@@ -142,8 +137,10 @@ public class BoardTest extends TestCase {
     /**
      * Tests validBoard method
      */
+    @Test
     public void testValidBoard() {
-        this.board = new Board(2);
+        this.countCards = new CountCards();
+        this.board = new Board(2, countCards);
 
         assert(this.board.hasToBeRefilled());
 

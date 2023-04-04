@@ -216,5 +216,9 @@ public class Player {
     public Integer getAdjacentPoints() {
         return adjacentPoints;
     }
+
+    public boolean getEndGamePoint() {
+        return endGamePoint;
+    }
 }
 

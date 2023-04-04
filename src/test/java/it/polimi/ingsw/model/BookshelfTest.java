@@ -1,21 +1,19 @@
 package it.polimi.ingsw.model;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BookshelfTest extends TestCase{
+import static org.junit.Assert.assertEquals;
 
-    Bookshelf bookshelf;
-    CardType card1,card2,card3,card4,card5;
-    List<CardType> cardList,cardList2,cardList3;
+public class BookshelfTest {
+    private Bookshelf bookshelf;
+    private CardType card1,card2,card3,card4,card5;
+    private List<CardType> cardList,cardList2,cardList3;
 
-    public BookshelfTest( String testName )
-    {
-        super( testName );
-
+    public BookshelfTest() {
         card1 = CardType.BLUE;
         card2 = CardType.GREEN;
         card3 = CardType.PINK;
@@ -32,6 +30,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //checks the addCells method
+    @Test
     public void testApp1(){
         bookshelf = new Bookshelf();
         assertEquals(6, (int) bookshelf.getFreeCells(2));
@@ -40,6 +39,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //test for checking the getRow method
+    @Test
     public void testApp2(){
         bookshelf = new Bookshelf();
         cardList.clear();
@@ -52,12 +52,14 @@ public class BookshelfTest extends TestCase{
     }
 
     //test for checking the getFreeCells method
+    @Test
     public void testApp3(){
         bookshelf = new Bookshelf();
         assertEquals(30, (int) bookshelf.getFreeCells());
     }
 
     //test for checking getFreeCells(Integer columnNumber)
+    @Test
     public void testApp4(){
         bookshelf = new Bookshelf();
         bookshelf.addCells(cardList,4);
@@ -65,6 +67,7 @@ public class BookshelfTest extends TestCase{
     }
 
     //another test to check on the good functioning of the class
+    @Test
     public void testApp5(){
         bookshelf = new Bookshelf();
 
@@ -78,16 +81,11 @@ public class BookshelfTest extends TestCase{
     }
 
     //checks that the addCell method doesn't add null to the bookshelf  but only Optional of CardType
+    @Test
     public void testApp6(){
         bookshelf = new Bookshelf();
         bookshelf.addCells(cardList3,0);
 
         assertEquals(1, bookshelf.getColumn(0).size());
     }
-
-    public static Test suite()
-    {
-        return new TestSuite( BookshelfTest.class );
-    }
-
 }

@@ -27,8 +27,16 @@ public class GameControllerInterfaceViewTest extends TestCase {
 
     public void test() {
         List<Player> players = this.gameController.getPlayers();
-        Optional<CardType> r = this.gameController.pickCard(players.get(0), new Position(0,0));
-        assert(r.isPresent());
+        assert(gameController.pickCard(players.get(0), new Position(0,0)).isPresent());
+        gameController.confirmPick(players.get(0));
+        gameController.confirmColumn(players.get(0),0);
+        gameController.confirmOrder(players.get(0));
+        assert(gameController.pickCard(players.get(1), new Position(-1,1)).isEmpty());
+
+        /*
+        Meglio sollevare eccezioni perchè qui se pickcard mi dà empty non so se è perchè il giocatore è sbagliato o
+        perchè la posizione è sbagliata o perchè la tessera non si può pescare o perchè la tessera è già stata pescata
+        */
     }
 
     /**
