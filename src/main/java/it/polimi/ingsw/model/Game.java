@@ -381,7 +381,8 @@ public class Game implements GameInterface {
      * @return score of the token
      */
     public Integer winToken(Integer commonGoal) {
-        Token wonToken = this.tokens.get(commonGoal).remove(0);
+        List<Token> wonTokenList = this.tokens.get(commonGoal);
+        Token wonToken = wonTokenList.remove(0);
         return wonToken.getValue();
     }
 }
