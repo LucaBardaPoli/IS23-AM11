@@ -887,7 +887,7 @@ public class GameTest extends TestCase{
 
     public void testInvalidChoice0(){
 
-        // Picks cards which cannot be selected at this moment because they don't have any free side.
+        // Picks cards which cannot be selected in a game of 2 players.
         Game game2;
         game2 = InitializeGames2();
 
@@ -1246,7 +1246,7 @@ public class GameTest extends TestCase{
         GameController gameController = new GameController(game4);
         game4.setGameController(gameController);
 
-        // Selectable cards in a game with 4 players
+        // Selectable cards in a game with 3 players
         Position positionToTest1 = new Position(0,0);
         Position positionToTest2 = new Position(1,0);
 

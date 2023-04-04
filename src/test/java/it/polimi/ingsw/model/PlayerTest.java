@@ -20,7 +20,7 @@ public class PlayerTest extends TestCase{
     Integer gameId = 0;
     List<String> players2 = new ArrayList<>(List.of("Brancaleone", "Arnaldo"));
 
-    // ## Personal Goals ##
+    // List of the personal Goals that wil be present in this game
     List<PersonalGoal> personalGoals = new ArrayList<>();
 
     List<Position> positions = new ArrayList<>();
