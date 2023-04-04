@@ -1,12 +1,15 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.Bookshelf;
+import it.polimi.ingsw.model.BookshelfTest;
 import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.CommonGoal;
+import it.polimi.ingsw.utility.BookshelfBuilder;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -212,30 +215,28 @@ public class SameKindGroupsGoalTest extends TestCase {
      * - if the goal is fulfilled for a certain number of minimum groups it should be fulfilled for any other lower number of minimum groups
      */
     public void testMinGroups(){
-        Bookshelf bookshelf = new Bookshelf();
+        Bookshelf bookshelf;
         CommonGoal sameKindGroups;
         Random rand = new Random();
-        int minGroups, minSize, i , j;
+        int minGroups, minSize;
 
-        for(i = 0; i < Bookshelf.getColumns(); i++){
-            for(j = 0; j < Bookshelf.getRows(); j++){
-                bookshelf.addCells(List.of(CardType.values()[Math.abs(rand.nextInt()) % CardType.values().length]), i);
-            }
-        }
-
-        for(i = 0; i < 100; i++){
-            minGroups = Math.abs(rand.nextInt()) % 11;
-            minSize = Math.abs(rand.nextInt()) % 8;
+        // for 1000 times generates a random full bookshelf and random minGroups and minSize in and tests if the properties hold
+        for(int k = 0; k < 1000; k++){
+            bookshelf = BookshelfBuilder.randomFullBookshelf();
+            minGroups = Math.abs(rand.nextInt()) % (Bookshelf.getColumns() * Bookshelf.getRows() + 1);
+            minSize = Math.abs(rand.nextInt()) % (Bookshelf.getColumns() * Bookshelf.getRows() + 1);
             sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
 
             if(sameKindGroups.checkGoal(bookshelf)){
                 while(minGroups > 0){
                     minGroups--;
+                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertTrue(sameKindGroups.checkGoal(bookshelf));
                 }
             } else {
-                while(minGroups < 10){
+                while(minGroups < Bookshelf.getColumns() * Bookshelf.getRows() + 1){
                     minGroups++;
+                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertFalse(sameKindGroups.checkGoal(bookshelf));
                 }
             }
@@ -244,38 +245,37 @@ public class SameKindGroupsGoalTest extends TestCase {
 
     /**
      * tests the following properties:
-     * - if the goal is not fulfilled for a certain number of minimum size it should not be fulfilled for any other greater number of minimun size
-     * - if the goal is fulfilled for a certain number of minimum size it should be fulfilled for any other lower number of minimum size
+     * - if the goal is not fulfilled for a certain value of minimum size it should not be fulfilled for any other greater value of minimun size
+     * - if the goal is fulfilled for a certain value of minimum size it should be fulfilled for any other lower value of minimum size
      */
     public void testMinSize(){
-        Bookshelf bookshelf = new Bookshelf();
+        Bookshelf bookshelf;
         CommonGoal sameKindGroups;
         Random rand = new Random();
-        int minGroups, minSize, i, j;
+        int minGroups, minSize;
 
-        for(i = 0; i < Bookshelf.getColumns(); i++){
-            for(j = 0; j < Bookshelf.getRows(); j++){
-                bookshelf.addCells(List.of(CardType.values()[Math.abs(rand.nextInt()) % CardType.values().length]), i);
-            }
-        }
-
-        for(i = 0; i < 100; i++) {
-            minGroups = Math.abs(rand.nextInt()) % 11;
-            minSize = Math.abs(rand.nextInt()) % 8;
+        // for 1000 times generates a random full bookshelf and random minGroups and minSize in and tests if the properties hold
+        for(int k = 0; k < 1000; k++) {
+            bookshelf = BookshelfBuilder.randomFullBookshelf();
+            minGroups = Math.abs(rand.nextInt()) % (Bookshelf.getColumns() * Bookshelf.getRows() + 1);
+            minSize = Math.abs(rand.nextInt()) % (Bookshelf.getColumns() * Bookshelf.getRows() + 1);
             sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
 
             if (sameKindGroups.checkGoal(bookshelf)) {
                 while (minSize > 0) {
                     minSize--;
+                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertTrue(sameKindGroups.checkGoal(bookshelf));
                 }
             } else {
-                while (minSize < 10) {
+                while (minSize <= Bookshelf.getColumns() * Bookshelf.getRows() + 1) {
                     minSize++;
+                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertFalse(sameKindGroups.checkGoal(bookshelf));
                 }
             }
         }
     }
+
 
 }
