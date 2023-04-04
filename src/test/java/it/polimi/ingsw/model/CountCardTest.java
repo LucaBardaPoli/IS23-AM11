@@ -14,7 +14,7 @@ public class CountCardTest extends TestCase {
     public CountCardTest( String testName ) {
         super( testName );
         this.count = new CountCards();
-        this.board = new Board(4);
+        this.board = new Board(4, count);
     }
 
     /**

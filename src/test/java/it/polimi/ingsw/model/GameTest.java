@@ -1266,7 +1266,7 @@ public class GameTest extends TestCase{
 
         // Confirm the choice of the selected cards
         assert (game4.confirmChoice());
-        // Confirm the column where to insert the selected cards
+        // Confirm the column where to  insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
         game4.confirmOrderSelectedCards();

@@ -6,13 +6,15 @@ import java.util.Optional;
 
 public class Board {
     private HashMap<Position, Optional<CardType>> board;
+    private CountCards countCards;
 
     /**
      * Class constructor
      * @param numPlayers creates a different board depending on the number of players
      */
-    public Board(Integer numPlayers) {
+    public Board(Integer numPlayers, CountCards countCards) {
         board = new HashMap<Position, Optional<CardType>>();
+        this.countCards = countCards;
         createBoardCells(numPlayers);
     }
 
@@ -20,7 +22,7 @@ public class Board {
      * creates the board
      * @param numPlayers it creates a different board depending on the number of players
      */
-    private void createBoardCells(Integer numPlayers){
+    private void createBoardCells(Integer numPlayers) {
 
         if(numPlayers >= 2) {
             //RIGA 1:
@@ -116,17 +118,11 @@ public class Board {
 
     /**
      * fills the board in all the free spots
-     * @param countCards counts how many cards of a given color have been created up until the moment the method is called
      */
-    public void fillBoard (CountCards countCards){
-
-        /* CARRY OUT THE FOLLOWING OPERATIONS:
-        - iterates on all the BoardCells of the board
-        - checks whether a card is already present in the BoardCell and whether the BoardCell is usable in this game
-         */
-        for (HashMap.Entry<Position, Optional<CardType>> entry : board.entrySet()) {
+    public void fillBoard() {
+        for (HashMap.Entry<Position, Optional<CardType>> entry : this.board.entrySet()) {
             if(entry.getValue().isEmpty()) {
-                board.put(entry.getKey(), Optional.ofNullable(countCards.pickCard()));
+                entry.setValue(Optional.ofNullable(this.countCards.pickCard()));
             }
         }
     }
@@ -137,15 +133,10 @@ public class Board {
      * @return return an optional of card
      */
     public Optional<CardType> getCard(Position position) {
-        ArrayList<Position> keyList = new ArrayList<>(this.board.keySet());
-        Optional<CardType> rtn = Optional.empty();
-        for(Position p : keyList) {
-            if(p.equals(position)) {
-                rtn = this.board.get(p);
-                break;
-            }
+        if(this.board.get(position) != null) {
+            return this.board.get(position);
         }
-        return rtn;
+        return Optional.empty();
     }
 
     /**
@@ -154,19 +145,12 @@ public class Board {
      * @return return an optional of card
      */
     public Optional<CardType> pickCard(Position position) {
-        if(this.board.containsKey(position) && validPick(position)) {
-            ArrayList<Position> keyList = new ArrayList<>(this.board.keySet());
-            Optional<CardType> rtn = Optional.empty();
-            for(Position p : keyList) {
-                if(p.equals(position)) {
-                    rtn = this.board.get(p);
-                    this.board.put(p, Optional.empty());
-                    break;
-                }
-            }
-            return rtn;
+        Optional<CardType> rtn = Optional.empty();
+        if(this.board.get(position) != null) {
+            rtn = this.board.get(position);
+            this.board.put(position, Optional.empty());
         }
-        return Optional.empty();
+        return rtn;
     }
 
     /**

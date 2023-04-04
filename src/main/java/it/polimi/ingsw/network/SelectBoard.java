@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.network;
 
 /**
  * Class that defines the selection of a card from the board
