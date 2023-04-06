@@ -21,7 +21,7 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf> {
         card = bookshelf.getCell(new Position(startRow, startColumn));
         if(card.isPresent()) {
             currentType = card.get();
-            for (int i = 0; i < limit; i++) {
+            for (int i = 1; i < limit; i++) {
                 card = bookshelf.getCell(new Position(startRow+i, startColumn+i));
                 if (card.isPresent()) {
                     if (!card.get().equals(currentType)) {
@@ -52,7 +52,7 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf> {
         card = bookshelf.getCell(new Position(startRow, startColumn));
         if(card.isPresent()) {
             currentType = card.get();
-            for (int i = 0; i < limit; i++) {
+            for (int i = 1; i < limit; i++) {
                 card = bookshelf.getCell(new Position(startRow-i, startColumn+i));
                 if (card.isPresent()) {
                     if (!card.get().equals(currentType)) {
