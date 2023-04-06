@@ -1,24 +1,16 @@
 package it.polimi.ingsw.model.goals;
 
-import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.CommonGoal;
-import it.polimi.ingsw.utility.BookshelfBuilder;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import it.polimi.ingsw.model.*;
+import org.junit.Test;
 
 import java.util.List;
 
-public class SameKindNGoalTest extends TestCase {
-    public SameKindNGoalTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public static Test suite() {
-        return new TestSuite( SameKindNGoalTest.class );
-    }
+public class SameKindNGoalTest {
 
+    @Test
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
 
@@ -30,6 +22,7 @@ public class SameKindNGoalTest extends TestCase {
         }
     }
 
+    @Test
     public void testFullBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindNGoal;
@@ -53,6 +46,7 @@ public class SameKindNGoalTest extends TestCase {
         }
     }
 
+    @Test
     public void testHalfFullBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindNGoal;

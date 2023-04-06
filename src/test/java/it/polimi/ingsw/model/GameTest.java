@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.goals.CheckMode;
 import it.polimi.ingsw.model.goals.DifferentTypesGoal;
 import it.polimi.ingsw.model.goals.LadderGoal;
 import org.junit.Test;
+
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -1543,5 +1544,62 @@ public class GameTest {
         assertFalse(game2.isNicknameTaken(nameToCheck));
         assertFalse(game3.isNicknameTaken(nameToCheck));
         assert(game4.isNicknameTaken(nameToCheck));
+    }
+
+    @Test
+    public void testEndGameChairPlayer() {
+        Bookshelf bookshelf = new Bookshelf();
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 0);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 1);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 2);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 3);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 4);
+
+        Game game = InitializeGames2();
+        game.getPlayers().get(0).setBookshelf(bookshelf);
+
+        assert(game.pickCard(new Position(1,1)).isPresent());
+        game.confirmChoice();
+        assert(!game.confirmColumn(3));
+        assert(!game.confirmColumn(5));
+        assert(game.confirmColumn(4));
+        game.confirmOrderSelectedCards();
+
+        assert(game.getPlayers().get(0).getEndGamePoint());
+        assert(!game.getPlayers().get(1).getEndGamePoint());
+        assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
+    }
+
+    @Test
+    public void testEndGameLastPlayer() {
+        Bookshelf bookshelf = new Bookshelf();
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 0);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 1);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 2);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 3);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 4);
+
+        Game game = InitializeGames2();
+        game.getPlayers().get(1).setBookshelf(bookshelf);
+        game.setGameController(new GameController(game));
+
+        assert(game.pickCard(new Position(1,1)).isPresent());
+        game.confirmChoice();
+        assert(!game.confirmColumn(5));
+        assert(game.confirmColumn(0));
+        game.confirmOrderSelectedCards();
+        assert(!game.getPlayers().get(0).getEndGamePoint());
+        assert(!game.getPlayers().get(1).getEndGamePoint());
+        assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
+
+        assert(game.pickCard(new Position(1,0)).isPresent());
+        game.confirmChoice();
+        assert(!game.confirmColumn(5));
+        assert(!game.confirmColumn(3));
+        assert(game.confirmColumn(4));
+        game.confirmOrderSelectedCards();
+        assert(!game.getPlayers().get(0).getEndGamePoint());
+        assert(game.getPlayers().get(1).getEndGamePoint());
+        assert(game.getGameStatus().equals(GameStatus.UPDATE_POINTS));
     }
 }
