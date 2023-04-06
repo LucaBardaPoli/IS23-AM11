@@ -11,12 +11,12 @@
 ### Implemented features
 |     Feature     | Status |
 |-----------------|--------|
-| Basic Rules     |   🟡   |
-| Complete Rules  |   🟡   |
+| Basic Rules     |   🟢  |
+| Complete Rules  |   🟢   |
 | TUI             |   🔴   |
 | GUI             |   🔴   |
-| RMI             |   🔴   |
-| Socket          |   🔴   |
+| RMI             |   🟡   |
+| Socket          |   🟡   |
 | Chat            |   🔴   |
 | Multiple Games  |   🟡   |
 
