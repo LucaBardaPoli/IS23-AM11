@@ -7,28 +7,62 @@ import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.Position;
 
 public class LadderGoal implements Predicate<Bookshelf> {
+
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Integer columns = Bookshelf.getColumns();
-        Integer rows = Bookshelf.getRows();
+        return testDescendingLadder(0, 0, bookshelf) ||
+                testDescendingLadder(1, 0, bookshelf) ||
+                testAscendingLadder(5, 0, bookshelf) ||
+                testAscendingLadder(4, 0, bookshelf);
+    }
 
-        int row_idx, col_idx;
+    /**
+     * Checks if exists a descending ladder starting from the given position towards the bottom-right corner
+     * @param startRow row of the starting point
+     * @param startColumn column of the starting point
+     * @param bookshelf bookshelf to execute the check on
+     * @return true whether the descending ladder exists
+     */
+    private boolean testDescendingLadder(int startRow, int startColumn, Bookshelf bookshelf) {
+        int limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
+        Optional<CardType> card;
 
-        // from left to right
-        for(col_idx = 0; col_idx < columns; col_idx++){
-            // from top to bottom
-            for(row_idx = rows-1; row_idx >= rows-col_idx && row_idx >= 0; row_idx--){
-                // check the empty cells
-                if(bookshelf.getCell(new Position(row_idx, col_idx)).isPresent()){
+        card = bookshelf.getCell(new Position(startRow, startColumn));
+        if(card.isPresent() && bookshelf.getCell(new Position(startRow-1, startColumn)).isEmpty()) {
+            for (int i = 1; i < limit; i++) {
+                card = bookshelf.getCell(new Position(startRow+i, startColumn+i));
+                if (card.isEmpty() || bookshelf.getCell(new Position(startRow+i-1, startColumn+i)).isPresent()) {
                     return false;
                 }
             }
-            // there must be a card below the empty cells
-            if(bookshelf.getCell(new Position(row_idx, col_idx)).isEmpty()){
-                return false;
-            }
+        } else {
+            return false;
         }
+        return true;
+    }
 
+    /**
+     * Checks if exists a ascending ladder starting from the given position towards the top-right corner
+     * @param startRow row of the starting point
+     * @param startColumn column of the starting point
+     * @param bookshelf bookshelf to execute the check on
+     * @return true whether the ascending ladder exists
+     */
+    private boolean testAscendingLadder(int startRow, int startColumn, Bookshelf bookshelf) {
+        int limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
+        Optional<CardType> card;
+
+        card = bookshelf.getCell(new Position(startRow, startColumn));
+        if(card.isPresent() && bookshelf.getCell(new Position(startRow-1, startColumn)).isEmpty()) {
+            for (int i = 1; i < limit; i++) {
+                card = bookshelf.getCell(new Position(startRow-i, startColumn+i));
+                if (card.isEmpty() || bookshelf.getCell(new Position(startRow-i-1, startColumn+i)).isPresent()) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
         return true;
     }
 }
