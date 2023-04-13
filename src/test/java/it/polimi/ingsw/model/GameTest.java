@@ -4,22 +4,18 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.goals.CheckMode;
 import it.polimi.ingsw.model.goals.DifferentTypesGoal;
 import it.polimi.ingsw.model.goals.LadderGoal;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+
 import java.util.*;
 import java.util.function.Predicate;
 
-public class GameTest extends TestCase{
-    public static Test suite()
-    {
-        return new TestSuite( GameTest.class );
-    }
+import static org.junit.Assert.*;
+
+public class GameTest {
 
     // Initializes the variables for every test in order to avoid mistakes
-
     @Deprecated
-    private void InitializeGames(Game game2, Game game3, Game game4){
+    private void InitializeGames(Game game2, Game game3, Game game4) {
         //Game ID & List of Players
         Integer gameId = 0;
         List<String> players2 = new ArrayList<>(List.of("Pluto", "Pippo"));
@@ -547,12 +543,7 @@ public class GameTest extends TestCase{
         //game2.getBoard().fillBoard(new CountCards());
     }
 
-    // Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals)
-    public GameTest( String testName ) {
-        super( testName );
-
-    }
-
+    @Test
     public void testPickHorizontalLine(){
         Game game2;
         game2 = InitializeGames2();
@@ -588,10 +579,9 @@ public class GameTest extends TestCase{
         // Check if the insertion of the cards in the bookshelf is correct
         assertEquals(currentPlayerBookshelf.getCell(new Position(5,0)),cardTypesList.get(0));
         assertEquals(currentPlayerBookshelf.getCell(new Position(4,0)),cardTypesList.get(1));
-
-
     }
 
+    @Test
     public void testPickVerticalLine(){
         Game game2;
         game2 = InitializeGames2();
@@ -630,6 +620,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testPickSingleCard(){
         Game game2;
 
@@ -663,6 +654,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testPickInvalidSequence1(){
         Game game2;
         game2 = InitializeGames2();
@@ -725,6 +717,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testPickInvalidSequence2(){
 
         // Picks cards which cannot be selected at this moment because they don't have any free side.
@@ -780,6 +773,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testPickInvalidSequence3(){
         // Picks cards in Diagonal
         Game game2;
@@ -832,7 +826,7 @@ public class GameTest extends TestCase{
 
     }
 
-
+    @Test
     public void testPickEmptySequence0(){
 
         // Doesn't pick any card
@@ -859,6 +853,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testPickEmptySequence1(){
 
         // Doesn't pick any card
@@ -885,6 +880,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testInvalidChoice0(){
 
         // Picks cards which cannot be selected in a game of 2 players.
@@ -914,7 +910,7 @@ public class GameTest extends TestCase{
 
     }
 
-
+    @Test
     public void testInvalidChoice1(){
         Game game2;
         game2 = InitializeGames2();
@@ -929,6 +925,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testInvalidChoice2(){
 
         // Picks cards which cannot be selected at this moment because they don't have any free side.
@@ -958,6 +955,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testValidChoice(){
 
         // Picks cards which cannot be selected at this moment because they don't have any free side.
@@ -977,6 +975,7 @@ public class GameTest extends TestCase{
         assertTrue(game2.confirmChoice());
     }
 
+    @Test
     public void testInvalidColumn(){
         Game game2;
         game2 = InitializeGames2();
@@ -984,6 +983,7 @@ public class GameTest extends TestCase{
         assertFalse(game2.confirmColumn(Bookshelf.getColumns()+1));
     }
 
+    @Test
     public void testValidRearrangeCards(){
         Game game2;
 
@@ -1028,6 +1028,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testDoubleRearrangeCards(){
         Game game2;
 
@@ -1076,6 +1077,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testValidRemoveCard1(){
 
         Game game2;
@@ -1121,6 +1123,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testValidRemoveCard2(){
 
         Game game2;
@@ -1165,6 +1168,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testCompleteRound2(){
         Game game2;
         game2 = InitializeGames2();
@@ -1238,6 +1242,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testCompleteRound3(){
         Game game4;
         game4 = InitializeGames4();
@@ -1266,7 +1271,7 @@ public class GameTest extends TestCase{
 
         // Confirm the choice of the selected cards
         assert (game4.confirmChoice());
-        // Confirm the column where to insert the selected cards
+        // Confirm the column where to  insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
         game4.confirmOrderSelectedCards();
@@ -1343,6 +1348,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testCompleteRound4(){
         Game game4;
         game4 = InitializeGames4();
@@ -1480,6 +1486,7 @@ public class GameTest extends TestCase{
 
     }
 
+    @Test
     public void testUntakenNickname1(){
     Game game2, game3, game4;
     game2 = InitializeGames2();
@@ -1494,6 +1501,7 @@ public class GameTest extends TestCase{
     assertFalse(game4.isNicknameTaken(nameToCheck));
     }
 
+    @Test
     public void testUntakenNickname2(){
         Game game2, game3, game4;
         game2 = InitializeGames2();
@@ -1508,6 +1516,7 @@ public class GameTest extends TestCase{
         assertFalse(game4.isNicknameTaken(nameToCheck));
     }
 
+    @Test
     public void testTakenNickname1(){
         Game game2, game3, game4;
         game2 = InitializeGames2();
@@ -1522,6 +1531,7 @@ public class GameTest extends TestCase{
         assertFalse(game4.isNicknameTaken(nameToCheck));
     }
 
+    @Test
     public void testTakenNickname2(){
         Game game2, game3, game4;
         game2 = InitializeGames2();
@@ -1536,5 +1546,60 @@ public class GameTest extends TestCase{
         assert(game4.isNicknameTaken(nameToCheck));
     }
 
+    @Test
+    public void testEndGameChairPlayer() {
+        Bookshelf bookshelf = new Bookshelf();
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 0);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 1);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 2);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 3);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 4);
 
+        Game game = InitializeGames2();
+        game.getPlayers().get(0).setBookshelf(bookshelf);
+
+        assert(game.pickCard(new Position(1,1)).isPresent());
+        game.confirmChoice();
+        assert(!game.confirmColumn(3));
+        assert(!game.confirmColumn(5));
+        assert(game.confirmColumn(4));
+        game.confirmOrderSelectedCards();
+
+        assert(game.getPlayers().get(0).getEndGamePoint());
+        assert(!game.getPlayers().get(1).getEndGamePoint());
+        assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
+    }
+
+    @Test
+    public void testEndGameLastPlayer() {
+        Bookshelf bookshelf = new Bookshelf();
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 0);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 1);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 2);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 3);
+        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 4);
+
+        Game game = InitializeGames2();
+        game.getPlayers().get(1).setBookshelf(bookshelf);
+        game.setGameController(new GameController(game));
+
+        assert(game.pickCard(new Position(1,1)).isPresent());
+        game.confirmChoice();
+        assert(!game.confirmColumn(5));
+        assert(game.confirmColumn(0));
+        game.confirmOrderSelectedCards();
+        assert(!game.getPlayers().get(0).getEndGamePoint());
+        assert(!game.getPlayers().get(1).getEndGamePoint());
+        assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
+
+        assert(game.pickCard(new Position(1,0)).isPresent());
+        game.confirmChoice();
+        assert(!game.confirmColumn(5));
+        assert(!game.confirmColumn(3));
+        assert(game.confirmColumn(4));
+        game.confirmOrderSelectedCards();
+        assert(!game.getPlayers().get(0).getEndGamePoint());
+        assert(game.getPlayers().get(1).getEndGamePoint());
+        assert(game.getGameStatus().equals(GameStatus.UPDATE_POINTS));
+    }
 }

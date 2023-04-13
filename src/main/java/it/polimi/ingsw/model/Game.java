@@ -33,8 +33,8 @@ public class Game implements GameInterface {
     public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
         this.id = id;
         this.countCards = new CountCards();
-        this.board = new Board(players.size());
-        this.board.fillBoard(this.countCards);
+        this.board = new Board(players.size(), countCards);
+        this.board.fillBoard();
         this.players = new ArrayList<Player>();
         this.personalGoals = personalGoals;
         Collections.shuffle(this.personalGoals);
@@ -292,7 +292,7 @@ public class Game implements GameInterface {
      */
     public boolean confirmColumn(Integer column) {
         if (this.gameStatus.equals(GameStatus.SELECT_COLUMN)) {
-            if (this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
+            if (column >= 0 && column < Bookshelf.getColumns() && this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
                 this.gameStatus = GameStatus.SELECT_ORDER;
                 this.currentSelectedColumn = column;
                 return true;
@@ -353,7 +353,7 @@ public class Game implements GameInterface {
                 this.turn = (this.turn + 1) % this.players.size();
                 this.gameStatus = GameStatus.PICK_CARDS;
                 if(this.board.hasToBeRefilled()) {
-                    this.board.fillBoard(this.countCards);
+                    this.board.fillBoard();
                 }
             } else {
                 this.gameController.endGame();

@@ -111,7 +111,6 @@ public class GameController implements GameControllerInterfaceView, GameControll
         return this.model.getCurrentPlayer().equals(player);
     }
 
-
     // Methods called by the model to change the view status
     public void changeTurn() {
 

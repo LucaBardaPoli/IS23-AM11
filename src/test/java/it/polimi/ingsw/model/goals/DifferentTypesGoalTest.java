@@ -1,23 +1,18 @@
 package it.polimi.ingsw.model.goals;
 
-import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
-import it.polimi.ingsw.model.CommonGoal;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.utility.BookshelfBuilder;
+import org.junit.Test;
 
 import java.util.List;
+import java.util.Random;
 
-public class DifferentTypesGoalTest extends TestCase {
-    public DifferentTypesGoalTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public static Test suite() {
-        return new TestSuite( DifferentTypesGoalTest.class );
-    }
+public class DifferentTypesGoalTest {
 
+    @Test
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
 
@@ -32,6 +27,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertFalse(lotsDifferentRows.checkGoal(bookshelf));
     }
 
+    @Test
     public void testFewDifferentColumns(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal fewDifferentColumns = new CommonGoal("3 full columns with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL));
@@ -53,6 +49,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(fewDifferentColumns.checkGoal(bookshelf));
     }
 
+    @Test
     public void testFewDifferentRows(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal fewDifferentRows = new CommonGoal("3 full rows with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.HORIZONTAL));
@@ -75,6 +72,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(fewDifferentRows.checkGoal(bookshelf));
     }
 
+    @Test
     public void testLotsDifferentColumns(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal lotsDifferentColumns = new CommonGoal("2 columns with min 6 different types", new DifferentTypesGoal(6, Bookshelf.getRows(), 2, CheckMode.VERTICAL));
@@ -100,6 +98,7 @@ public class DifferentTypesGoalTest extends TestCase {
         assertTrue(lotsDifferentColumns.checkGoal(bookshelf));
     }
 
+    @Test
     public void testLotsDifferentRows(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal lotsDifferentRows = new CommonGoal("2 rows with min 5 different types", new DifferentTypesGoal(5, Bookshelf.getColumns(), 2, CheckMode.HORIZONTAL));
@@ -120,5 +119,147 @@ public class DifferentTypesGoalTest extends TestCase {
         bookshelf.addCells(List.of(CardType.LBLUE, CardType.WHITE, CardType.YELLOW, CardType.GREEN, CardType.LBLUE, CardType.YELLOW), 4);
         // now the last column is added and there are 3 full rows with at least 5 different types
         assertTrue(lotsDifferentRows.checkGoal(bookshelf));
+    }
+
+    @Test
+    /**
+     * tests the following properties:
+     * - if the goal is not fulfilled for a certain number of minimum types it should not be fulfilled for any other greater number of minimun types
+     * - if the goal is fulfilled for a certain number of minimum types it should be fulfilled for any other lower number of minimum types
+     */
+    public void testMinTypes(){
+        Bookshelf bookshelf;
+        CommonGoal differentTypes;
+        Random rand = new Random();
+        int minTypes, maxTypes, minNum;
+        int nrows = Bookshelf.getRows();
+        int ncolumns = Bookshelf.getColumns();
+        CheckMode mode;
+
+        // for 1000 times generates a random full bookshelf and random minGroups and minSize in and tests if the properties hold
+        for(int k = 0; k < 1000; k++) {
+            bookshelf = BookshelfBuilder.randomFullBookshelf();
+            maxTypes = CardType.values().length;
+
+            if(k % 2 == 0){
+                mode = CheckMode.HORIZONTAL;
+                minNum = Math.abs(rand.nextInt()) % (nrows + 1);
+                minTypes = Math.abs(rand.nextInt()) % Math.min(CardType.values().length + 1, ncolumns + 1);
+            } else {
+                mode = CheckMode.VERTICAL;
+                minNum = Math.abs(rand.nextInt()) % (ncolumns + 1);
+                minTypes = Math.abs(rand.nextInt()) % Math.min(CardType.values().length + 1, nrows + 1);
+            }
+            differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+
+            if (differentTypes.checkGoal(bookshelf)) {
+                while (minTypes > 0) {
+                    minTypes--;
+                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    assertTrue(differentTypes.checkGoal(bookshelf));
+                }
+            } else {
+                while (minTypes <= CardType.values().length) {
+                    minTypes++;
+                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    assertFalse(differentTypes.checkGoal(bookshelf));
+                }
+            }
+        }
+    }
+
+    @Test
+    /**
+     * tests the following properties:
+     * - if the goal is not fulfilled for a certain number of maximum types it should not be fulfilled for any other lower number of maximum types
+     * - if the goal is fulfilled for a certain number of maximum types it should be fulfilled for any other greater number of maximum types
+     */
+    public void testMaxTypes(){
+        Bookshelf bookshelf;
+        CommonGoal differentTypes;
+        Random rand = new Random();
+        int minTypes, maxTypes, minNum;
+        int nrows = Bookshelf.getRows();
+        int ncolumns = Bookshelf.getColumns();
+        CheckMode mode;
+
+        // for 1000 times generates a random full bookshelf and random minGroups and minSize in and tests if the properties hold
+        for(int k = 0; k < 1000; k++) {
+            bookshelf = BookshelfBuilder.randomFullBookshelf();
+            minTypes = 0;
+
+            if(k % 2 == 0){
+                mode = CheckMode.HORIZONTAL;
+                minNum = Math.abs(rand.nextInt()) % (nrows + 1);
+                maxTypes = Math.abs(rand.nextInt()) % Math.min(CardType.values().length + 1, ncolumns + 1);
+            } else {
+                mode = CheckMode.VERTICAL;
+                minNum = Math.abs(rand.nextInt()) % (ncolumns + 1);
+                maxTypes = Math.abs(rand.nextInt()) % Math.min(CardType.values().length + 1, nrows + 1);
+            }
+            differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+
+            if (differentTypes.checkGoal(bookshelf)) {
+                while (maxTypes <= CardType.values().length) {
+                    maxTypes++;
+                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    assertTrue(differentTypes.checkGoal(bookshelf));
+                }
+            } else {
+                while (maxTypes > 0) {
+                    maxTypes--;
+                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    assertFalse(differentTypes.checkGoal(bookshelf));
+                }
+            }
+        }
+    }
+
+    @Test
+    /**
+     * tests the following properties:
+     * - if the goal is not fulfilled for a certain number of minimum rows/columns it should not be fulfilled for any other greater number of minimum rows/columns
+     * - if the goal is fulfilled for a certain number of minimum rows/columns it should be fulfilled for any other lower number of minimum rows/columns
+     */
+    public void testMinNum(){
+        Bookshelf bookshelf;
+        CommonGoal differentTypes;
+        Random rand = new Random();
+        int minTypes, maxTypes, minNum;
+        int nrows = Bookshelf.getRows();
+        int ncolumns = Bookshelf.getColumns();
+        CheckMode mode;
+
+        // for 1000 times generates a random full bookshelf and random minGroups and minSize in and tests if the properties hold
+        for(int k = 0; k < 1000; k++) {
+            bookshelf = BookshelfBuilder.randomFullBookshelf();
+
+            if(k % 2 == 0){
+                mode = CheckMode.HORIZONTAL;
+                minNum = Math.abs(rand.nextInt()) % (nrows + 1);
+                maxTypes = Math.abs(rand.nextInt()) % Math.min(CardType.values().length + 1, nrows + 1);
+                minTypes = Math.abs(rand.nextInt()) % (maxTypes + 1);
+            } else {
+                mode = CheckMode.VERTICAL;
+                minNum = Math.abs(rand.nextInt()) % (ncolumns + 1);
+                maxTypes = Math.abs(rand.nextInt()) % Math.min(CardType.values().length + 1, nrows + 1);
+                minTypes = Math.abs(rand.nextInt()) % (maxTypes + 1);
+            }
+            differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+
+            if (differentTypes.checkGoal(bookshelf)) {
+                while (minNum > 0) {
+                    minNum--;
+                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    assertTrue(differentTypes.checkGoal(bookshelf));
+                }
+            } else {
+                while (minNum <= Math.max(nrows, ncolumns)) {
+                    minNum++;
+                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    assertFalse(differentTypes.checkGoal(bookshelf));
+                }
+            }
+        }
     }
 }

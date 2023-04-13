@@ -5,7 +5,17 @@ import it.polimi.ingsw.model.*;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+/**
+ * Class that represents the common goal that searches for 2 2x2 squares, each one made of the same tail types
+ */
 public class SameKindSquareGoal implements Predicate<Bookshelf> {
+    /**
+     * Checks if exists a 2x2 square starting from the given position towards the bottom-right corner
+     * @param startRow row of the starting point
+     * @param startColumn column of the starting point
+     * @param bookshelf bookshelf to execute the check on
+     * @return true whether the 2x2 square exists
+     */
     private boolean checkSquare(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Optional<CardType> card;
         CardType currentType;
@@ -39,6 +49,11 @@ public class SameKindSquareGoal implements Predicate<Bookshelf> {
         }
     }
 
+    /**
+     * Checks if exists 2 different 2x2 squares in the bookshelf
+     * @param bookshelf bookshelf to execute the check on
+     * @return true whether the 2 squares exists
+     */
     public boolean test(Bookshelf bookshelf) {
         Optional<Integer> startRowLastSquare = Optional.empty();
         Optional<Integer> startColumnLastSquare = Optional.empty();
