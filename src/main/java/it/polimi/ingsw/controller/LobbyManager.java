@@ -2,14 +2,15 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.goals.*;
+
 import java.util.*;
 import java.util.function.Predicate;
 
 /**
  * Class that handles the games creation
  */
-public class ControllerManager {
-    private static ControllerManager instance = null;
+public class LobbyManager {
+    private static LobbyManager instance;
     private final List<GameController> controllers;
     private final List<String> lobby;
     private Integer counterGames;
@@ -22,15 +23,15 @@ public class ControllerManager {
     /**
      * Private constructor to implement the Singleton design patter
      */
-    private ControllerManager() {
+    private LobbyManager() {
         this.controllers = new ArrayList<GameController>();
         this.lobby = new ArrayList<String>();
         this.counterGames = 0;
         this.currentGameNumPlayers = 0;
         this.commonGoals = new ArrayList<CommonGoal>();
         this.personalGoals = new ArrayList<PersonalGoal>();
-        ControllerManager.MIN_NUM_PLAYERS = 2;
-        ControllerManager.MAX_NUM_PLAYERS = 4;
+        LobbyManager.MIN_NUM_PLAYERS = 2;
+        LobbyManager.MAX_NUM_PLAYERS = 4;
 
         this.initializePersonalGoals();
         this.initializeCommonGoals();
@@ -40,9 +41,9 @@ public class ControllerManager {
      * Getter of ControllerManager's instance
      * @return current ControllerManager's instance if present, otherwise it creates and returns a new instance
      */
-    public static ControllerManager getInstance() {
+    public static LobbyManager getInstance() {
         if (instance == null) {
-            instance = new ControllerManager();
+            instance = new LobbyManager();
         }
         return instance;
     }
@@ -85,6 +86,20 @@ public class ControllerManager {
         this.counterGames++;
         this.lobby.clear();
         this.currentGameNumPlayers = MIN_NUM_PLAYERS;
+    }
+
+    /**
+     * Checks if the given nickname is already used
+     * @param nickname new nickname
+     * @return true whether the nickname is already used
+     */
+    public boolean isNicknameTaken(String nickname) {
+        for(GameController gc : this.controllers) {
+            if(gc.getModel().isNicknameTaken(nickname)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

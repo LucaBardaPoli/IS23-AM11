@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network;
+package it.polimi.ingsw.network.message;
 
 /**
  * Class that defines the selection of a new order of the picked cards

@@ -18,11 +18,11 @@ public class GameControllerInterfaceViewTest extends TestCase {
      */
     public GameControllerInterfaceViewTest(String testName) {
         super(testName);
-        ControllerManager controllerManager = ControllerManager.getInstance();
-        controllerManager.addPlayer("Player1", 3);
-        controllerManager.addPlayer("Player2", 0);
-        controllerManager.addPlayer("Player3", 0);
-        this.gameController = controllerManager.getControllers().get(0);
+        LobbyManager lobbyManager = LobbyManager.getInstance();
+        lobbyManager.addPlayer("Player1", 3);
+        lobbyManager.addPlayer("Player2", 0);
+        lobbyManager.addPlayer("Player3", 0);
+        this.gameController = lobbyManager.getControllers().get(0);
     }
 
     public void test() {

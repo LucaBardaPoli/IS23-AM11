@@ -10,7 +10,6 @@ import java.util.Optional;
  */
 public class GameController implements GameControllerInterfaceView, GameControllerInterfaceModel {
     private GameInterface model;
-    // private view;
 
     /**
      * Class constructor
@@ -66,10 +65,11 @@ public class GameController implements GameControllerInterfaceView, GameControll
      * @param player player who played the move
      * @param column column where to insert the cards
      */
-    public void confirmColumn(Player player, Integer column) {
+    public boolean confirmColumn(Player player, Integer column) {
         if(checkPlayer(player)) {
-            this.model.confirmColumn(column);
+            return this.model.confirmColumn(column);
         }
+        return false;
     }
 
     /**
