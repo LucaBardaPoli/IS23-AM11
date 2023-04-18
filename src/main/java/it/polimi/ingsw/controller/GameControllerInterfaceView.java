@@ -30,7 +30,7 @@ public interface GameControllerInterfaceView {
      * @param player player who played the move
      * @param column column where to insert the cards
      */
-    public void confirmColumn(Player player, Integer column);
+    public boolean confirmColumn(Player player, Integer column);
 
     /**
      * Moves the selected card to the last place in the list of cards to insert in the bookshelf

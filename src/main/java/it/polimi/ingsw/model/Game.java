@@ -7,7 +7,7 @@ import it.polimi.ingsw.controller.*;
  * Game class that handles the game moves and the way it evolves
  */
 public class Game implements GameInterface {
-    private final Integer id;
+    private final int id;
     private final Board board;
     private final List<Player> players;
     private Integer turn;

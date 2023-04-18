@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network;
+package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.Player;
 
