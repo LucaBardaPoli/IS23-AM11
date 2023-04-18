@@ -2,17 +2,20 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.goals.*;
+import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.network.server.ClientHandler;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Class that handles the games creation
  */
 public class LobbyManager {
     private static LobbyManager instance;
-    private final List<GameController> controllers;
-    private final List<String> lobby;
+    private final List<ClientHandler> lobby;
+    private final List<Game> games;
     private Integer counterGames;
     private Integer currentGameNumPlayers;
     private final List<CommonGoal> commonGoals;
@@ -24,8 +27,8 @@ public class LobbyManager {
      * Private constructor to implement the Singleton design patter
      */
     private LobbyManager() {
-        this.controllers = new ArrayList<GameController>();
-        this.lobby = new ArrayList<String>();
+        this.lobby = new ArrayList<>();
+        this.games = new ArrayList<>();
         this.counterGames = 0;
         this.currentGameNumPlayers = 0;
         this.commonGoals = new ArrayList<CommonGoal>();
@@ -52,16 +55,8 @@ public class LobbyManager {
      * Getter of the lobby
      * @return the lobby
      */
-    public List<String> getLobby() {
+    public List<ClientHandler> getLobby() {
         return this.lobby;
-    }
-
-    /**
-     * Getter of the controllers
-     * @return list of controllers
-     */
-    public List<GameController> getControllers() {
-        return this.controllers;
     }
 
     /**
@@ -74,15 +69,12 @@ public class LobbyManager {
 
     /**
      * Creates a new controller that handles the evolution of the new game
-     * @param players list containing the names of the players who will play the game
      */
-    private void addGame(List<String> players) {
+    private void addGame() {
         Collections.shuffle(personalGoals);
         Collections.shuffle(commonGoals);
 
-        Game newGame = new Game(counterGames, this.lobby, commonGoals.subList(0,2), personalGoals.subList(0,players.size()));
-        // newView = new View();
-        this.controllers.add(new GameController(newGame)); // newView
+        this.games.add(new Game(counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), commonGoals.subList(0,2), personalGoals.subList(0, this.lobby.size())));
         this.counterGames++;
         this.lobby.clear();
         this.currentGameNumPlayers = MIN_NUM_PLAYERS;
@@ -94,8 +86,11 @@ public class LobbyManager {
      * @return true whether the nickname is already used
      */
     public boolean isNicknameTaken(String nickname) {
-        for(GameController gc : this.controllers) {
-            if(gc.getModel().isNicknameTaken(nickname)) {
+        if(this.lobby.stream().map(ClientHandler::getNickname).anyMatch((x) -> x.equals(nickname))) {
+            return true;
+        }
+        for(Game g : this.games) {
+            if(g.getPlayers().stream().map(Player::getNickname).anyMatch((x) -> x.equals(nickname))) {
                 return true;
             }
         }
@@ -104,30 +99,23 @@ public class LobbyManager {
 
     /**
      * Adds a new player to the lobby
-     * @param nickname of the player
-     * @param numPlayers number of the players who will participate in a game (only the first player joining the lobby can specify that number)
+     * @param client client will participate in a game
      */
-    public boolean addPlayer(String nickname, Integer numPlayers) {
-        // Checks for possible nickname duplicates
-        for(GameController gc : this.controllers) {
-            if(gc.getModel().isNicknameTaken(nickname)) {
-                return false;
-            }
-        }
-        if(this.lobby.contains(nickname)) {
+    public boolean addPlayer(ClientHandler client) {
+        if(isNicknameTaken(client.getNickname())) {
             return false;
         }
         if(this.lobby.isEmpty()) {
-            if(numPlayers >= MIN_NUM_PLAYERS && numPlayers <= MAX_NUM_PLAYERS) {
-                this.currentGameNumPlayers = numPlayers;
-                this.lobby.add(nickname);
+            if(client.getNumPlayers() >= MIN_NUM_PLAYERS && client.getNumPlayers() <= MAX_NUM_PLAYERS) {
+                this.currentGameNumPlayers = client.getNumPlayers();
+                this.lobby.add(client);
             } else {
                 return false;
             }
         } else {
-            this.lobby.add(nickname);
+            this.lobby.add(client);
             if(this.lobby.size() == this.currentGameNumPlayers) {
-                this.addGame(this.lobby);
+                this.addGame();
             }
         }
         return true;
@@ -503,11 +491,10 @@ public class LobbyManager {
 
     /**
      * Ends the game for the players
-     * @param controller controller that handles the game to end
+     * @param game controller that handles the game to end
      */
-    public void endGame(GameController controller) {
-        controller.endGame();
-        this.controllers.remove(controller);
+    public void endGame(Game game) {
+        this.games.remove(game);
     }
 }
 

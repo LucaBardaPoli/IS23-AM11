@@ -1,11 +1,11 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.network.RMIListener;
 import it.polimi.ingsw.network.Settings;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -14,54 +14,59 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerController {
-    private int port;
+    private ServerSocket serverSocket;
+    private RMIListener rmiListener;
+    private final ExecutorService executors;
+    private boolean closeConnection;
 
     public ServerController() {
-        this.port = Settings.SERVER_PORT_TCP;
+        this.executors = Executors.newCachedThreadPool();
+        this.closeConnection = false;
     }
 
-    public void startServer() {
+    public void startServer(int port) {
         // TCP
-        ServerSocket serverSocket;
         try {
-            serverSocket = new ServerSocket(port);
+            this.serverSocket = new ServerSocket(port);
+            System.out.println("Listening...");
         } catch (IOException e) {
             System.err.println(e.getMessage());
             return;
         }
 
         // RMI
-        InitClientHandler obj = new InitClientHandler();
-        InitClientHandlerInterface stub = null;
         try {
-            stub = (InitClientHandlerInterface) UnicastRemoteObject.exportObject(obj, Settings.SERVER_PORT_RMI);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        try {
+            this.rmiListener = (RMIListener) UnicastRemoteObject.exportObject(new RMIListener(), Settings.SERVER_PORT_RMI);
             Registry registry = LocateRegistry.createRegistry(Settings.SERVER_PORT_RMI);
-            registry.bind("InitHandler", stub);
+            registry.rebind(Settings.RMI_REMOTE_OBJECT, this.rmiListener);
+            System.out.println("Exposed remote obj...");
         } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (AlreadyBoundException e) {
             e.printStackTrace();
         }
 
         System.out.println("Server ready...");
-        handleTCPConnections(serverSocket);
     }
 
-    public void handleTCPConnections(ServerSocket serverSocket) {
-        ExecutorService executor = Executors.newCachedThreadPool();
-        while(true) {
+    public void run() {
+        // We could save the handlers
+        while(!this.closeConnection) {
             try {
                 Socket socket = serverSocket.accept();
-                executor.submit(new TCPInitClientHandler(socket));
+                this.executors.submit(new TCPClientHandler(socket));
                 System.out.println("New client accepted");
             } catch(IOException e) {
-                break;
+                e.printStackTrace();
             }
         }
-        executor.shutdown();
+    }
+
+    public void close() {
+        this.closeConnection = true;
+        try {
+            this.serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.executors.shutdown();
     }
 }

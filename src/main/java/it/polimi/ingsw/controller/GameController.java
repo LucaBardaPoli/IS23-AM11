@@ -18,8 +18,6 @@ public class GameController implements GameControllerInterfaceView, GameControll
     public GameController(GameInterface model) {
         this.model = model;
         this.model.setGameController(this);
-        // this.view = view;
-        // this.view.setController(this);
     }
 
     /**
