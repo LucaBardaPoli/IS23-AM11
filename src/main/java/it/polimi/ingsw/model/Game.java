@@ -385,4 +385,8 @@ public class Game implements GameInterface {
         Token wonToken = wonTokenList.remove(0);
         return wonToken.getValue();
     }
+
+    public List<Position> getPickedCardsPositions() {
+        return pickedCardsPositions;
+    }
 }
