@@ -13,14 +13,16 @@ public class LaunchClient {
         }
         view.chooseTypeOfConnection();
         */
+        //openConnection("TCP", "127.0.0.1");
+        openConnection("RMI", "127.0.0.1");
     }
 
     public static void openConnection(String typeOfConnection, String ip) {
         Client client;
         if(typeOfConnection.equals("RMI")) {
-            client = new RMIClient(ip);
+            client = new ClientRMI(ip);
         } else { // Default is socket
-            client = new TCPClient(ip, Settings.SERVER_PORT_TCP);
+            client = new ClientTCP(ip, Settings.SERVER_PORT_TCP);
         }
         client.openConnection();
 

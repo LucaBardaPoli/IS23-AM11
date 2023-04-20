@@ -3,10 +3,6 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.network.Settings;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.util.Scanner;
 
 public class LaunchServer {
 

@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.goals.*;
-import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.server.ClientHandler;
 
 import java.util.*;
@@ -125,9 +124,9 @@ public class LobbyManager {
      * Removes a player from the lobby
      * @param nickname of the player which must be removed
      */
-    public void removePlayer(String nickname) {
+    /*public void removePlayer(String nickname) {
         this.lobby.remove(nickname);
-    }
+    }*/
 
     /**
      * Creates the personal goals of the game

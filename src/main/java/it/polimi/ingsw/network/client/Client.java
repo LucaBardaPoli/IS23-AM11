@@ -1,12 +1,12 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.message.ClientMessage;
-import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.rmi.RemoteException;
 
 public abstract class Client {
     protected String serverIp;
+    protected ClientController controller;
     protected boolean stopConnection;
 
     public Client(String serverIp) {
@@ -14,11 +14,13 @@ public abstract class Client {
         this.stopConnection = false;
     }
 
+    public void setController(ClientController clientController) {
+        this.controller = clientController;
+    }
+
     public abstract void openConnection();
 
     public abstract void startListening();
 
-    public abstract void receiveMessage(ServerMessage serverMessage) throws RemoteException;
-
-    public abstract void sendMessage(ClientMessage clientMessage);
+    public abstract void sendMessage(ClientMessage clientMessage) throws RemoteException;
 }
