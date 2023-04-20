@@ -1,14 +1,10 @@
 package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.network.server.ClientHandler;
 
-public class PickTaleResponse implements ServerMessage{
+public class SwapTilesOrderResponse implements ServerMessage{
 
-    boolean response;
-
-    public PickTaleResponse(boolean response) {
-        this.response = response;
+    public SwapTilesOrderResponse() {
     }
 
     @Override

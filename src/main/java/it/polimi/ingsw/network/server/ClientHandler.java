@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.LobbyManager;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Position;
 import it.polimi.ingsw.network.message.*;
 
 import java.rmi.RemoteException;
@@ -31,6 +30,10 @@ public abstract class ClientHandler {
 
     public void setModel(Game model) {
         this.model = model;
+    }
+
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
     }
 
     public Game getModel() {
@@ -76,6 +79,11 @@ public abstract class ClientHandler {
     //rearrange the order of the cards before adding them to the bookshelf
     public void handle(SwapTilesOrderRequest clientMessage) {
         model.rearrangeCards(clientMessage.getPosition());
+    }
+
+    //receives from the client the number of players we wats to play with
+    public void handle(NumPlayersResponse numPlayersRequest){
+        this.setNumPlayers(numPlayersRequest.getNumPlayers());
     }
 
 }

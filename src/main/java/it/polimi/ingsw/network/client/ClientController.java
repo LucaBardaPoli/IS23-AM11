@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.message.LoginRequest;
-import it.polimi.ingsw.network.message.LoginResponse;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.network.message.*;
 
 import java.rmi.RemoteException;
 
@@ -30,5 +30,38 @@ public class ClientController {
     public void handle(LoginResponse message) {
         System.out.println("OK");
     }
+
+    public void handle(PickTaleResponse pickTaleResponse) {
+        //handle pickTaleResponse
+    }
+
+    public void handle(NumPlayersRequest numPlayersRequest) {
+        //handle numPlayersResponse
+    }
+
+    public void handle(GameStartNotify gameStartNotify) {
+        //handle gameStartNotify
+    }
+
+    public void handle(NewBoardNotify newBoardNotify) {
+        //handle newBoardNotify
+    }
+
+    public void handle(ConfirmColumnResponse confirmColumnResponse) {
+        //handle confirmColumnResponse
+    }
+
+    public void handle(SwapTilesOrderResponse swapTilesOrderResponse) {
+        //handle swapTilesOrderResponse
+    }
+
+    public void handle(EndTurnNotify endTurnNotify) {
+        //handle endTurnNotify
+    }
+
+    public void handle(GameResultNotify gameResultNotify){
+        //handle gameResultNotify
+    }
+
 }
 
