@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import java.rmi.RemoteException;
 
 public class ConfirmColumnRequest implements ClientMessage {
-    Integer columnNumber;
+    private Integer columnNumber;
 
     public ConfirmColumnRequest(Integer column) {
         this.columnNumber = column;

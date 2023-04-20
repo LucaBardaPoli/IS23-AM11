@@ -1,20 +1,19 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.network.client.ClientRMI;
+import it.polimi.ingsw.network.client.ClientRMIInterface;
 import it.polimi.ingsw.network.message.ClientMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public class ClientHandlerRMI extends ClientHandler implements Remote {
-    private ClientRMI client;
+public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMIInterface {
+    private ClientRMIInterface client;
 
     public ClientHandlerRMI() {
         super();
     }
 
-    public void registerClient(ClientRMI client) throws RemoteException {
+    public void registerClient(ClientRMIInterface client) throws RemoteException {
         this.client = client;
     }
 

@@ -5,10 +5,10 @@ import it.polimi.ingsw.network.server.ClientHandler;
 
 import java.rmi.RemoteException;
 
-public class PickTaleRequest implements ClientMessage {
-    Position position;
+public class PickTileRequest implements ClientMessage {
+    private Position position;
 
-    public PickTaleRequest(Position position) {
+    public PickTileRequest(Position position) {
         this.position = position;
     }
 

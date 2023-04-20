@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.network.RMIListener;
 import it.polimi.ingsw.network.RMIListenerInterface;
 import it.polimi.ingsw.network.Settings;
-import it.polimi.ingsw.network.message.PickTaleResponse;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -38,7 +37,6 @@ public class ServerController {
 
         // RMI
         try {
-            //System.setProperty("java.rmi.server.hostname", "127.0.0.1");
             this.rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), Settings.SERVER_PORT_RMI);
             Registry registry = LocateRegistry.createRegistry(Settings.SERVER_PORT_RMI);
             registry.rebind(Settings.RMI_REMOTE_OBJECT, this.rmiListener);
@@ -51,7 +49,7 @@ public class ServerController {
     }
 
     public void run() {
-        // We could save the handlers
+        // We could save the handlers !!!!!!!!
         while(!this.closeConnection) {
             try {
                 System.out.println("Waiting...");

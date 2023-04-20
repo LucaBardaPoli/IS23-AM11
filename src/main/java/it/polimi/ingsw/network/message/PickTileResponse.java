@@ -1,13 +1,11 @@
 package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.network.server.ClientHandler;
 
-public class PickTaleResponse implements ServerMessage{
+public class PickTileResponse implements ServerMessage{
+    private boolean response;
 
-    boolean response;
-
-    public PickTaleResponse(boolean response) {
+    public PickTileResponse(boolean response) {
         this.response = response;
     }
 

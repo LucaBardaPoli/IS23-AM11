@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.message.*;
 
 import java.rmi.RemoteException;
@@ -15,13 +14,11 @@ public class ClientController {
     }
 
     public void run() {
-        // Test message
         try {
-            client.sendMessage(new LoginRequest("simone"));
-        } catch (RemoteException e) {
+            this.client.sendMessage(new LoginRequest("simone"));
+        } catch(RemoteException e) {
             e.printStackTrace();
         }
-
         client.startListening();
         // view.chooseUsername();
     }
@@ -31,7 +28,7 @@ public class ClientController {
         System.out.println("OK");
     }
 
-    public void handle(PickTaleResponse pickTaleResponse) {
+    public void handle(PickTileResponse pickTileResponse) {
         //handle pickTaleResponse
     }
 

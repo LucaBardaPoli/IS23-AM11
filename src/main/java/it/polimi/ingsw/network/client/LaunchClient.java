@@ -13,8 +13,8 @@ public class LaunchClient {
         }
         view.chooseTypeOfConnection();
         */
-        //openConnection("TCP", "127.0.0.1");
-        openConnection("RMI", "127.0.0.1");
+        openConnection("TCP", "127.0.0.1");
+        //openConnection("RMI", "127.0.0.1");
     }
 
     public static void openConnection(String typeOfConnection, String ip) {

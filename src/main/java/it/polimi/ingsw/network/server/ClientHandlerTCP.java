@@ -21,7 +21,6 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
 
     public void run() {
         try {
-            System.out.println("OK");
             while(!stopConnection) {
                 ClientMessage clientMessage = (ClientMessage) this.inputStream.readObject();
                 clientMessage.handle(this);

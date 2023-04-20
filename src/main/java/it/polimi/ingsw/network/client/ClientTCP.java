@@ -30,7 +30,7 @@ public class ClientTCP extends Client {
     }
 
     public void startListening() {
-        // !!!!!!!!!!!DEVE ESSERE UN THREAD QUESTO!!!!!!!!
+        // !!!!!!!!!!!DEVE ESSERE UN THREAD QUESTO!!!!!!!!!!!
         try {
             while(!stopConnection) {
                 ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();

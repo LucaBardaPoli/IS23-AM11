@@ -4,15 +4,14 @@ import it.polimi.ingsw.network.server.ClientHandler;
 
 import java.rmi.RemoteException;
 
-public class NumPlayersResponse implements ClientMessage{
+public class NumPlayersResponse implements ClientMessage {
+    private int numPlayers;
 
-    Integer numPlayers;
-
-    public NumPlayersResponse(Integer numPlayers) {
+    public NumPlayersResponse(int numPlayers) {
         this.numPlayers = numPlayers;
     }
 
-    public Integer getNumPlayers() {
+    public int getNumPlayers() {
         return numPlayers;
     }
 

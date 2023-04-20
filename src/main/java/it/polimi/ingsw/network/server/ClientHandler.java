@@ -32,10 +32,6 @@ public abstract class ClientHandler {
         this.model = model;
     }
 
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
-    }
-
     public Game getModel() {
         return model;
     }
@@ -45,9 +41,9 @@ public abstract class ClientHandler {
         if(this.lobbyManager.isNicknameTaken(clientMessage.getNickname())) {
             sendMessage(new LoginResponse(false));
         } else {
+            this.nickname = clientMessage.getNickname();
             sendMessage(new LoginResponse(true));
         }
-        sendMessage(new LoginResponse(true));
     }
 
     //confirms the column selected by the player
@@ -58,21 +54,21 @@ public abstract class ClientHandler {
     //confirms the order of the cards that was previously selected
     public void handle(ConfirmOrderNotify clientMessage) {
         model.confirmOrderSelectedCards();
+        // creare pacchetto EndTurnNotify
     }
 
     //confirms the set of cards picked previously by the player and goes on to get them from the board
     public void handle(ConfirmPickNotify clientMessage) {
         model.confirmChoice();
+        // creare pacchetto NewBoardNotify
     }
 
     //checks if the picks made by the player are available
-    public void handle(PickTaleRequest clientMessage) throws RemoteException {
+    public void handle(PickTileRequest clientMessage) throws RemoteException {
         if(model.pickCard(clientMessage.getPosition()).isPresent()){
-            sendMessage(new PickTaleResponse(false));
-            model.getPickedCardsPositions().add(clientMessage.getPosition());
-        }
-        else {
-            sendMessage(new PickTaleResponse(true));
+            sendMessage(new PickTileResponse(true));
+        } else {
+            sendMessage(new PickTileResponse(false));
         }
     }
 
@@ -83,7 +79,7 @@ public abstract class ClientHandler {
 
     //receives from the client the number of players we wats to play with
     public void handle(NumPlayersResponse numPlayersRequest){
-        this.setNumPlayers(numPlayersRequest.getNumPlayers());
+        this.numPlayers = numPlayersRequest.getNumPlayers();
     }
 
 }
