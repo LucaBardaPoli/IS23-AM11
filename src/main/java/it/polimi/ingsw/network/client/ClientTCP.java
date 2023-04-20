@@ -7,15 +7,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 
-public class TCPClient extends Client implements ClientMessageHandler {
+public class ClientTCP extends Client {
     private final int port;
     private Socket socket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
 
-    public TCPClient(String serverIp, int port) {
+    public ClientTCP(String serverIp, int port) {
         super(serverIp);
         this.port = port;
     }
@@ -23,18 +22,19 @@ public class TCPClient extends Client implements ClientMessageHandler {
     public void openConnection() {
         try {
             this.socket = new Socket(this.serverIp, this.port);
-            this.inputStream = new ObjectInputStream(this.socket.getInputStream());
             this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
+            this.inputStream = new ObjectInputStream(this.socket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void startListening() {
+        // !!!!!!!!!!!DEVE ESSERE UN THREAD QUESTO!!!!!!!!
         try {
             while(!stopConnection) {
                 ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();
-                serverMessage.handle(this);
+                serverMessage.handle(this.controller);
             }
             this.inputStream.close();
             this.outputStream.close();
@@ -43,16 +43,11 @@ public class TCPClient extends Client implements ClientMessageHandler {
         }
     }
 
-    public void receiveMessage(ServerMessage serverMessage) throws RemoteException {
-
-    }
-
     public void sendMessage(ClientMessage clientMessage) {
-
-    }
-
-    // Handles all kind of Server messages
-    public void handle(ServerMessage serverMessage) {
-
+        try {
+            this.outputStream.writeObject(clientMessage);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }

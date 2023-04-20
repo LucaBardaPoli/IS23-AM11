@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.RMIListener;
+import it.polimi.ingsw.network.RMIListenerInterface;
 import it.polimi.ingsw.network.Settings;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
 
 public class ServerController {
     private ServerSocket serverSocket;
-    private RMIListener rmiListener;
+    private RMIListenerInterface rmiListener;
     private final ExecutorService executors;
     private boolean closeConnection;
 
@@ -36,7 +37,8 @@ public class ServerController {
 
         // RMI
         try {
-            this.rmiListener = (RMIListener) UnicastRemoteObject.exportObject(new RMIListener(), Settings.SERVER_PORT_RMI);
+            //System.setProperty("java.rmi.server.hostname", "127.0.0.1");
+            this.rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), Settings.SERVER_PORT_RMI);
             Registry registry = LocateRegistry.createRegistry(Settings.SERVER_PORT_RMI);
             registry.rebind(Settings.RMI_REMOTE_OBJECT, this.rmiListener);
             System.out.println("Exposed remote obj...");
@@ -51,11 +53,13 @@ public class ServerController {
         // We could save the handlers
         while(!this.closeConnection) {
             try {
-                Socket socket = serverSocket.accept();
-                this.executors.submit(new TCPClientHandler(socket));
+                System.out.println("Waiting...");
+                Socket socket = this.serverSocket.accept();
+                this.executors.submit(new ClientHandlerTCP(socket));
                 System.out.println("New client accepted");
             } catch(IOException e) {
                 e.printStackTrace();
+                close();
             }
         }
     }

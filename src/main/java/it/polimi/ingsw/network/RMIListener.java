@@ -1,21 +1,20 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.network.server.RMIClientHandler;
+import it.polimi.ingsw.network.server.ClientHandlerRMI;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RMIListener implements Remote {
-    private List<RMIClientHandler> handlers;
+public class RMIListener implements RMIListenerInterface {
+    private List<ClientHandlerRMI> handlers;
 
     public RMIListener() {
         this.handlers = new ArrayList<>();
     }
 
-    public RMIClientHandler getHandler() throws RemoteException {
-        RMIClientHandler handler = new RMIClientHandler();
+    public ClientHandlerRMI getHandler() throws RemoteException {
+        ClientHandlerRMI handler = new ClientHandlerRMI();
         this.handlers.add(handler);
         return handler;
     }
