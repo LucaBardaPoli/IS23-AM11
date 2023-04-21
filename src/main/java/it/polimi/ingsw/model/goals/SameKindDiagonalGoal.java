@@ -14,17 +14,17 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf> {
      * @return true whether the diagonal exists
      */
     private boolean checkDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Integer limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
-        Optional<CardType> card;
-        CardType currentType;
+        Integer limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
+        Optional<Tile> tile;
+        Tile currentType;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn));
-        if(card.isPresent()) {
-            currentType = card.get();
+        tile = bookshelf.getTile(new Position(startRow, startColumn));
+        if(tile.isPresent()) {
+            currentType = tile.get();
             for (int i = 1; i < limit; i++) {
-                card = bookshelf.getCell(new Position(startRow+i, startColumn+i));
-                if (card.isPresent()) {
-                    if (!card.get().equals(currentType)) {
+                tile = bookshelf.getTile(new Position(startRow+i, startColumn+i));
+                if (tile.isPresent()) {
+                    if (!tile.get().equals(currentType)) {
                         return false;
                     }
                 } else {
@@ -45,17 +45,17 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf> {
      * @return true whether the anti-diagonal exists
      */
     private boolean checkAntidiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Integer limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
-        Optional<CardType> card;
-        CardType currentType;
+        Integer limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
+        Optional<Tile> tile;
+        Tile currentType;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn));
-        if(card.isPresent()) {
-            currentType = card.get();
+        tile = bookshelf.getTile(new Position(startRow, startColumn));
+        if(tile.isPresent()) {
+            currentType = tile.get();
             for (int i = 1; i < limit; i++) {
-                card = bookshelf.getCell(new Position(startRow-i, startColumn+i));
-                if (card.isPresent()) {
-                    if (!card.get().equals(currentType)) {
+                tile = bookshelf.getTile(new Position(startRow-i, startColumn+i));
+                if (tile.isPresent()) {
+                    if (!tile.get().equals(currentType)) {
                         return false;
                     }
                 } else {

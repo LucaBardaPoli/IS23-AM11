@@ -12,16 +12,16 @@ public class SameKindNGoal implements Predicate<Bookshelf> {
 
     public SameKindNGoal(int n) {
         this.n = n;
-        count_types = new int[CardType.values().length];
+        count_types = new int[Tile.values().length];
         // initialize the counters
         Arrays.fill(count_types, 0);
     }
 
     @Override
     public boolean test(Bookshelf bookshelf) {
-        int nrows = bookshelf.getRows();
-        int ncolumns = bookshelf.getColumns();
-        Optional<CardType> card;
+        int nrows = GameSettings.ROWS;
+        int ncolumns = GameSettings.COLUMNS;
+        Optional<Tile> tile;
         Position position = new Position();
         int row_idx, col_idx;
 
@@ -29,10 +29,10 @@ public class SameKindNGoal implements Predicate<Bookshelf> {
             for(col_idx = 0; col_idx < ncolumns; col_idx++){
                 position.setRow(row_idx);
                 position.setColumn(col_idx);
-                card = bookshelf.getCell(position);
-                // card.ifPresent(cardType -> count_types[cardType.ordinal()]++);
-                if(card.isPresent()){
-                    if(++count_types[card.get().ordinal()] >= n){
+                tile = bookshelf.getTile(position);
+                // tile.ifPresent(cardType -> count_types[cardType.ordinal()]++);
+                if(tile.isPresent()){
+                    if(++count_types[tile.get().ordinal()] >= n){
                         return true;
                     }
                 }

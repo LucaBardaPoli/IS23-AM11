@@ -9,11 +9,11 @@ public class Player {
     private final PersonalGoal personalGoal;
     private final Game game;
     private Bookshelf bookshelf;
-    private Integer personalGoalPoints;
-    private Integer commonGoalPoints;
-    private Integer adjacentPoints;
+    private int personalGoalPoints;
+    private int commonGoalPoints;
+    private int adjacentPoints;
     private boolean endGamePoint;
-    private final  List<Boolean> commonGoalFulfilled;
+    private final List<Boolean> commonGoalFulfilled;
 
     /**
      * Class Constructor
@@ -70,12 +70,12 @@ public class Player {
     }
 
     /**
-     * Insert the selected Cards in the bookshelf
-     * @param column where the card should be placed
-     * @param cardList of the selected cards
+     * Insert the selected tiles in the bookshelf
+     * @param column where the tile should be placed
+     * @param tiles of the selected tiles
      */
-    public void insertCards(Integer column, List<CardType> cardList){
-        this.bookshelf.addCells(cardList, column);
+    public void insertCards(int column, List<Tile> tiles){
+        this.bookshelf.addTiles(tiles, column);
     }
 
     /**
@@ -83,14 +83,14 @@ public class Player {
      * @param column where to check
      * @return number of free cells in a certain column of the bookshelf
      */
-    public Integer getFreeCells(Integer column){
+    public int getFreeCells(int column){
         return this.bookshelf.getFreeCells(column);
     }
 
     /**
-     * Check the progress of a player's goals & adjacency and update their score based on this.
-     * @param commonGoals List of common goals that should be completed
-     * @return  boolean depending on whether the player has or not filled his bookshelf
+     * Check the progress of a player's goals & adjacency and update their score based on this
+     * @param commonGoals list of common goals that should be completed
+     * @return boolean depending on whether the player has or not filled his bookshelf
      */
     public boolean checkBookshelf(List<CommonGoal> commonGoals) {
         /* Checking Personal Goal Points */
@@ -122,8 +122,8 @@ public class Player {
      * Getter of the points
      * @return points scored by the player (based on Common, Personal Goals and on the Adjacency)
      */
-    public Integer getPoints() {
-        Integer points = 0;
+    public int getPoints() {
+        int points = 0;
         if(this.endGamePoint) {
             points += 1;
         }
@@ -131,23 +131,23 @@ public class Player {
     }
 
     /**
-     Static method that checks if the player has in his bookshelf adjacency Goals
-     @param bshelf is the bookshelf of the player
+     Checks if the player has in his bookshelf adjacency Goals
+     @param bookshelf is the bookshelf of the player
      @return the score based on the number of adjacency present in the player's bookshelf
      */
-    public int checkAdjacency(Bookshelf bshelf) {
+    public int checkAdjacency(Bookshelf bookshelf) {
         //int numGroup = 0;
         int adjacencyPoints = 0;
 
-        int numRow = Bookshelf.getRows();
-        int numColumn = Bookshelf.getColumns();
+        int numRow = GameSettings.ROWS;
+        int numColumn = GameSettings.COLUMNS;
 
         boolean[][] visited = new boolean[numRow][numColumn];
 
         for (int i = 0; i < numRow; i++) {
             for (int j = 0; j < numColumn; j++) {
                 if (!visited[i][j]) {
-                    int groupSize = findAdjacentGroupCards(bshelf, visited, i, j, bshelf.getCell(new Position(i,j)));
+                    int groupSize = findAdjacentGroupTiles(bookshelf, visited, i, j, bookshelf.getTile(new Position(i,j)));
                     if (groupSize >= 3) {
                         //numGroup++;
 
@@ -169,24 +169,24 @@ public class Player {
     }
 
     /**
-     Finds the Adjacent Cards present in the bookshelf
-     @param bshelf is the bookshelf of the player
+     Finds the Adjacent tiles present in the bookshelf
+     @param bookshelf is the bookshelf of the player
      @param visited is a matrix of bool which takes into account whether a Card has been visited or not
      @param row is the index of the row of the card that should be checked
      @param column is the index of the column of the Card that should be checked
-     @param type is the type of the card that should be checked
-     @return the size of the group with cards of the same type
+     @param type is the type of the tile that should be checked
+     @return the size of the group with tiles of the same type
      */
-    private int findAdjacentGroupCards(Bookshelf bshelf, boolean[][] visited, int row, int column, Optional<CardType> type) {
+    private int findAdjacentGroupTiles(Bookshelf bookshelf, boolean[][] visited, int row, int column, Optional<Tile> type) {
 
         Position posToCheck = new Position(row, column);
 
         // Check out of bounds + Already Visited
-        if ( (row < 0 || row >= Bookshelf.getRows() || column < 0 || column >= Bookshelf.getColumns()) || visited[row][column]) {
+        if ( (row < 0 || row >= GameSettings.ROWS || column < 0 || column >= GameSettings.COLUMNS) || visited[row][column]) {
             return 0;
-        } else if( bshelf.getCell(posToCheck).isEmpty() || type.isEmpty()){
+        } else if( bookshelf.getTile(posToCheck).isEmpty() || type.isEmpty()){
             return 0;
-        } else if( bshelf.getCell(posToCheck).get() != type.get() ){
+        } else if( bookshelf.getTile(posToCheck).get() != type.get() ){
             return 0;
         }
 
@@ -194,26 +194,25 @@ public class Player {
 
         int groupSize = 1;
 
-
         // Visit locations adjacent to the position provided -
         // (it doesn't check for the diagonal e.g. row +-1, column +-1 && row+-1, column -+ 1)
-        groupSize += findAdjacentGroupCards(bshelf, visited, row - 1, column, type);
-        groupSize += findAdjacentGroupCards(bshelf, visited, row + 1, column, type);
-        groupSize += findAdjacentGroupCards(bshelf, visited, row, column - 1, type);
-        groupSize += findAdjacentGroupCards(bshelf, visited, row, column + 1, type);
+        groupSize += findAdjacentGroupTiles(bookshelf, visited, row - 1, column, type);
+        groupSize += findAdjacentGroupTiles(bookshelf, visited, row + 1, column, type);
+        groupSize += findAdjacentGroupTiles(bookshelf, visited, row, column - 1, type);
+        groupSize += findAdjacentGroupTiles(bookshelf, visited, row, column + 1, type);
 
         return groupSize;
     }
 
-    public Integer getPersonalGoalPoints() {
+    public int getPersonalGoalPoints() {
         return personalGoalPoints;
     }
 
-    public Integer getCommonGoalPoints() {
+    public int getCommonGoalPoints() {
         return commonGoalPoints;
     }
 
-    public Integer getAdjacentPoints() {
+    public int getAdjacentPoints() {
         return adjacentPoints;
     }
 

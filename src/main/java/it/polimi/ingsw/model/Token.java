@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 public class Token {
-    private Integer value;
+    private final int value;
 
     public Token(Integer value) {
         this.value = value;

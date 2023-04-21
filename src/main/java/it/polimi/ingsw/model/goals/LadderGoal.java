@@ -3,7 +3,8 @@ package it.polimi.ingsw.model.goals;
 import java.util.Optional;
 import java.util.function.Predicate;
 import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.GameSettings;
+import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Position;
 
 public class LadderGoal implements Predicate<Bookshelf> {
@@ -24,14 +25,14 @@ public class LadderGoal implements Predicate<Bookshelf> {
      * @return true whether the descending ladder exists
      */
     private boolean testDescendingLadder(int startRow, int startColumn, Bookshelf bookshelf) {
-        int limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
-        Optional<CardType> card;
+        int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
+        Optional<Tile> tile;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn));
-        if(card.isPresent() && bookshelf.getCell(new Position(startRow-1, startColumn)).isEmpty()) {
+        tile = bookshelf.getTile(new Position(startRow, startColumn));
+        if(tile.isPresent() && bookshelf.getTile(new Position(startRow-1, startColumn)).isEmpty()) {
             for (int i = 1; i < limit; i++) {
-                card = bookshelf.getCell(new Position(startRow+i, startColumn+i));
-                if (card.isEmpty() || bookshelf.getCell(new Position(startRow+i-1, startColumn+i)).isPresent()) {
+                tile = bookshelf.getTile(new Position(startRow+i, startColumn+i));
+                if (tile.isEmpty() || bookshelf.getTile(new Position(startRow+i-1, startColumn+i)).isPresent()) {
                     return false;
                 }
             }
@@ -49,14 +50,14 @@ public class LadderGoal implements Predicate<Bookshelf> {
      * @return true whether the ascending ladder exists
      */
     private boolean testAscendingLadder(int startRow, int startColumn, Bookshelf bookshelf) {
-        int limit = Math.min(Bookshelf.getColumns(), Bookshelf.getRows());
-        Optional<CardType> card;
+        int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
+        Optional<Tile> card;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn));
-        if(card.isPresent() && bookshelf.getCell(new Position(startRow-1, startColumn)).isEmpty()) {
+        card = bookshelf.getTile(new Position(startRow, startColumn));
+        if(card.isPresent() && bookshelf.getTile(new Position(startRow-1, startColumn)).isEmpty()) {
             for (int i = 1; i < limit; i++) {
-                card = bookshelf.getCell(new Position(startRow-i, startColumn+i));
-                if (card.isEmpty() || bookshelf.getCell(new Position(startRow-i-1, startColumn+i)).isPresent()) {
+                card = bookshelf.getTile(new Position(startRow-i, startColumn+i));
+                if (card.isEmpty() || bookshelf.getTile(new Position(startRow-i-1, startColumn+i)).isPresent()) {
                     return false;
                 }
             }

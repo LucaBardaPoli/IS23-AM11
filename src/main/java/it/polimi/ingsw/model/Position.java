@@ -4,56 +4,56 @@ import java.util.Objects;
 
 public class Position {
 
-    private Integer row;
-    private Integer column;
+    private int row;
+    private int column;
 
     /**
-     * constructor
+     * Class constructor
      * @param row indicates the row of the position
      * @param column indicates the column of the position
      */
-    public Position (Integer row, Integer column){
+    public Position (int row, int column){
         this.row = row;
         this.column = column;
     }
 
     /**
-     * constructor
+     * Class constructor
      */
-    public Position(){
+    public Position() {
         row = 0;
         column = 0;
     }
 
     /**
-     * getter of row
+     * Getter of row
      * @return returns the number of the row
      */
-    public Integer getRow() {
+    public int getRow() {
         return row;
     }
 
     /**
-     * getter of column
+     * Getter of column
      * @return return the number of the column
      */
-    public Integer getColumn() {
+    public int getColumn() {
         return column;
     }
 
     /**
-     * setter of row
+     * Setter of row
      * @param row sets the row to this value
      */
-    public void setRow(Integer row) {
+    public void setRow(int row) {
         this.row = row;
     }
 
     /**
-     * setter of column
+     * Setter of column
      * @param column sets the column to this value
      */
-    public void setColumn(Integer column) {
+    public void setColumn(int column) {
         this.column = column;
     }
 

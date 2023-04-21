@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.chat;
 
-import it.polimi.ingsw.network.Settings;
+import it.polimi.ingsw.network.NetworkSettings;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class ChatClientApp extends UnicastRemoteObject implements ChatClient {
 
     private void startClient() throws Exception {
         Registry registry;
-        registry = LocateRegistry.getRegistry(Settings.SERVER_NAME, Settings.SERVER_PORT_RMI);
+        registry = LocateRegistry.getRegistry(NetworkSettings.SERVER_NAME, NetworkSettings.SERVER_PORT_RMI);
         // Looking up the registry for the remote object
         this.cs = (ChatServer) registry.lookup("ChatService");
         this.cs.login(this);

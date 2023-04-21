@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.RMIListenerInterface;
-import it.polimi.ingsw.network.Settings;
+import it.polimi.ingsw.network.NetworkSettings;
 import it.polimi.ingsw.network.message.ClientMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 import it.polimi.ingsw.network.server.ClientHandlerRMIInterface;
@@ -22,9 +22,9 @@ public class ClientRMI extends Client implements ClientRMIInterface {
     public void openConnection() {
         try {
             Registry registry = LocateRegistry.getRegistry(this.serverIp);
-            RMIListenerInterface rmiListener = (RMIListenerInterface) registry.lookup(Settings.RMI_REMOTE_OBJECT);
+            RMIListenerInterface rmiListener = (RMIListenerInterface) registry.lookup(NetworkSettings.RMI_REMOTE_OBJECT);
             this.clientHandler = rmiListener.getHandler();
-            UnicastRemoteObject.exportObject(this, Settings.CLIENT_PORT_RMI);
+            UnicastRemoteObject.exportObject(this, NetworkSettings.CLIENT_PORT_RMI);
             this.clientHandler.registerClient(this);
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();

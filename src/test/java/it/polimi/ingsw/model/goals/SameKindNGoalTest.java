@@ -16,7 +16,7 @@ public class SameKindNGoalTest {
 
         CommonGoal sameKindGoal;
 
-        for(int i = 0; i < Bookshelf.getRows() * Bookshelf.getColumns(); i++){
+        for(int i = 0; i < GameSettings.ROWS * GameSettings.COLUMNS; i++){
             sameKindGoal = new CommonGoal("same kind goal", new SameKindNGoal(i));
             assertFalse(sameKindGoal.checkGoal(bookshelf));
         }
@@ -28,11 +28,11 @@ public class SameKindNGoalTest {
         CommonGoal sameKindNGoal;
         int i;
 
-        bookshelf.addCells(List.of(CardType.WHITE, CardType.GREEN, CardType.PINK, CardType.PINK, CardType.YELLOW, CardType.LBLUE), 0);
-        bookshelf.addCells(List.of(CardType.LBLUE, CardType.GREEN, CardType.PINK, CardType.WHITE, CardType.LBLUE, CardType.GREEN), 1);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.WHITE, CardType.YELLOW, CardType.BLUE, CardType.WHITE, CardType.LBLUE, CardType.WHITE), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.LBLUE, CardType.BLUE, CardType.GREEN, CardType.WHITE, CardType.GREEN), 4);
+        bookshelf.addTiles(List.of(Tile.WHITE, Tile.GREEN, Tile.PINK, Tile.PINK, Tile.YELLOW, Tile.LBLUE), 0);
+        bookshelf.addTiles(List.of(Tile.LBLUE, Tile.GREEN, Tile.PINK, Tile.WHITE, Tile.LBLUE, Tile.GREEN), 1);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.WHITE, Tile.YELLOW, Tile.BLUE, Tile.WHITE, Tile.LBLUE, Tile.WHITE), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.LBLUE, Tile.BLUE, Tile.GREEN, Tile.WHITE, Tile.GREEN), 4);
 
         // there are 4 PINK tiles, 4 YELLOW tiles, 5 WHITE tiles, 5 GREEN tiles, 5 BLUE tiles, 6 LBLUE tiles
         for(i = 0; i <= 6; i++){
@@ -52,11 +52,11 @@ public class SameKindNGoalTest {
         CommonGoal sameKindNGoal;
         int i;
 
-        bookshelf.addCells(List.of(CardType.WHITE, CardType.GREEN, CardType.PINK, CardType.PINK), 0);
-        bookshelf.addCells(List.of(CardType.LBLUE, CardType.GREEN, CardType.PINK, CardType.WHITE, CardType.LBLUE), 1);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.WHITE), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.LBLUE), 4);
+        bookshelf.addTiles(List.of(Tile.WHITE, Tile.GREEN, Tile.PINK, Tile.PINK), 0);
+        bookshelf.addTiles(List.of(Tile.LBLUE, Tile.GREEN, Tile.PINK, Tile.WHITE, Tile.LBLUE), 1);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.WHITE), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.LBLUE), 4);
 
         // there are 2 YELLOW tiles, 2 GREEN tiles, 3 WHITE tiles, 3 BLUE tiles, 3 LBLUE tiles, 4 PINK tiles
         for(i = 0; i <= 4; i++){

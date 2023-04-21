@@ -30,7 +30,7 @@ public interface GameInterface {
      * @param position position where to pick the card
      * @return the picked card only if there is a valid pick
      */
-    public Optional<CardType> pickCard(Position position);
+    public Optional<Tile> pickCard(Position position);
 
     /**
      * Removes the card from the chosen ones
@@ -56,7 +56,7 @@ public interface GameInterface {
      * @param position position of the selected card
      * @return the new sorted list of cards
      */
-    public List<CardType> rearrangeCards(Integer position);
+    public List<Tile> rearrangeCards(Integer position);
 
     /**
      * Checks if the current cards order is valid. If so it inserts them in the bookshelf

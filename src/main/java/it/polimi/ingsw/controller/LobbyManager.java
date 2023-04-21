@@ -19,8 +19,6 @@ public class LobbyManager {
     private Integer currentGameNumPlayers;
     private final List<CommonGoal> commonGoals;
     private final List<PersonalGoal> personalGoals;
-    public static Integer MIN_NUM_PLAYERS;
-    public static Integer MAX_NUM_PLAYERS;
 
     /**
      * Private constructor to implement the Singleton design patter
@@ -32,8 +30,6 @@ public class LobbyManager {
         this.currentGameNumPlayers = 0;
         this.commonGoals = new ArrayList<>();
         this.personalGoals = new ArrayList<>();
-        LobbyManager.MIN_NUM_PLAYERS = 2;
-        LobbyManager.MAX_NUM_PLAYERS = 4;
 
         this.initializePersonalGoals();
         this.initializeCommonGoals();
@@ -80,7 +76,7 @@ public class LobbyManager {
             c.setModel(newGame);
         }
         this.lobby.clear();
-        this.currentGameNumPlayers = MIN_NUM_PLAYERS;
+        this.currentGameNumPlayers = GameSettings.MIN_NUM_PLAYERS;
     }
 
     /**
@@ -113,7 +109,7 @@ public class LobbyManager {
             return false;
         }
         if(this.lobby.isEmpty()) {
-            if(client.getNumPlayers() >= MIN_NUM_PLAYERS && client.getNumPlayers() <= MAX_NUM_PLAYERS) {
+            if(client.getNumPlayers() >= GameSettings.MIN_NUM_PLAYERS && client.getNumPlayers() <= GameSettings.MAX_NUM_PLAYERS) {
                 this.currentGameNumPlayers = client.getNumPlayers();
                 this.lobby.add(client);
             } else {
@@ -142,7 +138,7 @@ public class LobbyManager {
     private void initializePersonalGoals() {
 
         List<Position> positions = new ArrayList<>();
-        List<CardType> cardTypes = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>();
         Map<Integer, Integer> rewards = new HashMap<>();
 
         rewards.put(1,1);
@@ -154,284 +150,284 @@ public class LobbyManager {
 
         //Personal Goal x1
         positions.add(new Position( 0,0 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 0,2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 1,4 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 3) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 3,1 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5,2 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x2
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(2 ,0 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 3,4 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 3) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 5, 4) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x3
         positions.add(new Position(1 ,0) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(1 , 3) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(2 ,2 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(3 , 1) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(3 , 4) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(5 ,0 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x4
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 2, 0) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(2 , 2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3,3) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(4 , 1) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position(4, 2) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x5
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 3,1 ) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3,2 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4,4 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 5,0 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5,3 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x6
         positions.add(new Position( 0, 2) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 0, 4) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 3) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 1) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 4, 3) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 5, 0) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x7
         positions.add(new Position(0 , 0) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(1 ,3 ) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(2 , 1) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(3 ,0 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 4, 4) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(5 ,2 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x8
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 2) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(3 ,0 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 4,3 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position(5 , 3) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x9
         positions.add(new Position( 0, 2) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(3 , 4) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 1) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(4 ,4 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(5 , 0) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x10
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 1, 1) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(2 , 0) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 3,3 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(4 ,1 ) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(5 , 3) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x11
         positions.add(new Position(0 ,2 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 1,1 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 2,0 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 3, 2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 4,4 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(5 ,3 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x12
         positions.add(new Position(0 ,2 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 1,1 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3, 3) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 4,4 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5, 0) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        this.personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
     }
 
@@ -447,11 +443,11 @@ public class LobbyManager {
         this.commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
         // Common Goal : Lots Different Columns Goal
-        bookshelfPredicate = new DifferentTypesGoal(6, Bookshelf.getRows(), 2, CheckMode.VERTICAL);
+        bookshelfPredicate = new DifferentTypesGoal(6, GameSettings.ROWS, 2, CheckMode.VERTICAL);
         this.commonGoals.add(new CommonGoal("Lots Different Columns",  bookshelfPredicate));
 
         // Common Goal: Lots Different Rows Goal
-        bookshelfPredicate = new DifferentTypesGoal(5, Bookshelf.getColumns(), 2, CheckMode.HORIZONTAL);
+        bookshelfPredicate = new DifferentTypesGoal(5, GameSettings.COLUMNS, 2, CheckMode.HORIZONTAL);
         this.commonGoals.add(new CommonGoal("Lots Different Rows",  bookshelfPredicate));
 
         // Common Goal : Few Different Columns Goal
@@ -489,9 +485,9 @@ public class LobbyManager {
         // Common Goal: Given Positions Goal
         List<Position> positionList = new ArrayList<>();
         positionList.add(new Position(0,0));
-        positionList.add(new Position(0,Bookshelf.getColumns()-1));
-        positionList.add(new Position(Bookshelf.getRows()-1,0));
-        positionList.add(new Position(Bookshelf.getRows()-1,Bookshelf.getColumns()-1));
+        positionList.add(new Position(0,GameSettings.COLUMNS-1));
+        positionList.add(new Position(GameSettings.ROWS-1,0));
+        positionList.add(new Position(GameSettings.ROWS-1,GameSettings.COLUMNS-1));
         bookshelfPredicate = new GivenPositionsGoal(positionList);
         this.commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
     }

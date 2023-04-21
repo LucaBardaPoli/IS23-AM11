@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.goals;
 
-import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Bookshelf;
 import it.polimi.ingsw.model.Position;
 
@@ -18,28 +18,28 @@ public class GivenPositionsGoal implements Predicate<Bookshelf> {
 
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Optional<CardType> card;
-        CardType cardTypeReference, cardType;
+        Optional<Tile> optionalTile;
+        Tile tileReference, tile;
 
         // if there are no positions to check the goal is fulfilled for any board
         if(positions.isEmpty()){
             return  true;
         }
 
-        card = bookshelf.getCell(positions.get(0));
-        if(card.isEmpty()){
+        optionalTile = bookshelf.getTile(positions.get(0));
+        if(optionalTile.isEmpty()){
             return false;
         }
-        cardTypeReference = card.get();
+        tileReference = optionalTile.get();
 
         for(Position position: positions){
 
-            card = bookshelf.getCell(position);
-            if(card.isEmpty()){
+            optionalTile = bookshelf.getTile(position);
+            if(optionalTile.isEmpty()){
                 return false;
             }
-            cardType = card.get();
-            if(cardType != cardTypeReference){
+            tile = optionalTile.get();
+            if(tile != tileReference){
                 return false;
             }
         }

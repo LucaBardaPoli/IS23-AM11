@@ -16,44 +16,44 @@ public class SameKindXGoal implements Predicate<Bookshelf> {
      * @param bookshelf bookshelf to execute the check on
      * @return true whether the x exists
      */
-    private boolean checkX(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Optional<CardType> card;
-        CardType currentType;
+    private boolean checkX(int startRow, int startColumn, Bookshelf bookshelf) {
+        Optional<Tile> tile;
+        Tile currentType;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn));
-        if(card.isPresent()) {
-            currentType = card.get();
+        tile = bookshelf.getTile(new Position(startRow, startColumn));
+        if(tile.isPresent()) {
+            currentType = tile.get();
 
-            card = bookshelf.getCell(new Position(startRow - 1, startColumn - 1));
-            if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
+            tile = bookshelf.getTile(new Position(startRow - 1, startColumn - 1));
+            if (tile.isPresent()) {
+                if (!tile.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow - 1, startColumn + 1));
-            if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
+            tile = bookshelf.getTile(new Position(startRow - 1, startColumn + 1));
+            if (tile.isPresent()) {
+                if (!tile.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow + 1, startColumn - 1));
-            if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
+            tile = bookshelf.getTile(new Position(startRow + 1, startColumn - 1));
+            if (tile.isPresent()) {
+                if (!tile.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow + 1, startColumn + 1));
-            if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
+            tile = bookshelf.getTile(new Position(startRow + 1, startColumn + 1));
+            if (tile.isPresent()) {
+                if (!tile.get().equals(currentType)) {
                     return false;
                 }
             } else {
@@ -72,8 +72,8 @@ public class SameKindXGoal implements Predicate<Bookshelf> {
      * @return true whether the gruop exists
      */
     public boolean test(Bookshelf bookshelf) {
-        for(int r = 1; r < Bookshelf.getRows()-1; r++){
-            for(int c = 1; c < Bookshelf.getColumns()-1; c++) {
+        for(int r = 1; r < GameSettings.ROWS-1; r++){
+            for(int c = 1; c < GameSettings.COLUMNS-1; c++) {
                 if(checkX(r, c, bookshelf)) {
                     return true;
                 }

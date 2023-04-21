@@ -12,14 +12,14 @@ public class PlayerTest {
 
   private Game InitializeGames2(){
     //Game ID & List of Players
-    Integer gameId = 0;
+    int gameId = 0;
     List<String> players2 = new ArrayList<>(List.of("Brancaleone", "Arnaldo"));
 
     // List of the personal Goals that wil be present in this game
     List<PersonalGoal> personalGoals = new ArrayList<>();
 
     List<Position> positions = new ArrayList<>();
-    List<CardType> cardTypes = new ArrayList<>();
+    List<Tile> tiles = new ArrayList<>();
     Map<Integer, Integer> rewards = new HashMap<>();
 
     rewards.put(1,1);
@@ -31,97 +31,97 @@ public class PlayerTest {
 
     //Personal Goal x1
     positions.add(new Position( 0,0 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position( 0,2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 1,4 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2, 3) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 3,1 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 5,2 ) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     //Personal Goal x2
     positions.add(new Position(1 ,1 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(2 ,0 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2,2 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 3,4 ) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 4, 3) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position( 5, 4) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
 
     //Personal Goal x3
     positions.add(new Position(1 ,0) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position(1 , 3) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position(2 ,2 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(3 , 1) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position(3 , 4) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position(5 ,0 ) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
 
     //Personal Goal x4
     positions.add(new Position( 0,4 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 2, 0) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position(2 , 2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 3,3) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(4 , 1) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position(4, 2) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     // ## Common Goals ##
     List<CommonGoal> commonGoals = new ArrayList<>();
@@ -136,7 +136,7 @@ public class PlayerTest {
     commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
-    //game2.getBoard().fillBoard(new CountCards());
+    //game2.getBoard().fillBoard(new Bag());
   }
 
   private Game InitializeGames2DiffGoals(){
@@ -148,7 +148,7 @@ public class PlayerTest {
     List<PersonalGoal> personalGoals = new ArrayList<>();
 
     List<Position> positions = new ArrayList<>();
-    List<CardType> cardTypes = new ArrayList<>();
+    List<Tile> tiles = new ArrayList<>();
     Map<Integer, Integer> rewards = new HashMap<>();
 
     rewards.put(1,1);
@@ -160,120 +160,120 @@ public class PlayerTest {
 
     //Personal Goal x1
     positions.add(new Position( 0,0 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position( 0,2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 1,4 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2, 3) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 3,1 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 5,2 ) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     //Personal Goal x1
     positions.add(new Position( 0,0 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position( 0,2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 1,4 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2, 3) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 3,1 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 5,2 ) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     //Personal Goal x2
     positions.add(new Position(1 ,1 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(2 ,0 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2,2 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 3,4 ) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 4, 3) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position( 5, 4) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
 
     //Personal Goal x3
     positions.add(new Position(1 ,0) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position(1 , 3) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position(2 ,2 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(3 , 1) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position(3 , 4) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position(5 ,0 ) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
 
     //Personal Goal x4
     positions.add(new Position( 0,4 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 2, 0) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position(2 , 2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 3,3) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(4 , 1) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position(4, 2) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     // ## Common Goals ##
     List<CommonGoal> commonGoals = new ArrayList<>();
@@ -293,7 +293,7 @@ public class PlayerTest {
     commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
-    //game2.getBoard().fillBoard(new CountCards());
+    //game2.getBoard().fillBoard(new Bag());
   }
 
   private Game InitializeGames2DiffGoals2(){
@@ -305,7 +305,7 @@ public class PlayerTest {
     List<PersonalGoal> personalGoals = new ArrayList<>();
 
     List<Position> positions = new ArrayList<>();
-    List<CardType> cardTypes = new ArrayList<>();
+    List<Tile> tiles = new ArrayList<>();
     Map<Integer, Integer> rewards = new HashMap<>();
 
     rewards.put(1,1);
@@ -317,120 +317,120 @@ public class PlayerTest {
 
     //Personal Goal x1
     positions.add(new Position( 0,0 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position( 0,2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 1,4 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2, 3) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 3,1 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 5,2 ) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     //Personal Goal x1
     positions.add(new Position( 0,0 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position( 0,2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 1,4 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2, 3) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 3,1 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 5,2 ) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     //Personal Goal x2
     positions.add(new Position(1 ,1 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(2 ,0 ) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position( 2,2 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 3,4 ) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position( 4, 3) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position( 5, 4) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
 
     //Personal Goal x3
     positions.add(new Position(1 ,0) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position(1 , 3) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position(2 ,2 ) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(3 , 1) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
     positions.add(new Position(3 , 4) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position(5 ,0 ) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
 
     //Personal Goal x4
     positions.add(new Position( 0,4 ) );
-    cardTypes.add(CardType.YELLOW);
+    tiles.add(Tile.YELLOW);
 
     positions.add(new Position( 2, 0) );
-    cardTypes.add(CardType.LBLUE);
+    tiles.add(Tile.LBLUE);
 
     positions.add(new Position(2 , 2) );
-    cardTypes.add(CardType.BLUE);
+    tiles.add(Tile.BLUE);
 
     positions.add(new Position( 3,3) );
-    cardTypes.add(CardType.PINK);
+    tiles.add(Tile.PINK);
 
     positions.add(new Position(4 , 1) );
-    cardTypes.add(CardType.WHITE);
+    tiles.add(Tile.WHITE);
 
     positions.add(new Position(4, 2) );
-    cardTypes.add(CardType.GREEN);
+    tiles.add(Tile.GREEN);
 
-    personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
     positions.clear();
-    cardTypes.clear();
+    tiles.clear();
 
     // ## Common Goals ##
     List<CommonGoal> commonGoals = new ArrayList<>();
@@ -445,7 +445,7 @@ public class PlayerTest {
     commonGoals.add(new CommonGoal("Same Kind X",  bookshelfPredicate));
 
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
-    //game2.getBoard().fillBoard(new CountCards());
+    //game2.getBoard().fillBoard(new Bag());
   }
 
   //checks the addCells method
@@ -458,55 +458,55 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.BLUE);
-    cardToInsert.add(CardType.BLUE);
-    cardToInsert.add(CardType.BLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.BLUE);
+    cardToInsert.add(Tile.BLUE);
+    cardToInsert.add(Tile.BLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 2 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.BLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),1);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),1);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.BLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),1);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),1);
 
     // 3 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(12,15),2);
-    bookshelfCase.addCells(cardToInsert.subList(15,17),2);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(12,15),2);
+    bookshelfCase.addTiles(cardToInsert.subList(15,17),2);
 
     // 4 Column
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(17,20),3);
-    bookshelfCase.addCells(cardToInsert.subList(20,22),3);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(17,20),3);
+    bookshelfCase.addTiles(cardToInsert.subList(20,22),3);
 
     // 5 Column
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(22,25),4);
-    bookshelfCase.addCells(cardToInsert.subList(25,26),4);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(22,25),4);
+    bookshelfCase.addTiles(cardToInsert.subList(25,26),4);
 
-    assertEquals(bookshelfCase.getFreeCells(), Integer.valueOf( 4 ));
+    assertEquals(bookshelfCase.getFreeCells(),  4);
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -528,53 +528,53 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.BLUE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.BLUE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 2 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),1);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),1);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),1);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),1);
 
     // 3 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.BLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(12,15),2);
-    bookshelfCase.addCells(cardToInsert.subList(15,18),2);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.BLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(12,15),2);
+    bookshelfCase.addTiles(cardToInsert.subList(15,18),2);
 
     // 4 Column
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.GREEN);
-    bookshelfCase.addCells(cardToInsert.subList(18,21),3);
-    bookshelfCase.addCells(cardToInsert.subList(21,23),3);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.GREEN);
+    bookshelfCase.addTiles(cardToInsert.subList(18,21),3);
+    bookshelfCase.addTiles(cardToInsert.subList(21,23),3);
 
     // 5 Column
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    bookshelfCase.addCells(cardToInsert.subList(23,25),4);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    bookshelfCase.addTiles(cardToInsert.subList(23,25),4);
 
-    assertEquals( Integer.valueOf( 5 ), bookshelfCase.getFreeCells());
+    assertEquals( 5, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -597,60 +597,60 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains a same card type per column
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 2 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),1);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),1);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),1);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),1);
 
     // 3 Column
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(12,15),2);
-    bookshelfCase.addCells(cardToInsert.subList(15,18),2);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(12,15),2);
+    bookshelfCase.addTiles(cardToInsert.subList(15,18),2);
 
     // 4 Column
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(18,21),3);
-    bookshelfCase.addCells(cardToInsert.subList(21,24),3);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(18,21),3);
+    bookshelfCase.addTiles(cardToInsert.subList(21,24),3);
 
     // 5 Column
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    bookshelfCase.addCells(cardToInsert.subList(24,27),4);
-    bookshelfCase.addCells(cardToInsert.subList(27, 30),4);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    bookshelfCase.addTiles(cardToInsert.subList(24,27),4);
+    bookshelfCase.addTiles(cardToInsert.subList(27, 30),4);
 
-    assertEquals( Integer.valueOf( 0 ), bookshelfCase.getFreeCells());
+    assertEquals(0 , bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -673,60 +673,60 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains a same card type per row
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.BLUE);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.BLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 2 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.BLUE);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),1);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),1);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.BLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),1);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),1);
 
     // 3 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.BLUE);
-    bookshelfCase.addCells(cardToInsert.subList(12,15),2);
-    bookshelfCase.addCells(cardToInsert.subList(15,18),2);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.BLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(12,15),2);
+    bookshelfCase.addTiles(cardToInsert.subList(15,18),2);
 
     // 4 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.BLUE);
-    bookshelfCase.addCells(cardToInsert.subList(18,21),3);
-    bookshelfCase.addCells(cardToInsert.subList(21,24),3);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.BLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(18,21),3);
+    bookshelfCase.addTiles(cardToInsert.subList(21,24),3);
 
     // 5 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.BLUE);
-    bookshelfCase.addCells(cardToInsert.subList(24,27),4);
-    bookshelfCase.addCells(cardToInsert.subList(27, 30),4);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.BLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(24,27),4);
+    bookshelfCase.addTiles(cardToInsert.subList(27, 30),4);
 
-    assertEquals( Integer.valueOf( 0 ), bookshelfCase.getFreeCells());
+    assertEquals(0, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -749,30 +749,30 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains a same card type per row (only 2 column filled)
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 5 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),4);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),4);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),4);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),4);
 
-    assertEquals( Integer.valueOf( 18 ), bookshelfCase.getFreeCells());
+    assertEquals(18, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -795,30 +795,30 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains a same card type per row(only 2 adjacent column filled)
     // 1 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 5 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),1);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),1);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),1);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),1);
 
-    assertEquals( Integer.valueOf( 18 ), bookshelfCase.getFreeCells());
+    assertEquals(18, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -841,34 +841,34 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains an L shape
     // 1 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // Other columns
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(6,7),1);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(6,7),1);
 
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(7,8),2);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(7,8),2);
 
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(8,9),3);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(8,9),3);
 
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(9,10),4);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(9,10),4);
 
 
-    assertEquals( Integer.valueOf( 20 ), bookshelfCase.getFreeCells());
+    assertEquals(20, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -891,34 +891,34 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains an L shape
     // 1 Column
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),4);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),4);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),4);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),4);
 
     // Other columns
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(6,7),0);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(6,7),0);
 
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(7,8),1);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(7,8),1);
 
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(8,9),2);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(8,9),2);
 
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(9,10),3);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(9,10),3);
 
 
-    assertEquals( Integer.valueOf( 20 ), bookshelfCase.getFreeCells());
+    assertEquals(20, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -941,15 +941,15 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains only 1 card and then add more cards to check all the scores
     // 2 Column
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(0,1),1);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(0,1),1);
 
 
-    assertEquals( Integer.valueOf( 29 ), bookshelfCase.getFreeCells());
+    assertEquals(29, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -961,37 +961,37 @@ public class PlayerTest {
     assertEquals(Integer.valueOf(0 ), adjacencyPoints);
 
     // Adding the second card in the same column as before
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(1,2),1);
-    assertEquals( Integer.valueOf( 28 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(1,2),1);
+    assertEquals(28, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(0 ), adjacencyPoints);
 
     // Adding the third card in the same column as before
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(2,3),1);
-    assertEquals( Integer.valueOf( 27 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(2,3),1);
+    assertEquals(27, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(2 ), adjacencyPoints);
 
     // Adding the fourth card in the same column as before
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(3,4),1);
-    assertEquals( Integer.valueOf( 26 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(3,4),1);
+    assertEquals( 26, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(3 ), adjacencyPoints);
 
     // Adding the fifth card in the same column as before
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(3,4),1);
-    assertEquals( Integer.valueOf( 25 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(3,4),1);
+    assertEquals(25, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(5 ), adjacencyPoints);
 
     // Adding the last card in the same column as before
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(3,4),1);
-    assertEquals( Integer.valueOf( 24 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(3,4),1);
+    assertEquals(24, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(8 ), adjacencyPoints);
 
@@ -1007,16 +1007,16 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf that contains a single card.
     // The latter will be filled with one card at a time, thus having a full column filled
     // 1 Column
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(0,1),0);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(0,1),0);
 
 
-    assertEquals( Integer.valueOf( 29 ), bookshelfCase.getFreeCells());
+    assertEquals(29, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -1028,30 +1028,30 @@ public class PlayerTest {
     assertEquals(Integer.valueOf(0 ), adjacencyPoints);
 
     // Adding the second card in the next row
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(1,2),1);
-    assertEquals( Integer.valueOf( 28 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(1,2),1);
+    assertEquals(28, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(0 ), adjacencyPoints);
 
     // Adding the third card in the next row
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(2,3),2);
-    assertEquals( Integer.valueOf( 27 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(2,3),2);
+    assertEquals(27, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(2 ), adjacencyPoints);
 
     // Adding the fourth card in the next row
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(3,4),3);
-    assertEquals( Integer.valueOf( 26 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(3,4),3);
+    assertEquals(26, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(3 ), adjacencyPoints);
 
     // Adding the last card in the next row
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(3,4),4);
-    assertEquals( Integer.valueOf( 25 ), bookshelfCase.getFreeCells());
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(3,4),4);
+    assertEquals(25, bookshelfCase.getFreeCells());
     adjacencyPoints = currentPlayer.checkAdjacency(currentPlayer.getBookshelf());
     assertEquals(Integer.valueOf(5 ), adjacencyPoints);
 
@@ -1066,7 +1066,7 @@ public class PlayerTest {
     Bookshelf bookshelfCase = new Bookshelf();
     assertNotNull(bookshelfCase);
 
-    assertEquals( Integer.valueOf( Bookshelf.getRows() * Bookshelf.getColumns() ), bookshelfCase.getFreeCells());
+    assertEquals(GameSettings.ROWS * GameSettings.COLUMNS, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -1088,60 +1088,60 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains a same card type per column
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
-    bookshelfCase.addCells(cardToInsert.subList(3,6),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
+    bookshelfCase.addTiles(cardToInsert.subList(3,6),0);
 
     // 2 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    bookshelfCase.addCells(cardToInsert.subList(6,9),1);
-    bookshelfCase.addCells(cardToInsert.subList(9,12),1);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    bookshelfCase.addTiles(cardToInsert.subList(6,9),1);
+    bookshelfCase.addTiles(cardToInsert.subList(9,12),1);
 
     // 3 Column
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(12,15),2);
-    bookshelfCase.addCells(cardToInsert.subList(15,18),2);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(12,15),2);
+    bookshelfCase.addTiles(cardToInsert.subList(15,18),2);
 
     // 4 Column
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.YELLOW);
-    bookshelfCase.addCells(cardToInsert.subList(18,21),3);
-    bookshelfCase.addCells(cardToInsert.subList(21,24),3);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.YELLOW);
+    bookshelfCase.addTiles(cardToInsert.subList(18,21),3);
+    bookshelfCase.addTiles(cardToInsert.subList(21,24),3);
 
     // 5 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(24,27),4);
-    bookshelfCase.addCells(cardToInsert.subList(27, 30),4);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(24,27),4);
+    bookshelfCase.addTiles(cardToInsert.subList(27, 30),4);
 
-    assertEquals( Integer.valueOf( 0 ), bookshelfCase.getFreeCells());
+    assertEquals(0, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -1150,12 +1150,12 @@ public class PlayerTest {
 
     // Checking the Bookshelf for: Personal Goals, Common Goals,
     currentPlayer.checkBookshelf(game2.getCommonGoals());
-    Integer scoreCheckBookshelf = currentPlayer.getPoints();
+    int scoreCheckBookshelf = currentPlayer.getPoints();
 
-    assertEquals(Integer.valueOf(8), currentPlayer.getCommonGoalPoints());
-    assertEquals(Integer.valueOf(1), currentPlayer.getPersonalGoalPoints());
-    assertEquals(Integer.valueOf(35), currentPlayer.getAdjacentPoints());
-    assertEquals(currentPlayer.getPoints() , scoreCheckBookshelf);
+    assertEquals(8, currentPlayer.getCommonGoalPoints());
+    assertEquals(1, currentPlayer.getPersonalGoalPoints());
+    assertEquals(35, currentPlayer.getAdjacentPoints());
+    assertEquals(currentPlayer.getPoints(), scoreCheckBookshelf);
 
   }
 
@@ -1168,45 +1168,45 @@ public class PlayerTest {
     assertNotNull(bookshelfCase);
 
     // Local array that contains the cards that will be inserted in the Bookshelf
-    List<CardType> cardToInsert = new ArrayList<>();
+    List<Tile> cardToInsert = new ArrayList<>();
 
     // Bookshelf which contains the pattern for SameKindX common goal
     // 1 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.WHITE);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(0,3),0);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.WHITE);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(0,3),0);
 
     // 2 Column
-    cardToInsert.add(CardType.YELLOW);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(3,5),1);
+    cardToInsert.add(Tile.YELLOW);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(3,5),1);
 
     // 3 Column
-    cardToInsert.add(CardType.LBLUE);
-    cardToInsert.add(CardType.GREEN);
-    cardToInsert.add(CardType.LBLUE);
-    bookshelfCase.addCells(cardToInsert.subList(5,8),2);
+    cardToInsert.add(Tile.LBLUE);
+    cardToInsert.add(Tile.GREEN);
+    cardToInsert.add(Tile.LBLUE);
+    bookshelfCase.addTiles(cardToInsert.subList(5,8),2);
 
     // 4 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(8,11),3);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(8,11),3);
 
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(11,12),3);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(11,12),3);
 
     // 5 Column
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.PINK);
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(12,15),4);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.PINK);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(12,15),4);
 
-    cardToInsert.add(CardType.WHITE);
-    bookshelfCase.addCells(cardToInsert.subList(15,16),4);
+    cardToInsert.add(Tile.WHITE);
+    bookshelfCase.addTiles(cardToInsert.subList(15,16),4);
 
-    assertEquals( Integer.valueOf( 14 ), bookshelfCase.getFreeCells());
+    assertEquals(14, bookshelfCase.getFreeCells());
 
     // Assigning the test Bookshelf to the Current Player
     Player currentPlayer = game2.getCurrentPlayer();
@@ -1215,12 +1215,11 @@ public class PlayerTest {
 
     // Checking the Bookshelf for: Personal Goals, Common Goals,
     currentPlayer.checkBookshelf(game2.getCommonGoals());
-    Integer scoreCheckBookshelf = currentPlayer.getPoints();
+    int scoreCheckBookshelf = currentPlayer.getPoints();
 
-    assertEquals(Integer.valueOf(2*8), currentPlayer.getCommonGoalPoints());
-    assertEquals(Integer.valueOf(2), currentPlayer.getPersonalGoalPoints());
-    assertEquals(Integer.valueOf(2*3), currentPlayer.getAdjacentPoints());
+    assertEquals(2*8, currentPlayer.getCommonGoalPoints());
+    assertEquals(2, currentPlayer.getPersonalGoalPoints());
+    assertEquals(2*3, currentPlayer.getAdjacentPoints());
     assertEquals(currentPlayer.getPoints() , scoreCheckBookshelf);
-
   }
 }

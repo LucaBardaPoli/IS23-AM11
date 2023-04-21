@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RMIListener implements RMIListenerInterface {
-    private List<ClientHandlerRMIInterface> handlers;
+    private final List<ClientHandlerRMIInterface> handlers;
 
     public RMIListener() {
         this.handlers = new ArrayList<>();

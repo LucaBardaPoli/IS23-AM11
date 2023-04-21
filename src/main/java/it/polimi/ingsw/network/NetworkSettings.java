@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network;
 
-public class Settings {
+public class NetworkSettings {
     // Server infos
     public static final int SERVER_PORT_TCP = 6666;
     public static final int SERVER_PORT_RMI = 1099;

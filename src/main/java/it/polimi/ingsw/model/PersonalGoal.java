@@ -3,30 +3,38 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class PersonalGoal {
-    // positions and cardTypes must have the same size
     private final List<Position> positions;
-    private final List<CardType> cardTypes;
-    // the keys must start from 1 up to position.size()
+    private final List<Tile> tiles;
     private final Map<Integer, Integer> rewards;
-    // maps the nubmer of correct cards into the corresponding points reward
 
-    public PersonalGoal(List<Position> positions, List<CardType> cardTypes, Map<Integer, Integer> rewards) {
-        this.positions = new LinkedList<Position>(positions);
-        this.cardTypes = new LinkedList<CardType>(cardTypes);
-        this.rewards = new HashMap<Integer, Integer>(rewards);
+    /**
+     * Class constructor
+     * @param positions positions to check
+     * @param tiles tiles to check
+     * @param rewards number of points to assign
+     */
+    public PersonalGoal(List<Position> positions, List<Tile> tiles, Map<Integer, Integer> rewards) {
+        this.positions = new LinkedList<>(positions);
+        this.tiles = new LinkedList<>(tiles);
+        this.rewards = new HashMap<>(rewards);
     }
 
+    /**
+     * Checks whether the goal is fulfilled or not
+     * @param bookshelf bookshelf to check
+     * @return the number of points won
+     */
     public int checkGoal(Bookshelf bookshelf){
-        int n_cards = 0;
-        Optional<CardType> card;
+        int n_tiles = 0;
+        Optional<Tile> tile;
         for(int index = 0; index < positions.size(); index++){
-            card = bookshelf.getCell(positions.get(index));
+            tile = bookshelf.getTile(positions.get(index));
             // CardType is an enumeration so equality corresponds with identity
-            if(!card.isEmpty() && card.get() == cardTypes.get(index)){
-                n_cards++;
+            if(!tile.isEmpty() && tile.get() == tiles.get(index)){
+                n_tiles++;
             }
         }
 
-        return n_cards > 0? rewards.get(n_cards): 0;
+        return n_tiles > 0 ? rewards.get(n_tiles): 0;
     }
 }

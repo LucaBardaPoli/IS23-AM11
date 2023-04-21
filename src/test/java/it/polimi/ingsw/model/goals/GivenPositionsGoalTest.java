@@ -22,7 +22,7 @@ public class GivenPositionsGoalTest {
         // bookshelf is empty
         assertTrue(givenPositions.checkGoal(bookshelf));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.PINK), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.PINK), 0);
         // bookshelf is not empty
         assertTrue(givenPositions.checkGoal(bookshelf));
     }
@@ -39,7 +39,7 @@ public class GivenPositionsGoalTest {
         assertTrue(givenPositions.checkGoal(bookshelf));
 
         // add bottom left corner position to the given positions list
-        positions.add(new Position(Bookshelf.getRows()-1, Bookshelf.getColumns()-1));
+        positions.add(new Position(GameSettings.ROWS-1, GameSettings.COLUMNS-1));
         // all goals are immutable objects, so we have to instantiate a new one
         givenPositions = new CommonGoal("given positions", new GivenPositionsGoal(positions));
         assertFalse(givenPositions.checkGoal(bookshelf));
@@ -57,15 +57,15 @@ public class GivenPositionsGoalTest {
 
         givenPositions = new CommonGoal("given positions", new GivenPositionsGoal(positions));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.GREEN, CardType.WHITE, CardType.GREEN), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.GREEN, Tile.WHITE, Tile.GREEN), 0);
         // adds GREEN to position (3, 0) and position (1, 0)
         assertFalse(givenPositions.checkGoal(bookshelf));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.GREEN, CardType.WHITE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.GREEN, Tile.WHITE), 1);
         // none of the required positions belong to column 1
         assertFalse(givenPositions.checkGoal(bookshelf));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW, CardType.WHITE, CardType.GREEN), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.YELLOW, Tile.WHITE, Tile.GREEN), 2);
         // adds GREEN to position (1, 2)
         assertTrue(givenPositions.checkGoal(bookshelf));
     }
@@ -82,15 +82,15 @@ public class GivenPositionsGoalTest {
 
         givenPositions = new CommonGoal("given positions", new GivenPositionsGoal(positions));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.GREEN, CardType.WHITE, CardType.GREEN), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.GREEN, Tile.WHITE, Tile.GREEN), 0);
         // adds GREEN to position (3, 0) and position (1, 0)
         assertFalse(givenPositions.checkGoal(bookshelf));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.GREEN, CardType.WHITE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.GREEN, Tile.WHITE), 1);
         // none of the required positions belong to column 1
         assertFalse(givenPositions.checkGoal(bookshelf));
 
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW, CardType.WHITE, CardType.YELLOW, CardType.BLUE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.YELLOW, Tile.WHITE, Tile.YELLOW, Tile.BLUE), 2);
         // adds YELLOW and not GREEN to position (1, 2)
         assertFalse(givenPositions.checkGoal(bookshelf));
     }

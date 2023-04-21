@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.CommonGoal;
 import it.polimi.ingsw.utility.BookshelfBuilder;
 import org.junit.Test;
@@ -33,11 +33,11 @@ public class LadderGoalTest {
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
 
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE, CardType.YELLOW), 0);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE), 1);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE), 3);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE), 4);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE, Tile.YELLOW), 0);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE), 3);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 4);
 
         assertTrue(ladderGoal.checkGoal(bookshelf));
     }
@@ -47,11 +47,11 @@ public class LadderGoalTest {
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
 
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE), 0);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW), 1);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE), 2);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE), 3);
-        bookshelf.addCells(List.of(CardType.PINK), 4);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW), 1);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE), 2);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 3);
+        bookshelf.addTiles(List.of(Tile.PINK), 4);
 
         assertTrue(ladderGoal.checkGoal(bookshelf));
     }
@@ -61,11 +61,11 @@ public class LadderGoalTest {
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
 
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE), 0);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE), 1);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE), 3);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE, CardType.YELLOW), 4);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE), 1);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE), 3);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE, Tile.YELLOW), 4);
 
         assertTrue(ladderGoal.checkGoal(bookshelf));
     }
@@ -75,11 +75,11 @@ public class LadderGoalTest {
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
 
-        bookshelf.addCells(List.of(CardType.PINK), 0);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE), 1);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE), 2);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW), 3);
-        bookshelf.addCells(List.of(CardType.PINK, CardType.BLUE, CardType.LBLUE, CardType.YELLOW, CardType.BLUE), 4);
+        bookshelf.addTiles(List.of(Tile.PINK), 0);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE), 2);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW), 3);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE), 4);
 
         assertTrue(ladderGoal.checkGoal(bookshelf));
     }

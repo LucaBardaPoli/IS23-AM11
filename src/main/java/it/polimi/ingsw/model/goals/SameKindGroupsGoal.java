@@ -16,7 +16,7 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
 
     private int floodFill(Bookshelf bookshelf, boolean[][] visited, int i, int j) {
 
-        if (i < 0 || i >= Bookshelf.getRows() || j < 0 || j >= Bookshelf.getColumns()) {
+        if (i < 0 || i >= GameSettings.ROWS || j < 0 || j >= GameSettings.COLUMNS) {
             return 0;
         }
 
@@ -27,31 +27,31 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
         visited[i][j] = true;
 
         // empty cell
-        if(bookshelf.getCell(new Position(i, j)).isEmpty()){
+        if(bookshelf.getTile(new Position(i, j)).isEmpty()){
             return 0;
         }
-        CardType referenceColor = bookshelf.getCell(new Position(i, j)).get();
+        Tile referenceColor = bookshelf.getTile(new Position(i, j)).get();
 
         int groupSize = 1;
 
-        Optional<CardType> currentColor;
+        Optional<Tile> currentColor;
 
-        currentColor = bookshelf.getCell(new Position(i - 1, j));
+        currentColor = bookshelf.getTile(new Position(i - 1, j));
         if(currentColor.isPresent() && currentColor.get() == referenceColor){
             groupSize += floodFill(bookshelf, visited, i - 1, j);
         }
 
-        currentColor = bookshelf.getCell(new Position(i + 1, j));
+        currentColor = bookshelf.getTile(new Position(i + 1, j));
         if(currentColor.isPresent() && currentColor.get() == referenceColor){
             groupSize += floodFill(bookshelf, visited, i + 1, j);
         }
 
-        currentColor = bookshelf.getCell(new Position(i, j - 1));
+        currentColor = bookshelf.getTile(new Position(i, j - 1));
         if(currentColor.isPresent() && currentColor.get() == referenceColor){
             groupSize += floodFill(bookshelf, visited, i, j - 1);
         }
 
-        currentColor = bookshelf.getCell(new Position(i, j + 1));
+        currentColor = bookshelf.getTile(new Position(i, j + 1));
         if(currentColor.isPresent() && currentColor.get() == referenceColor){
             groupSize += floodFill(bookshelf, visited, i, j + 1);
         }
@@ -63,8 +63,8 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>{
     public boolean test(Bookshelf bookshelf) {
         int count = 0;
         int nrows, ncols, groupSize;
-        nrows = Bookshelf.getRows();
-        ncols = Bookshelf.getColumns();
+        nrows = GameSettings.ROWS;
+        ncols = GameSettings.COLUMNS;
         boolean[][] visited = new boolean[nrows][ncols];
 
         for (int i = 0; i < nrows; i++) {

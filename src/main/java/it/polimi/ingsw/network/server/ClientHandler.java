@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.LobbyManager;
-import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.message.*;
 
@@ -67,7 +67,7 @@ public abstract class ClientHandler {
 
     //checks if the picks made by the player are available
     public void handle(PickTileRequest clientMessage) {
-        if(this.model.pickCard(clientMessage.getPosition()).isPresent()) {
+        if(this.model.pickTile(clientMessage.getPosition()).isPresent()) {
             sendMessage(new PickTileResponse(true));
         } else {
             sendMessage(new PickTileResponse(false));
@@ -92,17 +92,17 @@ public abstract class ClientHandler {
 
     //rearrange the order of the cards before adding them to the bookshelf
     public void handle(SwapTilesOrderRequest clientMessage) {
-        Optional<List<CardType>> result = this.model.rearrangeCards(clientMessage.getIndex());
+        Optional<List<Tile>> result = this.model.rearrangeTiles(clientMessage.getIndex());
         if(result.isPresent()) {
             sendMessage(new SwapTilesOrderResponse(result.get(), true));
         } else {
-            sendMessage(new SwapTilesOrderResponse(this.model.getPickedCards(), false));
+            sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), false));
         }
     }
 
     //confirms the order of the cards that was previously selected
     public void handle(ConfirmOrderNotify clientMessage) {
-        this.model.confirmOrderSelectedCards();
+        this.model.confirmOrderSelectedTiles();
         // We need to send this message to each player!!!!!!!!!!!!!!!!!!! Add observer to other players
         sendMessage(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.checkPlayer(this.nickname)));
     }

@@ -5,125 +5,112 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bookshelf {
-    private final static Integer ROWS = 6;
-    private final static Integer COLUMNS = 5;
-    private final Optional<CardType>[][] bookshelf;
+    private final Optional<Tile>[][] bookshelf;
 
     /**
      * Class constructor
      */
     public Bookshelf() {
-        this.bookshelf = new Optional[Bookshelf.ROWS][Bookshelf.COLUMNS];
-        for(int i = 0; i < Bookshelf.ROWS; i++) {
-            for(int j = 0; j < Bookshelf.COLUMNS; j++) {
+        this.bookshelf = new Optional[GameSettings.ROWS][GameSettings.COLUMNS];
+        for(int i = 0; i < GameSettings.ROWS; i++) {
+            for(int j = 0; j < GameSettings.COLUMNS; j++) {
                 this.bookshelf[i][j] = Optional.empty();
             }
         }
     }
 
-    public static Integer getRows() {
-        return ROWS;
-    }
-
-    public static Integer getColumns() {
-        return COLUMNS;
-    }
-
     /**
-     * add the maximum 3 cards passed from input to the bookshelf
-     * @param cards cards that need to be added to the bookshelf
-     * @param column number of the column of the bookshelf where tha card must be added
+     * Add the maximum 3 tiles passed from input to the bookshelf
+     * @param tiles tiles that need to be added to the bookshelf
+     * @param column number of the column of the bookshelf where tha tiles must be added
      */
-    public void addCells(List<CardType> cards, Integer column){
+    public void addTiles(List<Tile> tiles, int column) {
 
         int freeCells = getFreeCells(column); // k are the free cells of the considered column
         int i = freeCells - 1; // i scrolls through bookshelf rows from the bottom
 
-        if(freeCells >= cards.size()){
-            for(CardType obtainedCard : cards){
-                bookshelf[i][column] = Optional.ofNullable(obtainedCard);
+        if(freeCells >= tiles.size()){
+            for(Tile obtainedTile : tiles){
+                bookshelf[i][column] = Optional.ofNullable(obtainedTile);
                 i--;
             }
         }
-        //else throw new InsufficientFreeCellsException();
     }
 
     /**
-     * returns the bookshelf cell related to the position data
-     * @param position position of the card that needs to be returned
-     * @return returns an Optional.empty() if the position contains no card, otherwise it returns the card
+     * Returns the tile at the given position
+     * @param position position of the tile that needs to be returned
+     * @return returns an Optional.empty() if the position contains no tile, otherwise it returns the tile
      */
-    public Optional<CardType> getCell(Position position){
+    public Optional<Tile> getTile(Position position){
         int row = position.getRow();
         int column = position.getColumn();
-        if(row >= 0 && row < ROWS && column >= 0 && column < COLUMNS){
+        if(row >= 0 && row < GameSettings.ROWS && column >= 0 && column < GameSettings.COLUMNS){
             return bookshelf[position.getRow()][position.getColumn()];
         }
         return Optional.empty();
     }
 
     /**
-     * returns an ArrayList with all the cards contained in the column indicated in input
-     * @param columnNumber indicates the column the cards must be taken from
-     * @return returns all the cards that are present in the given column
+     * Returns an ArrayList with all the tiles contained in the column indicated in input
+     * @param columnNumber indicates the column the tiles must be taken from
+     * @return returns all the tiles inside the given column
      */
-    public ArrayList<Optional<CardType>> getColumn(Integer columnNumber){
+    public ArrayList<Optional<Tile>> getColumn(int columnNumber) {
 
-        ArrayList<Optional<CardType>> cardColumn = new ArrayList<>();
+        ArrayList<Optional<Tile>> tileColumn = new ArrayList<>();
         Position position = new Position();
         position.setColumn(columnNumber);
 
-        for(int i = 0; i < Bookshelf.ROWS; i++){
+        for(int i = 0; i < GameSettings.ROWS; i++){
             position.setRow(i);
-            Optional<CardType> cardOptional = getCell(position);
+            Optional<Tile> cardOptional = getTile(position);
             if(cardOptional.isPresent()){
-                cardColumn.add(cardOptional);
+                tileColumn.add(cardOptional);
             }
         }
-        return cardColumn;
+        return tileColumn;
     }
 
     /**
-     * returns an ArrayList with all the cards contained in the row indicated in input
-     * @param rowNumber indicates the row the cards must be taken from
-     * @return returns all the cards that are present in the given row
+     * Returns an ArrayList with all the tiles contained in the row indicated in input
+     * @param rowNumber indicates the row the tiles must be taken from
+     * @return returns all the tiles that are present in the given row
      */
-    public ArrayList<Optional<CardType>> getRow(Integer rowNumber){
-        ArrayList<Optional<CardType>> cardRow = new ArrayList<>();
+    public ArrayList<Optional<Tile>> getRow(int rowNumber) {
+
+        ArrayList<Optional<Tile>> tileRow = new ArrayList<>();
         Position position = new Position();
         position.setRow(rowNumber);
-        for(int i = 0; i < Bookshelf.COLUMNS; i++){
+        for(int i = 0; i < GameSettings.COLUMNS; i++){
             position.setColumn(i);
-            Optional<CardType> cardOptional = getCell(position);
-            cardRow.add(cardOptional);
+            Optional<Tile> cardOptional = getTile(position);
+            tileRow.add(cardOptional);
         }
-        return cardRow;
+        return tileRow;
     }
 
     /**
-     *
-     * @return returns the total number of empty boxes in the bookshelf
+     * Returns the number of free cells
+     * @return returns the total number of empty cells in the bookshelf
      */
-    public Integer getFreeCells() {
-
-        //to use the ifPresent() function I decided to count al
-        // reverse scaling the counter if a cell contains a card
-        int counter = Bookshelf.ROWS * Bookshelf.COLUMNS;
+    public int getFreeCells() {
+        int counter = GameSettings.ROWS * GameSettings.COLUMNS;
 
         Position position = new Position();
-        for (int i = 0; i < Bookshelf.COLUMNS; i++){
+        for (int i = 0; i < GameSettings.COLUMNS; i++){
 
             position.setColumn(i);
 
-            for(int j = 0; j < Bookshelf.ROWS; j++){
+            for(int j = 0; j < GameSettings.ROWS; j++){
 
                 //save the position and extract the card
                 position.setRow(j);
 
-                Optional<CardType> cardOptional = getCell(position);
+                Optional<Tile> tileOptional = getTile(position);
 
                 //subtract if the cell does NOT contain NULL
-                if (cardOptional.isPresent()) {
+                if (tileOptional.isPresent()) {
                     counter--;
                 }
             }
@@ -132,10 +119,11 @@ public class Bookshelf {
     }
 
     /**
+     * Returns the number of free cells inside the given column
      * @param columnNumber number that indicates which column needs to be examined
      * @return return the free cells given a given column
      */
-    public Integer getFreeCells(Integer columnNumber){
-        return (Bookshelf.ROWS - getColumn(columnNumber).size());
+    public int getFreeCells(Integer columnNumber){
+        return (GameSettings.ROWS - getColumn(columnNumber).size());
     }
 }

@@ -17,7 +17,7 @@ public interface GameControllerInterfaceView {
      * @param player player who played the move
      * @param position position of the card to pick on the board
      */
-    public Optional<CardType> pickCard(Player player, Position position);
+    public Optional<Tile> pickCard(Player player, Position position);
 
     /**
      * Confirms the cards picked from the board

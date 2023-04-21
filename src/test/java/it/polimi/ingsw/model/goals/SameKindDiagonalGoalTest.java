@@ -25,11 +25,11 @@ public class SameKindDiagonalGoalTest {
     public void testDetectFirstDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.YELLOW), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.YELLOW), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.YELLOW), 4);
         assert(this.goal.checkGoal(bookshelf));
     }
 
@@ -40,11 +40,11 @@ public class SameKindDiagonalGoalTest {
     public void testDetectSecondDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.WHITE), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.WHITE), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.WHITE), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.WHITE), 3);
-        bookshelf.addCells(List.of(CardType.WHITE), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.WHITE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.WHITE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.WHITE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.WHITE), 3);
+        bookshelf.addTiles(List.of(Tile.WHITE), 4);
         assert(this.goal.checkGoal(bookshelf));
     }
 
@@ -55,11 +55,11 @@ public class SameKindDiagonalGoalTest {
     public void testDetectFirstAntidiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.YELLOW), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.YELLOW), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.YELLOW), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 4);
         assert(this.goal.checkGoal(bookshelf));
     }
 
@@ -70,11 +70,11 @@ public class SameKindDiagonalGoalTest {
     public void testDetectSecondAntidiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
-        bookshelf.addCells(List.of(CardType.YELLOW), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.YELLOW), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 4);
+        bookshelf.addTiles(List.of(Tile.YELLOW), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.YELLOW), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 4);
         assert(this.goal.checkGoal(bookshelf));
     }
 
@@ -85,11 +85,11 @@ public class SameKindDiagonalGoalTest {
     public void testDetectWrongShapeDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.WHITE), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.WHITE), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.WHITE), 3);
-        bookshelf.addCells(List.of(CardType.WHITE), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.WHITE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.WHITE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.WHITE), 3);
+        bookshelf.addTiles(List.of(Tile.WHITE), 4);
         assert(!this.goal.checkGoal(bookshelf));
     }
 
@@ -100,11 +100,11 @@ public class SameKindDiagonalGoalTest {
     public void testDetectWrongShapeAntidiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
-        bookshelf.addCells(List.of(CardType.YELLOW), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.YELLOW), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.YELLOW), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.YELLOW), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.PINK), 4);
+        bookshelf.addTiles(List.of(Tile.YELLOW), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.YELLOW), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.YELLOW), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.YELLOW), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.PINK), 4);
         assert(!this.goal.checkGoal(bookshelf));
     }
 }

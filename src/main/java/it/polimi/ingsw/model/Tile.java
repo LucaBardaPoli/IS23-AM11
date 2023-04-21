@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.util.Optional;
-
-public enum CardType {
+public enum Tile {
     BLUE,
     GREEN,
     LBLUE,

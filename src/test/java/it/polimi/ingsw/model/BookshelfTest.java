@@ -10,19 +10,19 @@ import static org.junit.Assert.assertEquals;
 
 public class BookshelfTest {
     private Bookshelf bookshelf;
-    private CardType card1,card2,card3,card4,card5;
-    private List<CardType> cardList,cardList2,cardList3;
+    private Tile card1,card2,card3,card4,card5;
+    private List<Tile> cardList,cardList2,cardList3;
 
     public BookshelfTest() {
-        card1 = CardType.BLUE;
-        card2 = CardType.GREEN;
-        card3 = CardType.PINK;
-        card4 = CardType.LBLUE;
-        card5= CardType.WHITE;
+        card1 = Tile.BLUE;
+        card2 = Tile.GREEN;
+        card3 = Tile.PINK;
+        card4 = Tile.LBLUE;
+        card5= Tile.WHITE;
 
-        cardList = new ArrayList<CardType>();
-        cardList2 = new ArrayList<CardType>();
-        cardList3 = new ArrayList<CardType>();
+        cardList = new ArrayList<Tile>();
+        cardList2 = new ArrayList<Tile>();
+        cardList3 = new ArrayList<Tile>();
         cardList.add(card1);
         cardList.add(card2);
         cardList3.add(null);
@@ -34,7 +34,7 @@ public class BookshelfTest {
     public void testApp1(){
         bookshelf = new Bookshelf();
         assertEquals(6, (int) bookshelf.getFreeCells(2));
-        bookshelf.addCells(cardList,2);
+        bookshelf.addTiles(cardList,2);
         assertEquals(4, (int) bookshelf.getFreeCells(2));
     }
 
@@ -45,8 +45,8 @@ public class BookshelfTest {
         cardList.clear();
         cardList.add(card1);
         cardList2.add(card2);
-        bookshelf.addCells(cardList,0);
-        bookshelf.addCells(cardList2,1);
+        bookshelf.addTiles(cardList,0);
+        bookshelf.addTiles(cardList2,1);
         assertEquals(bookshelf.getRow(5).get(0).get(),card1);
         assertEquals(bookshelf.getRow(5).get(1).get(),card2);
     }
@@ -62,7 +62,7 @@ public class BookshelfTest {
     @Test
     public void testApp4(){
         bookshelf = new Bookshelf();
-        bookshelf.addCells(cardList,4);
+        bookshelf.addTiles(cardList,4);
         assertEquals(4,(int) bookshelf.getFreeCells(4));
     }
 
@@ -71,11 +71,11 @@ public class BookshelfTest {
     public void testApp5(){
         bookshelf = new Bookshelf();
 
-        bookshelf.addCells(Collections.singletonList(card1),0);
-        bookshelf.addCells(Collections.singletonList(card2),1);
-        bookshelf.addCells(Collections.singletonList(card3),2);
-        bookshelf.addCells(Collections.singletonList(card4),3);
-        bookshelf.addCells(Collections.singletonList(card5),4);
+        bookshelf.addTiles(Collections.singletonList(card1),0);
+        bookshelf.addTiles(Collections.singletonList(card2),1);
+        bookshelf.addTiles(Collections.singletonList(card3),2);
+        bookshelf.addTiles(Collections.singletonList(card4),3);
+        bookshelf.addTiles(Collections.singletonList(card5),4);
 
         assertEquals(5, bookshelf.getRow(5).size());
     }
@@ -84,7 +84,7 @@ public class BookshelfTest {
     @Test
     public void testApp6(){
         bookshelf = new Bookshelf();
-        bookshelf.addCells(cardList3,0);
+        bookshelf.addTiles(cardList3,0);
 
         assertEquals(1, bookshelf.getColumn(0).size());
     }

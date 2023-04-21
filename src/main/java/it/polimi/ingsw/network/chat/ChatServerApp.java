@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.chat;
 
-import it.polimi.ingsw.network.Settings;
+import it.polimi.ingsw.network.NetworkSettings;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -28,7 +28,7 @@ public class ChatServerApp extends UnicastRemoteObject implements ChatServer {
     }
 
     private void startServer() throws RemoteException {
-        Registry registry = LocateRegistry.createRegistry(Settings.SERVER_PORT_RMI);
+        Registry registry = LocateRegistry.createRegistry(NetworkSettings.SERVER_PORT_RMI);
         try {
             registry.bind("ChatService", this);
         }

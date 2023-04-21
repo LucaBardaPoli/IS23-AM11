@@ -1,14 +1,14 @@
 package it.polimi.ingsw.network.message;
 
-import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.network.client.ClientController;
 
 import java.util.List;
 
 public class SwapTilesOrderResponse implements ServerMessage {
-    private final List<CardType> pickedCards;
+    private final List<Tile> pickedCards;
     private final boolean valid;
-    public SwapTilesOrderResponse(List<CardType> pickedCards, boolean valid) {
+    public SwapTilesOrderResponse(List<Tile> pickedCards, boolean valid) {
         this.pickedCards = pickedCards;
         this.valid = valid;
     }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
-import it.polimi.ingsw.controller.*;
 
 /**
  * Game class that handles the game moves and the way it evolves
@@ -10,18 +9,17 @@ public class Game {
     private final int id;
     private final Board board;
     private final List<Player> players;
-    private Integer turn;
+    private int turn;
     private boolean isLastTurn;
     private final List<PersonalGoal> personalGoals;
     private final List<CommonGoal> commonGoals;
     private final List<List<Token>> tokens;
-    private final List<Position> pickedCardsPositions;
-    private final List<CardType> pickedCards;
+    private final List<Position> pickedTilesPositions;
+    private final List<Tile> pickedTiles;
     private GameStatus gameStatus;
-    private final CountCards countCards;
-    private Integer currentSelectedColumn;
-    private GameControllerInterfaceModel gameController;
-    public static Integer MAX_SELECTABLE_CARDS;
+    private final Bag bag;
+    private int currentSelectedColumn;
+    private boolean endGame;
 
     /**
      * Class contructor
@@ -30,10 +28,10 @@ public class Game {
      * @param commonGoals two common goals of the game
      * @param personalGoals players personal goals
      */
-    public Game(Integer id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
+    public Game(int id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
         this.id = id;
-        this.countCards = new CountCards();
-        this.board = new Board(players.size(), countCards);
+        this.bag = new Bag();
+        this.board = new Board(players.size(), bag);
         this.board.fillBoard();
         this.players = new ArrayList<>();
         this.personalGoals = personalGoals;
@@ -46,11 +44,10 @@ public class Game {
         this.isLastTurn = false;
         this.commonGoals = commonGoals;
         this.gameStatus = GameStatus.PICK_CARDS;
-        this.pickedCards = new ArrayList<>();
-        this.pickedCardsPositions = new ArrayList<>();
+        this.pickedTiles = new ArrayList<>();
+        this.pickedTilesPositions = new ArrayList<>();
         this.currentSelectedColumn = 0;
-        this.gameController = null;
-        Game.MAX_SELECTABLE_CARDS = 3;
+        this.endGame = false;
 
         // Assigns tokens based on the number of players
         this.tokens = new ArrayList<>();
@@ -73,18 +70,10 @@ public class Game {
     }
 
     /**
-     * Setter of the game's controller
-     * @param gameController game's controller
-     */
-    public void setGameController(GameControllerInterfaceModel gameController) {
-        this.gameController = gameController;
-    }
-
-    /**
      * Getter of game id
      * @return game id
      */
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -92,16 +81,8 @@ public class Game {
      * Getter of cards counter
      * @return cards counter
      */
-    public CountCards getCountCards() {
-        return this.countCards;
-    }
-
-    /**
-     * Getter of number of players of the game
-     * @return number of players
-     */
-    public Integer getMaxNumPlayers() {
-        return players.size();
+    public Bag getBag() {
+        return this.bag;
     }
 
     /**
@@ -178,8 +159,8 @@ public class Game {
         return this.gameStatus;
     }
 
-    public List<CardType> getPickedCards() {
-        return this.pickedCards;
+    public List<Tile> getPickedTiles() {
+        return this.pickedTiles;
     }
 
     /**
@@ -213,66 +194,66 @@ public class Game {
     }
 
     /**
-     * Tries to pick a card from the game board
-     * @param position position where to pick the card
-     * @return the picked card only if it's a valid pick
+     * Tries to pick a tile from the game board
+     * @param position position where to pick the tile
+     * @return the picked tile only if it's a valid pick
      */
-    public Optional<CardType> pickCard(Position position) {
-        Optional<CardType> pickedCard = Optional.empty();
+    public Optional<Tile> pickTile(Position position) {
+        Optional<Tile> pickedTile = Optional.empty();
 
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that the number of picked cards is lower than the limit
-            if (this.pickedCards.size() < MAX_SELECTABLE_CARDS) {
+            if (this.pickedTiles.size() < GameSettings.MAX_SELECTABLE_CARDS) {
                 if(this.board.validPick(position)) {
-                    if (!this.pickedCards.isEmpty()) {
+                    if (!this.pickedTiles.isEmpty()) {
                         boolean areAlignedOnRow = true;
-                        for (Position p : this.pickedCardsPositions) {
-                            areAlignedOnRow = p.getRow().equals(position.getRow());
+                        for (Position p : this.pickedTilesPositions) {
+                            areAlignedOnRow = p.getRow() == position.getRow();
                             if (!areAlignedOnRow) {
                                 break;
                             }
                         }
                         if (areAlignedOnRow) {
-                            this.pickedCardsPositions.add(position);
-                            pickedCard = this.board.getCard(position);
-                            this.pickedCards.add(pickedCard.get());
+                            this.pickedTilesPositions.add(position);
+                            pickedTile = this.board.getTile(position);
+                            this.pickedTiles.add(pickedTile.get());
                         }
 
                         boolean areAlignedOnColumn = true;
-                        for (Position p : this.pickedCardsPositions) {
-                            areAlignedOnColumn = p.getColumn().equals(position.getColumn());
+                        for (Position p : this.pickedTilesPositions) {
+                            areAlignedOnColumn = p.getColumn() == position.getColumn();
                             if (!areAlignedOnColumn) {
                                 break;
                             }
                         }
                         if (areAlignedOnColumn) {
-                            this.pickedCardsPositions.add(position);
-                            pickedCard = this.board.getCard(position);
-                            this.pickedCards.add(pickedCard.get());
+                            this.pickedTilesPositions.add(position);
+                            pickedTile = this.board.getTile(position);
+                            this.pickedTiles.add(pickedTile.get());
                         }
                     } else {
-                        this.pickedCardsPositions.add(position);
-                        pickedCard = this.board.getCard(position);
-                        this.pickedCards.add(pickedCard.get());
+                        this.pickedTilesPositions.add(position);
+                        pickedTile = this.board.getTile(position);
+                        this.pickedTiles.add(pickedTile.get());
                     }
                 }
             }
         }
-        return pickedCard;
+        return pickedTile;
     }
 
     /**
-     * Removes the card from the chosen ones
-     * @param position position of the card
+     * Removes the tile from the chosen ones
+     * @param position position of the tile
      */
-    public void removeCard(Position position) {
+    public void removeTile(Position position) {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that al least one card has been already chosen
-            if (!this.pickedCards.isEmpty()) {
-                for(int i = 0; i < this.pickedCardsPositions.size(); i++) {
-                    if(this.pickedCardsPositions.get(i).equals(position)) {
-                        this.pickedCardsPositions.remove(i);
-                        this.pickedCards.remove(i);
+            if (!this.pickedTiles.isEmpty()) {
+                for(int i = 0; i < this.pickedTilesPositions.size(); i++) {
+                    if(this.pickedTilesPositions.get(i).equals(position)) {
+                        this.pickedTilesPositions.remove(i);
+                        this.pickedTiles.remove(i);
                         break;
                     }
                 }
@@ -281,14 +262,14 @@ public class Game {
     }
 
     /**
-     * Checks if the picked cards are a valid combination
+     * Checks if the picked tiles are a valid combination
      * @return true if the pick is valid
      */
     public boolean confirmPick() {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
-            if (this.pickedCards.size() < MAX_SELECTABLE_CARDS && !this.pickedCards.isEmpty()) {
-                for(Position p : this.pickedCardsPositions) {
-                    this.board.pickCard(p);
+            if (this.pickedTiles.size() < GameSettings.MAX_SELECTABLE_CARDS && !this.pickedTiles.isEmpty()) {
+                for(Position p : this.pickedTilesPositions) {
+                    this.board.pickTile(p);
                 }
                 this.gameStatus = GameStatus.SELECT_COLUMN;
                 return true;
@@ -298,13 +279,13 @@ public class Game {
     }
 
     /**
-     * Checks if the given column can contain the picked cards
-     * @param column column where to insert the picked cards
-     * @return the inserted cards only if the insertion is valid
+     * Checks if the given column can contain the picked tiles
+     * @param column column where to insert the picked tiles
+     * @return the inserted tiles only if the insertion is valid
      */
-    public boolean confirmColumn(Integer column) {
+    public boolean confirmColumn(int column) {
         if (this.gameStatus.equals(GameStatus.SELECT_COLUMN)) {
-            if (column >= 0 && column < Bookshelf.getColumns() && this.players.get(this.turn).getFreeCells(column) >= this.pickedCards.size()) {
+            if (column >= 0 && column < GameSettings.COLUMNS && this.players.get(this.turn).getFreeCells(column) >= this.pickedTiles.size()) {
                 this.gameStatus = GameStatus.SELECT_ORDER;
                 this.currentSelectedColumn = column;
                 return true;
@@ -314,30 +295,30 @@ public class Game {
     }
 
     /**
-     * Moves the selected card to the last place in the list of cards to insert in the bookshelf
-     * @param index position of the selected card
-     * @return the new sorted list of cards
+     * Moves the selected tile to the last place in the list of cards to insert in the bookshelf
+     * @param index position of the selected tile
+     * @return the new sorted list of tiles
      */
-    public Optional<List<CardType>> rearrangeCards(Integer index) {
+    public Optional<List<Tile>> rearrangeTiles(int index) {
         if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index <= 2) {
-            CardType tmp = this.pickedCards.get(index);
-            this.pickedCards.set(index, this.pickedCards.get(this.pickedCards.size() - 1));
-            this.pickedCards.set(this.pickedCards.size() - 1, tmp);
-            return Optional.of(this.pickedCards);
+            Tile tmp = this.pickedTiles.get(index);
+            this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
+            this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);
+            return Optional.of(this.pickedTiles);
         }
         return Optional.empty();
     }
 
     /**
-     * Checks if the current cards order is valid. If so it inserts them in the bookshelf
+     * Checks if the current tiles order is valid. If so it inserts them in the bookshelf
      */
-    public void confirmOrderSelectedCards() {
+    public void confirmOrderSelectedTiles() {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
             this.gameStatus = GameStatus.UPDATE_POINTS;
-            this.players.get(this.turn).insertCards(this.currentSelectedColumn, this.pickedCards);
+            this.players.get(this.turn).insertCards(this.currentSelectedColumn, this.pickedTiles);
             this.currentSelectedColumn = 0;
-            this.pickedCards.clear();
-            this.pickedCardsPositions.clear();
+            this.pickedTiles.clear();
+            this.pickedTilesPositions.clear();
             this.updatePoints();
         }
     }
@@ -369,7 +350,7 @@ public class Game {
                     this.board.fillBoard();
                 }
             } else {
-                this.gameController.endGame();
+                this.endGame = true;
             }
         }
     }
@@ -393,7 +374,7 @@ public class Game {
      * @param commonGoal index (0 or 1) that selects which common goal we are referring to
      * @return score of the token
      */
-    public Integer winToken(Integer commonGoal) {
+    public int winToken(int commonGoal) {
         List<Token> wonTokenList = this.tokens.get(commonGoal);
         Token wonToken = wonTokenList.remove(0);
         return wonToken.getValue();

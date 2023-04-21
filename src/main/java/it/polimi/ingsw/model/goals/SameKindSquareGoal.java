@@ -16,34 +16,34 @@ public class SameKindSquareGoal implements Predicate<Bookshelf> {
      * @param bookshelf bookshelf to execute the check on
      * @return true whether the 2x2 square exists
      */
-    private boolean checkSquare(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Optional<CardType> card;
-        CardType currentType;
+    private boolean checkSquare(int startRow, int startColumn, Bookshelf bookshelf) {
+        Optional<Tile> tile;
+        Tile currentType;
 
-        card = bookshelf.getCell(new Position(startRow, startColumn));
-        if(card.isPresent()) {
-            currentType = card.get();
+        tile = bookshelf.getTile(new Position(startRow, startColumn));
+        if(tile.isPresent()) {
+            currentType = tile.get();
 
-            card = bookshelf.getCell(new Position(startRow + 1, startColumn));
-            if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
+            tile = bookshelf.getTile(new Position(startRow + 1, startColumn));
+            if (tile.isPresent()) {
+                if (!tile.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow + 1, startColumn + 1));
-            if (card.isPresent()) {
-                if (!card.get().equals(currentType)) {
+            tile = bookshelf.getTile(new Position(startRow + 1, startColumn + 1));
+            if (tile.isPresent()) {
+                if (!tile.get().equals(currentType)) {
                     return false;
                 }
             } else {
                 return false;
             }
 
-            card = bookshelf.getCell(new Position(startRow, startColumn + 1));
-            return card.map(cardType -> cardType.equals(currentType)).orElse(false);
+            tile = bookshelf.getTile(new Position(startRow, startColumn + 1));
+            return tile.map(cardType -> cardType.equals(currentType)).orElse(false);
         } else {
             return false;
         }
@@ -58,8 +58,8 @@ public class SameKindSquareGoal implements Predicate<Bookshelf> {
         Optional<Integer> startRowLastSquare = Optional.empty();
         Optional<Integer> startColumnLastSquare = Optional.empty();
 
-        for(int r = 0; r < Bookshelf.getRows()-1; r++) {
-            for(int c = 0; c < Bookshelf.getColumns()-1; c++) {
+        for(int r = 0; r < GameSettings.ROWS-1; r++) {
+            for(int c = 0; c < GameSettings.COLUMNS-1; c++) {
                 if(checkSquare(r, c, bookshelf)) {
                     if(startRowLastSquare.isEmpty()) {
                         startRowLastSquare = Optional.of(r);

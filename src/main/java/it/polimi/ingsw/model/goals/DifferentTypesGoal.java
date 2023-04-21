@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.Bookshelf;
-import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.GameSettings;
+import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Position;
 
 import java.util.Arrays;
@@ -29,13 +30,13 @@ public class DifferentTypesGoal implements Predicate<Bookshelf> {
     }
 
     private boolean testRows(Bookshelf bookshelf){
-        int nrows = Bookshelf.getRows();
-        int ncolumns = Bookshelf.getColumns();
-        int ntypes = CardType.values().length;
+        int nrows = GameSettings.ROWS;
+        int ncolumns = GameSettings.COLUMNS;
+        int ntypes = Tile.values().length;
         int i, j;
         int count_types = 0, count_rows = 0;
         boolean fullRow;
-        Optional<CardType> cardType;
+        Optional<Tile> tileType;
         //
         boolean[] typeFound = new boolean[ntypes];
 
@@ -45,11 +46,11 @@ public class DifferentTypesGoal implements Predicate<Bookshelf> {
             fullRow = true;
             count_types = 0;
             for(j = 0; j < ncolumns && fullRow; j++){
-                cardType = bookshelf.getCell(new Position(i, j));
-                if(cardType.isPresent()){
-                    if(!typeFound[cardType.get().ordinal()]){
+                tileType = bookshelf.getTile(new Position(i, j));
+                if(tileType.isPresent()){
+                    if(!typeFound[tileType.get().ordinal()]){
                         count_types++;
-                        typeFound[cardType.get().ordinal()] = true;
+                        typeFound[tileType.get().ordinal()] = true;
                     }
                 } else {
                     fullRow = false;
@@ -64,13 +65,13 @@ public class DifferentTypesGoal implements Predicate<Bookshelf> {
     }
 
     private boolean testColumns(Bookshelf bookshelf){
-        int nrows = Bookshelf.getRows();
-        int ncolumns = Bookshelf.getColumns();
-        int ntypes = CardType.values().length;
+        int nrows = GameSettings.ROWS;
+        int ncolumns = GameSettings.COLUMNS;
+        int ntypes = Tile.values().length;
         int i, j;
         int count_types = 0, count_columns = 0;
         boolean fullColumn;
-        Optional<CardType> cardType;
+        Optional<Tile> tileType;
 
         boolean[] typeFound = new boolean[ntypes];
 
@@ -80,11 +81,11 @@ public class DifferentTypesGoal implements Predicate<Bookshelf> {
             fullColumn = true;
             count_types = 0;
             for(i = 0; i < nrows && fullColumn; i++){
-                cardType = bookshelf.getCell(new Position(i, j));
-                if(cardType.isPresent()){
-                    if(!typeFound[cardType.get().ordinal()]){
+                tileType = bookshelf.getTile(new Position(i, j));
+                if(tileType.isPresent()){
+                    if(!typeFound[tileType.get().ordinal()]){
                         count_types++;
-                        typeFound[cardType.get().ordinal()] = true;
+                        typeFound[tileType.get().ordinal()] = true;
                     }
                 } else {
                     fullColumn = false;

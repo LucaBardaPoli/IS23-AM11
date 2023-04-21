@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.goals.CheckMode;
 import it.polimi.ingsw.model.goals.DifferentTypesGoal;
 import it.polimi.ingsw.model.goals.LadderGoal;
@@ -26,7 +25,7 @@ public class GameTest {
         List<PersonalGoal> personalGoals = new ArrayList<>();
 
         List<Position> positions = new ArrayList<>();
-        List<CardType> cardTypes = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>();
         Map<Integer, Integer> rewards = new HashMap<>();
 
         rewards.put(1,1);
@@ -38,97 +37,97 @@ public class GameTest {
 
         //Personal Goal x1
         positions.add(new Position( 0,0 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 0,2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 1,4 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 3) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 3,1 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5,2 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x2
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(2 ,0 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 3,4 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 3) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 5, 4) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x3
         positions.add(new Position(1 ,0) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(1 , 3) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(2 ,2 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(3 , 1) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(3 , 4) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(5 ,0 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x4
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 2, 0) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(2 , 2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3,3) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(4 , 1) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position(4, 2) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         // ## Common Goals ##
         List<CommonGoal> commonGoals = new ArrayList<>();
@@ -143,13 +142,13 @@ public class GameTest {
         commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
         game2 = new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
-        //game2.getBoard().fillBoard(new CountCards());
+        //game2.getBoard().fillBoard(new Bag());
 
         game3 = new Game(gameId++, players3, commonGoals, personalGoals.subList(0, 3));
-        //game3.getBoard().fillBoard(new CountCards());
+        //game3.getBoard().fillBoard(new Bag());
 
         game4 = new Game(gameId++, players4, commonGoals, personalGoals);
-        //game4.getBoard().fillBoard(new CountCards());
+        //game4.getBoard().fillBoard(new Bag());
 
     }
 
@@ -163,7 +162,7 @@ public class GameTest {
         List<PersonalGoal> personalGoals = new ArrayList<>();
 
         List<Position> positions = new ArrayList<>();
-        List<CardType> cardTypes = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>();
         Map<Integer, Integer> rewards = new HashMap<>();
 
         rewards.put(1,1);
@@ -175,97 +174,97 @@ public class GameTest {
 
         //Personal Goal x1
         positions.add(new Position( 0,0 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 0,2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 1,4 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 3) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 3,1 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5,2 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x2
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(2 ,0 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 3,4 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 3) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 5, 4) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x3
         positions.add(new Position(1 ,0) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(1 , 3) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(2 ,2 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(3 , 1) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(3 , 4) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(5 ,0 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x4
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 2, 0) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(2 , 2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3,3) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(4 , 1) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position(4, 2) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         // ## Common Goals ##
         List<CommonGoal> commonGoals = new ArrayList<>();
@@ -280,7 +279,7 @@ public class GameTest {
         commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
         return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
-        //game2.getBoard().fillBoard(new CountCards());
+        //game2.getBoard().fillBoard(new Bag());
     }
 
     // Initializes a game with 3 players
@@ -293,7 +292,7 @@ public class GameTest {
         List<PersonalGoal> personalGoals = new ArrayList<>();
 
         List<Position> positions = new ArrayList<>();
-        List<CardType> cardTypes = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>();
         Map<Integer, Integer> rewards = new HashMap<>();
 
         rewards.put(1,1);
@@ -305,97 +304,97 @@ public class GameTest {
 
         //Personal Goal x1
         positions.add(new Position( 0,0 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 0,2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 1,4 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 3) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 3,1 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5,2 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x2
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(2 ,0 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 3,4 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 3) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 5, 4) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x3
         positions.add(new Position(1 ,0) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(1 , 3) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(2 ,2 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(3 , 1) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(3 , 4) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(5 ,0 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x4
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 2, 0) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(2 , 2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3,3) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(4 , 1) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position(4, 2) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         // ## Common Goals ##
         List<CommonGoal> commonGoals = new ArrayList<>();
@@ -410,7 +409,7 @@ public class GameTest {
         commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
         return new Game(gameId, players3, commonGoals, personalGoals.subList(0, 3));
-        //game2.getBoard().fillBoard(new CountCards());
+        //game2.getBoard().fillBoard(new Bag());
     }
 
     // Initializes a game with 4 players
@@ -423,7 +422,7 @@ public class GameTest {
         List<PersonalGoal> personalGoals = new ArrayList<>();
 
         List<Position> positions = new ArrayList<>();
-        List<CardType> cardTypes = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>();
         Map<Integer, Integer> rewards = new HashMap<>();
 
         rewards.put(1,1);
@@ -435,97 +434,97 @@ public class GameTest {
 
         //Personal Goal x1
         positions.add(new Position( 0,0 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position( 0,2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 1,4 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2, 3) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 3,1 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 5,2 ) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         //Personal Goal x2
         positions.add(new Position(1 ,1 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(2 ,0 ) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position( 2,2 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 3,4 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position( 4, 3) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position( 5, 4) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x3
         positions.add(new Position(1 ,0) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position(1 , 3) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position(2 ,2 ) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(3 , 1) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
         positions.add(new Position(3 , 4) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(5 ,0 ) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
 
         //Personal Goal x4
         positions.add(new Position( 0,4 ) );
-        cardTypes.add(CardType.YELLOW);
+        tiles.add(Tile.YELLOW);
 
         positions.add(new Position( 2, 0) );
-        cardTypes.add(CardType.LBLUE);
+        tiles.add(Tile.LBLUE);
 
         positions.add(new Position(2 , 2) );
-        cardTypes.add(CardType.BLUE);
+        tiles.add(Tile.BLUE);
 
         positions.add(new Position( 3,3) );
-        cardTypes.add(CardType.PINK);
+        tiles.add(Tile.PINK);
 
         positions.add(new Position(4 , 1) );
-        cardTypes.add(CardType.WHITE);
+        tiles.add(Tile.WHITE);
 
         positions.add(new Position(4, 2) );
-        cardTypes.add(CardType.GREEN);
+        tiles.add(Tile.GREEN);
 
-        personalGoals.add(new PersonalGoal(positions, cardTypes, rewards));
+        personalGoals.add(new PersonalGoal(positions, tiles, rewards));
         positions.clear();
-        cardTypes.clear();
+        tiles.clear();
 
         // ## Common Goals ##
         List<CommonGoal> commonGoals = new ArrayList<>();
@@ -540,7 +539,7 @@ public class GameTest {
         commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
 
         return new Game(gameId, players4, commonGoals, personalGoals);
-        //game2.getBoard().fillBoard(new CountCards());
+        //game2.getBoard().fillBoard(new Bag());
     }
 
     @Test
@@ -552,15 +551,15 @@ public class GameTest {
         Position positionToTest1 = new Position(1,0);
         Position positionToTest2 = new Position(1,1);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -571,14 +570,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(0));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,0)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,0)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,0)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,0)),cardTypesList.get(1));
     }
 
     @Test
@@ -590,15 +589,15 @@ public class GameTest {
         Position positionToTest2 = new Position(7,2);
 
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -609,14 +608,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
 
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
     }
 
@@ -629,11 +628,11 @@ public class GameTest {
         // Carte Prendibili in GAME2
         Position positionToTest1 = new Position(5,3);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -644,13 +643,13 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(2));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,2)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,2)),cardTypesList.get(0));
 
     }
 
@@ -665,23 +664,23 @@ public class GameTest {
         Position positionToTest3 = new Position(6,1);
         Position positionToTest4 = new Position(4,2);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
-        game2.pickCard(positionToTest3);
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest3));
+        game2.pickTile(positionToTest3);
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest3));
 
-        game2.pickCard(positionToTest3);
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest3));
+        game2.pickTile(positionToTest3);
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest3));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -692,28 +691,28 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(3));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the cards which are misaligned with the first are still on the board
-        assertFalse(game2.getBoard().getCard(positionToTest1).isPresent());
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
-        assert(game2.getBoard().getCard(positionToTest4).isPresent());
+        assertFalse(game2.getBoard().getTile(positionToTest1).isPresent());
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
+        assert(game2.getBoard().getTile(positionToTest4).isPresent());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,3)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,3)),cardTypesList.get(0));
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(4,3)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,3)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(4,3)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,3)),Optional.empty());
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(3,3)),cardTypesList.get(2));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(3,3)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(3,3)),cardTypesList.get(2));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(3,3)),Optional.empty());
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(2,3)),cardTypesList.get(3));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(2,3)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(2,3)),cardTypesList.get(3));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(2,3)),Optional.empty());
 
     }
 
@@ -729,19 +728,19 @@ public class GameTest {
         Position positionToTest2 = new Position(4,1);
         Position positionToTest3 = new Position(2,1);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
-        game2.pickCard(positionToTest3);
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest3));
+        game2.pickTile(positionToTest3);
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest3));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -752,24 +751,24 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(4));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the card which is misaligned with the first is still on the board
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
 
         // Check if the player is the same, because if he didn't select any card, he cannot end his turn
         assertSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(4,4)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,4)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(4,4)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,4)),Optional.empty());
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(3,4)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(3,4)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(3,4)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(3,4)),Optional.empty());
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(2,4)),cardTypesList.get(2));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(2,4)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(2,4)),cardTypesList.get(2));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(2,4)),Optional.empty());
 
     }
 
@@ -783,19 +782,19 @@ public class GameTest {
         Position positionToTest2 = new Position(2,1);
         Position positionToTest3 = new Position(3,2);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
-        game2.pickCard(positionToTest3);
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest3));
+        game2.pickTile(positionToTest3);
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest3));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -806,23 +805,23 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert(game2.confirmColumn(4));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the card which is misaligned with the first is still on the board
-        assertFalse(game2.getBoard().getCard(positionToTest1).isPresent());
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
+        assertFalse(game2.getBoard().getTile(positionToTest1).isPresent());
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
 
         // Checks if the Turn ended correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,4)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,4)),cardTypesList.get(0));
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(4,4)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,4)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(4,4)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,4)),Optional.empty());
 
-        assertNotSame(currentPlayerBookshelf.getCell(new Position(3,4)),cardTypesList.get(2));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(3,4)),Optional.empty());
+        assertNotSame(currentPlayerBookshelf.getTile(new Position(3,4)),cardTypesList.get(2));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(3,4)),Optional.empty());
 
     }
 
@@ -843,13 +842,13 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(5));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         assertEquals(Optional.ofNullable(currentPlayerBookshelf.getFreeCells()),
-                     Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ));
+                     Optional.of(GameSettings.ROWS * GameSettings.COLUMNS ));
 
     }
 
@@ -870,13 +869,13 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(5));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         assertEquals(Optional.ofNullable(currentPlayerBookshelf.getFreeCells()),
-                Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ));
+                Optional.of(GameSettings.ROWS * GameSettings.COLUMNS ));
 
     }
 
@@ -891,14 +890,14 @@ public class GameTest {
         Position positionToTest2 = new Position(2,-1);
         Position positionToTest3 = new Position(1,2);
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isEmpty());
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isEmpty());
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isEmpty());
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isEmpty());
 
-        game2.pickCard(positionToTest3);
-        assert(game2.getBoard().getCard(positionToTest3).isEmpty());
+        game2.pickTile(positionToTest3);
+        assert(game2.getBoard().getTile(positionToTest3).isEmpty());
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -906,7 +905,7 @@ public class GameTest {
 
         // Confirm the choice of the selected cards
         assertFalse (game2.confirmPick());
-        assertEquals(Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
+        assertEquals(Optional.of(GameSettings.ROWS * GameSettings.COLUMNS ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
 
     }
 
@@ -921,7 +920,7 @@ public class GameTest {
 
         // Confirm the choice of the selected cards
         assertFalse (game2.confirmPick());
-        assertEquals(Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
+        assertEquals(Optional.of(GameSettings.ROWS * GameSettings.COLUMNS ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
 
     }
 
@@ -936,14 +935,14 @@ public class GameTest {
         Position positionToTest2 = new Position(4,1);
         Position positionToTest3 = new Position(2,1);
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
 
-        game2.pickCard(positionToTest3);
-        assert(game2.getBoard().getCard(positionToTest3).isPresent());
+        game2.pickTile(positionToTest3);
+        assert(game2.getBoard().getTile(positionToTest3).isPresent());
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -951,7 +950,7 @@ public class GameTest {
 
         // Confirm the choice of the selected cards
         assertFalse (game2.confirmPick());
-        assertEquals(Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
+        assertEquals(Optional.of(GameSettings.ROWS * GameSettings.COLUMNS ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
 
     }
 
@@ -964,8 +963,8 @@ public class GameTest {
 
         Position positionToTest1 = new Position(1,0);
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -980,7 +979,7 @@ public class GameTest {
         Game game2;
         game2 = InitializeGames2();
 
-        assertFalse(game2.confirmColumn(Bookshelf.getColumns()+1));
+        assertFalse(game2.confirmColumn(GameSettings.COLUMNS+1));
     }
 
     @Test
@@ -992,15 +991,15 @@ public class GameTest {
         Position positionToTest1 = new Position(1,0);
         Position positionToTest2 = new Position(1,1);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1012,19 +1011,19 @@ public class GameTest {
         assert (game2.confirmColumn(0));
 
         // Puts the first card selected in the last position
-        List<CardType> rearrangedCards = game2.rearrangeCards(0).get();
+        List<Tile> rearrangedCards = game2.rearrangeTiles(0).get();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(1).get());
         assertEquals(rearrangedCards.get(1),cardTypesList.get(0).get());
 
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,0)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,0)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,0)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,0)),cardTypesList.get(0));
 
     }
 
@@ -1037,15 +1036,15 @@ public class GameTest {
         Position positionToTest1 = new Position(1,0);
         Position positionToTest2 = new Position(1,1);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1057,23 +1056,23 @@ public class GameTest {
         assert (game2.confirmColumn(0));
 
         // Puts the first card selected in the last position
-        List<CardType> rearrangedCards = game2.rearrangeCards(0).get();
+        List<Tile> rearrangedCards = game2.rearrangeTiles(0).get();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(1).get());
         assertEquals(rearrangedCards.get(1),cardTypesList.get(0).get());
 
-        rearrangedCards = game2.rearrangeCards(0).get();
+        rearrangedCards = game2.rearrangeTiles(0).get();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(0).get());
         assertEquals(rearrangedCards.get(1),cardTypesList.get(1).get());
 
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,0)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,0)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,0)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,0)),cardTypesList.get(1));
 
     }
 
@@ -1088,38 +1087,38 @@ public class GameTest {
         Position positionToTest2 = new Position(7,2);
 
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
         assertNotNull(currentPlayerBookshelf);
 
         // Removes the card specified from the selection
-        game2.removeCard(positionToTest2);
+        game2.removeTile(positionToTest2);
         // Assures that the card is still on the Board
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
 
         // Confirm the choice of the selected cards
         assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),Optional.empty());
 
     }
 
@@ -1133,38 +1132,38 @@ public class GameTest {
         Position positionToTest1 = new Position(6,2);
         Position positionToTest2 = new Position(7,2);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
         assertNotNull(currentPlayerBookshelf);
 
         // Removes the card specified from the selection
-        game2.removeCard(positionToTest1);
+        game2.removeTile(positionToTest1);
         // Assures that the card is still on the Board
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
 
         // Confirm the choice of the selected cards
         assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),Optional.empty());
 
     }
 
@@ -1173,23 +1172,19 @@ public class GameTest {
         Game game2;
         game2 = InitializeGames2();
 
-        // Initializes the game controller
-        GameController gameController = new GameController(game2);
-        game2.setGameController(gameController);
-
         // Selectable cards in a game with 2 players
         Position positionToTest1 = new Position(6,2);
         Position positionToTest2 = new Position(7,2);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game2.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1200,13 +1195,13 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
         // The First player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
@@ -1214,13 +1209,13 @@ public class GameTest {
         positionToTest1 = new Position(2,0);
         positionToTest2 = new Position(1,0);
 
-        game2.pickCard(positionToTest1);
-        assert(game2.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest1));
+        game2.pickTile(positionToTest1);
+        assert(game2.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
 
-        game2.pickCard(positionToTest2);
-        assert(game2.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game2.getBoard().getCard(positionToTest2));
+        game2.pickTile(positionToTest2);
+        assert(game2.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
 
         currentPlayer = game2.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1231,14 +1226,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedCards();
+        game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
     }
 
@@ -1247,23 +1242,19 @@ public class GameTest {
         Game game4;
         game4 = InitializeGames4();
 
-        // Initializes the game controller
-        GameController gameController = new GameController(game4);
-        game4.setGameController(gameController);
-
         // Selectable cards in a game with 3 players
         Position positionToTest1 = new Position(0,0);
         Position positionToTest2 = new Position(1,0);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game4.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1274,13 +1265,13 @@ public class GameTest {
         // Confirm the column where to  insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
         // The First player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
@@ -1288,13 +1279,13 @@ public class GameTest {
         positionToTest1 = new Position(8,1);
         positionToTest2 = new Position(8,2);
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         currentPlayer = game4.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1305,14 +1296,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
         // The Second player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
@@ -1320,13 +1311,13 @@ public class GameTest {
         positionToTest1 = new Position(5,-2);
         positionToTest2 = new Position(5,-3);
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         currentPlayer = game4.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1337,14 +1328,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
     }
 
@@ -1353,23 +1344,19 @@ public class GameTest {
         Game game4;
         game4 = InitializeGames4();
 
-        // Initializes the game controller
-        GameController gameController = new GameController(game4);
-        game4.setGameController(gameController);
-
         // Selectable cards in a game with 4 players
         Position positionToTest1 = new Position(0,0);
         Position positionToTest2 = new Position(0,1);
 
-        List<Optional<CardType>> cardTypesList = new ArrayList<>();
+        List<Optional<Tile>> cardTypesList = new ArrayList<>();
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         Player currentPlayer = game4.getCurrentPlayer();
         Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1380,13 +1367,13 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
         // The First player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
@@ -1394,13 +1381,13 @@ public class GameTest {
         positionToTest1 = new Position(8,1);
         positionToTest2 = new Position(8,2);
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         currentPlayer = game4.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1411,14 +1398,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
         // The Second player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
@@ -1426,13 +1413,13 @@ public class GameTest {
         positionToTest1 = new Position(4,-3);
         positionToTest2 = new Position(5,-3);
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         currentPlayer = game4.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1443,14 +1430,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
         // The Third player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
@@ -1458,13 +1445,13 @@ public class GameTest {
         positionToTest1 = new Position(3,5);
         positionToTest2 = new Position(4,5);
 
-        game4.pickCard(positionToTest1);
-        assert(game4.getBoard().getCard(positionToTest1).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest1));
+        game4.pickTile(positionToTest1);
+        assert(game4.getBoard().getTile(positionToTest1).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest1));
 
-        game4.pickCard(positionToTest2);
-        assert(game4.getBoard().getCard(positionToTest2).isPresent());
-        cardTypesList.add(game4.getBoard().getCard(positionToTest2));
+        game4.pickTile(positionToTest2);
+        assert(game4.getBoard().getTile(positionToTest2).isPresent());
+        cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
         currentPlayer = game4.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
@@ -1475,14 +1462,14 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedCards();
+        game4.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getCell(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getCell(new Position(4,1)),cardTypesList.get(1));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),cardTypesList.get(1));
 
     }
 
@@ -1549,21 +1536,21 @@ public class GameTest {
     @Test
     public void testEndGameChairPlayer() {
         Bookshelf bookshelf = new Bookshelf();
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 4);
 
         Game game = InitializeGames2();
         game.getPlayers().get(0).setBookshelf(bookshelf);
 
-        assert(game.pickCard(new Position(1,1)).isPresent());
+        assert(game.pickTile(new Position(1,1)).isPresent());
         game.confirmPick();
         assert(!game.confirmColumn(3));
         assert(!game.confirmColumn(5));
         assert(game.confirmColumn(4));
-        game.confirmOrderSelectedCards();
+        game.confirmOrderSelectedTiles();
 
         assert(game.getPlayers().get(0).getEndGamePoint());
         assert(!game.getPlayers().get(1).getEndGamePoint());
@@ -1573,31 +1560,30 @@ public class GameTest {
     @Test
     public void testEndGameLastPlayer() {
         Bookshelf bookshelf = new Bookshelf();
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 0);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 1);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 2);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 3);
-        bookshelf.addCells(List.of(CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE, CardType.BLUE), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 4);
 
         Game game = InitializeGames2();
         game.getPlayers().get(1).setBookshelf(bookshelf);
-        game.setGameController(new GameController(game));
 
-        assert(game.pickCard(new Position(1,1)).isPresent());
+        assert(game.pickTile(new Position(1,1)).isPresent());
         game.confirmPick();
         assert(!game.confirmColumn(5));
         assert(game.confirmColumn(0));
-        game.confirmOrderSelectedCards();
+        game.confirmOrderSelectedTiles();
         assert(!game.getPlayers().get(0).getEndGamePoint());
         assert(!game.getPlayers().get(1).getEndGamePoint());
         assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
 
-        assert(game.pickCard(new Position(1,0)).isPresent());
+        assert(game.pickTile(new Position(1,0)).isPresent());
         game.confirmPick();
         assert(!game.confirmColumn(5));
         assert(!game.confirmColumn(3));
         assert(game.confirmColumn(4));
-        game.confirmOrderSelectedCards();
+        game.confirmOrderSelectedTiles();
         assert(!game.getPlayers().get(0).getEndGamePoint());
         assert(game.getPlayers().get(1).getEndGamePoint());
         assert(game.getGameStatus().equals(GameStatus.UPDATE_POINTS));

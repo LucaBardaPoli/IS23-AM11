@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.RMIListener;
 import it.polimi.ingsw.network.RMIListenerInterface;
-import it.polimi.ingsw.network.Settings;
+import it.polimi.ingsw.network.NetworkSettings;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -16,7 +16,6 @@ import java.util.concurrent.Executors;
 
 public class ServerController {
     private ServerSocket serverSocket;
-    private RMIListenerInterface rmiListener;
     private final ExecutorService executors;
     private boolean closeConnection;
 
@@ -37,9 +36,9 @@ public class ServerController {
 
         // RMI
         try {
-            this.rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), Settings.SERVER_PORT_RMI);
-            Registry registry = LocateRegistry.createRegistry(Settings.SERVER_PORT_RMI);
-            registry.rebind(Settings.RMI_REMOTE_OBJECT, this.rmiListener);
+            RMIListenerInterface rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), NetworkSettings.SERVER_PORT_RMI);
+            Registry registry = LocateRegistry.createRegistry(NetworkSettings.SERVER_PORT_RMI);
+            registry.rebind(NetworkSettings.RMI_REMOTE_OBJECT, rmiListener);
             System.out.println("Exposed remote obj...");
         } catch (RemoteException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.Settings;
+import it.polimi.ingsw.network.NetworkSettings;
 
 public class LaunchClient {
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class LaunchClient {
         if(typeOfConnection.equals("RMI")) {
             client = new ClientRMI(ip);
         } else { // Default is socket
-            client = new ClientTCP(ip, Settings.SERVER_PORT_TCP);
+            client = new ClientTCP(ip, NetworkSettings.SERVER_PORT_TCP);
         }
         client.openConnection();
 
