@@ -38,7 +38,11 @@ public class ClientRMI extends Client implements ClientRMIInterface {
         serverMessage.handle(this.controller);
     }
 
-    public void sendMessage(ClientMessage clientMessage) throws RemoteException {
-        this.clientHandler.receiveMessage(clientMessage);
+    public void sendMessage(ClientMessage clientMessage) {
+        try {
+            this.clientHandler.receiveMessage(clientMessage);
+        } catch(RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

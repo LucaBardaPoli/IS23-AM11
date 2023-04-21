@@ -9,13 +9,13 @@ import java.util.Optional;
  * Class that handles the evolution of the game (communication with view and model)
  */
 public class GameController implements GameControllerInterfaceView, GameControllerInterfaceModel {
-    private GameInterface model;
+    private final Game model;
 
     /**
      * Class constructor
      * @param model game to handle
      */
-    public GameController(GameInterface model) {
+    public GameController(Game model) {
         this.model = model;
         this.model.setGameController(this);
     }
@@ -24,7 +24,7 @@ public class GameController implements GameControllerInterfaceView, GameControll
      * Getter of the model
      * @return model
      */
-    public GameInterface getModel() {
+    public Game getModel() {
         return this.model;
     }
 
@@ -54,7 +54,7 @@ public class GameController implements GameControllerInterfaceView, GameControll
      */
     public void confirmPick(Player player) {
         if(checkPlayer(player)) {
-            this.model.confirmChoice();
+            this.model.confirmPick();
         }
     }
 

@@ -2,10 +2,9 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.message.ClientMessage;
 
-import java.rmi.RemoteException;
-
 public abstract class Client {
     protected String serverIp;
+    protected String nickname;
     protected ClientController controller;
     protected boolean stopConnection;
 
@@ -18,9 +17,13 @@ public abstract class Client {
         this.controller = clientController;
     }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public abstract void openConnection();
 
     public abstract void startListening();
 
-    public abstract void sendMessage(ClientMessage clientMessage) throws RemoteException;
+    public abstract void sendMessage(ClientMessage clientMessage);
 }

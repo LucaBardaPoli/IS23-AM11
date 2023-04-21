@@ -5,14 +5,14 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import java.rmi.RemoteException;
 
 public class SwapTilesOrderRequest implements ClientMessage {
-    private int position;
+    private final int index;
 
-    public SwapTilesOrderRequest(int position) {
-        this.position = position;
+    public SwapTilesOrderRequest(int index) {
+        this.index = index;
     }
 
-    public int getPosition() {
-        return position;
+    public int getIndex() {
+        return index;
     }
 
     @Override

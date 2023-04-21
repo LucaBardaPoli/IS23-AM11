@@ -23,7 +23,11 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
     }
 
     // Send all kind of Server messages
-    public void sendMessage(ServerMessage serverMessage) throws RemoteException {
-        this.client.receiveMessage(serverMessage);
+    public void sendMessage(ServerMessage serverMessage) {
+        try {
+            this.client.receiveMessage(serverMessage);
+        } catch(RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

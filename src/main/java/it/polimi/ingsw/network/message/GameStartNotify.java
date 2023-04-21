@@ -1,11 +1,23 @@
 package it.polimi.ingsw.network.message;
 
+import it.polimi.ingsw.model.Board;
+import it.polimi.ingsw.model.CommonGoal;
+import it.polimi.ingsw.model.PersonalGoal;
 import it.polimi.ingsw.network.client.ClientController;
 
-public class GameStartNotify implements ServerMessage{
+import java.util.List;
 
-    // Board, common goals, personal goals
-    public GameStartNotify() {
+public class GameStartNotify implements ServerMessage{
+    private final Board board;
+    private final List<CommonGoal> commonGoals;
+    private final PersonalGoal personalGoal;
+    private final boolean isYourTurn;
+
+    public GameStartNotify(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, boolean isYourTurn) {
+        this.board = board;
+        this.commonGoals = commonGoals;
+        this.personalGoal = personalGoal;
+        this.isYourTurn = isYourTurn;
     }
 
     @Override

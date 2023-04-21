@@ -6,7 +6,7 @@ import it.polimi.ingsw.controller.*;
 /**
  * Game class that handles the game moves and the way it evolves
  */
-public class Game implements GameInterface {
+public class Game {
     private final int id;
     private final Board board;
     private final List<Player> players;
@@ -35,7 +35,7 @@ public class Game implements GameInterface {
         this.countCards = new CountCards();
         this.board = new Board(players.size(), countCards);
         this.board.fillBoard();
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
         this.personalGoals = personalGoals;
         Collections.shuffle(this.personalGoals);
         for (int i = 0; i < players.size(); i++) {
@@ -68,8 +68,8 @@ public class Game implements GameInterface {
             tmpTokens.add(new Token(4));
             tmpTokens.add(new Token(2));
         }
-        this.tokens.add(new ArrayList<Token>(tmpTokens));
-        this.tokens.add(new ArrayList<Token>(tmpTokens));
+        this.tokens.add(new ArrayList<>(tmpTokens));
+        this.tokens.add(new ArrayList<>(tmpTokens));
     }
 
     /**
@@ -178,6 +178,10 @@ public class Game implements GameInterface {
         return this.gameStatus;
     }
 
+    public List<CardType> getPickedCards() {
+        return this.pickedCards;
+    }
+
     /**
      * Checks if a given nickname is already taken
      * @param nickname nickname
@@ -198,6 +202,14 @@ public class Game implements GameInterface {
      */
     public Player getCurrentPlayer() {
         return this.players.get(this.turn);
+    }
+
+    /**
+     * Getter of the last player who played
+     * @return player
+     */
+    public Player getLastPlayer() {
+        return this.players.get((this.turn - 1) % this.players.size());
     }
 
     /**
@@ -272,7 +284,7 @@ public class Game implements GameInterface {
      * Checks if the picked cards are a valid combination
      * @return true if the pick is valid
      */
-    public boolean confirmChoice() {
+    public boolean confirmPick() {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             if (this.pickedCards.size() < MAX_SELECTABLE_CARDS && !this.pickedCards.isEmpty()) {
                 for(Position p : this.pickedCardsPositions) {
@@ -303,16 +315,17 @@ public class Game implements GameInterface {
 
     /**
      * Moves the selected card to the last place in the list of cards to insert in the bookshelf
-     * @param position position of the selected card
+     * @param index position of the selected card
      * @return the new sorted list of cards
      */
-    public List<CardType> rearrangeCards(Integer position) {
-        if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
-            CardType tmp = this.pickedCards.get(position);
-            this.pickedCards.set(position, this.pickedCards.get(this.pickedCards.size() - 1));
+    public Optional<List<CardType>> rearrangeCards(Integer index) {
+        if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index <= 2) {
+            CardType tmp = this.pickedCards.get(index);
+            this.pickedCards.set(index, this.pickedCards.get(this.pickedCards.size() - 1));
             this.pickedCards.set(this.pickedCards.size() - 1, tmp);
+            return Optional.of(this.pickedCards);
         }
-        return this.pickedCards;
+        return Optional.empty();
     }
 
     /**
@@ -386,7 +399,12 @@ public class Game implements GameInterface {
         return wonToken.getValue();
     }
 
-    public List<Position> getPickedCardsPositions() {
-        return pickedCardsPositions;
+    /**
+     * Checks if the given player is the one who's currently playing
+     * @param player player who played the move
+     * @return true whether the given player is the one who's currently playing
+     */
+    public boolean checkPlayer(String player) {
+        return getCurrentPlayer().getNickname().equals(player);
     }
 }

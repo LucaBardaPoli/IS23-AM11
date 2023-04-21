@@ -567,7 +567,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(0));
         // Insert the cards in the order decided before
@@ -605,7 +605,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -640,7 +640,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(2));
         // Insert the cards in the order decided before
@@ -688,7 +688,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(3));
         // Insert the cards in the order decided before
@@ -748,7 +748,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertFalse (game2.confirmChoice());
+        assertFalse (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(4));
         // Insert the cards in the order decided before
@@ -802,7 +802,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert(game2.confirmChoice());
+        assert(game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert(game2.confirmColumn(4));
         // Insert the cards in the order decided before
@@ -839,7 +839,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertFalse (game2.confirmChoice());
+        assertFalse (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(5));
         // Insert the cards in the order decided before
@@ -866,7 +866,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertFalse (game2.confirmChoice());
+        assertFalse (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(5));
         // Insert the cards in the order decided before
@@ -905,7 +905,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertFalse (game2.confirmChoice());
+        assertFalse (game2.confirmPick());
         assertEquals(Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
 
     }
@@ -920,7 +920,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertFalse (game2.confirmChoice());
+        assertFalse (game2.confirmPick());
         assertEquals(Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
 
     }
@@ -950,7 +950,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertFalse (game2.confirmChoice());
+        assertFalse (game2.confirmPick());
         assertEquals(Optional.of(Bookshelf.getRows() * Bookshelf.getColumns() ) , Optional.ofNullable(currentPlayerBookshelf.getFreeCells()));
 
     }
@@ -972,7 +972,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assertTrue(game2.confirmChoice());
+        assertTrue(game2.confirmPick());
     }
 
     @Test
@@ -1007,12 +1007,12 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(0));
 
         // Puts the first card selected in the last position
-        List<CardType> rearrangedCards = game2.rearrangeCards(0);
+        List<CardType> rearrangedCards = game2.rearrangeCards(0).get();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(1).get());
         assertEquals(rearrangedCards.get(1),cardTypesList.get(0).get());
 
@@ -1052,16 +1052,16 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(0));
 
         // Puts the first card selected in the last position
-        List<CardType> rearrangedCards = game2.rearrangeCards(0);
+        List<CardType> rearrangedCards = game2.rearrangeCards(0).get();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(1).get());
         assertEquals(rearrangedCards.get(1),cardTypesList.get(0).get());
 
-        rearrangedCards = game2.rearrangeCards(0);
+        rearrangedCards = game2.rearrangeCards(0).get();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(0).get());
         assertEquals(rearrangedCards.get(1),cardTypesList.get(1).get());
 
@@ -1108,7 +1108,7 @@ public class GameTest {
         assert(game2.getBoard().getCard(positionToTest2).isPresent());
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1153,7 +1153,7 @@ public class GameTest {
         assert(game2.getBoard().getCard(positionToTest1).isPresent());
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1196,7 +1196,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1227,7 +1227,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmChoice());
+        assert (game2.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1270,7 +1270,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to  insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1301,7 +1301,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1333,7 +1333,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1376,7 +1376,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1407,7 +1407,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1439,7 +1439,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1471,7 +1471,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game4.confirmChoice());
+        assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
@@ -1559,7 +1559,7 @@ public class GameTest {
         game.getPlayers().get(0).setBookshelf(bookshelf);
 
         assert(game.pickCard(new Position(1,1)).isPresent());
-        game.confirmChoice();
+        game.confirmPick();
         assert(!game.confirmColumn(3));
         assert(!game.confirmColumn(5));
         assert(game.confirmColumn(4));
@@ -1584,7 +1584,7 @@ public class GameTest {
         game.setGameController(new GameController(game));
 
         assert(game.pickCard(new Position(1,1)).isPresent());
-        game.confirmChoice();
+        game.confirmPick();
         assert(!game.confirmColumn(5));
         assert(game.confirmColumn(0));
         game.confirmOrderSelectedCards();
@@ -1593,7 +1593,7 @@ public class GameTest {
         assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
 
         assert(game.pickCard(new Position(1,0)).isPresent());
-        game.confirmChoice();
+        game.confirmPick();
         assert(!game.confirmColumn(5));
         assert(!game.confirmColumn(3));
         assert(game.confirmColumn(4));

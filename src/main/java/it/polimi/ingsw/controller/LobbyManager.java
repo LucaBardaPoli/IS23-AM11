@@ -30,8 +30,8 @@ public class LobbyManager {
         this.games = new ArrayList<>();
         this.counterGames = 0;
         this.currentGameNumPlayers = 0;
-        this.commonGoals = new ArrayList<CommonGoal>();
-        this.personalGoals = new ArrayList<PersonalGoal>();
+        this.commonGoals = new ArrayList<>();
+        this.personalGoals = new ArrayList<>();
         LobbyManager.MIN_NUM_PLAYERS = 2;
         LobbyManager.MAX_NUM_PLAYERS = 4;
 
@@ -73,8 +73,12 @@ public class LobbyManager {
         Collections.shuffle(personalGoals);
         Collections.shuffle(commonGoals);
 
-        this.games.add(new Game(counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), commonGoals.subList(0,2), personalGoals.subList(0, this.lobby.size())));
+        Game newGame = new Game(counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), commonGoals.subList(0,2), personalGoals.subList(0, this.lobby.size()));
+        this.games.add(newGame);
         this.counterGames++;
+        for(ClientHandler c : this.lobby) {
+            c.setModel(newGame);
+        }
         this.lobby.clear();
         this.currentGameNumPlayers = MIN_NUM_PLAYERS;
     }
@@ -94,6 +98,10 @@ public class LobbyManager {
             }
         }
         return false;
+    }
+
+    public boolean isNumPlayersValid(int numPlayers) {
+        return (numPlayers >= 2 && numPlayers <= 4);
     }
 
     /**
@@ -133,9 +141,9 @@ public class LobbyManager {
      */
     private void initializePersonalGoals() {
 
-        List<Position> positions = new ArrayList<Position>();
-        List<CardType> cardTypes = new ArrayList<CardType>();
-        Map<Integer, Integer> rewards = new HashMap<Integer, Integer>();
+        List<Position> positions = new ArrayList<>();
+        List<CardType> cardTypes = new ArrayList<>();
+        Map<Integer, Integer> rewards = new HashMap<>();
 
         rewards.put(1,1);
         rewards.put(2,2);

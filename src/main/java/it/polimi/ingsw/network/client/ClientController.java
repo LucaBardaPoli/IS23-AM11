@@ -2,10 +2,8 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.message.*;
 
-import java.rmi.RemoteException;
-
 public class ClientController {
-    private Client client;
+    private final Client client;
     // private View view;
 
     public ClientController(Client client) {
@@ -14,49 +12,47 @@ public class ClientController {
     }
 
     public void run() {
-        try {
-            this.client.sendMessage(new LoginRequest("simone"));
-        } catch(RemoteException e) {
-            e.printStackTrace();
-        }
+        // testing
+        this.client.sendMessage(new LoginRequest("simone"));
+
         client.startListening();
         // view.chooseUsername();
     }
 
     // Handles all kind of Server messages
-    public void handle(LoginResponse message) {
-        System.out.println("OK");
-    }
-
-    public void handle(PickTileResponse pickTileResponse) {
+    public void handle(LoginResponse serverMessage) {
         //handle pickTaleResponse
     }
 
-    public void handle(NumPlayersRequest numPlayersRequest) {
+    public void handle(PickTileResponse serverMessage) {
+        //handle pickTaleResponse
+    }
+
+    public void handle(NumPlayersRequest serverMessage) {
         //handle numPlayersResponse
     }
 
-    public void handle(GameStartNotify gameStartNotify) {
+    public void handle(GameStartNotify serverMessage) {
         //handle gameStartNotify
     }
 
-    public void handle(NewBoardNotify newBoardNotify) {
+    public void handle(NewBoardNotify serverMessage) {
         //handle newBoardNotify
     }
 
-    public void handle(ConfirmColumnResponse confirmColumnResponse) {
+    public void handle(ConfirmColumnResponse serverMessage) {
         //handle confirmColumnResponse
     }
 
-    public void handle(SwapTilesOrderResponse swapTilesOrderResponse) {
+    public void handle(SwapTilesOrderResponse serverMessage) {
         //handle swapTilesOrderResponse
     }
 
-    public void handle(EndTurnNotify endTurnNotify) {
+    public void handle(EndTurnNotify serverMessage) {
         //handle endTurnNotify
     }
 
-    public void handle(GameResultNotify gameResultNotify){
+    public void handle(GameResultNotify serverMessage){
         //handle gameResultNotify
     }
 
