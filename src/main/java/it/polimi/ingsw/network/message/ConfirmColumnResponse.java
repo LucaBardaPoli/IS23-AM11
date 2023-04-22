@@ -9,6 +9,10 @@ public class ConfirmColumnResponse implements ServerMessage {
         this.valid = valid;
     }
 
+    public boolean getValid() {
+        return valid;
+    }
+
     @Override
     public void handle(ClientController clientController) {
         clientController.handle(this);

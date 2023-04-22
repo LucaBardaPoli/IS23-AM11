@@ -13,6 +13,14 @@ public class SwapTilesOrderResponse implements ServerMessage {
         this.valid = valid;
     }
 
+    public List<Tile> getPickedCards() {
+        return pickedCards;
+    }
+
+    public boolean getValid() {
+        return valid;
+    }
+
     @Override
     public void handle(ClientController clientController) {
         clientController.handle(this);

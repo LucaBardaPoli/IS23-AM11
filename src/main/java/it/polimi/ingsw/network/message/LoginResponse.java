@@ -9,6 +9,10 @@ public class LoginResponse implements ServerMessage {
         this.valid = valid;
     }
 
+    public boolean getValid() {
+        return valid;
+    }
+
     public void handle(ClientController clientController) {
         clientController.handle(this);
     }

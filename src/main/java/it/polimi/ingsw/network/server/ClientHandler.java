@@ -8,12 +8,13 @@ import it.polimi.ingsw.network.message.*;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class ClientHandler {
+public abstract class ClientHandler implements Listener {
     private String nickname;
     private int numPlayers;
     protected LobbyManager lobbyManager;
 
     protected Game model;
+    private EventListener eventListener;
     protected boolean stopConnection;
 
     public ClientHandler() {
@@ -36,6 +37,10 @@ public abstract class ClientHandler {
         } else {
             sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), this.model.getPersonalGoal(this.nickname).get(), false));
         }
+    }
+
+    public void setEventListener(EventListener eventListener) {
+        this.eventListener = eventListener;
     }
 
     public abstract void sendMessage(ServerMessage serverMessage);
@@ -74,11 +79,19 @@ public abstract class ClientHandler {
         }
     }
 
+    public void handle(RemoveTileRequest clientMessage) {
+        Optional<List<Tile>> optionalTiles = this.model.removeTile(clientMessage.getPosition());
+        if(optionalTiles.isPresent()) {
+            sendMessage(new RemoveTileResponse(optionalTiles.get()));
+        } else {
+            sendMessage(new RemoveTileResponse(this.model.getPickedTiles()));
+        }
+    }
+
     //confirms the set of cards picked previously by the player and goes on to get them from the board
     public void handle(ConfirmPickNotify clientMessage) {
         this.model.confirmPick();
-        // We need to send this message to each player!!!!!!!!!!!!!!!!!!! Add observer to other players
-        sendMessage(new NewBoardNotify(this.model.getBoard()));
+        this.eventListener.notifyListeners(new NewBoardNotify(this.model.getBoard()));
     }
 
     //confirms the column selected by the player
@@ -103,7 +116,14 @@ public abstract class ClientHandler {
     //confirms the order of the cards that was previously selected
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
-        // We need to send this message to each player!!!!!!!!!!!!!!!!!!! Add observer to other players
-        sendMessage(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.checkPlayer(this.nickname)));
+        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.checkPlayer(this.nickname)));
+    }
+
+    public void handle(ChatMessage clientMessage) {
+        this.eventListener.notifyListeners(clientMessage);
+    }
+
+    public void notify(ServerMessage serverMessage) {
+        sendMessage(serverMessage);
     }
 }

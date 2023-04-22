@@ -30,17 +30,19 @@ public class ClientTCP extends Client {
     }
 
     public void startListening() {
-        // !!!!!!!!!!!DEVE ESSERE UN THREAD QUESTO!!!!!!!!!!!
-        try {
-            while(!stopConnection) {
-                ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();
-                serverMessage.handle(this.controller);
+        Thread t = new Thread(() -> {
+            try {
+                while (!stopConnection) {
+                    ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();
+                    serverMessage.handle(this.controller);
+                }
+                this.inputStream.close();
+                this.outputStream.close();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-            this.inputStream.close();
-            this.outputStream.close();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        });
+        t.start();
     }
 
     public void sendMessage(ClientMessage clientMessage) {

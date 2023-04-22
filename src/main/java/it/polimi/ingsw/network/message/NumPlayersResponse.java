@@ -2,10 +2,8 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.network.server.ClientHandler;
 
-import java.rmi.RemoteException;
-
 public class NumPlayersResponse implements ClientMessage {
-    private int numPlayers;
+    private final int numPlayers;
 
     public NumPlayersResponse(int numPlayers) {
         this.numPlayers = numPlayers;
@@ -16,7 +14,7 @@ public class NumPlayersResponse implements ClientMessage {
     }
 
     @Override
-    public void handle(ClientHandler clientHandler) throws RemoteException {
+    public void handle(ClientHandler clientHandler) {
         clientHandler.handle(this);
     }
 }

@@ -3,10 +3,14 @@ package it.polimi.ingsw.network.message;
 import it.polimi.ingsw.network.client.ClientController;
 
 public class PickTileResponse implements ServerMessage{
-    private boolean response;
+    private final boolean valid;
 
     public PickTileResponse(boolean response) {
-        this.response = response;
+        this.valid = response;
+    }
+
+    public boolean getValid() {
+        return valid;
     }
 
     @Override

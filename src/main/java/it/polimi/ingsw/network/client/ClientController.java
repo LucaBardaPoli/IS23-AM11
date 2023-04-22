@@ -1,39 +1,47 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.view.View;
 
 public class ClientController {
     private final Client client;
-    // private View view;
+    private final View view;
 
-    public ClientController(Client client) {
+    public ClientController(Client client, View view) {
         this.client = client;
+        this.view = view;
+        this.view.setClientController(this);
         this.client.setController(this);
     }
 
-    public void run() {
-        // testing
-        this.client.sendMessage(new LoginRequest("simone"));
+    public Client getClient() {
+        return this.client;
+    }
 
-        client.startListening();
-        // view.chooseUsername();
+    public void run() {
+        this.client.startListening();
+        this.view.chooseUsername();
     }
 
     // Handles all kind of Server messages
     public void handle(LoginResponse serverMessage) {
-        //handle pickTaleResponse
+        System.out.println("LoginResponse -> " + serverMessage.getValid());
+    }
+
+    public void handle(NumPlayersRequest serverMessage) {
+        this.view.chooseNumPlayers();
+    }
+
+    public void handle(GameStartNotify serverMessage) {
+        //handle gameStartNotify
     }
 
     public void handle(PickTileResponse serverMessage) {
         //handle pickTaleResponse
     }
 
-    public void handle(NumPlayersRequest serverMessage) {
-        //handle numPlayersResponse
-    }
-
-    public void handle(GameStartNotify serverMessage) {
-        //handle gameStartNotify
+    public void handle(RemoveTileResponse serverMessage) {
+        //handle removeTileResponse
     }
 
     public void handle(NewBoardNotify serverMessage) {
@@ -56,5 +64,10 @@ public class ClientController {
         //handle gameResultNotify
     }
 
+    public void handle(ChatMessage serverMessage) {
+        if(!this.client.getNickname().equals(serverMessage.getPlayer())) {
+            //show on chat box
+        }
+    }
 }
 
