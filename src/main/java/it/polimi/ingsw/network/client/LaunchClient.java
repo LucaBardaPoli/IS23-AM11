@@ -1,23 +1,22 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.NetworkSettings;
+import it.polimi.ingsw.view.GUIView;
+import it.polimi.ingsw.view.TUIView;
+import it.polimi.ingsw.view.View;
 
 public class LaunchClient {
     public static void main(String[] args) {
-        /*
         View view;
         if (args.length > 0 && args[0].equalsIgnoreCase("TUI")) {
-            view = new Tui().start();
+            view = new GUIView();
         } else {
-            view = new Gui().start();
+            view = new TUIView();
         }
         view.chooseTypeOfConnection();
-        */
-        openConnection("TCP", "127.0.0.1");
-        //openConnection("RMI", "127.0.0.1");
     }
 
-    public static void openConnection(String typeOfConnection, String ip) {
+    public static void openConnection(String typeOfConnection, String ip, View view) {
         Client client;
         if(typeOfConnection.equals("RMI")) {
             client = new ClientRMI(ip);
@@ -26,7 +25,7 @@ public class LaunchClient {
         }
         client.openConnection();
 
-        ClientController clientController = new ClientController(client);
+        ClientController clientController = new ClientController(client, view);
         clientController.run();
     }
 }

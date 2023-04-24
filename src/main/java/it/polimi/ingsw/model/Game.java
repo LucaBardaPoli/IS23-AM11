@@ -245,8 +245,9 @@ public class Game {
     /**
      * Removes the tile from the chosen ones
      * @param position position of the tile
+     * @return new list of picked tiles
      */
-    public void removeTile(Position position) {
+    public Optional<List<Tile>> removeTile(Position position) {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that al least one card has been already chosen
             if (!this.pickedTiles.isEmpty()) {
@@ -254,11 +255,12 @@ public class Game {
                     if(this.pickedTilesPositions.get(i).equals(position)) {
                         this.pickedTilesPositions.remove(i);
                         this.pickedTiles.remove(i);
-                        break;
+                        return Optional.of(this.pickedTiles);
                     }
                 }
             }
         }
+        return Optional.empty();
     }
 
     /**

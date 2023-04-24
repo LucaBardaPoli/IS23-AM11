@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.goals.*;
 import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.network.server.EventListener;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -69,11 +70,15 @@ public class LobbyManager {
         Collections.shuffle(personalGoals);
         Collections.shuffle(commonGoals);
 
+
         Game newGame = new Game(counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), commonGoals.subList(0,2), personalGoals.subList(0, this.lobby.size()));
         this.games.add(newGame);
         this.counterGames++;
+        EventListener eventListener = new EventListener();
         for(ClientHandler c : this.lobby) {
             c.setModel(newGame);
+            eventListener.addListener(c);
+            c.setEventListener(eventListener);
         }
         this.lobby.clear();
         this.currentGameNumPlayers = GameSettings.MIN_NUM_PLAYERS;

@@ -20,6 +20,22 @@ public class GameStartNotify implements ServerMessage{
         this.isYourTurn = isYourTurn;
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<CommonGoal> getCommonGoals() {
+        return commonGoals;
+    }
+
+    public PersonalGoal getPersonalGoal() {
+        return personalGoal;
+    }
+
+    public boolean getIsYourTurn() {
+        return isYourTurn;
+    }
+
     @Override
     public void handle(ClientController clientController) {
         clientController.handle(this);

@@ -1,5 +1,0 @@
-Client si connette sulla porta del server
-Server (ControllerManager) accetta il client, fa partire un thread di (InitClientHandler)
-InitClientHandler chiede lo username + numero di giocatori al client e lo dice a ControllerManager che lo aggiunge alla lobby
-Aspetta gli altri giocatori
-Quando arrivano tutti ControllerManager crea il Game e i vari thread di GameClientHandler

@@ -14,6 +14,18 @@ public class EndTurnNotify implements ServerMessage {
         this.isYourTurn = isYourTurn;
     }
 
+    public Bookshelf getBookshelf() {
+        return bookshelf;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public boolean getIsYourTurn() {
+        return isYourTurn;
+    }
+
     @Override
     public void handle(ClientController clientController) {
         clientController.handle(this);

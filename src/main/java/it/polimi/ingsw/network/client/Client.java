@@ -13,6 +13,9 @@ public abstract class Client {
         this.stopConnection = false;
     }
 
+    public String getNickname() {
+        return this.nickname;
+    }
     public void setController(ClientController clientController) {
         this.controller = clientController;
     }

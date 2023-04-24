@@ -9,6 +9,11 @@ public class NewBoardNotify implements ServerMessage {
     public NewBoardNotify(Board board) {
         this.board = board;
     }
+
+    public Board getBoard() {
+        return board;
+    }
+
     @Override
     public void handle(ClientController clientController) {
         clientController.handle(this);
