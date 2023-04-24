@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.client.ClientRMIInterface;
 import it.polimi.ingsw.network.message.ClientMessage;
+import it.polimi.ingsw.network.message.PongMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.rmi.RemoteException;
@@ -29,5 +30,10 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
         } catch(RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void handle(PongMessage message) throws RemoteException {
+        ;
     }
 }

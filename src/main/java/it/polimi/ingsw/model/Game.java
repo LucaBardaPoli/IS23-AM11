@@ -24,7 +24,7 @@ public class Game {
     /**
      * Class contructor
      * @param id game id
-     * @param players list of players nickname
+     * @param players list of nickname players
      * @param commonGoals two common goals of the game
      * @param personalGoals players personal goals
      */
@@ -371,7 +371,7 @@ public class Game {
 
     /**
      * Assigns the score of the token at the top of the stack related to the given common goal
-     * @param commonGoal index (0 or 1) that selects which common goal we are referring to
+     * @param commonGoal index (0 or 1) that selects which common goal we're referring to
      * @return score of the token
      */
     public int winToken(int commonGoal) {

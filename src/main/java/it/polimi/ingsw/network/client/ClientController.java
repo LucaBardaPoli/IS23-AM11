@@ -1,9 +1,14 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.network.message.LoginRequest;
+import it.polimi.ingsw.network.message.LoginResponse;
+import it.polimi.ingsw.network.message.PingMessage;
+import it.polimi.ingsw.network.message.PongMessage;
+
+import java.rmi.RemoteException;
 
 public class ClientController {
-    private final Client client;
+    private Client client;
     // private View view;
 
     public ClientController(Client client) {
@@ -12,49 +17,20 @@ public class ClientController {
     }
 
     public void run() {
-        // testing
-        this.client.sendMessage(new LoginRequest("simone"));
+        // Test message
+            client.sendMessage(new LoginRequest("simone"));
 
+        // Faccio partire il thread del pingpong lato client e lo passo come param
         client.startListening();
         // view.chooseUsername();
     }
 
     // Handles all kind of Server messages
-    public void handle(LoginResponse serverMessage) {
-        //handle pickTaleResponse
+    public void handle(LoginResponse message) {
+        System.out.println("OK");
     }
 
-    public void handle(PickTileResponse serverMessage) {
-        //handle pickTaleResponse
+    public void handle(PingMessage message) throws RemoteException {
+        this.client.sendMessage(new PongMessage());
     }
-
-    public void handle(NumPlayersRequest serverMessage) {
-        //handle numPlayersResponse
-    }
-
-    public void handle(GameStartNotify serverMessage) {
-        //handle gameStartNotify
-    }
-
-    public void handle(NewBoardNotify serverMessage) {
-        //handle newBoardNotify
-    }
-
-    public void handle(ConfirmColumnResponse serverMessage) {
-        //handle confirmColumnResponse
-    }
-
-    public void handle(SwapTilesOrderResponse serverMessage) {
-        //handle swapTilesOrderResponse
-    }
-
-    public void handle(EndTurnNotify serverMessage) {
-        //handle endTurnNotify
-    }
-
-    public void handle(GameResultNotify serverMessage){
-        //handle gameResultNotify
-    }
-
 }
-

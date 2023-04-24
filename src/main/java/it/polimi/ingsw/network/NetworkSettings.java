@@ -11,4 +11,8 @@ public class NetworkSettings {
 
     // Other infos
     public static final String RMI_REMOTE_OBJECT = "RMIListener";
+
+    public static final int MAX_LOST_PACKETS = 5;
+    public static final int MAX_PONG_WAIT = 5000;
+    public static final int MAX_PING_WAIT = 5000;
 }

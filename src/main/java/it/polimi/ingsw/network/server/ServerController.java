@@ -53,7 +53,10 @@ public class ServerController {
             try {
                 System.out.println("Waiting...");
                 Socket socket = this.serverSocket.accept();
-                this.executors.submit(new ClientHandlerTCP(socket));
+                PingPongHandler pingPongHandler = new PingPongHandler(socket);
+                ClientHandlerTCP clientHandlerTCP = new ClientHandlerTCP(socket, pingPongHandler);
+                this.executors.submit(pingPongHandler);
+                this.executors.submit(new ClientHandlerTCP(socket, pingPongHandler));
                 System.out.println("New client accepted");
             } catch(IOException e) {
                 e.printStackTrace();
