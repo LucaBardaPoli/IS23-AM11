@@ -2,11 +2,12 @@ package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SameKindNGoal implements Predicate<Bookshelf> {
+public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {
     private final int n;
     private final int[] count_types;
 

@@ -2,10 +2,11 @@ package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.*;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SameKindDiagonalGoal implements Predicate<Bookshelf> {
+public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable {
     /**
      * Checks if exists a diagonal starting from the given position towards the bottom-right corner
      * @param startRow row of the starting point

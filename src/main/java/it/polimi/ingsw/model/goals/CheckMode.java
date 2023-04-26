@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.goals;
 
-public enum CheckMode {
+import java.io.Serializable;
+
+public enum CheckMode implements Serializable {
     VERTICAL,
     HORIZONTAL,
 }

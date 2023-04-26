@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.network.client.ClientController;
 
-public class PickTileResponse implements ServerMessage{
+public class PickTileResponse implements ServerMessage {
     private final boolean valid;
 
     public PickTileResponse(boolean response) {

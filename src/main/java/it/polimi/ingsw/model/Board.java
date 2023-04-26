@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class Board {
+public class Board implements Serializable {
     private final HashMap<Position, Optional<Tile>> board;
     private final Bag bag;
 
@@ -15,6 +16,10 @@ public class Board {
         board = new HashMap<Position, Optional<Tile>>();
         this.bag = bag;
         createBoardCells(numPlayers);
+    }
+
+    public HashMap<Position, Optional<Tile>> getBoard() {
+        return board;
     }
 
     /**

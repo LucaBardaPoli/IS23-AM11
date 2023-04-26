@@ -12,7 +12,7 @@ public abstract class ClientHandler implements Listener {
     private String nickname;
     private int numPlayers;
     protected LobbyManager lobbyManager;
-
+    private List<ClientHandler> lobby;
     protected Game model;
     private EventListener eventListener;
     protected boolean stopConnection;
@@ -30,12 +30,15 @@ public abstract class ClientHandler implements Listener {
         return this.numPlayers;
     }
 
-    public void setModel(Game model) {
+    public void initGame(Game model, List<ClientHandler> lobby) {
         this.model = model;
+        this.lobby = lobby;
         if(this.model.checkPlayer(this.nickname)) {
-            sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), this.model.getPersonalGoal(this.nickname).get(), true));
+            //sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), this.model.getPersonalGoal(this.nickname).get(), true));
+            sendMessage(new GameStartNotify(null, null, this.model.getPersonalGoal(this.nickname).get(), true));
         } else {
-            sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), this.model.getPersonalGoal(this.nickname).get(), false));
+            //sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), this.model.getPersonalGoal(this.nickname).get(), false));
+            sendMessage(new GameStartNotify(null, null, this.model.getPersonalGoal(this.nickname).get(), false));
         }
     }
 
@@ -45,13 +48,15 @@ public abstract class ClientHandler implements Listener {
 
     public abstract void sendMessage(ServerMessage serverMessage);
 
+    public abstract void handle(PongMessage message);
+
     //connecting a new player checking if the username is either valid or not
     public void handle(LoginRequest clientMessage) {
         if(this.lobbyManager.isNicknameTaken(clientMessage.getNickname())) {
-            sendMessage(new LoginResponse(false));
+            sendMessage(new LoginResponse(null));
         } else {
             this.nickname = clientMessage.getNickname();
-            sendMessage(new LoginResponse(true));
+            sendMessage(new LoginResponse(clientMessage.getNickname()));
             if(this.lobbyManager.getLobby().isEmpty()) {
                 sendMessage(new NumPlayersRequest());
             } else {
@@ -91,7 +96,8 @@ public abstract class ClientHandler implements Listener {
     //confirms the set of cards picked previously by the player and goes on to get them from the board
     public void handle(ConfirmPickNotify clientMessage) {
         this.model.confirmPick();
-        this.eventListener.notifyListeners(new NewBoardNotify(this.model.getBoard()));
+        this.eventListener.notifyListeners(new NewBoardNotify(null));
+        //this.eventListener.notifyListeners(new NewBoardNotify(this.model.getBoard()));
     }
 
     //confirms the column selected by the player
@@ -120,6 +126,14 @@ public abstract class ClientHandler implements Listener {
     }
 
     public void handle(ChatMessage clientMessage) {
+        if(clientMessage.getReceiver() != null) {
+            for(ClientHandler c : this.lobby) {
+                if(c.getNickname().equals(clientMessage.getReceiver())) {
+                    this.eventListener.notifyListeners(clientMessage, c);
+                    return;
+                }
+            }
+        }
         this.eventListener.notifyListeners(clientMessage);
     }
 

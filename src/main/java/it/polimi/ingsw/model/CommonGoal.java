@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.function.Predicate;
 
-public class CommonGoal {
+public class CommonGoal implements Serializable {
     private final String name;
     private final Predicate<Bookshelf> predicate;
 
@@ -13,5 +14,10 @@ public class CommonGoal {
 
     public boolean checkGoal(Bookshelf bookshelf){
         return predicate.test(bookshelf);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -9,9 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface ClientHandlerRMIInterface extends Remote, Serializable {
-    public void registerClient(ClientRMIInterface client) throws RemoteException;
-
-    public void receiveMessage(ClientMessage clientMessage) throws RemoteException;
-
-    public void sendMessage(ServerMessage serverMessage) throws RemoteException;
+    void registerClient(ClientRMIInterface client) throws RemoteException;
+    void receiveMessage(ClientMessage clientMessage) throws RemoteException;
+    void sendMessage(ServerMessage serverMessage) throws RemoteException;
 }

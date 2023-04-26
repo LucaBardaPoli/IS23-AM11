@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class PersonalGoal {
+public class PersonalGoal implements Serializable {
     private final List<Position> positions;
     private final List<Tile> tiles;
     private final Map<Integer, Integer> rewards;
@@ -36,5 +37,17 @@ public class PersonalGoal {
         }
 
         return n_tiles > 0 ? rewards.get(n_tiles): 0;
+    }
+
+    public String toString() {
+        String result = "";
+        for(int i = 0; i < this.positions.size(); i++) {
+            result += this.positions.get(i).toString() + " -> " + this.tiles.get(i) + "\n";
+        }
+        result += "Rewards: \n";
+        for(HashMap.Entry<Integer, Integer> entry : this.rewards.entrySet()) {
+            result += entry.getKey() + " -> " + entry.getValue() + "\n";
+        }
+        return result;
     }
 }

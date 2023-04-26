@@ -5,11 +5,12 @@ import it.polimi.ingsw.model.GameSettings;
 import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Position;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class DifferentTypesGoal implements Predicate<Bookshelf> {
+public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
     // the minimum numbers of different types that have to be on a row/column for it to be counted
     private final int min_types;
 

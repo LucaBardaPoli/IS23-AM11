@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Game class that handles the game moves and the way it evolves
  */
-public class Game {
+public class Game implements Serializable {
     private final int id;
     private final Board board;
     private final List<Player> players;

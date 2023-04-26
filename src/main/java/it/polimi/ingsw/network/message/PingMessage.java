@@ -2,12 +2,10 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.network.client.ClientController;
 
-import java.rmi.RemoteException;
-
-public class PingMessage implements ServerMessage{
+public class PingMessage implements ServerMessage {
 
     @Override
-    public void handle(ClientController clientController) throws RemoteException {
+    public void handle(ClientController clientController) {
         clientController.handle(this);
     }
 }

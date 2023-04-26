@@ -17,35 +17,41 @@ public class PingPongHandler implements Runnable{
 
     @Override
     public void run() {
-        isReceivedMessage = false;
-        lostPackets = 0;
-
-        while (lostPackets < NetworkSettings.MAX_LOST_PACKETS){
-
-            this.clientHandlerTCP.sendMessage(new PingMessage());
+        new Thread(() -> {
             try {
-                Thread.sleep(NetworkSettings.MAX_PONG_WAIT);
+                Thread.sleep(NetworkSettings.MAX_PING_WAIT);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
-            if(!isReceivedMessage){
-                lostPackets++;
+            isReceivedMessage = false;
+            lostPackets = 0;
+
+            while (lostPackets < NetworkSettings.MAX_LOST_PACKETS) {
+
                 this.clientHandlerTCP.sendMessage(new PingMessage());
-            } else{
-                lostPackets = 0;
-                isReceivedMessage = false;
+                try {
+                    Thread.sleep(NetworkSettings.MAX_PONG_WAIT);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (!isReceivedMessage) {
+                    lostPackets++;
+                    this.clientHandlerTCP.sendMessage(new PingMessage());
+                } else {
+                    lostPackets = 0;
+                    isReceivedMessage = false;
+                }
+
             }
-
-        }
-
-        // Closing the connection of the client
-        try {
-            this.clientHandlerTCP.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+            // Closing the connection of the client
+            try {
+                this.clientHandlerTCP.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 
     public void notifyReceivedMessage(){

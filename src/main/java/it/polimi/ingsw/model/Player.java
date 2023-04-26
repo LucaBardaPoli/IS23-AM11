@@ -1,10 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Player {
+public class Player implements Serializable {
     private final String nickname;
     private final PersonalGoal personalGoal;
     private final Game game;

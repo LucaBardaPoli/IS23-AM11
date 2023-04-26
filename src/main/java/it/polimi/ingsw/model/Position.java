@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Position {
+public class Position implements Serializable {
 
     private int row;
     private int column;
@@ -55,6 +56,11 @@ public class Position {
      */
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + row + ", " + column + ')';
     }
 
     /**

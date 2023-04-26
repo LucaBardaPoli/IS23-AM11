@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.goals.*;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.EventListener;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Class that handles the games creation
  */
-public class LobbyManager {
+public class LobbyManager implements Serializable {
     private static LobbyManager instance;
     private final List<ClientHandler> lobby;
     private final List<Game> games;
@@ -76,7 +77,7 @@ public class LobbyManager {
         this.counterGames++;
         EventListener eventListener = new EventListener();
         for(ClientHandler c : this.lobby) {
-            c.setModel(newGame);
+            c.initGame(newGame, new ArrayList<>(this.lobby));
             eventListener.addListener(c);
             c.setEventListener(eventListener);
         }
@@ -101,8 +102,13 @@ public class LobbyManager {
         return false;
     }
 
+    /**
+     * Checks whether the given number of players is valid or not
+     * @param numPlayers number of players
+     * @return true if the number is valid
+     */
     public boolean isNumPlayersValid(int numPlayers) {
-        return (numPlayers >= 2 && numPlayers <= 4);
+        return (numPlayers >= GameSettings.MIN_NUM_PLAYERS && numPlayers <= GameSettings.MAX_NUM_PLAYERS);
     }
 
     /**

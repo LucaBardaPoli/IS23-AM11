@@ -2,13 +2,14 @@ package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.*;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
  * Class that represents the common goal that searches for a group of tails shaped as an x, each one of the same type
  */
-public class SameKindXGoal implements Predicate<Bookshelf> {
+public class SameKindXGoal implements Predicate<Bookshelf>, Serializable {
     /**
      * Checks if exists a group of tails shaped as an x starting from the given position towards the bottom-right corner
      * @param startRow of the starting point

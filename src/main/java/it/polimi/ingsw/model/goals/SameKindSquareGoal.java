@@ -2,13 +2,14 @@ package it.polimi.ingsw.model.goals;
 
 import it.polimi.ingsw.model.*;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
  * Class that represents the common goal that searches for 2 2x2 squares, each one made of the same tail types
  */
-public class SameKindSquareGoal implements Predicate<Bookshelf> {
+public class SameKindSquareGoal implements Predicate<Bookshelf>, Serializable {
     /**
      * Checks if exists a 2x2 square starting from the given position towards the bottom-right corner
      * @param startRow row of the starting point

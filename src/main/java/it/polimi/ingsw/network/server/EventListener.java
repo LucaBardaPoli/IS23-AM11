@@ -25,4 +25,8 @@ public class EventListener {
             l.notify(serverMessage);
         }
     }
+
+    public void notifyListeners(ServerMessage serverMessage, ClientHandler clientHandler) {
+        clientHandler.notify(serverMessage);
+    }
 }

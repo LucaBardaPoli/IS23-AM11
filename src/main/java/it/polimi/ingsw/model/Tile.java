@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public enum Tile {
+import java.io.Serializable;
+
+public enum Tile implements Serializable {
     BLUE,
     GREEN,
     LBLUE,

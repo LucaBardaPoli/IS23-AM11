@@ -33,7 +33,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
     }
 
     @Override
-    public void handle(PongMessage message) throws RemoteException {
+    public void handle(PongMessage message) {
         ;
     }
 }

@@ -16,8 +16,8 @@
 | TUI             |   🔴   |
 | GUI             |   🔴   |
 | RMI             |   🟡   |
-| Socket          |   🟡   |
-| Chat            |   🔴   |
+| Socket          |   🟢   |
+| Chat            |   🟡   |
 | Multiple Games  |   🟡   |
 
 #### Status meaning

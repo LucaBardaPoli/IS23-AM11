@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public enum GameStatus {
+import java.io.Serializable;
+
+public enum GameStatus implements Serializable {
     PICK_CARDS,
     SELECT_COLUMN,
     SELECT_ORDER,

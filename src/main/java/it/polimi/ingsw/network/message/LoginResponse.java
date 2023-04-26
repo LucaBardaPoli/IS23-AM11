@@ -3,14 +3,14 @@ package it.polimi.ingsw.network.message;
 import it.polimi.ingsw.network.client.ClientController;
 
 public class LoginResponse implements ServerMessage {
-    private final boolean valid;
+    private final String nickname;
 
-    public LoginResponse(boolean valid) {
-        this.valid = valid;
+    public LoginResponse(String nickname) {
+        this.nickname = nickname;
     }
 
-    public boolean getValid() {
-        return valid;
+    public String getNickname() {
+        return nickname;
     }
 
     public void handle(ClientController clientController) {

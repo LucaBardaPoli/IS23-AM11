@@ -4,12 +4,13 @@ import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Bookshelf;
 import it.polimi.ingsw.model.Position;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.List;
 
-public class GivenPositionsGoal implements Predicate<Bookshelf> {
+public class GivenPositionsGoal implements Predicate<Bookshelf>, Serializable {
     private final List<Position> positions;
 
     public GivenPositionsGoal(List<Position> positions) {

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.network.NetworkSettings;
 import it.polimi.ingsw.network.RMIListener;
 import it.polimi.ingsw.network.RMIListenerInterface;
-import it.polimi.ingsw.network.NetworkSettings;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -54,10 +54,9 @@ public class ServerController {
                 System.out.println("Waiting...");
                 Socket socket = this.serverSocket.accept();
                 PingPongHandler pingPongHandler = new PingPongHandler(socket);
-                ClientHandlerTCP clientHandlerTCP = new ClientHandlerTCP(socket, pingPongHandler);
                 this.executors.submit(pingPongHandler);
                 this.executors.submit(new ClientHandlerTCP(socket, pingPongHandler));
-                System.out.println("New client accepted");
+                System.out.println("New TCP client accepted");
             } catch(IOException e) {
                 e.printStackTrace();
                 close();

@@ -7,7 +7,7 @@ import it.polimi.ingsw.network.client.ClientController;
 
 import java.util.List;
 
-public class GameStartNotify implements ServerMessage{
+public class GameStartNotify implements ServerMessage {
     private final Board board;
     private final List<CommonGoal> commonGoals;
     private final PersonalGoal personalGoal;

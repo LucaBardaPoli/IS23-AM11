@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 
-public class Bag {
+public class Bag implements Serializable {
     private final LinkedHashMap<Tile, Integer> bag;
     private int currentNumberOfTiles;
 
@@ -35,7 +35,7 @@ public class Bag {
         Integer count = 0;
         boolean foundInterval = false;
 
-        Optional<Tile> newTile = Optional.empty();
+        Tile newTile = null;
         int randomNumber = ThreadLocalRandom.current().nextInt(0, this.currentNumberOfTiles + 1);
 
         for (Map.Entry<Tile, Integer> entry : bag.entrySet()) {
@@ -44,7 +44,7 @@ public class Bag {
 
             if(randomNumber <= count && !foundInterval) {
                 //generate the new tile
-                newTile = Optional.of(entry.getKey());
+                newTile = entry.getKey();
 
                 //decreases the total number of cards left
                 this.currentNumberOfTiles--;
@@ -56,7 +56,7 @@ public class Bag {
                 foundInterval = true;
             }
         }
-        return newTile.get();
+        return newTile;
     }
 
     /**

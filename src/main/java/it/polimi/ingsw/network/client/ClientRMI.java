@@ -1,10 +1,10 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.RMIListenerInterface;
+import it.polimi.ingsw.network.server.ClientHandlerRMIInterface;
 import it.polimi.ingsw.network.NetworkSettings;
+import it.polimi.ingsw.network.RMIListenerInterface;
 import it.polimi.ingsw.network.message.ClientMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
-import it.polimi.ingsw.network.server.ClientHandlerRMIInterface;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -23,8 +23,8 @@ public class ClientRMI extends Client implements ClientRMIInterface {
         try {
             Registry registry = LocateRegistry.getRegistry(this.serverIp);
             RMIListenerInterface rmiListener = (RMIListenerInterface) registry.lookup(NetworkSettings.RMI_REMOTE_OBJECT);
-            this.clientHandler = rmiListener.getHandler();
             UnicastRemoteObject.exportObject(this, NetworkSettings.CLIENT_PORT_RMI);
+            this.clientHandler = rmiListener.getHandler();
             this.clientHandler.registerClient(this);
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();

@@ -30,7 +30,7 @@ public class ClientTCP extends Client {
     }
 
     public void startListening() {
-        Thread t = new Thread(() -> {
+        new Thread(() -> {
             try {
                 while (!stopConnection) {
                     ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();
@@ -41,12 +41,13 @@ public class ClientTCP extends Client {
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        });
-        t.start();
+        }).start();
     }
 
     public void sendMessage(ClientMessage clientMessage) {
         try {
+            this.outputStream.reset();
+            this.outputStream.flush();
             this.outputStream.writeObject(clientMessage);
         } catch(IOException e) {
             e.printStackTrace();

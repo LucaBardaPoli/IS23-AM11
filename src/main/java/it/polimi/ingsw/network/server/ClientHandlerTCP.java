@@ -6,7 +6,6 @@ import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.io.*;
 import java.net.Socket;
-import java.rmi.RemoteException;
 
 public class ClientHandlerTCP extends ClientHandler implements Runnable {
     private final Socket socket;
@@ -26,7 +25,7 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
 
     public void run() {
         try {
-            while(!stopConnection) {
+            while (!stopConnection) {
                 ClientMessage clientMessage = (ClientMessage) this.inputStream.readObject();
                 clientMessage.handle(this);
             }
@@ -39,9 +38,9 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
 
     public void sendMessage(ServerMessage serverMessage) {
         try {
-            this.outputStream.writeObject(serverMessage);
-            this.outputStream.flush();
             this.outputStream.reset();
+            this.outputStream.flush();
+            this.outputStream.writeObject(serverMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +54,8 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
     }
 
     @Override
-    public void handle(PongMessage message) throws RemoteException {
+    public void handle(PongMessage message) {
         this.pingPongHandler.notifyReceivedMessage();
+        System.out.println("Pong received");
     }
 }

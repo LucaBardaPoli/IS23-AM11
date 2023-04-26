@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.goals;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.function.Predicate;
 import it.polimi.ingsw.model.Bookshelf;
@@ -7,7 +8,7 @@ import it.polimi.ingsw.model.GameSettings;
 import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Position;
 
-public class LadderGoal implements Predicate<Bookshelf> {
+public class LadderGoal implements Predicate<Bookshelf>, Serializable {
 
     @Override
     public boolean test(Bookshelf bookshelf) {
