@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bookshelf implements Serializable {
-    private final Optional<Tile>[][] bookshelf;
+    private final Tile[][] bookshelf;
 
     /**
      * Class constructor
      */
     public Bookshelf() {
-        this.bookshelf = new Optional[GameSettings.ROWS][GameSettings.COLUMNS];
+        this.bookshelf = new Tile[GameSettings.ROWS][GameSettings.COLUMNS];
         for(int i = 0; i < GameSettings.ROWS; i++) {
             for(int j = 0; j < GameSettings.COLUMNS; j++) {
-                this.bookshelf[i][j] = Optional.empty();
+                this.bookshelf[i][j] = Tile.EMPTY;
             }
         }
     }
@@ -32,7 +32,7 @@ public class Bookshelf implements Serializable {
 
         if(freeCells >= tiles.size()){
             for(Tile obtainedTile : tiles){
-                bookshelf[i][column] = Optional.ofNullable(obtainedTile);
+                bookshelf[i][column] = obtainedTile;
                 i--;
             }
         }
@@ -43,13 +43,13 @@ public class Bookshelf implements Serializable {
      * @param position position of the tile that needs to be returned
      * @return returns an Optional.empty() if the position contains no tile, otherwise it returns the tile
      */
-    public Optional<Tile> getTile(Position position){
+    public Tile getTile(Position position){
         int row = position.getRow();
         int column = position.getColumn();
         if(row >= 0 && row < GameSettings.ROWS && column >= 0 && column < GameSettings.COLUMNS){
             return bookshelf[position.getRow()][position.getColumn()];
         }
-        return Optional.empty();
+        return Tile.EMPTY;
     }
 
     /**
@@ -57,16 +57,16 @@ public class Bookshelf implements Serializable {
      * @param columnNumber indicates the column the tiles must be taken from
      * @return returns all the tiles inside the given column
      */
-    public ArrayList<Optional<Tile>> getColumn(int columnNumber) {
+    public ArrayList<Tile> getColumn(int columnNumber) {
 
-        ArrayList<Optional<Tile>> tileColumn = new ArrayList<>();
+        ArrayList<Tile> tileColumn = new ArrayList<>();
         Position position = new Position();
         position.setColumn(columnNumber);
 
         for(int i = 0; i < GameSettings.ROWS; i++){
             position.setRow(i);
-            Optional<Tile> cardOptional = getTile(position);
-            if(cardOptional.isPresent()){
+            Tile cardOptional = getTile(position);
+            if(!cardOptional.equals(Tile.EMPTY)){
                 tileColumn.add(cardOptional);
             }
         }
@@ -78,14 +78,14 @@ public class Bookshelf implements Serializable {
      * @param rowNumber indicates the row the tiles must be taken from
      * @return returns all the tiles that are present in the given row
      */
-    public ArrayList<Optional<Tile>> getRow(int rowNumber) {
+    public ArrayList<Tile> getRow(int rowNumber) {
 
-        ArrayList<Optional<Tile>> tileRow = new ArrayList<>();
+        ArrayList<Tile> tileRow = new ArrayList<>();
         Position position = new Position();
         position.setRow(rowNumber);
         for(int i = 0; i < GameSettings.COLUMNS; i++){
             position.setColumn(i);
-            Optional<Tile> cardOptional = getTile(position);
+            Tile cardOptional = getTile(position);
             tileRow.add(cardOptional);
         }
         return tileRow;
@@ -108,10 +108,10 @@ public class Bookshelf implements Serializable {
                 //save the position and extract the card
                 position.setRow(j);
 
-                Optional<Tile> tileOptional = getTile(position);
+                Tile tileOptional = getTile(position);
 
                 //subtract if the cell does NOT contain NULL
-                if (tileOptional.isPresent()) {
+                if (!tileOptional.equals(Tile.EMPTY)) {
                     counter--;
                 }
             }

@@ -178,16 +178,16 @@ public class Player implements Serializable {
      @param type is the type of the tile that should be checked
      @return the size of the group with tiles of the same type
      */
-    private int findAdjacentGroupTiles(Bookshelf bookshelf, boolean[][] visited, int row, int column, Optional<Tile> type) {
+    private int findAdjacentGroupTiles(Bookshelf bookshelf, boolean[][] visited, int row, int column, Tile type) {
 
         Position posToCheck = new Position(row, column);
 
         // Check out of bounds + Already Visited
         if ( (row < 0 || row >= GameSettings.ROWS || column < 0 || column >= GameSettings.COLUMNS) || visited[row][column]) {
             return 0;
-        } else if( bookshelf.getTile(posToCheck).isEmpty() || type.isEmpty()){
+        } else if( bookshelf.getTile(posToCheck) == Tile.EMPTY || type.equals(Tile.EMPTY)){
             return 0;
-        } else if( bookshelf.getTile(posToCheck).get() != type.get() ){
+        } else if(bookshelf.getTile(posToCheck) != type) {
             return 0;
         }
 

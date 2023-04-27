@@ -8,5 +8,8 @@ public enum Tile implements Serializable {
     LBLUE,
     PINK,
     WHITE,
-    YELLOW;
+    YELLOW,
+    EMPTY;
+    static int numColors = 6;
+
 }

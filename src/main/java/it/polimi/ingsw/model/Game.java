@@ -199,8 +199,8 @@ public class Game implements Serializable {
      * @param position position where to pick the tile
      * @return the picked tile only if it's a valid pick
      */
-    public Optional<Tile> pickTile(Position position) {
-        Optional<Tile> pickedTile = Optional.empty();
+    public Tile pickTile(Position position) {
+        Tile pickedTile = Tile.EMPTY;
 
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that the number of picked cards is lower than the limit
@@ -217,7 +217,7 @@ public class Game implements Serializable {
                         if (areAlignedOnRow) {
                             this.pickedTilesPositions.add(position);
                             pickedTile = this.board.getTile(position);
-                            this.pickedTiles.add(pickedTile.get());
+                            this.pickedTiles.add(pickedTile);
                         }
 
                         boolean areAlignedOnColumn = true;
@@ -230,12 +230,12 @@ public class Game implements Serializable {
                         if (areAlignedOnColumn) {
                             this.pickedTilesPositions.add(position);
                             pickedTile = this.board.getTile(position);
-                            this.pickedTiles.add(pickedTile.get());
+                            this.pickedTiles.add(pickedTile);
                         }
                     } else {
                         this.pickedTilesPositions.add(position);
                         pickedTile = this.board.getTile(position);
-                        this.pickedTiles.add(pickedTile.get());
+                        this.pickedTiles.add(pickedTile);
                     }
                 }
             }
@@ -248,7 +248,7 @@ public class Game implements Serializable {
      * @param position position of the tile
      * @return new list of picked tiles
      */
-    public Optional<List<Tile>> removeTile(Position position) {
+    public List<Tile> removeTile(Position position) {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that al least one card has been already chosen
             if (!this.pickedTiles.isEmpty()) {
@@ -256,12 +256,12 @@ public class Game implements Serializable {
                     if(this.pickedTilesPositions.get(i).equals(position)) {
                         this.pickedTilesPositions.remove(i);
                         this.pickedTiles.remove(i);
-                        return Optional.of(this.pickedTiles);
+                        return this.pickedTiles;
                     }
                 }
             }
         }
-        return Optional.empty();
+        return this.pickedTiles;
     }
 
     /**
@@ -302,14 +302,14 @@ public class Game implements Serializable {
      * @param index position of the selected tile
      * @return the new sorted list of tiles
      */
-    public Optional<List<Tile>> rearrangeTiles(int index) {
+    public List<Tile> rearrangeTiles(int index) {
         if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index <= 2) {
             Tile tmp = this.pickedTiles.get(index);
             this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
             this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);
-            return Optional.of(this.pickedTiles);
+            return this.pickedTiles;
         }
-        return Optional.empty();
+        return pickedTiles;
     }
 
     /**

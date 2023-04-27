@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class Board implements Serializable {
-    private final HashMap<Position, Optional<Tile>> board;
+    private final HashMap<Position, Tile> board;
     private final Bag bag;
 
     /**
@@ -13,12 +13,12 @@ public class Board implements Serializable {
      * @param numPlayers creates a different board depending on the number of players
      */
     public Board(Integer numPlayers, Bag bag) {
-        board = new HashMap<Position, Optional<Tile>>();
+        board = new HashMap<Position, Tile>();
         this.bag = bag;
         createBoardCells(numPlayers);
     }
 
-    public HashMap<Position, Optional<Tile>> getBoard() {
+    public HashMap<Position, Tile> getBoard() {
         return board;
     }
 
@@ -29,93 +29,93 @@ public class Board implements Serializable {
     private void createBoardCells(Integer numPlayers) {
         if(numPlayers >= GameSettings.MIN_NUM_PLAYERS) {
             //ROW 1:
-            board.put(new Position(1,0), Optional.empty());
-            board.put(new Position(1,1), Optional.empty());
+            board.put(new Position(1,0), Tile.EMPTY);
+            board.put(new Position(1,1), Tile.EMPTY);
 
             //ROW 2:
-            board.put(new Position(2,0), Optional.empty());
-            board.put(new Position(2,1), Optional.empty());
-            board.put(new Position(2,2), Optional.empty());
+            board.put(new Position(2,0), Tile.EMPTY);
+            board.put(new Position(2,1), Tile.EMPTY);
+            board.put(new Position(2,2), Tile.EMPTY);
 
             //ROW 3:
-            board.put(new Position(3,-1), Optional.empty());
-            board.put(new Position(3,0), Optional.empty());
-            board.put(new Position(3,1), Optional.empty());
-            board.put(new Position(3,2), Optional.empty());
-            board.put(new Position(3,3), Optional.empty());
-            board.put(new Position(3,4), Optional.empty());
+            board.put(new Position(3,-1),Tile.EMPTY);
+            board.put(new Position(3,0), Tile.EMPTY);
+            board.put(new Position(3,1), Tile.EMPTY);
+            board.put(new Position(3,2), Tile.EMPTY);
+            board.put(new Position(3,3), Tile.EMPTY);
+            board.put(new Position(3,4), Tile.EMPTY);
 
             //ROW 4:
-            board.put(new Position(4,-2), Optional.empty());
-            board.put(new Position(4,-1), Optional.empty());
-            board.put(new Position(4,0), Optional.empty());
-            board.put(new Position(4,1), Optional.empty());
-            board.put(new Position(4,2), Optional.empty());
-            board.put(new Position(4,3), Optional.empty());
-            board.put(new Position(4,4), Optional.empty());
+            board.put(new Position(4,-2), Tile.EMPTY);
+            board.put(new Position(4,-1), Tile.EMPTY);
+            board.put(new Position(4,0), Tile.EMPTY);
+            board.put(new Position(4,1), Tile.EMPTY);
+            board.put(new Position(4,2), Tile.EMPTY);
+            board.put(new Position(4,3), Tile.EMPTY);
+            board.put(new Position(4,4), Tile.EMPTY);
 
             //ROW 5:
-            board.put(new Position(5,-2), Optional.empty());
-            board.put(new Position(5,-1), Optional.empty());
-            board.put(new Position(5,0), Optional.empty());
-            board.put(new Position(5,1), Optional.empty());
-            board.put(new Position(5,2), Optional.empty());
-            board.put(new Position(5,3), Optional.empty());
+            board.put(new Position(5,-2), Tile.EMPTY);
+            board.put(new Position(5,-1), Tile.EMPTY);
+            board.put(new Position(5,0), Tile.EMPTY);
+            board.put(new Position(5,1), Tile.EMPTY);
+            board.put(new Position(5,2), Tile.EMPTY);
+            board.put(new Position(5,3), Tile.EMPTY);
 
             //ROW 6:
-            board.put(new Position(6,0), Optional.empty());
-            board.put(new Position(6,1), Optional.empty());
-            board.put(new Position(6,2), Optional.empty());
+            board.put(new Position(6,0), Tile.EMPTY);
+            board.put(new Position(6,1), Tile.EMPTY);
+            board.put(new Position(6,2), Tile.EMPTY);
 
             //ROW 7:
-            board.put(new Position(7,1), Optional.empty());
-            board.put(new Position(7,2), Optional.empty());
+            board.put(new Position(7,1), Tile.EMPTY);
+            board.put(new Position(7,2),Tile.EMPTY);
         }
 
         if(numPlayers >= GameSettings.MIN_NUM_PLAYERS +1) {
             // ROW 0:
-            board.put(new Position(0,0), Optional.empty());
+            board.put(new Position(0,0), Tile.EMPTY);
 
             //ROW 2:
-            board.put(new Position(2,-1), Optional.empty());
-            board.put(new Position(2,3), Optional.empty());
+            board.put(new Position(2,-1), Tile.EMPTY);
+            board.put(new Position(2,3), Tile.EMPTY);
 
             //ROW 3:
-            board.put(new Position(3,5), Optional.empty());
+            board.put(new Position(3,5), Tile.EMPTY);
 
             //ROW 5:
-            board.put(new Position(5,-3), Optional.empty());
+            board.put(new Position(5,-3), Tile.EMPTY);
 
             //ROW 6:
-            board.put(new Position(6,-1), Optional.empty());
-            board.put(new Position(6,3), Optional.empty());
+            board.put(new Position(6,-1), Tile.EMPTY);
+            board.put(new Position(6,3), Tile.EMPTY);
 
             //ROW 8:
-            board.put(new Position(8,2), Optional.empty());
+            board.put(new Position(8,2), Tile.EMPTY);
         }
 
         if(numPlayers >= GameSettings.MAX_NUM_PLAYERS) {
             //ROW 0:
-            board.put(new Position(0,1), Optional.empty());
+            board.put(new Position(0,1), Tile.EMPTY);
 
             //ROW 1:
-            board.put(new Position(1,2), Optional.empty());
+            board.put(new Position(1,2), Tile.EMPTY);
 
             //ROW 3:
-            board.put(new Position(3,-2), Optional.empty());
+            board.put(new Position(3,-2), Tile.EMPTY);
 
             //ROW 4:
-            board.put(new Position(4,-3), Optional.empty());
-            board.put(new Position(4,5), Optional.empty());
+            board.put(new Position(4,-3), Tile.EMPTY);
+            board.put(new Position(4,5), Tile.EMPTY);
 
             //ROW 5:
-            board.put(new Position(5,4), Optional.empty());
+            board.put(new Position(5,4), Tile.EMPTY);
 
             //ROW 7:
-            board.put(new Position(7,0), Optional.empty());
+            board.put(new Position(7,0), Tile.EMPTY);
 
             //ROW 8:
-            board.put(new Position(8,1), Optional.empty());
+            board.put(new Position(8,1), Tile.EMPTY);
         }
     }
 
@@ -123,9 +123,9 @@ public class Board implements Serializable {
      * Fills all the empty cells of the board
      */
     public void fillBoard() {
-        for (HashMap.Entry<Position, Optional<Tile>> entry : this.board.entrySet()) {
-            if(entry.getValue().isEmpty()) {
-                entry.setValue(Optional.ofNullable(this.bag.pickTile()));
+        for (HashMap.Entry<Position, Tile> entry : this.board.entrySet()) {
+            if(!entry.getValue().equals(Tile.EMPTY)) {
+                entry.setValue(this.bag.pickTile());
             }
         }
     }
@@ -135,11 +135,11 @@ public class Board implements Serializable {
      * @param position indicates the position where the tile is supposed to be
      * @return return an optional of tile
      */
-    public Optional<Tile> getTile(Position position) {
-        if(this.board.get(position) != null) {
+    public Tile getTile(Position position) {
+        if(!this.board.get(position).equals(Tile.EMPTY)) {
             return this.board.get(position);
         }
-        return Optional.empty();
+        return Tile.EMPTY;
     }
 
     /**
@@ -147,11 +147,11 @@ public class Board implements Serializable {
      * @param position indicates the position where the tile is supposed to be
      * @return return an optional of tile
      */
-    public Optional<Tile> pickTile(Position position) {
-        Optional<Tile> rtn = Optional.empty();
-        if(this.board.get(position) != null) {
+    public Tile pickTile(Position position) {
+        Tile rtn = Tile.EMPTY;
+        if(!this.board.get(position).equals(Tile.EMPTY)) {
             rtn = this.board.get(position);
-            this.board.put(position, Optional.empty());
+            this.board.put(position, Tile.EMPTY);
         }
         return rtn;
     }
@@ -164,7 +164,7 @@ public class Board implements Serializable {
      */
     public boolean setTile(Position position, Tile tile) {
         if(this.board.containsKey(position)) {
-            board.put(position, Optional.ofNullable(tile));
+            board.put(position, tile);
             return true;
         }
         return false;
@@ -175,8 +175,8 @@ public class Board implements Serializable {
      * @return true if exists (at least) two adjacent tiles
      */
     public boolean hasToBeRefilled() {
-        for(HashMap.Entry<Position, Optional<Tile>> entry : board.entrySet()) {
-            if(entry.getValue().isPresent() && hasAdjacentTiles(entry.getKey())) {
+        for(HashMap.Entry<Position, Tile> entry : board.entrySet()) {
+            if(!entry.getValue().equals(Tile.EMPTY) && hasAdjacentTiles(entry.getKey())) {
                 return false;
             }
         }
@@ -194,23 +194,23 @@ public class Board implements Serializable {
         int column = position.getColumn();
 
         p.setRow(row + 1);
-        if(this.board.containsKey(p) && board.get(p).isPresent()) {
+        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
             return true;
         }
 
         p.setRow(row - 1);
-        if(this.board.containsKey(p) && board.get(p).isPresent()) {
+        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
             return true;
         }
 
         p.setRow(row);
         p.setColumn(column + 1);
-        if(this.board.containsKey(p) && board.get(p).isPresent()) {
+        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
             return true;
         }
 
         p.setColumn(column - 1);
-        if(this.board.containsKey(p) && board.get(p).isPresent()) {
+        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
             return true;
         }
 
@@ -232,23 +232,23 @@ public class Board implements Serializable {
         }
 
         p.setRow(row + 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).isEmpty())) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
             return true;
         }
 
         p.setRow(row - 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).isEmpty())) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
             return true;
         }
 
         p.setRow(row);
         p.setColumn(column + 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).isEmpty())) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
             return true;
         }
 
         p.setColumn(column - 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).isEmpty())) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
             return true;
         }
 

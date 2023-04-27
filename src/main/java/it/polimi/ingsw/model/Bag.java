@@ -21,7 +21,7 @@ public class Bag implements Serializable {
         bag.put(Tile.LBLUE, GameSettings.MAX_NUM_CARDS_PER_TYPE);
         bag.put(Tile.PINK, GameSettings.MAX_NUM_CARDS_PER_TYPE);
 
-        this.currentNumberOfTiles = GameSettings.MAX_NUM_CARDS_PER_TYPE * Tile.values().length;
+        this.currentNumberOfTiles = GameSettings.MAX_NUM_CARDS_PER_TYPE * (Tile.numColors);
     }
 
     /**
