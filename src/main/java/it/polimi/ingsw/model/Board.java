@@ -15,7 +15,7 @@ public class Board implements Serializable {
     public Board(Integer numPlayers, Bag bag) {
         board = new HashMap<Position, Tile>();
         this.bag = bag;
-        createBoardCells(numPlayers);
+        this.createBoardCells(numPlayers);
     }
 
     public HashMap<Position, Tile> getBoard() {
@@ -124,7 +124,7 @@ public class Board implements Serializable {
      */
     public void fillBoard() {
         for (HashMap.Entry<Position, Tile> entry : this.board.entrySet()) {
-            if(!entry.getValue().equals(Tile.EMPTY)) {
+            if(entry.getValue() == Tile.EMPTY) {
                 entry.setValue(this.bag.pickTile());
             }
         }
@@ -136,7 +136,7 @@ public class Board implements Serializable {
      * @return return an optional of tile
      */
     public Tile getTile(Position position) {
-        if(!this.board.get(position).equals(Tile.EMPTY)) {
+        if(this.board.get(position) != null) {
             return this.board.get(position);
         }
         return Tile.EMPTY;
@@ -149,7 +149,7 @@ public class Board implements Serializable {
      */
     public Tile pickTile(Position position) {
         Tile rtn = Tile.EMPTY;
-        if(!this.board.get(position).equals(Tile.EMPTY)) {
+        if(this.board.get(position) != Tile.EMPTY) {
             rtn = this.board.get(position);
             this.board.put(position, Tile.EMPTY);
         }
@@ -176,7 +176,7 @@ public class Board implements Serializable {
      */
     public boolean hasToBeRefilled() {
         for(HashMap.Entry<Position, Tile> entry : board.entrySet()) {
-            if(!entry.getValue().equals(Tile.EMPTY) && hasAdjacentTiles(entry.getKey())) {
+            if(entry.getValue() != Tile.EMPTY && hasAdjacentTiles(entry.getKey())) {
                 return false;
             }
         }
@@ -194,23 +194,23 @@ public class Board implements Serializable {
         int column = position.getColumn();
 
         p.setRow(row + 1);
-        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
+        if(this.board.containsKey(p) && board.get(p) != Tile.EMPTY) {
             return true;
         }
 
         p.setRow(row - 1);
-        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
+        if(this.board.containsKey(p) && board.get(p) != Tile.EMPTY) {
             return true;
         }
 
         p.setRow(row);
         p.setColumn(column + 1);
-        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
+        if(this.board.containsKey(p) && board.get(p) != Tile.EMPTY) {
             return true;
         }
 
         p.setColumn(column - 1);
-        if(this.board.containsKey(p) && !board.get(p).equals(Tile.EMPTY)) {
+        if(this.board.containsKey(p) && board.get(p) != Tile.EMPTY) {
             return true;
         }
 
@@ -227,28 +227,28 @@ public class Board implements Serializable {
         int row = position.getRow();
         int column = position.getColumn();
 
-        if(!this.board.containsKey(p)) {
+        if(!this.board.containsKey(p) || this.board.get(p) == Tile.EMPTY) {
             return false;
         }
 
         p.setRow(row + 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && this.board.get(p) == Tile.EMPTY)) {
             return true;
         }
 
         p.setRow(row - 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && this.board.get(p) == Tile.EMPTY)) {
             return true;
         }
 
         p.setRow(row);
         p.setColumn(column + 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p) == Tile.EMPTY)) {
             return true;
         }
 
         p.setColumn(column - 1);
-        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p).equals(Tile.EMPTY))) {
+        if(!this.board.containsKey(p) || (this.board.containsKey(p) && board.get(p) == Tile.EMPTY)) {
             return true;
         }
 

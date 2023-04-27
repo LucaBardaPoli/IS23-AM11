@@ -52,9 +52,9 @@ public class TUIView implements View {
 
     private void showTable() {
         System.out.println("\nBoard:");
-        List<Position> sortedKeySet = this.board.getBoard().keySet().stream().sorted((p1, p2) -> ((p1.getRow() < p2.getRow()) ? -1 : ((p1.getRow() > p2.getRow()) ? 1 : ((p1.getColumn() < p2.getColumn()) ? -1 : ((p1.getColumn() > p2.getColumn()) ? 1 : 0))))).collect(Collectors.toList());
+        List<Position> sortedKeySet = this.board.getBoard().keySet().stream().sorted((p1, p2) -> ((p1.getRow() < p2.getRow()) ? -1 : ((p1.getRow() > p2.getRow()) ? 1 : (Integer.compare(p1.getColumn(), p2.getColumn()))))).collect(Collectors.toList());
         for(Position p : sortedKeySet) {
-            System.out.println(p + " -> " + (this.board.getBoard().get(p).isPresent() ? this.board.getBoard().get(p).get() : "empty"));
+            System.out.println(p + " -> " + (this.board.getBoard().get(p) != Tile.EMPTY ? this.board.getBoard().get(p) : "empty"));
         }
 
         System.out.println("\nCommon goals: ");

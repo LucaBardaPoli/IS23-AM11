@@ -25,7 +25,7 @@ public class BookshelfTest {
         cardList3 = new ArrayList<Tile>();
         cardList.add(card1);
         cardList.add(card2);
-        cardList3.add(null);
+        cardList3.add(Tile.EMPTY);
         cardList3.add(card1);
     }
 

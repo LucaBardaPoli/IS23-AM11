@@ -65,9 +65,9 @@ public class Bookshelf implements Serializable {
 
         for(int i = 0; i < GameSettings.ROWS; i++){
             position.setRow(i);
-            Tile cardOptional = getTile(position);
-            if(!cardOptional.equals(Tile.EMPTY)){
-                tileColumn.add(cardOptional);
+            Tile tile = this.getTile(position);
+            if(tile != Tile.EMPTY){
+                tileColumn.add(tile);
             }
         }
         return tileColumn;
@@ -85,8 +85,8 @@ public class Bookshelf implements Serializable {
         position.setRow(rowNumber);
         for(int i = 0; i < GameSettings.COLUMNS; i++){
             position.setColumn(i);
-            Tile cardOptional = getTile(position);
-            tileRow.add(cardOptional);
+            Tile tile = getTile(position);
+            tileRow.add(tile);
         }
         return tileRow;
     }
@@ -108,10 +108,10 @@ public class Bookshelf implements Serializable {
                 //save the position and extract the card
                 position.setRow(j);
 
-                Tile tileOptional = getTile(position);
+                Tile tile = getTile(position);
 
                 //subtract if the cell does NOT contain NULL
-                if (!tileOptional.equals(Tile.EMPTY)) {
+                if (tile != Tile.EMPTY) {
                     counter--;
                 }
             }

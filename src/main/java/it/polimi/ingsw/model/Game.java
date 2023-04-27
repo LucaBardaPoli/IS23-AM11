@@ -91,7 +91,7 @@ public class Game implements Serializable {
      * @return list of players
      */
     public List<Player> getPlayers() {
-        return players;
+        return this.players;
     }
 
     /**
@@ -209,7 +209,7 @@ public class Game implements Serializable {
                     if (!this.pickedTiles.isEmpty()) {
                         boolean areAlignedOnRow = true;
                         for (Position p : this.pickedTilesPositions) {
-                            areAlignedOnRow = p.getRow() == position.getRow();
+                            areAlignedOnRow = (p.getRow() == position.getRow());
                             if (!areAlignedOnRow) {
                                 break;
                             }
@@ -246,9 +246,9 @@ public class Game implements Serializable {
     /**
      * Removes the tile from the chosen ones
      * @param position position of the tile
-     * @return new list of picked tiles
+     * @return true if the removal happened successfully, false otherwise
      */
-    public List<Tile> removeTile(Position position) {
+    public boolean removeTile(Position position) {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that al least one card has been already chosen
             if (!this.pickedTiles.isEmpty()) {
@@ -256,12 +256,12 @@ public class Game implements Serializable {
                     if(this.pickedTilesPositions.get(i).equals(position)) {
                         this.pickedTilesPositions.remove(i);
                         this.pickedTiles.remove(i);
-                        return this.pickedTiles;
+                        return true;
                     }
                 }
             }
         }
-        return this.pickedTiles;
+        return false;
     }
 
     /**
@@ -300,16 +300,16 @@ public class Game implements Serializable {
     /**
      * Moves the selected tile to the last place in the list of cards to insert in the bookshelf
      * @param index position of the selected tile
-     * @return the new sorted list of tiles
+     * @return true if the rearrangement happened successfully, false otherwise
      */
-    public List<Tile> rearrangeTiles(int index) {
+    public boolean rearrangeTiles(int index) {
         if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index <= 2) {
             Tile tmp = this.pickedTiles.get(index);
             this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
             this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);
-            return this.pickedTiles;
+            return true;
         }
-        return pickedTiles;
+        return false;
     }
 
     /**
@@ -346,7 +346,7 @@ public class Game implements Serializable {
      */
     private void endTurn() {
         if (this.gameStatus.equals(GameStatus.UPDATE_POINTS)) {
-            if ((this.isLastTurn && this.turn < this.players.size() - 1) || !this.isLastTurn) {
+            if (!this.isLastTurn || this.turn < this.players.size() - 1) {
                 this.turn = (this.turn + 1) % this.players.size();
                 this.gameStatus = GameStatus.PICK_CARDS;
                 if(this.board.hasToBeRefilled()) {
@@ -388,7 +388,7 @@ public class Game implements Serializable {
      * @param player player who played the move
      * @return true whether the given player is the one who's currently playing
      */
-    public boolean checkPlayer(String player) {
+    public boolean isCurrentPlayer(String player) {
         return getCurrentPlayer().getNickname().equals(player);
     }
 }

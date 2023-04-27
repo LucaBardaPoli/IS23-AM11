@@ -33,7 +33,7 @@ public abstract class ClientHandler implements Listener {
     public void initGame(Game model, List<ClientHandler> lobby) {
         this.model = model;
         this.lobby = lobby;
-        if(this.model.checkPlayer(this.nickname)) {
+        if(this.model.isCurrentPlayer(this.nickname)) {
             //sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), this.model.getPersonalGoal(this.nickname).get(), true));
             sendMessage(new GameStartNotify(null, null, this.model.getPersonalGoal(this.nickname).get(), true));
         } else {
@@ -77,7 +77,7 @@ public abstract class ClientHandler implements Listener {
 
     //checks if the picks made by the player are available
     public void handle(PickTileRequest clientMessage) {
-        if(this.model.pickTile(clientMessage.getPosition()).isPresent()) {
+        if(this.model.pickTile(clientMessage.getPosition()) != Tile.EMPTY) {
             sendMessage(new PickTileResponse(true));
         } else {
             sendMessage(new PickTileResponse(false));
@@ -85,12 +85,8 @@ public abstract class ClientHandler implements Listener {
     }
 
     public void handle(RemoveTileRequest clientMessage) {
-        Optional<List<Tile>> optionalTiles = this.model.removeTile(clientMessage.getPosition());
-        if(optionalTiles.isPresent()) {
-            sendMessage(new RemoveTileResponse(optionalTiles.get()));
-        } else {
-            sendMessage(new RemoveTileResponse(this.model.getPickedTiles()));
-        }
+        boolean result = this.model.removeTile(clientMessage.getPosition());
+        sendMessage(new RemoveTileResponse(this.model.getPickedTiles(), result));
     }
 
     //confirms the set of cards picked previously by the player and goes on to get them from the board
@@ -111,18 +107,14 @@ public abstract class ClientHandler implements Listener {
 
     //rearrange the order of the cards before adding them to the bookshelf
     public void handle(SwapTilesOrderRequest clientMessage) {
-        Optional<List<Tile>> result = this.model.rearrangeTiles(clientMessage.getIndex());
-        if(result.isPresent()) {
-            sendMessage(new SwapTilesOrderResponse(result.get(), true));
-        } else {
-            sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), false));
-        }
+        boolean result = this.model.rearrangeTiles(clientMessage.getIndex());
+        sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), result));
     }
 
     //confirms the order of the cards that was previously selected
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
-        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.checkPlayer(this.nickname)));
+        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.isCurrentPlayer(this.nickname)));
     }
 
     public void handle(ChatMessage clientMessage) {

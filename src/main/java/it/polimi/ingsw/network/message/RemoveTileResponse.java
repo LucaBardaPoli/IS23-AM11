@@ -7,13 +7,19 @@ import java.util.List;
 
 public class RemoveTileResponse implements ServerMessage {
     private final List<Tile> pickedTiles;
+    private final boolean successful;
 
-    public RemoveTileResponse(List<Tile> pickedTiles) {
+    public RemoveTileResponse(List<Tile> pickedTiles, boolean successful) {
         this.pickedTiles = pickedTiles;
+        this.successful = successful;
     }
 
     public List<Tile> getPickedTiles() {
         return this.pickedTiles;
+    }
+
+    public boolean isSuccessful() {
+        return successful;
     }
 
     public void handle(ClientController clientController) {

@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import static org.junit.Assert.*;
 
-public class xGameTest {
+public class GameTest {
 
     // Initializes the variables for every test in order to avoid mistakes
     @Deprecated
@@ -706,13 +706,13 @@ public class xGameTest {
         assertEquals(currentPlayerBookshelf.getTile(new Position(5,3)),cardTypesList.get(0));
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(4,3)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,3)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,3)),Tile.EMPTY);
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(3,3)),cardTypesList.get(2));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(3,3)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(3,3)),Tile.EMPTY);
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(2,3)),cardTypesList.get(3));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(2,3)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(2,3)),Tile.EMPTY);
 
     }
 
@@ -762,13 +762,13 @@ public class xGameTest {
         assertSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(4,4)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,4)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,4)),Tile.EMPTY);
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(3,4)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(3,4)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(3,4)),Tile.EMPTY);
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(2,4)),cardTypesList.get(2));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(2,4)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(2,4)),Tile.EMPTY);
 
     }
 
@@ -818,10 +818,10 @@ public class xGameTest {
         assertEquals(currentPlayerBookshelf.getTile(new Position(5,4)),cardTypesList.get(0));
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(4,4)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,4)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,4)),Tile.EMPTY);
 
         assertNotSame(currentPlayerBookshelf.getTile(new Position(3,4)),cardTypesList.get(2));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(3,4)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(3,4)),Tile.EMPTY);
 
     }
 
@@ -1006,12 +1006,13 @@ public class xGameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Confirm the choice of the selected cards
-        assert (game2.confirmPick());
+        assert(game2.confirmPick());
         // Confirm the column where to insert the selected cards
-        assert (game2.confirmColumn(0));
+        assert(game2.confirmColumn(0));
 
         // Puts the first card selected in the last position
-        List<Tile> rearrangedCards = game2.rearrangeTiles(0);
+        game2.rearrangeTiles(0);
+        List<Tile> rearrangedCards = game2.getPickedTiles();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(1));
         assertEquals(rearrangedCards.get(1),cardTypesList.get(0));
 
@@ -1056,11 +1057,13 @@ public class xGameTest {
         assert (game2.confirmColumn(0));
 
         // Puts the first card selected in the last position
-        List<Tile> rearrangedCards = game2.rearrangeTiles(0);
+        game2.rearrangeTiles(0);
+        List<Tile> rearrangedCards = game2.getPickedTiles();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(1));
         assertEquals(rearrangedCards.get(1),cardTypesList.get(0));
 
-        rearrangedCards = game2.rearrangeTiles(0);
+        game2.rearrangeTiles(0);
+        rearrangedCards = game2.getPickedTiles();
         assertEquals(rearrangedCards.get(0),cardTypesList.get(0));
         assertEquals(rearrangedCards.get(1),cardTypesList.get(1));
 
@@ -1068,7 +1071,7 @@ public class xGameTest {
         game2.confirmOrderSelectedTiles();
 
         // Check if the turn changed correctly
-        assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer());
+        assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
         // Check if the insertion of the cards in the bookshelf is correct
         assertEquals(currentPlayerBookshelf.getTile(new Position(5,0)),cardTypesList.get(0));
@@ -1118,7 +1121,7 @@ public class xGameTest {
 
         // Check if the insertion of the cards in the bookshelf is correct
         assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),Tile.EMPTY);
 
     }
 
@@ -1163,7 +1166,7 @@ public class xGameTest {
 
         // Check if the insertion of the cards in the bookshelf is correct
         assertEquals(currentPlayerBookshelf.getTile(new Position(5,1)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),Optional.empty());
+        assertEquals(currentPlayerBookshelf.getTile(new Position(4,1)),Tile.EMPTY);
 
     }
 
