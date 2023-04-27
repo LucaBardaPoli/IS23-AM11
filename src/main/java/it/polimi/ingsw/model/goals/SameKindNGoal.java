@@ -22,7 +22,7 @@ public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {
     public boolean test(Bookshelf bookshelf) {
         int nrows = GameSettings.ROWS;
         int ncolumns = GameSettings.COLUMNS;
-        Optional<Tile> tile;
+        Tile tile;
         Position position = new Position();
         int row_idx, col_idx;
 
@@ -32,8 +32,8 @@ public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {
                 position.setColumn(col_idx);
                 tile = bookshelf.getTile(position);
                 // tile.ifPresent(cardType -> count_types[cardType.ordinal()]++);
-                if(tile.isPresent()){
-                    if(++count_types[tile.get().ordinal()] >= n){
+                if(!tile.equals(Tile.EMPTY)){
+                    if(++count_types[tile.ordinal()] >= n){
                         return true;
                     }
                 }

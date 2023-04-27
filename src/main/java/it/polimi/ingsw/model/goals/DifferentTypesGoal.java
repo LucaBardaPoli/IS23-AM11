@@ -37,7 +37,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         int i, j;
         int count_types = 0, count_rows = 0;
         boolean fullRow;
-        Optional<Tile> tileType;
+        Tile tileType;
         //
         boolean[] typeFound = new boolean[ntypes];
 
@@ -48,10 +48,10 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
             count_types = 0;
             for(j = 0; j < ncolumns && fullRow; j++){
                 tileType = bookshelf.getTile(new Position(i, j));
-                if(tileType.isPresent()){
-                    if(!typeFound[tileType.get().ordinal()]){
+                if(!tileType.equals(Tile.EMPTY)){
+                    if(!typeFound[tileType.ordinal()]){
                         count_types++;
-                        typeFound[tileType.get().ordinal()] = true;
+                        typeFound[tileType.ordinal()] = true;
                     }
                 } else {
                     fullRow = false;
@@ -72,7 +72,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         int i, j;
         int count_types = 0, count_columns = 0;
         boolean fullColumn;
-        Optional<Tile> tileType;
+        Tile tileType;
 
         boolean[] typeFound = new boolean[ntypes];
 
@@ -83,10 +83,10 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
             count_types = 0;
             for(i = 0; i < nrows && fullColumn; i++){
                 tileType = bookshelf.getTile(new Position(i, j));
-                if(tileType.isPresent()){
-                    if(!typeFound[tileType.get().ordinal()]){
+                if(!tileType.equals(Tile.EMPTY)){
+                    if(!typeFound[tileType.ordinal()]){
                         count_types++;
-                        typeFound[tileType.get().ordinal()] = true;
+                        typeFound[tileType.ordinal()] = true;
                     }
                 } else {
                     fullColumn = false;

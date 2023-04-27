@@ -19,7 +19,7 @@ public class GivenPositionsGoal implements Predicate<Bookshelf>, Serializable {
 
     @Override
     public boolean test(Bookshelf bookshelf) {
-        Optional<Tile> optionalTile;
+        Tile optionalTile;
         Tile tileReference, tile;
 
         // if there are no positions to check the goal is fulfilled for any board
@@ -28,18 +28,18 @@ public class GivenPositionsGoal implements Predicate<Bookshelf>, Serializable {
         }
 
         optionalTile = bookshelf.getTile(positions.get(0));
-        if(optionalTile.isEmpty()){
+        if(optionalTile.equals(Tile.EMPTY)){
             return false;
         }
-        tileReference = optionalTile.get();
+        tileReference = optionalTile;
 
         for(Position position: positions){
 
             optionalTile = bookshelf.getTile(position);
-            if(optionalTile.isEmpty()){
+            if(optionalTile.equals(Tile.EMPTY)){
                 return false;
             }
-            tile = optionalTile.get();
+            tile = optionalTile;
             if(tile != tileReference){
                 return false;
             }

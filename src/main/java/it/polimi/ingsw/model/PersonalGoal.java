@@ -27,11 +27,11 @@ public class PersonalGoal implements Serializable {
      */
     public int checkGoal(Bookshelf bookshelf){
         int n_tiles = 0;
-        Optional<Tile> tile;
+        Tile tile;
         for(int index = 0; index < positions.size(); index++){
             tile = bookshelf.getTile(positions.get(index));
             // CardType is an enumeration so equality corresponds with identity
-            if(!tile.isEmpty() && tile.get() == tiles.get(index)){
+            if(!tile.equals(Tile.EMPTY) && tile == tiles.get(index)){
                 n_tiles++;
             }
         }

@@ -44,49 +44,49 @@ public class BoardTest {
         this.board.fillBoard();
 
         // Picks up a lot of cards until there is no valid pick
-        assert(board.pickTile(new Position(1,0)).isPresent());
+        assert(board.pickTile(new Position(1,0)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(2,0)).isPresent());
+        assert(board.pickTile(new Position(2,0)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(2,1)).isPresent());
+        assert(board.pickTile(new Position(2,1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(3,-1)).isPresent());
+        assert(board.pickTile(new Position(3,-1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(3,0)).isPresent());
+        assert(board.pickTile(new Position(3,0)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(3,1)).isPresent());
+        assert(board.pickTile(new Position(3,1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(3,2)).isPresent());
+        assert(board.pickTile(new Position(3,2)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(3,3)).isPresent());
+        assert(board.pickTile(new Position(3,3)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(4,-2)).isPresent());
+        assert(board.pickTile(new Position(4,-2)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(4,-1)).isPresent());
+        assert(board.pickTile(new Position(4,-1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(4,0)).isPresent());
+        assert(board.pickTile(new Position(4,0)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(4,4)).isPresent());
+        assert(board.pickTile(new Position(4,4)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(4,3)).isPresent());
+        assert(board.pickTile(new Position(4,3)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(4,2)).isPresent());
+        assert(board.pickTile(new Position(4,2)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(5,-2)).isPresent());
+        assert(board.pickTile(new Position(5,-2)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(5,-1)).isPresent());
+        assert(board.pickTile(new Position(5,-1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(5,0)).isPresent());
+        assert(board.pickTile(new Position(5,0)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(5,1)).isPresent());
+        assert(board.pickTile(new Position(5,1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(5,2)).isPresent());
+        assert(board.pickTile(new Position(5,2)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(6,2)).isPresent());
+        assert(board.pickTile(new Position(6,2)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(6,1)).isPresent());
+        assert(board.pickTile(new Position(6,1)) != Tile.EMPTY);
         assert(!this.board.hasToBeRefilled());
-        assert(board.pickTile(new Position(7,2)).isPresent());
+        assert(board.pickTile(new Position(7,2)) != Tile.EMPTY);
 
         // Checks that there is no valid pick on the board, so it has to be refilled
         assert(this.board.hasToBeRefilled());
@@ -106,9 +106,9 @@ public class BoardTest {
         this.board.fillBoard();
 
         assert(this.board.setTile(new Position(2, 3), Tile.WHITE));
-        assert(this.board.getTile(new Position(2, 3)).equals(Optional.of(Tile.WHITE)));
-        assert(this.board.getTile(new Position(10, 10)).equals(Optional.empty()));
-        assert(this.board.getTile(new Position(0, 1)).equals(Optional.empty()));
+        assert(this.board.getTile(new Position(2, 3)) == Tile.WHITE);
+        assert(this.board.getTile(new Position(10, 10)) == Tile.EMPTY);
+        assert(this.board.getTile(new Position(0, 1)) == Tile.EMPTY);
     }
 
     /**

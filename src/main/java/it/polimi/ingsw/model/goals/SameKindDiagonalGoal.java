@@ -16,16 +16,16 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
      */
     private boolean checkDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Integer limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
-        Optional<Tile> tile;
+        Tile tile;
         Tile currentType;
 
         tile = bookshelf.getTile(new Position(startRow, startColumn));
-        if(tile.isPresent()) {
-            currentType = tile.get();
+        if(!tile.equals(Tile.EMPTY)) {
+            currentType = tile;
             for (int i = 1; i < limit; i++) {
                 tile = bookshelf.getTile(new Position(startRow+i, startColumn+i));
-                if (tile.isPresent()) {
-                    if (!tile.get().equals(currentType)) {
+                if (!tile.equals(Tile.EMPTY)) {
+                    if (!tile.equals(currentType)) {
                         return false;
                     }
                 } else {
@@ -47,16 +47,16 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
      */
     private boolean checkAntidiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         Integer limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
-        Optional<Tile> tile;
+        Tile tile;
         Tile currentType;
 
         tile = bookshelf.getTile(new Position(startRow, startColumn));
-        if(tile.isPresent()) {
-            currentType = tile.get();
+        if(!tile.equals(Tile.EMPTY)) {
+            currentType = tile;
             for (int i = 1; i < limit; i++) {
                 tile = bookshelf.getTile(new Position(startRow-i, startColumn+i));
-                if (tile.isPresent()) {
-                    if (!tile.get().equals(currentType)) {
+                if (!tile.equals(Tile.EMPTY)) {
+                    if (!tile.equals(currentType)) {
                         return false;
                     }
                 } else {

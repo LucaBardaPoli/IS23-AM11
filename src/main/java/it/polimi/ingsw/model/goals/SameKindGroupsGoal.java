@@ -28,32 +28,32 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>, Serializable {
         visited[i][j] = true;
 
         // empty cell
-        if(bookshelf.getTile(new Position(i, j)).isEmpty()){
+        if(bookshelf.getTile(new Position(i, j)).equals(Tile.EMPTY)){
             return 0;
         }
-        Tile referenceColor = bookshelf.getTile(new Position(i, j)).get();
+        Tile referenceColor = bookshelf.getTile(new Position(i, j));
 
         int groupSize = 1;
 
-        Optional<Tile> currentColor;
+        Tile currentColor;
 
         currentColor = bookshelf.getTile(new Position(i - 1, j));
-        if(currentColor.isPresent() && currentColor.get() == referenceColor){
+        if(!currentColor.equals(Tile.EMPTY) && currentColor == referenceColor){
             groupSize += floodFill(bookshelf, visited, i - 1, j);
         }
 
         currentColor = bookshelf.getTile(new Position(i + 1, j));
-        if(currentColor.isPresent() && currentColor.get() == referenceColor){
+        if(!currentColor.equals(Tile.EMPTY) && currentColor == referenceColor){
             groupSize += floodFill(bookshelf, visited, i + 1, j);
         }
 
         currentColor = bookshelf.getTile(new Position(i, j - 1));
-        if(currentColor.isPresent() && currentColor.get() == referenceColor){
+        if(!currentColor.equals(Tile.EMPTY) && currentColor == referenceColor){
             groupSize += floodFill(bookshelf, visited, i, j - 1);
         }
 
         currentColor = bookshelf.getTile(new Position(i, j + 1));
-        if(currentColor.isPresent() && currentColor.get() == referenceColor){
+        if(!currentColor.equals(Tile.EMPTY) && currentColor == referenceColor){
             groupSize += floodFill(bookshelf, visited, i, j + 1);
         }
 

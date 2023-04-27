@@ -47,8 +47,8 @@ public class BookshelfTest {
         cardList2.add(card2);
         bookshelf.addTiles(cardList,0);
         bookshelf.addTiles(cardList2,1);
-        assertEquals(bookshelf.getRow(5).get(0).get(),card1);
-        assertEquals(bookshelf.getRow(5).get(1).get(),card2);
+        assertEquals(bookshelf.getRow(5).get(0),card1);
+        assertEquals(bookshelf.getRow(5).get(1),card2);
     }
 
     //test for checking the getFreeCells method

@@ -18,16 +18,16 @@ public class SameKindXGoal implements Predicate<Bookshelf>, Serializable {
      * @return true whether the x exists
      */
     private boolean checkX(int startRow, int startColumn, Bookshelf bookshelf) {
-        Optional<Tile> tile;
+        Tile tile;
         Tile currentType;
 
         tile = bookshelf.getTile(new Position(startRow, startColumn));
-        if(tile.isPresent()) {
-            currentType = tile.get();
+        if(!tile.equals(Tile.EMPTY)) {
+            currentType = tile;
 
             tile = bookshelf.getTile(new Position(startRow - 1, startColumn - 1));
-            if (tile.isPresent()) {
-                if (!tile.get().equals(currentType)) {
+            if (!tile.equals(Tile.EMPTY)) {
+                if (!tile.equals(currentType)) {
                     return false;
                 }
             } else {
@@ -35,8 +35,8 @@ public class SameKindXGoal implements Predicate<Bookshelf>, Serializable {
             }
 
             tile = bookshelf.getTile(new Position(startRow - 1, startColumn + 1));
-            if (tile.isPresent()) {
-                if (!tile.get().equals(currentType)) {
+            if (!tile.equals(Tile.EMPTY)) {
+                if (!tile.equals(currentType)) {
                     return false;
                 }
             } else {
@@ -44,8 +44,8 @@ public class SameKindXGoal implements Predicate<Bookshelf>, Serializable {
             }
 
             tile = bookshelf.getTile(new Position(startRow + 1, startColumn - 1));
-            if (tile.isPresent()) {
-                if (!tile.get().equals(currentType)) {
+            if (!tile.equals(Tile.EMPTY)) {
+                if (!tile.equals(currentType)) {
                     return false;
                 }
             } else {
@@ -53,8 +53,8 @@ public class SameKindXGoal implements Predicate<Bookshelf>, Serializable {
             }
 
             tile = bookshelf.getTile(new Position(startRow + 1, startColumn + 1));
-            if (tile.isPresent()) {
-                if (!tile.get().equals(currentType)) {
+            if (!tile.equals(Tile.EMPTY)) {
+                if (!tile.equals(currentType)) {
                     return false;
                 }
             } else {

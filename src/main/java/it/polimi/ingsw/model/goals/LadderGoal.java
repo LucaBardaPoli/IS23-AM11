@@ -27,13 +27,13 @@ public class LadderGoal implements Predicate<Bookshelf>, Serializable {
      */
     private boolean testDescendingLadder(int startRow, int startColumn, Bookshelf bookshelf) {
         int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
-        Optional<Tile> tile;
+        Tile tile;
 
         tile = bookshelf.getTile(new Position(startRow, startColumn));
-        if(tile.isPresent() && bookshelf.getTile(new Position(startRow-1, startColumn)).isEmpty()) {
+        if(!tile.equals(Tile.EMPTY) && bookshelf.getTile(new Position(startRow-1, startColumn)).equals(Tile.EMPTY)) {
             for (int i = 1; i < limit; i++) {
                 tile = bookshelf.getTile(new Position(startRow+i, startColumn+i));
-                if (tile.isEmpty() || bookshelf.getTile(new Position(startRow+i-1, startColumn+i)).isPresent()) {
+                if (tile.equals(Tile.EMPTY) || !bookshelf.getTile(new Position(startRow+i-1, startColumn+i)).equals(Tile.EMPTY)) {
                     return false;
                 }
             }
@@ -52,13 +52,13 @@ public class LadderGoal implements Predicate<Bookshelf>, Serializable {
      */
     private boolean testAscendingLadder(int startRow, int startColumn, Bookshelf bookshelf) {
         int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
-        Optional<Tile> card;
+        Tile card;
 
         card = bookshelf.getTile(new Position(startRow, startColumn));
-        if(card.isPresent() && bookshelf.getTile(new Position(startRow-1, startColumn)).isEmpty()) {
+        if(!card.equals(Tile.EMPTY) && bookshelf.getTile(new Position(startRow-1, startColumn)).equals(Tile.EMPTY)) {
             for (int i = 1; i < limit; i++) {
                 card = bookshelf.getTile(new Position(startRow-i, startColumn+i));
-                if (card.isEmpty() || bookshelf.getTile(new Position(startRow-i-1, startColumn+i)).isPresent()) {
+                if (card.equals(Tile.EMPTY) || !bookshelf.getTile(new Position(startRow-i-1, startColumn+i)).equals(Tile.EMPTY)) {
                     return false;
                 }
             }

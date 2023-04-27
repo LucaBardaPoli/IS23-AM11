@@ -18,16 +18,16 @@ public class SameKindSquareGoal implements Predicate<Bookshelf>, Serializable {
      * @return true whether the 2x2 square exists
      */
     private boolean checkSquare(int startRow, int startColumn, Bookshelf bookshelf) {
-        Optional<Tile> tile;
+        Tile tile;
         Tile currentType;
 
         tile = bookshelf.getTile(new Position(startRow, startColumn));
-        if(tile.isPresent()) {
-            currentType = tile.get();
+        if(!tile.equals(Tile.EMPTY)) {
+            currentType = tile;
 
             tile = bookshelf.getTile(new Position(startRow + 1, startColumn));
-            if (tile.isPresent()) {
-                if (!tile.get().equals(currentType)) {
+            if (!tile.equals(Tile.EMPTY)) {
+                if (!tile.equals(currentType)) {
                     return false;
                 }
             } else {
@@ -35,8 +35,8 @@ public class SameKindSquareGoal implements Predicate<Bookshelf>, Serializable {
             }
 
             tile = bookshelf.getTile(new Position(startRow + 1, startColumn + 1));
-            if (tile.isPresent()) {
-                if (!tile.get().equals(currentType)) {
+            if (!tile.equals(Tile.EMPTY)) {
+                if (!tile.equals(currentType)) {
                     return false;
                 }
             } else {
@@ -44,7 +44,11 @@ public class SameKindSquareGoal implements Predicate<Bookshelf>, Serializable {
             }
 
             tile = bookshelf.getTile(new Position(startRow, startColumn + 1));
-            return tile.map(cardType -> cardType.equals(currentType)).orElse(false);
+            if (tile == Tile.EMPTY){
+                return false;
+            } else {
+                return tile == currentType;
+            }
         } else {
             return false;
         }
