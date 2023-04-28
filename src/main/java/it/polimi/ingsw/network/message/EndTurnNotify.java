@@ -6,12 +6,12 @@ import it.polimi.ingsw.network.client.ClientController;
 public class EndTurnNotify implements ServerMessage {
     private final Bookshelf bookshelf;
     private final int points;
-    private final boolean isYourTurn;
+    private final String nextPlayer;
 
-    public EndTurnNotify(Bookshelf bookshelf, int points, boolean isYourTurn) {
+    public EndTurnNotify(Bookshelf bookshelf, int points, String nextPlayer) {
         this.bookshelf = bookshelf;
         this.points = points;
-        this.isYourTurn = isYourTurn;
+        this.nextPlayer = nextPlayer;
     }
 
     public Bookshelf getBookshelf() {
@@ -22,8 +22,8 @@ public class EndTurnNotify implements ServerMessage {
         return points;
     }
 
-    public boolean getIsYourTurn() {
-        return isYourTurn;
+    public String getNextPlayer() {
+        return nextPlayer;
     }
 
     @Override

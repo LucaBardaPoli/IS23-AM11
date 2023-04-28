@@ -9,10 +9,12 @@ import java.util.List;
 
 public interface View {
     void setClientController(ClientController clientController);
+
+    void showUpdatedBoard(Board board);
     void chooseTypeOfConnection();
     void chooseUsername();
     void chooseNumPlayers();
-    void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, boolean isYourTurn);
+    void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer);
     void showPickATile();
     void showValidPick();
     void showInvalidPick();

@@ -14,6 +14,9 @@ public class GUIView implements View {
         this.clientController = clientController;
     }
 
+    public void showUpdatedBoard(Board board) {
+    }
+
     public void chooseTypeOfConnection() {
     }
 
@@ -23,7 +26,7 @@ public class GUIView implements View {
     public void chooseNumPlayers() {
     }
 
-    public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, boolean isYourTurn) {
+    public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
     }
 
     public void showPickATile() {

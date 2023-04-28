@@ -13,12 +13,12 @@
 |-----------------|--------|
 | Basic Rules     |   🟢  |
 | Complete Rules  |   🟢   |
-| TUI             |   🔴   |
+| TUI             |   🟡   |
 | GUI             |   🔴   |
 | RMI             |   🟡   |
-| Socket          |   🟢   |
+| Socket          |   🟡   |
 | Chat            |   🟡   |
-| Multiple Games  |   🟡   |
+| Multiple Games  |   🟢   |
 
 #### Status meaning
 |🔴 Not implemented | 🟡 Working on it | 🟢 Completed|

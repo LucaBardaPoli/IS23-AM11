@@ -1,15 +1,7 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.goals.LadderGoal;
-import it.polimi.ingsw.model.goals.SameKindXGoal;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.view.View;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ClientController {
     private final Client client;
@@ -55,42 +47,7 @@ public class ClientController {
     }
 
     public void handle(GameStartNotify serverMessage) {
-        // For testing since Board, CommonGoals and PersonalGoals are not Serializable
-        Board b = new Board(2, new Bag());
-        b.fillBoard();
-
-        List<Position> positions = new ArrayList<>();
-        List<Tile> tiles = new ArrayList<>();
-        Map<Integer, Integer> rewards = new HashMap<>();
-
-        rewards.put(1, 1);
-        rewards.put(2, 2);
-        rewards.put(3, 4);
-        rewards.put(4, 6);
-        rewards.put(5, 9);
-        rewards.put(6, 12);
-
-        //Personal Goal x1
-        positions.add(new Position(0, 0));
-        tiles.add(Tile.PINK);
-
-        positions.add(new Position(0, 2));
-        tiles.add(Tile.BLUE);
-
-        positions.add(new Position(1, 4));
-        tiles.add(Tile.GREEN);
-
-        positions.add(new Position(2, 3));
-        tiles.add(Tile.WHITE);
-
-        positions.add(new Position(3, 1));
-        tiles.add(Tile.YELLOW);
-
-        positions.add(new Position(5, 2));
-        tiles.add(Tile.LBLUE);
-
-        this.view.startGame(b, new ArrayList<>(List.of(new CommonGoal("Primo", new LadderGoal()), new CommonGoal("Secondo", new SameKindXGoal()))), new PersonalGoal(positions, tiles, rewards), serverMessage.getIsYourTurn());
-        //this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getPersonalGoal(), serverMessage.getIsYourTurn());
+        this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
     }
 
     public void handle(PickTileResponse serverMessage) {
@@ -107,7 +64,7 @@ public class ClientController {
     }
 
     public void handle(NewBoardNotify serverMessage) {
-        //handle newBoardNotify
+        this.view.showUpdatedBoard(serverMessage.getBoard());
     }
 
     public void handle(ConfirmColumnResponse serverMessage) {

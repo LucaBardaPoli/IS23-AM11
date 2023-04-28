@@ -11,13 +11,13 @@ public class GameStartNotify implements ServerMessage {
     private final Board board;
     private final List<CommonGoal> commonGoals;
     private final PersonalGoal personalGoal;
-    private final boolean isYourTurn;
+    private final String nextPlayer;
 
-    public GameStartNotify(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, boolean isYourTurn) {
+    public GameStartNotify(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
         this.board = board;
         this.commonGoals = commonGoals;
         this.personalGoal = personalGoal;
-        this.isYourTurn = isYourTurn;
+        this.nextPlayer = nextPlayer;
     }
 
     public Board getBoard() {
@@ -32,8 +32,8 @@ public class GameStartNotify implements ServerMessage {
         return personalGoal;
     }
 
-    public boolean getIsYourTurn() {
-        return isYourTurn;
+    public String getNextPlayer() {
+        return nextPlayer;
     }
 
     @Override

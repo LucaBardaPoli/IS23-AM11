@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.goals;
 import it.polimi.ingsw.model.*;
 
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable {
@@ -15,7 +14,7 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
      * @return true whether the diagonal exists
      */
     private boolean checkDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Integer limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
+        int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
         Tile tile;
         Tile currentType;
 
@@ -46,7 +45,7 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
      * @return true whether the anti-diagonal exists
      */
     private boolean checkAntidiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
-        Integer limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
+        int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
         Tile tile;
         Tile currentType;
 

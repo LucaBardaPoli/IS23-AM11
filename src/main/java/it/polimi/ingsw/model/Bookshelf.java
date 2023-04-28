@@ -3,7 +3,6 @@ package it.polimi.ingsw.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Bookshelf implements Serializable {
     private final Tile[][] bookshelf;

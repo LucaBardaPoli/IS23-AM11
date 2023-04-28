@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.*;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {

@@ -10,8 +10,8 @@ import java.rmi.RemoteException;
 public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMIInterface {
     private ClientRMIInterface client;
 
-    public ClientHandlerRMI() {
-        super();
+    public ClientHandlerRMI(PingPongHandler pingPongHandler) {
+        super(pingPongHandler);
     }
 
     public void registerClient(ClientRMIInterface client) throws RemoteException {
@@ -32,8 +32,10 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
         }
     }
 
+    public void close() {
+    }
+
     @Override
     public void handle(PongMessage message) {
-        ;
     }
 }

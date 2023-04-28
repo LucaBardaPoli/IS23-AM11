@@ -11,13 +11,10 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
     private final Socket socket;
     private final ObjectInputStream inputStream;
     private final ObjectOutputStream outputStream;
-    private final PingPongHandler pingPongHandler;
 
     public ClientHandlerTCP(Socket socket, PingPongHandler pingPongHandler) throws IOException {
-        super();
+        super(pingPongHandler);
         this.socket = socket;
-        this.pingPongHandler = pingPongHandler;
-        this.pingPongHandler.setClientHandlerTCP(this);
         this.inputStream = new ObjectInputStream(socket.getInputStream());
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         this.outputStream.flush();
@@ -46,11 +43,14 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
         }
     }
 
-    public void close() throws IOException {
+    public void close() {
         this.stopConnection = true;
-        this.outputStream.close();
-        this.inputStream.close();
-        this.socket.close();
+        try {
+            this.outputStream.close();
+            this.inputStream.close();
+            this.socket.close();
+        } catch(IOException e) {
+        }
     }
 
     @Override

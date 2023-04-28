@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.goals;
 
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.function.Predicate;
 import it.polimi.ingsw.model.Bookshelf;
 import it.polimi.ingsw.model.GameSettings;

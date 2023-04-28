@@ -7,7 +7,6 @@ import it.polimi.ingsw.network.RMIListenerInterface;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -54,9 +53,7 @@ public class ServerController {
             try {
                 System.out.println("Waiting...");
                 Socket socket = this.serverSocket.accept();
-                PingPongHandler pingPongHandler = new PingPongHandler(socket);
-                this.executors.submit(pingPongHandler);
-                this.executors.submit(new ClientHandlerTCP(socket, pingPongHandler));
+                this.executors.submit(new ClientHandlerTCP(socket, new PingPongHandler()));
                 System.out.println("New TCP client accepted");
             } catch(IOException e) {
                 e.printStackTrace();
@@ -74,7 +71,4 @@ public class ServerController {
         }
         this.executors.shutdown();
     }
-
-
-
 }

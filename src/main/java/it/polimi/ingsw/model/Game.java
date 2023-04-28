@@ -205,7 +205,7 @@ public class Game implements Serializable {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that the number of picked cards is lower than the limit
             if (this.pickedTiles.size() < GameSettings.MAX_SELECTABLE_CARDS) {
-                if(this.board.validPick(position)) {
+                if(this.board.validPick(position) && !this.pickedTilesPositions.contains(position)) {
                     if (!this.pickedTiles.isEmpty()) {
                         boolean areAlignedOnRow = true;
                         for (Position p : this.pickedTilesPositions) {

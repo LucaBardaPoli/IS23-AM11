@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Optional;
 
 public class Board implements Serializable {
     private final HashMap<Position, Tile> board;
@@ -13,7 +12,7 @@ public class Board implements Serializable {
      * @param numPlayers creates a different board depending on the number of players
      */
     public Board(Integer numPlayers, Bag bag) {
-        board = new HashMap<Position, Tile>();
+        this.board = new HashMap<>();
         this.bag = bag;
         this.createBoardCells(numPlayers);
     }
@@ -190,7 +189,7 @@ public class Board implements Serializable {
      */
     private boolean hasAdjacentTiles(Position position) {
         Position p = new Position(position.getRow(), position.getColumn());
-        int row = position.getRow();;
+        int row = position.getRow();
         int column = position.getColumn();
 
         p.setRow(row + 1);

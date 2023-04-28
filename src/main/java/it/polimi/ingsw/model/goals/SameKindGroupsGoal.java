@@ -3,8 +3,8 @@ package it.polimi.ingsw.model.goals;
 import it.polimi.ingsw.model.*;
 
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.function.Predicate;
+
 public class SameKindGroupsGoal implements Predicate<Bookshelf>, Serializable {
     // checks if there are at least min_groups of at least min_size tiles
     private final int min_groups;

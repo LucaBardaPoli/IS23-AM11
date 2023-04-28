@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.network.NetworkSettings;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.LaunchClient;
 import it.polimi.ingsw.network.message.ConfirmPickNotify;
@@ -32,10 +33,24 @@ public class TUIView implements View {
         this.commonGoals = commonGoals;
         this.personalGoal = personalGoal;
     }
+
+    private void showBoard() {
+        System.out.println("\nBoard:");
+        List<Position> sortedKeySet = this.board.getBoard().keySet().stream().sorted((p1, p2) -> ((p1.getRow() < p2.getRow()) ? -1 : ((p1.getRow() > p2.getRow()) ? 1 : (Integer.compare(p1.getColumn(), p2.getColumn()))))).collect(Collectors.toList());
+        for(Position p : sortedKeySet) {
+            System.out.println(p + " -> " + (this.board.getBoard().get(p) != Tile.EMPTY ? this.board.getBoard().get(p) : "empty"));
+        }
+    }
+
+    public void showUpdatedBoard(Board board) {
+        this.board = board;
+        showBoard();
+    }
+
     public void chooseTypeOfConnection() {
         System.out.println("Insert the type of connection: ");
         String connection = this.scanner.nextLine();
-        LaunchClient.openConnection(connection, "127.0.0.1", this);
+        LaunchClient.openConnection(connection, NetworkSettings.SERVER_NAME, this);
     }
 
     public void chooseUsername() {
@@ -51,11 +66,7 @@ public class TUIView implements View {
     }
 
     private void showTable() {
-        System.out.println("\nBoard:");
-        List<Position> sortedKeySet = this.board.getBoard().keySet().stream().sorted((p1, p2) -> ((p1.getRow() < p2.getRow()) ? -1 : ((p1.getRow() > p2.getRow()) ? 1 : (Integer.compare(p1.getColumn(), p2.getColumn()))))).collect(Collectors.toList());
-        for(Position p : sortedKeySet) {
-            System.out.println(p + " -> " + (this.board.getBoard().get(p) != Tile.EMPTY ? this.board.getBoard().get(p) : "empty"));
-        }
+        showBoard();
 
         System.out.println("\nCommon goals: ");
         for(CommonGoal c : this.commonGoals) {
@@ -66,15 +77,15 @@ public class TUIView implements View {
         System.out.println(this.personalGoal);
     }
 
-    public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, boolean isYourTurn) {
+    public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
         System.out.println("Game started...");
         setTable(board, commonGoals, personalGoal);
         showTable();
-        if(isYourTurn) {
+        if(nextPlayer.equals(this.clientController.getClient().getNickname())) {
             System.out.println("Your turn!");
             showPickATile();
         } else {
-            System.out.println("Waiting for the first player to start playing...");
+            System.out.println(nextPlayer + " is playing...");
         }
     }
 

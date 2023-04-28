@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.goals;
 import it.polimi.ingsw.model.*;
 
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 /**

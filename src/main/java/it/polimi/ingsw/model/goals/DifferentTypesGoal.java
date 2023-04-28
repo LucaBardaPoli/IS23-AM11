@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.Position;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
@@ -35,10 +34,10 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         int ncolumns = GameSettings.COLUMNS;
         int ntypes = Tile.values().length;
         int i, j;
-        int count_types = 0, count_rows = 0;
+        int count_types, count_rows = 0;
         boolean fullRow;
         Tile tileType;
-        //
+
         boolean[] typeFound = new boolean[ntypes];
 
         for(i = 0; i < nrows; i++){
@@ -70,7 +69,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         int ncolumns = GameSettings.COLUMNS;
         int ntypes = Tile.values().length;
         int i, j;
-        int count_types = 0, count_columns = 0;
+        int count_types, count_columns = 0;
         boolean fullColumn;
         Tile tileType;
 

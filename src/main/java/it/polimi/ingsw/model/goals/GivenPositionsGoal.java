@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Position;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.List;
 
