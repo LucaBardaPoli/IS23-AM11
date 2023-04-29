@@ -47,7 +47,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
             count_types = 0;
             for(j = 0; j < ncolumns && fullRow; j++){
                 tileType = bookshelf.getTile(new Position(i, j));
-                if(!tileType.equals(Tile.EMPTY)){
+                if(tileType != Tile.EMPTY){
                     if(!typeFound[tileType.ordinal()]){
                         count_types++;
                         typeFound[tileType.ordinal()] = true;
@@ -82,7 +82,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
             count_types = 0;
             for(i = 0; i < nrows && fullColumn; i++){
                 tileType = bookshelf.getTile(new Position(i, j));
-                if(!tileType.equals(Tile.EMPTY)){
+                if(tileType != Tile.EMPTY){
                     if(!typeFound[tileType.ordinal()]){
                         count_types++;
                         typeFound[tileType.ordinal()] = true;

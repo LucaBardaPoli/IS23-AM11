@@ -244,11 +244,11 @@ public class Game implements Serializable {
     }
 
     /**
-     * Removes the tile from the chosen ones
+     * Removes the tile from the picked ones
      * @param position position of the tile
      * @return true if the removal happened successfully, false otherwise
      */
-    public boolean removeTile(Position position) {
+    public boolean unpickTile(Position position) {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that al least one card has been already chosen
             if (!this.pickedTiles.isEmpty()) {

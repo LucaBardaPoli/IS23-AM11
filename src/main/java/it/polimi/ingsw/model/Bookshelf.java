@@ -26,13 +26,15 @@ public class Bookshelf implements Serializable {
      */
     public void addTiles(List<Tile> tiles, int column) {
 
-        int freeCells = getFreeCells(column); // k are the free cells of the considered column
+        int freeCells = getFreeCells(column); // free cells of the considered column
         int i = freeCells - 1; // i scrolls through bookshelf rows from the bottom
 
         if(freeCells >= tiles.size()){
             for(Tile obtainedTile : tiles){
-                bookshelf[i][column] = obtainedTile;
-                i--;
+                if(obtainedTile != Tile.EMPTY){
+                    bookshelf[i][column] = obtainedTile;
+                    i--;
+                }
             }
         }
     }
@@ -124,6 +126,6 @@ public class Bookshelf implements Serializable {
      * @return return the free cells given a given column
      */
     public int getFreeCells(Integer columnNumber){
-        return (GameSettings.ROWS - getColumn(columnNumber).size());
+        return (GameSettings.ROWS - this.getColumn(columnNumber).size());
     }
 }

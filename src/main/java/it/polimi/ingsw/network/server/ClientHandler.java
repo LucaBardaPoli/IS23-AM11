@@ -82,11 +82,11 @@ public abstract class ClientHandler implements Listener {
         }
     }
 
-    public void handle(RemoveTileRequest clientMessage) {
-        if(this.model.removeTile(clientMessage.getPosition())) {
-            sendMessage(new RemoveTileResponse(this.model.getPickedTiles(), true));
+    public void handle(UnpickTileRequest clientMessage) {
+        if(this.model.unpickTile(clientMessage.getPosition())) {
+            sendMessage(new UnpickTileResponse(this.model.getPickedTiles(), true));
         } else {
-            sendMessage(new RemoveTileResponse(this.model.getPickedTiles(), false));
+            sendMessage(new UnpickTileResponse(this.model.getPickedTiles(), false));
         }
     }
 

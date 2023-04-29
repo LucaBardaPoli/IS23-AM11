@@ -1080,7 +1080,7 @@ public class GameTest {
     }
 
     @Test
-    public void testValidRemoveCard1(){
+    public void testValidUnpickCard1(){
 
         Game game2;
 
@@ -1105,7 +1105,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Removes the card specified from the selection
-        game2.removeTile(positionToTest2);
+        game2.unpickTile(positionToTest2);
         // Assures that the card is still on the Board
         assert(game2.getBoard().getTile(positionToTest2) != Tile.EMPTY);
 
@@ -1126,7 +1126,7 @@ public class GameTest {
     }
 
     @Test
-    public void testValidRemoveCard2(){
+    public void testValidUnpickCard2(){
 
         Game game2;
 
@@ -1150,7 +1150,7 @@ public class GameTest {
         assertNotNull(currentPlayerBookshelf);
 
         // Removes the card specified from the selection
-        game2.removeTile(positionToTest1);
+        game2.unpickTile(positionToTest1);
         // Assures that the card is still on the Board
         assert(game2.getBoard().getTile(positionToTest1) != Tile.EMPTY);
 

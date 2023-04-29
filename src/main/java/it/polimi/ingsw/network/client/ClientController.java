@@ -59,7 +59,7 @@ public class ClientController {
         this.view.showPickATile();
     }
 
-    public void handle(RemoveTileResponse serverMessage) {
+    public void handle(UnpickTileResponse serverMessage) {
         //handle removeTileResponse
     }
 

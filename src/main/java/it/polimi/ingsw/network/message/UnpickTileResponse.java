@@ -5,11 +5,11 @@ import it.polimi.ingsw.network.client.ClientController;
 
 import java.util.List;
 
-public class RemoveTileResponse implements ServerMessage {
+public class UnpickTileResponse implements ServerMessage {
     private final List<Tile> pickedTiles;
     private final boolean successful;
 
-    public RemoveTileResponse(List<Tile> pickedTiles, boolean successful) {
+    public UnpickTileResponse(List<Tile> pickedTiles, boolean successful) {
         this.pickedTiles = pickedTiles;
         this.successful = successful;
     }

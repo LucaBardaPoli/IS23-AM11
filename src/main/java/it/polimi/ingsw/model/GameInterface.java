@@ -33,10 +33,10 @@ public interface GameInterface {
     public Optional<Tile> pickCard(Position position);
 
     /**
-     * Removes the card from the chosen ones
+     * Removes the card from the picked ones
      * @param position position of the card
      */
-    public void removeCard(Position position);
+    public void unpickCard(Position position);
 
     /**
      * Checks if the picked cards are a valid combination

@@ -10,5 +10,5 @@ public enum Tile implements Serializable {
     WHITE,
     YELLOW,
     EMPTY;
-    static final int numColors = (Tile.values().length - 1);
+    public static final int numColors = (Tile.values().length - 1);
 }

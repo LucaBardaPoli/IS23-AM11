@@ -10,7 +10,7 @@ public class LaunchClient {
         View view;
         if (args.length > 0 && args[0].equalsIgnoreCase("TUI")) {
             view = new GUIView();
-        } else { // Default is tui
+        } else { // D00efault is tui
             view = new TUIView();
         }
         view.chooseTypeOfConnection();

@@ -3,10 +3,10 @@ package it.polimi.ingsw.network.message;
 import it.polimi.ingsw.model.Position;
 import it.polimi.ingsw.network.server.ClientHandler;
 
-public class RemoveTileRequest implements ClientMessage {
+public class UnpickTileRequest implements ClientMessage {
     private final Position position;
 
-    public RemoveTileRequest(Position position) {
+    public UnpickTileRequest(Position position) {
         this.position = position;
     }
 
