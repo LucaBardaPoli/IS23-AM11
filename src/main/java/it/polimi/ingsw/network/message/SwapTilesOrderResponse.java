@@ -7,18 +7,18 @@ import java.util.List;
 
 public class SwapTilesOrderResponse implements ServerMessage {
     private final List<Tile> pickedCards;
-    private final boolean valid;
-    public SwapTilesOrderResponse(List<Tile> pickedCards, boolean valid) {
+    private final boolean successful;
+    public SwapTilesOrderResponse(List<Tile> pickedCards, boolean successful) {
         this.pickedCards = pickedCards;
-        this.valid = valid;
+        this.successful = successful;
     }
 
     public List<Tile> getPickedCards() {
         return pickedCards;
     }
 
-    public boolean getValid() {
-        return valid;
+    public boolean getSuccessful() {
+        return successful;
     }
 
     @Override

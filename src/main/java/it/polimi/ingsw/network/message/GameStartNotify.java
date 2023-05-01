@@ -11,12 +11,14 @@ public class GameStartNotify implements ServerMessage {
     private final Board board;
     private final List<CommonGoal> commonGoals;
     private final PersonalGoal personalGoal;
+    private final List<String> players;
     private final String nextPlayer;
 
-    public GameStartNotify(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
+    public GameStartNotify(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, List<String> players, String nextPlayer) {
         this.board = board;
         this.commonGoals = commonGoals;
         this.personalGoal = personalGoal;
+        this.players = players;
         this.nextPlayer = nextPlayer;
     }
 
@@ -30,6 +32,10 @@ public class GameStartNotify implements ServerMessage {
 
     public PersonalGoal getPersonalGoal() {
         return personalGoal;
+    }
+
+    public List<String> getPlayers() {
+        return players;
     }
 
     public String getNextPlayer() {

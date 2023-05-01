@@ -1,12 +1,14 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.LobbyManager;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.message.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class ClientHandler implements Listener {
     private String nickname;
@@ -37,7 +39,7 @@ public abstract class ClientHandler implements Listener {
     public void initGame(Game model, List<ClientHandler> lobby) {
         this.model = model;
         this.lobby = lobby;
-        sendMessage(new GameStartNotify(this.model.getBoard(), new ArrayList<>(this.model.getCommonGoals()), this.model.getPersonalGoal(this.nickname).get(), this.model.getCurrentPlayer().getNickname()));
+        sendMessage(new GameStartNotify(this.model.getBoard(), new ArrayList<>(this.model.getCommonGoals()), this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
     }
 
     public void setEventListener(EventListener eventListener) {
@@ -93,7 +95,7 @@ public abstract class ClientHandler implements Listener {
     //confirms the set of cards picked previously by the player and goes on to get them from the board
     public void handle(ConfirmPickNotify clientMessage) {
         this.model.confirmPick();
-        this.eventListener.notifyListeners(new NewBoardNotify(this.model.getBoard()));
+        this.eventListener.notifyListeners(new NewBoardNotify(this.model.getBoard(), this.model.getPickedTiles(), this.model.getCurrentPlayer().getNickname()));
     }
 
     //confirms the column selected by the player
@@ -109,7 +111,7 @@ public abstract class ClientHandler implements Listener {
     //confirms the order of the cards that was previously selected
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
-        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getCurrentPlayer().getNickname()));
+        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
     }
 
     public void handle(ChatMessage clientMessage) {

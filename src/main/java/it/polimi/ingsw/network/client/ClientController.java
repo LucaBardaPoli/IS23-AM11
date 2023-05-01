@@ -34,7 +34,7 @@ public class ClientController {
 
     // Handles all kind of Server messages
     public void handle(LoginResponse serverMessage) {
-        if (serverMessage.getNickname() == null) {
+        if(serverMessage.getNickname() == null) {
             this.view.chooseUsername();
         } else {
             this.client.setNickname(serverMessage.getNickname());
@@ -47,6 +47,7 @@ public class ClientController {
     }
 
     public void handle(GameStartNotify serverMessage) {
+        this.view.setPlayers(serverMessage.getPlayers());
         this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
     }
 
@@ -60,23 +61,47 @@ public class ClientController {
     }
 
     public void handle(UnpickTileResponse serverMessage) {
-        //handle removeTileResponse
+        if(serverMessage.isSuccessful()) {
+            this.view.showValidUnpick();
+        } else {
+            this.view.showInvalidUnpick();
+        }
+        this.view.showPickATile();
     }
 
     public void handle(NewBoardNotify serverMessage) {
-        this.view.showUpdatedBoard(serverMessage.getBoard());
+        this.view.updateBoard(serverMessage.getBoard());
+        this.view.updatePickedTiles(serverMessage.getPickedTiles());
+        this.view.showBookshelf(serverMessage.getPlayer());
+        this.view.showChooseColumn();
     }
 
     public void handle(ConfirmColumnResponse serverMessage) {
-        //handle confirmColumnResponse
+        if(serverMessage.getValid()) {
+            this.view.showValidColumn();
+            this.view.showSwapTilesOrder();
+        } else {
+            this.view.showInvalidColumn();
+            this.view.showChooseColumn();
+        }
     }
 
     public void handle(SwapTilesOrderResponse serverMessage) {
-        //handle swapTilesOrderResponse
+        if(serverMessage.getSuccessful()) {
+            this.view.showValidSwap();
+        } else {
+            this.view.showInvalidSwap();
+        }
+        this.view.updatePickedTiles(serverMessage.getPickedCards());
+        this.view.showSwapTilesOrder();
     }
 
     public void handle(EndTurnNotify serverMessage) {
         //handle endTurnNotify
+        this.view.endTurn();
+        this.view.updateBookshelf(serverMessage.getPlayer(), serverMessage.getBookshelf());
+        this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
+        this.view.startTurn(serverMessage.getNextPlayer());
     }
 
     public void handle(GameResultNotify serverMessage) {
