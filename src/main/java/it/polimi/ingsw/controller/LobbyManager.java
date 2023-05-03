@@ -85,6 +85,10 @@ public class LobbyManager implements Serializable {
         this.currentGameNumPlayers = GameSettings.MIN_NUM_PLAYERS;
     }
 
+    public void removeGame(Game game) {
+        this.games.remove(game);
+    }
+
     /**
      * Checks if the given nickname is already used
      * @param nickname new nickname
@@ -137,11 +141,11 @@ public class LobbyManager implements Serializable {
 
     /**
      * Removes a player from the lobby
-     * @param nickname of the player which must be removed
+     * @param client of the player which must be removed
      */
-    /*public void removePlayer(String nickname) {
-        this.lobby.remove(nickname);
-    }*/
+    public void removePlayer(ClientHandler client) {
+        this.lobby.remove(client);
+    }
 
     /**
      * Creates the personal goals of the game

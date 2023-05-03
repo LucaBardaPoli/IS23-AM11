@@ -3,10 +3,15 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUIView implements View {
     private ClientController clientController;
+
+    public List<String> getPlayers() {
+        return new ArrayList<>();
+    }
 
     public void setClientController(ClientController clientController) {
         this.clientController = clientController;
@@ -21,7 +26,7 @@ public class GUIView implements View {
     public void chooseTypeOfConnection() {
     }
 
-    public void chooseUsername() {
+    public void chooseNickname() {
     }
 
     public void chooseNumPlayers() {
@@ -79,5 +84,14 @@ public class GUIView implements View {
     }
 
     public void endTurn() {
+    }
+
+    public void showNewChatMessageUnicast(String sender, String message) {
+    }
+
+    public void showNewChatMessageBroadcast(String sender, String message) {
+    }
+
+    public void showPlayerDisconnected(String disconnectedPlayer) {
     }
 }

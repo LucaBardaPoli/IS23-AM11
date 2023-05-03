@@ -20,6 +20,11 @@ public class EventListener {
         this.listeners.add(listener);
     }
 
+
+    public void removeListener(Listener listener) {
+        this.listeners.remove(listener);
+    }
+
     public void notifyListeners(ServerMessage serverMessage) {
         for(Listener l : this.listeners) {
             l.notify(serverMessage);

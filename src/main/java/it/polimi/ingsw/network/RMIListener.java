@@ -17,8 +17,7 @@ public class RMIListener implements RMIListenerInterface {
     }
 
     public ClientHandlerRMIInterface getHandler() throws RemoteException {
-        PingPongHandler pingPongHandler = new PingPongHandler();
-        ClientHandlerRMI handler = new ClientHandlerRMI(pingPongHandler);
+        ClientHandlerRMI handler = new ClientHandlerRMI(new PingPongHandler());
         this.handlers.add(handler);
         System.out.println("New RMI client accepted");
         return (ClientHandlerRMIInterface) UnicastRemoteObject.exportObject(handler, NetworkSettings.SERVER_PORT_RMI);

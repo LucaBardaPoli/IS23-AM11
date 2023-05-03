@@ -7,16 +7,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientTCP extends Client {
     private final int port;
     private Socket socket;
+    private final ExecutorService executors;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
 
     public ClientTCP(String serverIp, int port) {
         super(serverIp);
         this.port = port;
+        this.executors = Executors.newCachedThreadPool();
     }
 
     public void openConnection() {
@@ -25,23 +29,21 @@ public class ClientTCP extends Client {
             this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
             this.inputStream = new ObjectInputStream(this.socket.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            close();
         }
     }
 
-    public void startListening() {
-        new Thread(() -> {
-            try {
-                while (!stopConnection) {
-                    ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();
-                    serverMessage.handle(this.controller);
-                }
-                this.inputStream.close();
-                this.outputStream.close();
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+    public void start() {
+        try {
+            while (!stopConnection) {
+                ServerMessage serverMessage = (ServerMessage) this.inputStream.readObject();
+                this.executors.submit(() -> serverMessage.handle(this.controller));
             }
-        }).start();
+        } catch (IOException | ClassNotFoundException ignored) {
+            ;
+        } finally {
+            this.close();
+        }
     }
 
     public void sendMessage(ClientMessage clientMessage) {
@@ -50,7 +52,20 @@ public class ClientTCP extends Client {
             this.outputStream.flush();
             this.outputStream.writeObject(clientMessage);
         } catch(IOException e) {
-            e.printStackTrace();
+            this.close();
+        }
+    }
+
+    public void close() {
+        System.out.println("Closing connection with the server...");
+        this.stopConnection = true;
+        try {
+            this.executors.shutdownNow();
+            this.inputStream.close();
+            this.outputStream.close();
+            this.socket.close();
+        } catch (IOException e) {
+            ;
         }
     }
 }

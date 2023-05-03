@@ -6,11 +6,12 @@ import it.polimi.ingsw.network.client.ClientController;
 import java.util.List;
 
 public interface View {
+    List<String> getPlayers();
     void setClientController(ClientController clientController);
     void updateBookshelf(String player, Bookshelf bookshelf);
     void updateBoard(Board board);
     void chooseTypeOfConnection();
-    void chooseUsername();
+    void chooseNickname();
     void chooseNumPlayers();
     void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
@@ -30,4 +31,7 @@ public interface View {
     void updatePoints(String player, int points);
     void startTurn(String player);
     void endTurn();
+    void showNewChatMessageUnicast(String sender, String message);
+    void showNewChatMessageBroadcast(String sender, String message);
+    void showPlayerDisconnected(String disconnectedPlayer);
 }

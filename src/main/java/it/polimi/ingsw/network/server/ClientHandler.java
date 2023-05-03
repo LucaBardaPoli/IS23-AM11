@@ -14,9 +14,9 @@ public abstract class ClientHandler implements Listener {
     private String nickname;
     private int numPlayers;
     protected LobbyManager lobbyManager;
-    private List<ClientHandler> lobby;
+    protected List<ClientHandler> lobby;
     protected Game model;
-    private EventListener eventListener;
+    protected EventListener eventListener;
     protected PingPongHandler pingPongHandler;
     protected boolean stopConnection;
 
@@ -25,7 +25,7 @@ public abstract class ClientHandler implements Listener {
         this.stopConnection = false;
         this.pingPongHandler = pingPongHandler;
         this.pingPongHandler.setClientHandler(this);
-        this.pingPongHandler.run();
+        new Thread(this.pingPongHandler).start();
     }
 
     public String getNickname() {
@@ -39,7 +39,7 @@ public abstract class ClientHandler implements Listener {
     public void initGame(Game model, List<ClientHandler> lobby) {
         this.model = model;
         this.lobby = lobby;
-        sendMessage(new GameStartNotify(this.model.getBoard(), new ArrayList<>(this.model.getCommonGoals()), this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
+        this.sendMessage(new GameStartNotify(this.model.getBoard(), new ArrayList<>(this.model.getCommonGoals()), this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
     }
 
     public void setEventListener(EventListener eventListener) {
@@ -47,8 +47,6 @@ public abstract class ClientHandler implements Listener {
     }
 
     public abstract void sendMessage(ServerMessage serverMessage);
-
-    public abstract void handle(PongMessage message);
 
     //connecting a new player checking if the username is either valid or not
     public void handle(LoginRequest clientMessage) {
@@ -126,9 +124,33 @@ public abstract class ClientHandler implements Listener {
         this.eventListener.notifyListeners(clientMessage);
     }
 
+    public void handle(PongMessage clientMessage) {
+        this.pingPongHandler.notifyReceivedMessage();
+        System.out.println("Pong received");
+    }
+
     public void notify(ServerMessage serverMessage) {
         sendMessage(serverMessage);
     }
 
-    public abstract void close();
+    public void close() {
+        this.stopConnection = true;
+        this.pingPongHandler.stopPing();
+    }
+
+    public void initClose() {
+        System.out.println("Closing connection with " + this.nickname + "...");
+        try {
+            this.lobbyManager.removePlayer(this);
+            this.lobbyManager.removeGame(this.model);
+            this.eventListener.removeListener(this);
+            this.eventListener.notifyListeners(new PlayerDisconnectedNotify(this.nickname));
+            this.lobby.remove(this);
+            for (ClientHandler clientHandler : this.lobby) {
+                clientHandler.close();
+            }
+        } catch(Exception e) {
+        }
+    }
+
 }

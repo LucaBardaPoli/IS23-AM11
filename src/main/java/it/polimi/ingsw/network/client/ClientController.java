@@ -18,9 +18,9 @@ public class ClientController {
         return this.client;
     }
 
-    public void run() {
-        this.client.startListening();
-        this.view.chooseUsername();
+    public void initController() {
+        this.view.chooseNickname();
+        this.client.start();
     }
 
     public void sendMessage(ClientMessage clientMessage) {
@@ -29,26 +29,26 @@ public class ClientController {
 
     public void handle(PingMessage message) {
         this.client.sendMessage(new PongMessage());
-        System.out.println("Ping received");
+        //System.out.println("Ping received");
     }
 
     // Handles all kind of Server messages
     public void handle(LoginResponse serverMessage) {
         if(serverMessage.getNickname() == null) {
-            this.view.chooseUsername();
+            this.view.chooseNickname();
         } else {
             this.client.setNickname(serverMessage.getNickname());
         }
     }
 
     public void handle(NumPlayersRequest serverMessage) {
-        //new Thread(this.view::chooseNumPlayers).start();
         this.view.chooseNumPlayers();
     }
 
     public void handle(GameStartNotify serverMessage) {
         this.view.setPlayers(serverMessage.getPlayers());
         this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
+        this.view.startTurn(serverMessage.getNextPlayer());
     }
 
     public void handle(PickTileResponse serverMessage) {
@@ -72,7 +72,6 @@ public class ClientController {
     public void handle(NewBoardNotify serverMessage) {
         this.view.updateBoard(serverMessage.getBoard());
         this.view.updatePickedTiles(serverMessage.getPickedTiles());
-        this.view.showBookshelf(serverMessage.getPlayer());
         this.view.showChooseColumn();
     }
 
@@ -97,10 +96,9 @@ public class ClientController {
     }
 
     public void handle(EndTurnNotify serverMessage) {
-        //handle endTurnNotify
-        this.view.endTurn();
         this.view.updateBookshelf(serverMessage.getPlayer(), serverMessage.getBookshelf());
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
+        this.view.endTurn();
         this.view.startTurn(serverMessage.getNextPlayer());
     }
 
@@ -110,8 +108,17 @@ public class ClientController {
 
     public void handle(ChatMessage serverMessage) {
         if(!this.client.getNickname().equals(serverMessage.getPlayer())) {
-            //show on chat box
+            if(this.view.getPlayers().contains(serverMessage.getReceiver())) {
+                this.view.showNewChatMessageUnicast(serverMessage.getPlayer(), serverMessage.getTextMessage());
+            } else {
+                this.view.showNewChatMessageBroadcast(serverMessage.getPlayer(), serverMessage.getTextMessage());
+            }
         }
+    }
+
+    public void handle(PlayerDisconnectedNotify serverMessage) {
+        this.view.showPlayerDisconnected(serverMessage.getDisconnectedPlayer());
+        this.client.close();
     }
 }
 

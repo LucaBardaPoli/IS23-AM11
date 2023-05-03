@@ -18,29 +18,21 @@ public class TUIView implements View {
     private Map<String, Integer> points;
     private String currentPlayer;
     private final Scanner scanner;
-
+    // Colors
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     public TUIView() {
-        super();
         this.scanner = new Scanner(System.in);
+    }
+
+    public List<String> getPlayers() {
+        return new ArrayList<>(this.points.keySet());
     }
 
     public void setClientController(ClientController clientController) {
@@ -63,7 +55,7 @@ public class TUIView implements View {
                 System.out.print(ANSI_PURPLE + "\u25A0" + ANSI_RESET);
                 break;
             case WHITE:
-                System.out.print(ANSI_WHITE + "\u25A0" + ANSI_RESET);
+                System.out.print("\u25A0");
                 break;
             case YELLOW:
                 System.out.print(ANSI_YELLOW + "\u25A0" + ANSI_RESET);
@@ -81,7 +73,7 @@ public class TUIView implements View {
     }
 
     private void showBoard() {
-        System.out.println("\nBoard:");
+        System.out.println("Board:");
 
         // Fist row with indexes
         System.out.print("  ");
@@ -109,16 +101,60 @@ public class TUIView implements View {
             }
             System.out.print("\n");
         }
+        System.out.println("");
+    }
+
+    public void showBookshelf(String player) {
+        System.out.println(player + "'s bookshelf: ");
+
+        // Fist row with indexes
+        for(int i=0; i<=4; i++) {
+            System.out.print(" " + i + " ");
+        }
+        System.out.print("\n");
+
+        // Bookshelf
+        for(int i=0; i<=5; i++) {
+            for(int j=0; j<=4; j++) {
+                System.out.print(" ");
+                printTile(this.bookshelves.get(player).getTile(new Position(i, j)));
+                System.out.print(" ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("");
+    }
+
+    private void showPersonalGoal() {
+        System.out.println("Your personal goal: ");
+        Position position;
+        for(int i=0; i<=5; i++) {
+            for(int j=0; j<=4; j++) {
+                System.out.print(" ");
+                position = new Position(i, j);
+                if(this.personalGoal.getPositions().contains(position)) {
+                    printTile(this.personalGoal.getTiles().get(this.personalGoal.getPositions().indexOf(position)));
+                } else {
+                    printTile(Tile.EMPTY);
+                }
+                System.out.print(" ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("Rewards:");
+        System.out.println("Tiles | Points");
+        for(Map.Entry<Integer, Integer> entry : this.personalGoal.getRewards().entrySet()) {
+            System.out.println("  " + entry.getKey() + "   |   " + entry.getValue());
+        }
+        System.out.println("");
     }
 
     public void updateBoard(Board board) {
         this.board = board;
-        showBoard();
     }
 
     public void updateBookshelf(String player, Bookshelf bookshelf) {
         this.bookshelves.replace(player, bookshelf);
-        showBookshelf(player);
     }
 
     public void chooseTypeOfConnection() {
@@ -127,7 +163,7 @@ public class TUIView implements View {
         LaunchClient.openConnection(connection, NetworkSettings.SERVER_NAME, this);
     }
 
-    public void chooseUsername() {
+    public void chooseNickname() {
         System.out.println("Insert a nickname: ");
         String nickname = this.scanner.nextLine();
         this.clientController.getClient().sendMessage(new LoginRequest(nickname));
@@ -136,28 +172,26 @@ public class TUIView implements View {
     public void chooseNumPlayers() {
         System.out.println("Insert the number of players of the game: ");
         int numPlayers = this.scanner.nextInt();
+        //this.scanner.nextLine();
         this.clientController.getClient().sendMessage(new NumPlayersResponse(numPlayers));
     }
 
     private void showTable() {
         showBoard();
-        showBookshelf(this.clientController.getClient().getNickname());
 
         System.out.println("\nCommon goals: ");
         for(CommonGoal c : this.commonGoals) {
             System.out.println(c);
         }
+        System.out.println("");
 
-        System.out.println("\nYour personal goal: ");
-        System.out.println(this.personalGoal);
+        showPersonalGoal();
     }
 
     public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
         System.out.println("Game started...");
         setTable(board, commonGoals, personalGoal);
         showTable();
-        this.currentPlayer = nextPlayer;
-        startTurn(nextPlayer);
     }
 
     public void setPlayers(List<String> players) {
@@ -170,20 +204,29 @@ public class TUIView implements View {
     }
 
     public void showPickATile() {
-        //System.out.println("Pick a tile. Type P (x, y) to pick a tile, U (x, y to unpick a tile, C to confirm the picked tiles, S to show table: ");
-        System.out.println("Pick a tile (Type C to confirm the picked tiles, S to show table): ");
-        String s = this.scanner.next();
-        if(s.equals("C")) {
-            this.clientController.sendMessage(new ConfirmPickNotify());
-        } else if(s.equals("S")) {
-            showTable();
-            showPickATile();
-        } else {
-            Position position = new Position();
-            position.setRow(Integer.parseInt(s));
-            position.setColumn(scanner.nextInt());
-            this.clientController.sendMessage(new PickTileRequest(position));
-        }
+        boolean tilesPicked = false;
+
+        do {
+            //System.out.println("Pick a tile. Type P (x, y) to pick a tile, U (x, y to unpick a tile, C to confirm the picked tiles, S to show table: ");
+            System.out.println("Pick a tile (Type C to confirm the picked tiles, S to show table): ");
+            String s = this.scanner.next();
+            if (s.equals("C")) {
+                this.clientController.sendMessage(new ConfirmPickNotify());
+                tilesPicked = true;
+            } else if (s.equals("S")) {
+                showTable();
+            } else {
+                try {
+                    Position position = new Position();
+                    position.setRow(Integer.parseInt(s));
+                    position.setColumn(scanner.nextInt());
+                    this.clientController.sendMessage(new PickTileRequest(position));
+                    tilesPicked = true;
+                } catch(NumberFormatException e) {
+                    System.out.println("Not a number!");
+                }
+            }
+        } while(!tilesPicked);
     }
 
     public void showValidPick() {
@@ -204,6 +247,7 @@ public class TUIView implements View {
 
     private void showPickedTiles() {
         System.out.println("Picked tiles: ");
+        System.out.println("Indexes :");
         for(int i=0; i<this.pickedTiles.size(); i++) {
             System.out.print(i + " ");
         }
@@ -215,38 +259,31 @@ public class TUIView implements View {
         System.out.print("\n");
     }
 
-    public void showBookshelf(String player) {
-        System.out.println("\n" + player + "'s bookshelf: ");
-
-        // Fist row with indexes
-        for(int i=0; i<=4; i++) {
-            System.out.print(" " + i + " ");
-        }
-        System.out.print("\n");
-
-        // Bookshelf
-        for(int i=0; i<=5; i++) {
-            for(int j=0; j<=4; j++) {
-                System.out.print(" ");
-                printTile(this.bookshelves.get(player).getTile(new Position(i, j)));
-                System.out.print(" ");
-            }
-            System.out.print("\n");
-        }
-    }
-
     public void updatePickedTiles(List<Tile> pickedTiles) {
         if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
             this.pickedTiles = pickedTiles;
-            showPickedTiles();
         }
     }
 
     public void showChooseColumn() {
         if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-            System.out.println("Choose the column where to insert the picked tiles: ");
-            int column = this.scanner.nextInt();
-            this.clientController.getClient().sendMessage(new ConfirmColumnRequest(column));
+            boolean confirmedColumn = false;
+
+            do {
+                System.out.println("Confirm the column where to insert the picked tiles (Type S to show the table): ");
+                String s = this.scanner.next();
+                if (s.equals("S")) {
+                    showBookshelf(this.currentPlayer);
+                    showPersonalGoal();
+                } else {
+                    try {
+                        this.clientController.sendMessage(new ConfirmColumnRequest(Integer.parseInt(s)));
+                        confirmedColumn = true;
+                    } catch(NumberFormatException e) {
+                        System.out.println("Not a number!");
+                    }
+                }
+            } while(!confirmedColumn);
         }
     }
 
@@ -259,16 +296,27 @@ public class TUIView implements View {
     }
 
     public void showSwapTilesOrder() {
-        System.out.println("Swap the tiles (Type C to confirm the order, S to show table): ");
-        String s = this.scanner.next();
-        if(s.equals("C")) {
-            this.clientController.sendMessage(new ConfirmOrderNotify());
-        } else if(s.equals("S")) {
-            showTable();
-            showSwapTilesOrder();
-        } else {
-            this.clientController.sendMessage(new SwapTilesOrderRequest(Integer.parseInt(s)));
-        }
+        boolean confirmedTiles = false;
+
+        do {
+            System.out.println("Swap the tiles (Type C to confirm the order, S to show table): ");
+            String s = this.scanner.next();
+            if (s.equals("C")) {
+                this.clientController.sendMessage(new ConfirmOrderNotify());
+                confirmedTiles = true;
+            } else if (s.equals("S")) {
+                showBookshelf(this.currentPlayer);
+                showPersonalGoal();
+                showPickedTiles();
+            } else {
+                try {
+                    this.clientController.sendMessage(new SwapTilesOrderRequest(Integer.parseInt(s)));
+                    confirmedTiles = true;
+                } catch(NumberFormatException e) {
+                    System.out.println("Not a number!");
+                }
+            }
+        } while(!confirmedTiles);
     }
 
     public void showValidSwap() {
@@ -288,18 +336,51 @@ public class TUIView implements View {
 
     public void updatePoints(String player, int points) {
         this.points.replace(player, points);
-        showPoints();
+    }
+
+    private void showWriteMessage() {
+        System.out.println("Type a message: ");
+        String message = this.scanner.nextLine();
+        System.out.println("Type the receiver (enter to send it to everyone): ");
+        String receiver = this.scanner.nextLine();
+        if(receiver.equals("")) {
+            this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), null, message));
+        } else {
+            this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
+        }
     }
 
     public void startTurn(String player) {
+        this.currentPlayer = player;
         System.out.println(player + "'s turn");
         if(player.equals(this.clientController.getClient().getNickname())) {
             showPickATile();
+        } else {
+            //showWriteMessage();
         }
-        this.currentPlayer = player;
     }
 
     public void endTurn() {
         System.out.println(this.currentPlayer + "'s turn is over!");
+        System.out.println("New Board:");
+        showBoard();
+        System.out.println("New " + this.currentPlayer + "'s bookshelf:");
+        showBookshelf(this.currentPlayer);
+        showPoints();
+    }
+
+    public void showNewChatMessageUnicast(String sender, String message) {
+        System.out.println("Chat:");
+        System.out.println("Message from " + sender + " to " + this.clientController.getClient().getNickname() + ": " + message);
+    }
+
+    public void showNewChatMessageBroadcast(String sender, String message) {
+        System.out.println("Chat:");
+        System.out.println("Message from " + sender + " to everyone: " + message);
+    }
+
+    public void showPlayerDisconnected(String disconnectedPlayer) {
+        System.out.println(disconnectedPlayer + " has disconnected!");
+        this.scanner.close();
     }
 }

@@ -333,7 +333,7 @@ public class Game implements Serializable {
      * has filled the board
      */
     private void updatePoints() {
-        if (this.gameStatus.equals(GameStatus.UPDATE_POINTS)) {
+        if(this.gameStatus.equals(GameStatus.UPDATE_POINTS)) {
             if (this.players.get(this.turn).checkBookshelf(this.commonGoals)) {
                 this.isLastTurn = true;
             }

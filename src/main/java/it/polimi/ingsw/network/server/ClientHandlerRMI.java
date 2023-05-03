@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.client.ClientRMIInterface;
 import it.polimi.ingsw.network.message.ClientMessage;
-import it.polimi.ingsw.network.message.PongMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.rmi.RemoteException;
@@ -25,17 +24,20 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
 
     // Send all kind of Server messages
     public void sendMessage(ServerMessage serverMessage) {
-        try {
-            this.client.receiveMessage(serverMessage);
-        } catch(RemoteException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                this.client.receiveMessage(serverMessage);
+            } catch(RemoteException e) {
+                this.initClose();
+            }
+        }).start();
     }
 
     public void close() {
+        super.close();
     }
 
-    @Override
-    public void handle(PongMessage message) {
+    public void initClose() {
+        super.initClose();
     }
 }

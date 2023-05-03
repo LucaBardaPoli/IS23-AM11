@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.message.ClientMessage;
-import it.polimi.ingsw.network.message.PongMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.io.*;
@@ -26,10 +25,9 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
                 ClientMessage clientMessage = (ClientMessage) this.inputStream.readObject();
                 clientMessage.handle(this);
             }
-            this.inputStream.close();
-            this.outputStream.close();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            this.pingPongHandler.stopPing();
+            this.initClose();
         }
     }
 
@@ -39,23 +37,28 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
             this.outputStream.flush();
             this.outputStream.writeObject(serverMessage);
         } catch (IOException e) {
-            e.printStackTrace();
+            initClose();
         }
     }
 
     public void close() {
-        this.stopConnection = true;
+        super.close();
         try {
-            this.outputStream.close();
-            this.inputStream.close();
+            if(this.outputStream != null) {
+                this.outputStream.close();
+            }
+            if(this.inputStream != null) {
+                this.inputStream.close();
+            }
             this.socket.close();
         } catch(IOException e) {
+            ;
         }
     }
 
-    @Override
-    public void handle(PongMessage message) {
-        this.pingPongHandler.notifyReceivedMessage();
-        System.out.println("Pong received");
+    public void initClose() {
+        super.initClose();
+        this.stopConnection = true;
+        this.close();
     }
 }

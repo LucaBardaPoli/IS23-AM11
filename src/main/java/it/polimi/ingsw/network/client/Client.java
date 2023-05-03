@@ -16,17 +16,19 @@ public abstract class Client {
     public String getNickname() {
         return this.nickname;
     }
+
     public void setController(ClientController clientController) {
         this.controller = clientController;
     }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
     public abstract void openConnection();
 
-    public abstract void startListening();
+    public abstract void start();
 
     public abstract void sendMessage(ClientMessage clientMessage);
+
+    public abstract void close();
 }

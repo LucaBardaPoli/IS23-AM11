@@ -10,7 +10,7 @@ public class LaunchClient {
         View view;
         if (args.length > 0 && args[0].equalsIgnoreCase("TUI")) {
             view = new GUIView();
-        } else { // D00efault is tui
+        } else { // Default is tui
             view = new TUIView();
         }
         view.chooseTypeOfConnection();
@@ -26,6 +26,6 @@ public class LaunchClient {
         client.openConnection();
 
         ClientController clientController = new ClientController(client, view);
-        clientController.run();
+        clientController.initController();
     }
 }

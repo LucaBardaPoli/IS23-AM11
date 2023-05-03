@@ -30,7 +30,7 @@ public class ServerController {
             this.serverSocket = new ServerSocket(port);
             System.out.println("Listening...");
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            this.close();
             return;
         }
 
@@ -41,7 +41,8 @@ public class ServerController {
             registry.rebind(NetworkSettings.RMI_REMOTE_OBJECT, rmiListener);
             System.out.println("Exposed remote obj...");
         } catch (RemoteException e) {
-            e.printStackTrace();
+            this.close();
+            return;
         }
 
         System.out.println("Server ready...");
@@ -56,8 +57,7 @@ public class ServerController {
                 this.executors.submit(new ClientHandlerTCP(socket, new PingPongHandler()));
                 System.out.println("New TCP client accepted");
             } catch(IOException e) {
-                e.printStackTrace();
-                close();
+                this.close();
             }
         }
     }
@@ -67,8 +67,8 @@ public class ServerController {
         try {
             this.serverSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            ;
         }
-        this.executors.shutdown();
+        this.executors.shutdownNow();
     }
 }

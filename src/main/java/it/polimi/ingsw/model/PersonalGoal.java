@@ -20,6 +20,18 @@ public class PersonalGoal implements Serializable {
         this.rewards = new HashMap<>(rewards);
     }
 
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
+    public Map<Integer, Integer> getRewards() {
+        return rewards;
+    }
+
     /**
      * Checks whether the goal is fulfilled or not
      * @param bookshelf bookshelf to check
@@ -37,17 +49,5 @@ public class PersonalGoal implements Serializable {
         }
 
         return n_tiles > 0 ? rewards.get(n_tiles): 0;
-    }
-
-    public String toString() {
-        String result = "";
-        for(int i = 0; i < this.positions.size(); i++) {
-            result += this.positions.get(i).toString() + " -> " + this.tiles.get(i) + "\n";
-        }
-        result += "Rewards: \n";
-        for(HashMap.Entry<Integer, Integer> entry : this.rewards.entrySet()) {
-            result += entry.getKey() + " -> " + entry.getValue() + "\n";
-        }
-        return result;
     }
 }
