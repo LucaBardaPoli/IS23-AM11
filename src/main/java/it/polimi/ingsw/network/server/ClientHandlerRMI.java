@@ -9,20 +9,36 @@ import java.rmi.RemoteException;
 public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMIInterface {
     private ClientRMIInterface client;
 
+    /**
+     * Class Constructor
+     * @param pingPongHandler is a thread used to handle the PingPong
+     */
     public ClientHandlerRMI(PingPongHandler pingPongHandler) {
         super(pingPongHandler);
     }
 
+    /**
+     * Registers a client
+     * @param client is the client that will be registered
+     * @throws RemoteException
+     */
     public void registerClient(ClientRMIInterface client) throws RemoteException {
         this.client = client;
     }
 
-    // Receive a Client message (corresponds to the TCP while trying to read something)
+    /**
+     * Receives a client message
+     * @param clientMessage sent by the client
+     * @throws RemoteException
+     */
     public void receiveMessage(ClientMessage clientMessage) throws RemoteException {
         clientMessage.handle(this);
     }
 
-    // Send all kind of Server messages
+    /**
+     * Sends a server message
+     * @param serverMessage sent to the client
+     */
     public void sendMessage(ServerMessage serverMessage) {
         new Thread(() -> {
             try {
@@ -33,10 +49,16 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
         }).start();
     }
 
+    /**
+     * Closes the connection
+     */
     public void close() {
         super.close();
     }
 
+    /**
+     * Initializes server shutdown
+     */
     public void initClose() {
         super.initClose();
     }

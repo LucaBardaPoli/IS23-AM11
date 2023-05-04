@@ -19,11 +19,18 @@ public class ServerController {
     private final ExecutorService executors;
     private boolean closeConnection;
 
+    /**
+     * Class Constructor
+     */
     public ServerController() {
         this.executors = Executors.newFixedThreadPool(100);
         this.closeConnection = false;
     }
 
+    /**
+     * Starts the server
+     * @param port This is the port the server listens on.
+     */
     public void startServer(int port) {
         // TCP
         try {
@@ -48,6 +55,9 @@ public class ServerController {
         System.out.println("Server ready...");
     }
 
+    /**
+     * Waits for players to connect
+     */
     public void run() {
         // We could save the handlers !!!!!!!!
         while(!this.closeConnection) {
@@ -62,6 +72,9 @@ public class ServerController {
         }
     }
 
+    /**
+     * Closes the server
+     */
     public void close() {
         this.closeConnection = true;
         try {

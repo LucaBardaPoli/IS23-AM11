@@ -6,6 +6,10 @@ import it.polimi.ingsw.view.TUIView;
 import it.polimi.ingsw.view.View;
 
 public class LaunchClient {
+    /**
+     * Main
+     * @param args
+     */
     public static void main(String[] args) {
         View view;
         if (args.length > 0 && args[0].equalsIgnoreCase("TUI")) {
@@ -16,6 +20,12 @@ public class LaunchClient {
         view.chooseTypeOfConnection();
     }
 
+    /**
+     * Opens the connection based on the chosen type
+     * @param typeOfConnection type of connection selected
+     * @param ip IP address of the client
+     * @param view view of the client
+     */
     public static void openConnection(String typeOfConnection, String ip, View view) {
         Client client;
         if(typeOfConnection.equals("RMI")) {

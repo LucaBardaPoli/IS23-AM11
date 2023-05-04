@@ -48,6 +48,10 @@ public class LobbyManager implements Serializable {
         return instance;
     }
 
+    public Object readResolve(){
+        return instance;
+    }
+
     /**
      * Getter of the lobby
      * @return the lobby

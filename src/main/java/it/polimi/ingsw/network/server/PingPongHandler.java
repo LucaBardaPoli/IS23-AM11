@@ -10,6 +10,9 @@ public class PingPongHandler implements Runnable {
     private boolean stopPing;
 
     @Override
+    /**
+     * Manages the PingPong between the Client and the Server.
+     */
     public void run() {
         stopPing = false;
         try {
@@ -48,14 +51,24 @@ public class PingPongHandler implements Runnable {
         }
     }
 
+    /**
+     * Notifies if a message is received from the Client.
+     */
     public void notifyReceivedMessage(){
         this.isReceivedMessage = true;
     }
 
+    /**
+     * Setter method: sets a ClientHandler.
+     * @param clientHandler clientHandler that will handle a specified client.
+     */
     public void setClientHandler(ClientHandler clientHandler){
         this.clientHandler = clientHandler;
     }
 
+    /**
+     * Stops the PingPong
+     */
     public void stopPing() {
         this.stopPing = true;
     }

@@ -7,5 +7,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface RMIListenerInterface extends Serializable, Remote {
+    /**
+     * Getter method
+     * @return a ClientHandlerRMI
+     * @throws RemoteException
+     */
     ClientHandlerRMIInterface getHandler() throws RemoteException;
 }
