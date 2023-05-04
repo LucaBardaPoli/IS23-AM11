@@ -117,7 +117,12 @@ public class ClientController {
      * @param serverMessage is a message sent after confirming the selection of a card.
      */
     public void handle(ConfirmPickResponse serverMessage) {
-        this.view.showChooseColumn();
+        if(serverMessage.isValid()) {
+            this.view.showChooseColumn();
+        } else {
+            this.view.showInvalidPick();
+            this.view.showPickATile();
+        }
     }
 
     /**
