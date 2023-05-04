@@ -48,6 +48,6 @@ public class PersonalGoal implements Serializable {
             }
         }
 
-        return n_tiles > 0 ? rewards.get(n_tiles): 0;
+        return n_tiles > 0 ? rewards.get(n_tiles) : 0;
     }
 }

@@ -17,7 +17,8 @@ public class TUIView implements View {
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
-    private final Scanner scanner;
+    private Scanner scanner;
+
     // Colors
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -211,7 +212,7 @@ public class TUIView implements View {
             System.out.println("Pick a tile (Type C to confirm the picked tiles, S to show table): ");
             String s = this.scanner.next();
             if (s.equals("C")) {
-                this.clientController.sendMessage(new ConfirmPickNotify());
+                this.clientController.sendMessage(new ConfirmPickRequest());
                 tilesPicked = true;
             } else if (s.equals("S")) {
                 showTable();
@@ -381,6 +382,6 @@ public class TUIView implements View {
 
     public void showPlayerDisconnected(String disconnectedPlayer) {
         System.out.println(disconnectedPlayer + " has disconnected!");
-        this.scanner.close();
+        System.out.println("Press something to close the game: ");
     }
 }

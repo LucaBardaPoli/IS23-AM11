@@ -191,7 +191,7 @@ public class Game implements Serializable {
      * @return player
      */
     public Player getLastPlayer() {
-        return this.players.get((this.turn - 1) % this.players.size());
+        return this.players.get(Math.floorMod((this.turn - 1), this.players.size()));
     }
 
     /**
@@ -270,7 +270,7 @@ public class Game implements Serializable {
      */
     public boolean confirmPick() {
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
-            if (this.pickedTiles.size() < GameSettings.MAX_SELECTABLE_CARDS && !this.pickedTiles.isEmpty()) {
+            if (this.pickedTiles.size() <= GameSettings.MAX_SELECTABLE_CARDS && !this.pickedTiles.isEmpty()) {
                 for(Position p : this.pickedTilesPositions) {
                     this.board.pickTile(p);
                 }
@@ -347,7 +347,7 @@ public class Game implements Serializable {
     private void endTurn() {
         if (this.gameStatus.equals(GameStatus.UPDATE_POINTS)) {
             if (!this.isLastTurn || this.turn < this.players.size() - 1) {
-                this.turn = (this.turn + 1) % this.players.size();
+                this.turn = Math.floorMod((this.turn + 1), this.players.size());
                 this.gameStatus = GameStatus.PICK_CARDS;
                 if(this.board.hasToBeRefilled()) {
                     this.board.fillBoard();

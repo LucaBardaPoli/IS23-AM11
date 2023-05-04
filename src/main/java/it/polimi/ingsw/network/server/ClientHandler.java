@@ -76,9 +76,9 @@ public abstract class ClientHandler implements Listener {
     //checks if the picks made by the player are available
     public void handle(PickTileRequest clientMessage) {
         if(!this.model.pickTile(clientMessage.getPosition()).equals(Tile.EMPTY)) {
-            sendMessage(new PickTileResponse(true));
+            sendMessage(new PickTileResponse(true, this.model.getPickedTiles()));
         } else {
-            sendMessage(new PickTileResponse(false));
+            sendMessage(new PickTileResponse(false, this.model.getPickedTiles()));
         }
     }
 
@@ -91,9 +91,9 @@ public abstract class ClientHandler implements Listener {
     }
 
     //confirms the set of cards picked previously by the player and goes on to get them from the board
-    public void handle(ConfirmPickNotify clientMessage) {
+    public void handle(ConfirmPickRequest clientMessage) {
         this.model.confirmPick();
-        this.eventListener.notifyListeners(new NewBoardNotify(this.model.getBoard(), this.model.getPickedTiles(), this.model.getCurrentPlayer().getNickname()));
+        sendMessage(new ConfirmPickResponse());
     }
 
     //confirms the column selected by the player
@@ -109,7 +109,7 @@ public abstract class ClientHandler implements Listener {
     //confirms the order of the cards that was previously selected
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
-        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
     }
 
     public void handle(ChatMessage clientMessage) {

@@ -3,7 +3,6 @@ package it.polimi.ingsw.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Player implements Serializable {
     private final String nickname;
@@ -95,8 +94,7 @@ public class Player implements Serializable {
      */
     public boolean checkBookshelf(List<CommonGoal> commonGoals) {
         /* Checking Personal Goal Points */
-        Optional<Integer> points = Optional.of(this.personalGoal.checkGoal(this.bookshelf));
-        points.ifPresent(integer -> this.personalGoalPoints = integer);
+        this.personalGoalPoints = this.personalGoal.checkGoal(this.bookshelf);
 
         // Checking Common Goal Points
         for(int i = 0; i < commonGoals.size(); i++) {

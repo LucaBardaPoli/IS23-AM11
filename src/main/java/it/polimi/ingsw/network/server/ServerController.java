@@ -20,7 +20,7 @@ public class ServerController {
     private boolean closeConnection;
 
     public ServerController() {
-        this.executors = Executors.newCachedThreadPool();
+        this.executors = Executors.newFixedThreadPool(100);
         this.closeConnection = false;
     }
 

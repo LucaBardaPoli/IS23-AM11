@@ -54,6 +54,7 @@ public class ClientController {
     public void handle(PickTileResponse serverMessage) {
         if(serverMessage.getValid()) {
             this.view.showValidPick();
+            this.view.updatePickedTiles(serverMessage.getPickedTiles());
         } else {
             this.view.showInvalidPick();
         }
@@ -69,9 +70,7 @@ public class ClientController {
         this.view.showPickATile();
     }
 
-    public void handle(NewBoardNotify serverMessage) {
-        this.view.updateBoard(serverMessage.getBoard());
-        this.view.updatePickedTiles(serverMessage.getPickedTiles());
+    public void handle(ConfirmPickResponse serverMessage) {
         this.view.showChooseColumn();
     }
 
@@ -96,6 +95,7 @@ public class ClientController {
     }
 
     public void handle(EndTurnNotify serverMessage) {
+        this.view.updateBoard(serverMessage.getBoard());
         this.view.updateBookshelf(serverMessage.getPlayer(), serverMessage.getBookshelf());
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
         this.view.endTurn();

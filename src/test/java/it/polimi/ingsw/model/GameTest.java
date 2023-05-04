@@ -1381,8 +1381,9 @@ public class GameTest {
         // The First player ended his turn and now is the turn of the other player
         // Clears the card selected from the previous player
         cardTypesList.clear();
-        positionToTest1 = new Position(8,1);
-        positionToTest2 = new Position(8,2);
+        positionToTest1 = new Position(1,0);
+        positionToTest2 = new Position(1, 1);
+        Position positionToTest3 = new Position(1,2);
 
         game4.pickTile(positionToTest1);
         assert(game4.getBoard().getTile(positionToTest1) != Tile.EMPTY);
@@ -1392,6 +1393,10 @@ public class GameTest {
         assert(game4.getBoard().getTile(positionToTest2) != Tile.EMPTY);
         cardTypesList.add(game4.getBoard().getTile(positionToTest2));
 
+        game4.pickTile(positionToTest3);
+        assert(game4.getBoard().getTile(positionToTest3) != Tile.EMPTY);
+        cardTypesList.add(game4.getBoard().getTile(positionToTest3));
+
         currentPlayer = game4.getCurrentPlayer();
         currentPlayerBookshelf = currentPlayer.getBookshelf();
         assertNotNull(currentPlayerBookshelf);
@@ -1399,7 +1404,7 @@ public class GameTest {
         // Confirm the choice of the selected cards
         assert (game4.confirmPick());
         // Confirm the column where to insert the selected cards
-        assert (game4.confirmColumn(1));
+        assert(game4.confirmColumn(1));
         // Insert the cards in the order decided before
         game4.confirmOrderSelectedTiles();
 
