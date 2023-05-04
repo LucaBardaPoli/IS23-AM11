@@ -71,7 +71,12 @@ public class ClientController {
     }
 
     public void handle(ConfirmPickResponse serverMessage) {
-        this.view.showChooseColumn();
+        if(serverMessage.isValid()) {
+            this.view.showChooseColumn();
+        } else {
+            this.view.showInvalidPick();
+            this.view.showPickATile();
+        }
     }
 
     public void handle(ConfirmColumnResponse serverMessage) {

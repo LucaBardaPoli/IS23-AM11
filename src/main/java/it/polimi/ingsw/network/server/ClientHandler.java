@@ -92,8 +92,7 @@ public abstract class ClientHandler implements Listener {
 
     //confirms the set of cards picked previously by the player and goes on to get them from the board
     public void handle(ConfirmPickRequest clientMessage) {
-        this.model.confirmPick();
-        sendMessage(new ConfirmPickResponse());
+        sendMessage(new ConfirmPickResponse(this.model.confirmPick()));
     }
 
     //confirms the column selected by the player
