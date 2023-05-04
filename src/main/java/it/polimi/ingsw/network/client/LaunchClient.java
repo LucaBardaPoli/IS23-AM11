@@ -8,7 +8,7 @@ import it.polimi.ingsw.view.View;
 public class LaunchClient {
     /**
      * Main
-     * @param args
+     * @param args arguments passed from command line
      */
     public static void main(String[] args) {
         View view;
@@ -17,7 +17,7 @@ public class LaunchClient {
         } else { // Default is tui
             view = new TUIView();
         }
-        view.chooseTypeOfConnection();
+        view.showChooseTypeOfConnection();
     }
 
     /**

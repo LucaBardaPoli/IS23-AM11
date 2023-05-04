@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.rmi.RemoteException;
 
+/**
+ * Server-side handler for an RMI client
+ */
 public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMIInterface {
     private ClientRMIInterface client;
 

@@ -9,10 +9,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Object exposed by the server to allow RMI-clients to get an RMI handler
+ */
 public class RMIListener implements RMIListenerInterface {
-    /**
-     * RMI listener class
-     */
     private final List<ClientHandlerRMI> handlers;
 
     /**

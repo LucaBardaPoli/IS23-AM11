@@ -23,13 +23,13 @@ public class GUIView implements View {
     public void updateBookshelf(String player, Bookshelf bookshelf) {
     }
 
-    public void chooseTypeOfConnection() {
+    public void showChooseTypeOfConnection() {
     }
 
-    public void chooseNickname() {
+    public void showChooseNickname() {
     }
 
-    public void chooseNumPlayers() {
+    public void showChooseNumPlayers() {
     }
 
     public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
@@ -60,6 +60,9 @@ public class GUIView implements View {
     }
 
     public void showChooseColumn() {
+    }
+
+    public void showNoPickedTiles() {
     }
 
     public void showValidColumn() {
@@ -93,5 +96,11 @@ public class GUIView implements View {
     }
 
     public void showPlayerDisconnected(String disconnectedPlayer) {
+    }
+
+    public void setTable(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal) {
+    }
+
+    public void showEndGame() {
     }
 }

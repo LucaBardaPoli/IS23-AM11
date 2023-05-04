@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Server-side handler for a generic client
+ */
 public abstract class ClientHandler implements Listener {
     private String nickname;
     private int numPlayers;
-    protected LobbyManager lobbyManager;
+    private final LobbyManager lobbyManager;
     protected List<ClientHandler> lobby;
     protected Game model;
     protected EventListener eventListener;
@@ -60,9 +63,9 @@ public abstract class ClientHandler implements Listener {
     }
 
     /**
-     * Setter method:
+     * Setter method
      * Sets an Event Listener
-     * @param eventListener
+     * @param eventListener observable class
      */
     public void setEventListener(EventListener eventListener) {
         this.eventListener = eventListener;
@@ -93,7 +96,6 @@ public abstract class ClientHandler implements Listener {
         }
     }
 
-    //receives from the client the number of players we wats to play with
     /**
      * Handles the specific message
      * @param clientMessage is a message for info abut the number of players.
@@ -107,7 +109,6 @@ public abstract class ClientHandler implements Listener {
         }
     }
 
-    //checks if the picks made by the player are available info
     /**
      * Handles the specific message
      * @param clientMessage is a message for the choosing of a tile.
@@ -132,7 +133,6 @@ public abstract class ClientHandler implements Listener {
         }
     }
 
-    //confirms the set of cards picked previously by the player and goes on to get them from the board
     /**
      * Handles the specific message
      * @param clientMessage is a message for the confirmation of a selected tile.
@@ -141,7 +141,6 @@ public abstract class ClientHandler implements Listener {
         sendMessage(new ConfirmPickResponse(this.model.confirmPick()));
     }
 
-    //confirms the column selected by the player
     /**
      * Handles the specific message
      * @param clientMessage is a message for the confirmation of a column.
@@ -150,7 +149,6 @@ public abstract class ClientHandler implements Listener {
         sendMessage(new ConfirmColumnResponse(this.model.confirmColumn(clientMessage.getColumnNumber())));
     }
 
-    //rearrange the order of the cards before adding them to the bookshelf
     /**
      * Handles the specific message
      * @param clientMessage is a message for a Tile-Swapping request.
@@ -159,7 +157,6 @@ public abstract class ClientHandler implements Listener {
         sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), this.model.rearrangeTiles(clientMessage.getIndex())));
     }
 
-    //confirms the order of the cards that was previously selected
     /**
      * Handles the specific message
      * @param clientMessage is a message for the confirmation of the selected cards order.
@@ -167,6 +164,9 @@ public abstract class ClientHandler implements Listener {
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
         this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+        if(this.model.getEndGame()) {
+            this.eventListener.notifyListeners(new GameResultNotify());
+        }
     }
 
     /**

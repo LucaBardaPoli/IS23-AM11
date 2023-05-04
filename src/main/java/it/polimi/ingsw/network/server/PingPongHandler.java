@@ -5,11 +5,9 @@ import it.polimi.ingsw.network.message.PingMessage;
 
 public class PingPongHandler implements Runnable {
     private ClientHandler clientHandler;
-    private int lostPackets;
     private boolean isReceivedMessage;
     private boolean stopPing;
 
-    @Override
     /**
      * Manages the PingPong between the Client and the Server.
      */
@@ -22,7 +20,7 @@ public class PingPongHandler implements Runnable {
         }
 
         isReceivedMessage = false;
-        lostPackets = 0;
+        int lostPackets = 0;
 
         while(lostPackets < NetworkSettings.MAX_LOST_PACKETS && !this.stopPing) {
 
@@ -45,7 +43,7 @@ public class PingPongHandler implements Runnable {
             }
         }
 
-        // Closing the connection of the client
+        // Closing the connection with the client
         if(!this.clientHandler.stopConnection) {
             this.clientHandler.initClose();
         }

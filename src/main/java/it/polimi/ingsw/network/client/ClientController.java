@@ -34,7 +34,7 @@ public class ClientController {
      * Initializes the Controller
      */
     public void initController() {
-        this.view.chooseNickname();
+        this.view.showChooseNickname();
         this.client.start();
     }
 
@@ -61,7 +61,7 @@ public class ClientController {
      */
     public void handle(LoginResponse serverMessage) {
         if(serverMessage.getNickname() == null) {
-            this.view.chooseNickname();
+            this.view.showChooseNickname();
         } else {
             this.client.setNickname(serverMessage.getNickname());
         }
@@ -72,7 +72,7 @@ public class ClientController {
      * @param serverMessage contains the number of players chosen for a specified game.
      */
     public void handle(NumPlayersRequest serverMessage) {
-        this.view.chooseNumPlayers();
+        this.view.showChooseNumPlayers();
     }
 
     /**
@@ -82,7 +82,6 @@ public class ClientController {
     public void handle(GameStartNotify serverMessage) {
         this.view.setPlayers(serverMessage.getPlayers());
         this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
-        this.view.startTurn(serverMessage.getNextPlayer());
     }
 
     /**
@@ -94,7 +93,7 @@ public class ClientController {
             this.view.showValidPick();
             this.view.updatePickedTiles(serverMessage.getPickedTiles());
         } else {
-            this.view.showInvalidPick();
+            this.view.showNoPickedTiles();
         }
         this.view.showPickATile();
     }
@@ -170,7 +169,7 @@ public class ClientController {
      * @param serverMessage is a message sent in order to display game results
      */
     public void handle(GameResultNotify serverMessage) {
-        //handle gameResultNotify
+        this.view.showEndGame();
     }
 
     /**

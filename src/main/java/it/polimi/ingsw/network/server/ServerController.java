@@ -23,7 +23,7 @@ public class ServerController {
      * Class Constructor
      */
     public ServerController() {
-        this.executors = Executors.newFixedThreadPool(100);
+        this.executors = Executors.newCachedThreadPool();
         this.closeConnection = false;
     }
 
@@ -59,7 +59,7 @@ public class ServerController {
      * Waits for players to connect
      */
     public void run() {
-        // We could save the handlers !!!!!!!!
+        // We could save the handlers!
         while(!this.closeConnection) {
             try {
                 System.out.println("Waiting...");

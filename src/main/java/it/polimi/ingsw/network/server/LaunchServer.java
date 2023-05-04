@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.NetworkSettings;
 public class LaunchServer {
     /**
      * Launches the server
-     * @param args
+     * @param args arguments passed from command line
      */
     public static void main(String[] args) {
         ServerController serverController = new ServerController();

@@ -21,7 +21,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
 
     /**
      * Class Constructor
-     * @param serverIp
+     * @param serverIp server's IP
      */
     public ClientRMI(String serverIp) {
         super(serverIp);
@@ -32,15 +32,10 @@ public class ClientRMI extends Client implements ClientRMIInterface {
      */
     public void openConnection() {
         try {
-            // si collega al registro del server da remoto che è stato pubblicato
             Registry registry = LocateRegistry.getRegistry(this.serverIp);
-            // dal registro tira giù l'oggetto
             RMIListenerInterface rmiListener = (RMIListenerInterface) registry.lookup(NetworkSettings.RMI_REMOTE_OBJECT);
-            // esporto lui stesso
             UnicastRemoteObject.exportObject(this, NetworkSettings.CLIENT_PORT_RMI);
-            // chiede un handler per lui
             this.clientHandler = rmiListener.getHandler();
-            // da all handler se stesso
             this.clientHandler.registerClient(this);
         } catch (RemoteException | NotBoundException e) {
             close();

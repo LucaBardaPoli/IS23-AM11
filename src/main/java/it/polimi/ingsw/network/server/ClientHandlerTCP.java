@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.message.ServerMessage;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Server-side handler for a TCP client
+ */
 public class ClientHandlerTCP extends ClientHandler implements Runnable {
     private final Socket socket;
     private final ObjectInputStream inputStream;

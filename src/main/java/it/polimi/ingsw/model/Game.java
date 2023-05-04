@@ -164,6 +164,10 @@ public class Game implements Serializable {
         return this.pickedTiles;
     }
 
+    public boolean getEndGame() {
+        return endGame;
+    }
+
     /**
      * Checks if a given nickname is already taken
      * @param nickname nickname

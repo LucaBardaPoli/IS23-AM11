@@ -33,7 +33,7 @@ public class EventListener {
 
     /**
      * Removes a specified listener from the list.
-     * @param listener
+     * @param listener is the listener to remove from the list
      */
     public void removeListener(Listener listener) {
         this.listeners.remove(listener);
