@@ -93,7 +93,7 @@ public class ClientController {
             this.view.showValidPick();
             this.view.updatePickedTiles(serverMessage.getPickedTiles());
         } else {
-            this.view.showNoPickedTiles();
+            this.view.showInvalidPick();
         }
         this.view.showPickATile();
     }
@@ -119,7 +119,7 @@ public class ClientController {
         if(serverMessage.isValid()) {
             this.view.showChooseColumn();
         } else {
-            this.view.showInvalidPick();
+            this.view.showNoPickedTiles();
             this.view.showPickATile();
         }
     }

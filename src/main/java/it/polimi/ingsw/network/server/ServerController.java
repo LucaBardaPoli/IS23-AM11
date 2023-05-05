@@ -79,8 +79,8 @@ public class ServerController {
         this.closeConnection = true;
         try {
             this.serverSocket.close();
-        } catch (IOException e) {
-            ;
+        } catch(Exception e) {
+            System.out.println("Port already in use...");
         }
         this.executors.shutdownNow();
     }

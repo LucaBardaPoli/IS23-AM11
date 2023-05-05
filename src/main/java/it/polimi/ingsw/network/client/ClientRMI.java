@@ -30,15 +30,17 @@ public class ClientRMI extends Client implements ClientRMIInterface {
     /**
      * Open RMI connection type.
      */
-    public void openConnection() {
+    public boolean openConnection() {
         try {
             Registry registry = LocateRegistry.getRegistry(this.serverIp);
             RMIListenerInterface rmiListener = (RMIListenerInterface) registry.lookup(NetworkSettings.RMI_REMOTE_OBJECT);
             UnicastRemoteObject.exportObject(this, NetworkSettings.CLIENT_PORT_RMI);
             this.clientHandler = rmiListener.getHandler();
             this.clientHandler.registerClient(this);
+            return true;
         } catch (RemoteException | NotBoundException e) {
-            close();
+            this.close();
+            return false;
         }
     }
 
@@ -51,7 +53,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
     /**
      * Receives a server message from the server
      * @param serverMessage is the message sent by the server
-     * @throws RemoteException
+     * @throws RemoteException network error
      */
     public void receiveMessage(ServerMessage serverMessage) throws RemoteException {
         serverMessage.handle(this.controller);

@@ -6,7 +6,7 @@ public class NetworkSettings {
      */
 
     /* Server info */
-    public static final int SERVER_PORT_TCP = 6666;
+    public static final int SERVER_PORT_TCP = 11500;
     public static final int SERVER_PORT_RMI = 1099;
     public static final String SERVER_NAME = "127.0.0.1";
 

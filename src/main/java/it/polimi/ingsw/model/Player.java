@@ -88,6 +88,14 @@ public class Player implements Serializable {
     }
 
     /**
+     * Getter of the free cells in a certain column of the bookshelf
+     * @return number of free cells in a certain column of the bookshelf
+     */
+    public int getFreeCells(){
+        return this.bookshelf.getFreeCells();
+    }
+
+    /**
      * Check the progress of a player's goals & adjacency and update their score based on this
      * @param commonGoals list of common goals that should be completed
      * @return boolean depending on whether the player has or not filled his bookshelf

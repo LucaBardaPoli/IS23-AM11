@@ -43,8 +43,9 @@ public abstract class Client {
 
     /**
      * Open the connection with server.
+     * @return true if it's connected to the server
      */
-    public abstract void openConnection();
+    public abstract boolean openConnection();
 
     /**
      * Wait for messages coming from the server until the connection holds.

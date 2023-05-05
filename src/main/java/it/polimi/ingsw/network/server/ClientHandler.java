@@ -154,7 +154,8 @@ public abstract class ClientHandler implements Listener {
      * @param clientMessage is a message for a Tile-Swapping request.
      */
     public void handle(SwapTilesOrderRequest clientMessage) {
-        sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), this.model.rearrangeTiles(clientMessage.getIndex())));
+        boolean result = this.model.rearrangeTiles(clientMessage.getIndex());
+        sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), result));
     }
 
     /**

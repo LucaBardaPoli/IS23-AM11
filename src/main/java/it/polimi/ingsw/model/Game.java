@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Game class that handles the game moves and the way it evolves
@@ -199,6 +200,19 @@ public class Game implements Serializable {
     }
 
     /**
+     * Checks if exists at least a column where to insert the picked tiles
+     * @return true if exists at least one column
+     */
+    private boolean checkPickOnBookshelf() {
+        for(int i = 0; i < GameSettings.COLUMNS; i++) {
+            if(this.players.get(this.turn).getFreeCells(i) >= (this.pickedTiles.size() + 1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Tries to pick a tile from the game board
      * @param position position where to pick the tile
      * @return the picked tile only if it's a valid pick
@@ -208,7 +222,7 @@ public class Game implements Serializable {
 
         if (this.gameStatus.equals(GameStatus.PICK_CARDS)) {
             // Checks that the number of picked cards is lower than the limit
-            if (this.pickedTiles.size() < GameSettings.MAX_SELECTABLE_CARDS) {
+            if ((this.pickedTiles.size() + 1) <= GameSettings.MAX_SELECTABLE_CARDS && checkPickOnBookshelf()) {
                 if(this.board.validPick(position) && !this.pickedTilesPositions.contains(position)) {
                     if (!this.pickedTiles.isEmpty()) {
                         boolean areAlignedOnRow = true;
@@ -219,9 +233,12 @@ public class Game implements Serializable {
                             }
                         }
                         if (areAlignedOnRow) {
-                            this.pickedTilesPositions.add(position);
-                            pickedTile = this.board.getTile(position);
-                            this.pickedTiles.add(pickedTile);
+                            List<Integer> positionsColumn = this.pickedTilesPositions.stream().map(Position::getColumn).collect(Collectors.toList());
+                            if((Math.max(Collections.max(positionsColumn), position.getColumn()) - Math.min(Collections.min(positionsColumn), position.getColumn())) == this.pickedTiles.size()) {
+                                this.pickedTilesPositions.add(position);
+                                pickedTile = this.board.getTile(position);
+                                this.pickedTiles.add(pickedTile);
+                            }
                         }
 
                         boolean areAlignedOnColumn = true;
@@ -232,9 +249,12 @@ public class Game implements Serializable {
                             }
                         }
                         if (areAlignedOnColumn) {
-                            this.pickedTilesPositions.add(position);
-                            pickedTile = this.board.getTile(position);
-                            this.pickedTiles.add(pickedTile);
+                            List<Integer> positionsRows = this.pickedTilesPositions.stream().map(Position::getRow).collect(Collectors.toList());
+                            if((Math.max(Collections.max(positionsRows), position.getRow()) - Math.min(Collections.min(positionsRows), position.getRow())) == this.pickedTiles.size()) {
+                                this.pickedTilesPositions.add(position);
+                                pickedTile = this.board.getTile(position);
+                                this.pickedTiles.add(pickedTile);
+                            }
                         }
                     } else {
                         this.pickedTilesPositions.add(position);
@@ -307,7 +327,7 @@ public class Game implements Serializable {
      * @return true if the rearrangement happened successfully, false otherwise
      */
     public boolean rearrangeTiles(int index) {
-        if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index <= 2) {
+        if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index < this.pickedTiles.size()) {
             Tile tmp = this.pickedTiles.get(index);
             this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
             this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);

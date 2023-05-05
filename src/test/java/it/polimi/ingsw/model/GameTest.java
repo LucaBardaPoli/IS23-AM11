@@ -654,6 +654,33 @@ public class GameTest {
     }
 
     @Test
+    public void testPickNoSpaceLeftInColumns(){
+        Game game2;
+
+        game2 = InitializeGames2();
+
+        Bookshelf bookshelf = new Bookshelf();
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 2);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 3);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 4);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 4);
+        game2.getPlayer(game2.getCurrentPlayer().getNickname()).get().setBookshelf(bookshelf);
+
+        // Carte Prendibili in GAME2
+        Position positionToTest1 = new Position(1,0);
+        Position positionToTest2 = new Position(1,1);
+
+        assertNotEquals(game2.pickTile(positionToTest1), Tile.EMPTY);
+        assertEquals(game2.pickTile(positionToTest2), Tile.EMPTY);
+    }
+
+    @Test
     public void testPickInvalidSequence1(){
         Game game2;
         game2 = InitializeGames2();

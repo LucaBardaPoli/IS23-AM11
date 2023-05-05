@@ -12,7 +12,7 @@ public class LaunchServer {
         serverController.startServer(NetworkSettings.SERVER_PORT_TCP);
         try {
             serverController.run();
-        } finally {
+        } catch(Exception e){
             serverController.close();
         }
     }

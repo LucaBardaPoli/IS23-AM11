@@ -34,13 +34,15 @@ public class ClientTCP extends Client {
     /**
      * Opens the connection by opening a socket and couple streams.
      */
-    public void openConnection() {
+    public boolean openConnection() {
         try {
             this.socket = new Socket(this.serverIp, this.port);
             this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
             this.inputStream = new ObjectInputStream(this.socket.getInputStream());
+            return true;
         } catch (IOException e) {
-            close();
+            this.close();
+            return false;
         }
     }
 
@@ -85,7 +87,7 @@ public class ClientTCP extends Client {
             this.inputStream.close();
             this.outputStream.close();
             this.socket.close();
-        } catch (IOException e) {
+        } catch(Exception e) {
             ;
         }
     }

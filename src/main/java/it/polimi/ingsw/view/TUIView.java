@@ -271,7 +271,7 @@ public class TUIView implements View {
                         position.setColumn(this.scanner.nextInt());
                         this.clientController.sendMessage(new PickTileRequest(position));
                         tilesPicked = true;
-                    } catch(NumberFormatException e) {
+                    } catch(NumberFormatException | InputMismatchException e) {
                         System.out.println("Not a number!");
                     }
                     break;
@@ -418,12 +418,15 @@ public class TUIView implements View {
     }
 
     public void showEndGame() {
-        List<String> sortedPlayers = this.points.entrySet().stream().sorted(Map.Entry.comparingByValue()).map(Map.Entry::getKey).collect(Collectors.toList());
+        List<String> sortedPlayers = this.points.entrySet().stream().sorted(Collections.reverseOrder()).map(Map.Entry::getKey).collect(Collectors.toList());
         System.out.println("Game ended");
         System.out.println("Results:");
         for(String player : sortedPlayers) {
             System.out.println(player + "\t: " + this.points.get(player));
         }
+        System.out.println("Type something to close the game:");
+        this.scanner.nextLine();
+        this.clientController.getClient().close();
     }
 
 
@@ -454,6 +457,6 @@ public class TUIView implements View {
     /* Methods to show disconnection issues */
     public void showPlayerDisconnected(String disconnectedPlayer) {
         System.out.println(disconnectedPlayer + " has disconnected!");
-        System.out.println("Press something to close the game: ");
+        System.out.println("Type something to close the game:");
     }
 }

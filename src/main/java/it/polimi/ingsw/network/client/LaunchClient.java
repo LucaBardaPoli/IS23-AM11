@@ -33,9 +33,9 @@ public class LaunchClient {
         } else { // Default is socket
             client = new ClientTCP(ip, NetworkSettings.SERVER_PORT_TCP);
         }
-        client.openConnection();
-
-        ClientController clientController = new ClientController(client, view);
-        clientController.initController();
+        if(client.openConnection()) {
+            ClientController clientController = new ClientController(client, view);
+            clientController.initController();
+        }
     }
 }
