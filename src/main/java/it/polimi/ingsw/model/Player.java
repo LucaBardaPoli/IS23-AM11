@@ -74,7 +74,7 @@ public class Player implements Serializable {
      * @param column where the tile should be placed
      * @param tiles of the selected tiles
      */
-    public void insertCards(int column, List<Tile> tiles){
+    public void insertTiles(int column, List<Tile> tiles){
         this.bookshelf.addTiles(tiles, column);
     }
 

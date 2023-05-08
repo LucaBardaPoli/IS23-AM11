@@ -30,6 +30,13 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
     }
 
     /**
+     * Method used from remote RMI-clients to test whether the connection is still open
+     * @throws RemoteException
+     */
+    public void testConnection() throws RemoteException {
+    }
+
+    /**
      * Receives a client message
      * @param clientMessage sent by the client
      * @throws RemoteException

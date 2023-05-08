@@ -13,11 +13,14 @@ public class TUIView implements View {
     private ClientController clientController;
     private Board board;
     private Map<String, Bookshelf> bookshelves;
-    private List<CommonGoal> commonGoals;
+    private Map<CommonGoal, Integer> commonGoals;
     private PersonalGoal personalGoal;
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
+    private final Runnable chatMessageRunnable;
+    private Thread chatThread;
+    private boolean endGame;
     private final Scanner scanner;
 
     /* Colors */
@@ -32,10 +35,67 @@ public class TUIView implements View {
 
     public TUIView() {
         this.scanner = new Scanner(System.in);
+        this.endGame = false;
+        this.chatMessageRunnable = new Thread(() -> {
+            do {
+                try {
+                    System.out.println("Type a message:");
+                    String message = this.readText();
+                    System.out.println("Type the receiver (enter to send it to everyone):");
+                    String receiver = this.readWord();
+                    this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
+                } catch(Exception e) {
+                    System.out.println("Error!");
+                }
+            } while(!this.clientController.getClient().getNickname().equals(this.currentPlayer) && !this.endGame);
+        });
+        this.chatThread = new Thread(this.chatMessageRunnable);
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
     }
 
     public List<String> getPlayers() {
         return new ArrayList<>(this.points.keySet());
+    }
+
+    /* Methods to read/write on console */
+    private String readText() {
+        do {
+            try {
+                return this.scanner.nextLine();
+            } catch(InputMismatchException | IndexOutOfBoundsException e) {
+                System.out.println("Invalid input! Try again:");
+            }
+        } while(!this.endGame);
+        return "";
+    }
+
+    private String readWord() {
+        do {
+            try {
+                String line = this.scanner.nextLine();
+                if(line.contains(" ")) {
+                    return line.substring(0, line.indexOf(" "));
+                }
+                return line;
+            } catch(InputMismatchException | IndexOutOfBoundsException e) {
+                System.out.println("Invalid input! Try again:");
+            }
+        } while(!this.endGame);
+        return "";
+    }
+
+    private int readInt() {
+        do {
+            try {
+                return Integer.parseInt(this.readWord());
+            } catch(InputMismatchException | IndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println("Invalid input! Try again:");
+            }
+        } while(!this.endGame);
+        return -1;
     }
 
 
@@ -44,7 +104,7 @@ public class TUIView implements View {
         this.clientController = clientController;
     }
 
-    public void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
+    public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
         System.out.println("\n\nGame started\n");
         setTable(board, commonGoals, personalGoal);
         this.showBoard();
@@ -62,7 +122,7 @@ public class TUIView implements View {
         }
     }
 
-    public void setTable(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal) {
+    public void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
         this.board = board;
         this.commonGoals = commonGoals;
         this.personalGoal = personalGoal;
@@ -146,7 +206,7 @@ public class TUIView implements View {
             }
             System.out.print("\n");
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void showPersonalGoal() {
@@ -170,15 +230,15 @@ public class TUIView implements View {
         for(Map.Entry<Integer, Integer> entry : this.personalGoal.getRewards().entrySet()) {
             System.out.println("  " + entry.getKey() + "   |   " + entry.getValue());
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void showCommonGoals() {
         System.out.println("\nCommon goals: ");
-        for(CommonGoal c : this.commonGoals) {
-            System.out.println(c);
+        for(Map.Entry<CommonGoal, Integer> entry : this.commonGoals.entrySet()) {
+            System.out.println(entry.getKey() + " -> Points: " + entry.getValue());
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void showPickedTiles() {
@@ -191,7 +251,7 @@ public class TUIView implements View {
             printTile(t);
             System.out.print(" ");
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void showPoints() {
@@ -199,7 +259,7 @@ public class TUIView implements View {
         for(String player : this.points.keySet()) {
             System.out.println(player + ": " + this.points.get(player));
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void showTable() {
@@ -229,24 +289,27 @@ public class TUIView implements View {
         this.points.replace(player, points);
     }
 
+    public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
+        this.commonGoals = commonGoals;
+    }
+
 
     /* Methods to ask for a player's move */
     public void showChooseTypeOfConnection() {
         System.out.println("Insert the type of connection: ");
-        String connection = this.scanner.nextLine();
+        String connection = this.readWord();
         LaunchClient.openConnection(connection, NetworkSettings.SERVER_NAME, this);
     }
 
     public void showChooseNickname() {
         System.out.println("Insert a nickname: ");
-        String nickname = this.scanner.nextLine();
+        String nickname = this.readWord();
         this.clientController.getClient().sendMessage(new LoginRequest(nickname));
     }
 
     public void showChooseNumPlayers() {
         System.out.println("Insert the number of players of the game (from 2 to 4 players allowed): ");
-        int numPlayers = this.scanner.nextInt();
-        //this.scanner.nextLine();
+        int numPlayers = this.readInt();
         this.clientController.getClient().sendMessage(new NumPlayersResponse(numPlayers));
     }
 
@@ -257,18 +320,21 @@ public class TUIView implements View {
         do {
             System.out.println("Type:");
             System.out.println("P to pick a tile.");
-            System.out.println("U to unpick a tile.");
+            if(!this.pickedTiles.isEmpty()) {
+                System.out.println("U to unpick a tile.");
+            }
             System.out.println("C to confirm the picked tiles.");
-            System.out.println("S to show the table:");
-            String s = this.scanner.next();
+            System.out.println("S to show the table.");
+            System.out.println("M to send a message:");
+            String s = this.readWord().toUpperCase();
             switch(s) {
                 case "P":
                     position = new Position();
                     try {
                         System.out.println("Insert the row:");
-                        position.setRow(this.scanner.nextInt());
+                        position.setRow(this.readInt());
                         System.out.println("Insert the column:");
-                        position.setColumn(this.scanner.nextInt());
+                        position.setColumn(this.readInt());
                         this.clientController.sendMessage(new PickTileRequest(position));
                         tilesPicked = true;
                     } catch(NumberFormatException | InputMismatchException e) {
@@ -276,16 +342,20 @@ public class TUIView implements View {
                     }
                     break;
                 case "U":
-                    position = new Position();
-                    try {
-                        System.out.println("Insert the row:");
-                        position.setRow(this.scanner.nextInt());
-                        System.out.println("Insert the column:");
-                        position.setColumn(this.scanner.nextInt());
-                        this.clientController.sendMessage(new UnpickTileRequest(position));
-                        tilesPicked = true;
-                    } catch(NumberFormatException e) {
-                        System.out.println("Not a number!");
+                    if(!this.pickedTiles.isEmpty()) {
+                        position = new Position();
+                        try {
+                            System.out.println("Insert the row:");
+                            position.setRow(this.readInt());
+                            System.out.println("Insert the column:");
+                            position.setColumn(this.readInt());
+                            this.clientController.sendMessage(new UnpickTileRequest(position));
+                            tilesPicked = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Not a number!");
+                        }
+                    } else {
+                        System.out.println("No tiles picked!");
                     }
                     break;
                 case "C":
@@ -295,11 +365,22 @@ public class TUIView implements View {
                 case "S":
                     this.showTable();
                     break;
+                case "M":
+                    try {
+                        System.out.println("Type the message:");
+                        String message = this.readText();
+                        System.out.println("Type the receiver (enter to send it to everyone): ");
+                        String receiver = this.readWord();
+                        this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
+                    } catch(Exception e) {
+                        System.out.println("Error!");
+                    }
+                    break;
                 default:
                     System.out.println("Not a valid command!");
                     break;
             }
-        } while(!tilesPicked);
+        } while(!tilesPicked && !this.endGame);
     }
 
     public void showChooseColumn() {
@@ -309,22 +390,37 @@ public class TUIView implements View {
             do {
                 System.out.println("Type:");
                 System.out.println("The column index where to insert the picked tiles.");
-                System.out.println("S to show the table:");
-                String s = this.scanner.next();
-                if(s.equals("S")) {
-                    this.showPersonalGoal();
-                    this.showCommonGoals();
-                    this.showBookshelf(this.currentPlayer);
-                    this.showPickedTiles();
-                } else {
-                    try {
-                        this.clientController.sendMessage(new ConfirmColumnRequest(Integer.parseInt(s)));
-                        confirmedColumn = true;
-                    } catch (NumberFormatException e) {
-                        System.out.println("Not a valid command!");
-                    }
+                System.out.println("S to show the table.");
+                System.out.println("M to send a message:");
+                String s = this.readWord().toUpperCase();
+                switch(s) {
+                    case "S":
+                        this.showPersonalGoal();
+                        this.showCommonGoals();
+                        this.showBookshelf(this.currentPlayer);
+                        this.showPickedTiles();
+                        break;
+                    case "M":
+                        try {
+                            System.out.println("Type the message:");
+                            String message = this.readText();
+                            System.out.println("Type the receiver (enter to send it to everyone): ");
+                            String receiver = this.readWord();
+                            this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
+                        } catch(Exception e) {
+                            System.out.println("Error!");
+                        }
+                        break;
+                    default:
+                        try {
+                            this.clientController.sendMessage(new ConfirmColumnRequest(Integer.parseInt(s)));
+                            confirmedColumn = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Not a valid command!");
+                        }
+                        break;
                 }
-            } while(!confirmedColumn);
+            } while(!confirmedColumn && !this.endGame);
         }
     }
 
@@ -336,8 +432,9 @@ public class TUIView implements View {
             System.out.println("Type:");
             System.out.println("The index of the picked tile that will be set as last in the list.");
             System.out.println("C to confirm the order of the picked tiles.");
-            System.out.println("S to show table:");
-            String s = this.scanner.next();
+            System.out.println("S to show table.");
+            System.out.println("M to send a message:");
+            String s = this.readWord().toUpperCase();
             switch(s) {
                 case "C":
                     this.clientController.sendMessage(new ConfirmOrderNotify());
@@ -345,6 +442,17 @@ public class TUIView implements View {
                     break;
                 case "S":
                     this.showTable();
+                    break;
+                case "M":
+                    try {
+                        System.out.println("Type the message:");
+                        String message = this.readText();
+                        System.out.println("Type the receiver (enter to send it to everyone): ");
+                        String receiver = this.readWord();
+                        this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
+                    } catch(Exception e) {
+                        System.out.println("Error!");
+                    }
                     break;
                 default:
                     try {
@@ -355,7 +463,7 @@ public class TUIView implements View {
                     }
                     break;
             }
-        } while(!confirmedTiles);
+        } while(!confirmedTiles && !this.endGame);
     }
 
 
@@ -404,43 +512,44 @@ public class TUIView implements View {
         if(player.equals(this.clientController.getClient().getNickname())) {
             this.showPickATile();
         } else {
-            //showWriteMessage();
+            //this.showWriteMessage();
         }
     }
 
     public void endTurn() {
+        if(this.chatThread.isAlive()) {
+            this.chatThread.interrupt();
+        }
         System.out.println(this.currentPlayer + "'s turn is over!");
         System.out.println("New Board:");
         showBoard();
         System.out.println("New " + this.currentPlayer + "'s bookshelf:");
         showBookshelf(this.currentPlayer);
         showPoints();
+        showCommonGoals();
     }
 
     public void showEndGame() {
-        List<String> sortedPlayers = this.points.entrySet().stream().sorted(Collections.reverseOrder()).map(Map.Entry::getKey).collect(Collectors.toList());
+        List<String> sortedPlayers = this.points
+                .entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
         System.out.println("Game ended");
         System.out.println("Results:");
         for(String player : sortedPlayers) {
             System.out.println(player + "\t: " + this.points.get(player));
         }
-        System.out.println("Type something to close the game:");
-        this.scanner.nextLine();
+        /* System.out.println("Type something to close the game:");
+        this.scanner.nextLine(); */
         this.clientController.getClient().close();
     }
 
 
     /* Methods to handle chat messages */
     private void showWriteMessage() {
-        System.out.println("Type a message: ");
-        String message = this.scanner.nextLine();
-        System.out.println("Type the receiver (enter to send it to everyone): ");
-        String receiver = this.scanner.nextLine();
-        if(receiver.equals("")) {
-            this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), null, message));
-        } else {
-            this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
-        }
+        this.chatThread = new Thread(this.chatMessageRunnable);
+        this.chatThread.start();
     }
 
     public void showNewChatMessageUnicast(String sender, String message) {

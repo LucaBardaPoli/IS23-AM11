@@ -16,7 +16,7 @@ public class PingPongHandler implements Runnable {
         try {
             Thread.sleep(NetworkSettings.INIT_TIME);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            this.stopPing();
         }
 
         isReceivedMessage = false;
@@ -31,7 +31,7 @@ public class PingPongHandler implements Runnable {
             try {
                 Thread.sleep(NetworkSettings.MAX_PONG_WAIT);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                this.stopPing();
             }
 
             if(!isReceivedMessage) {

@@ -31,6 +31,14 @@ public class ClientController {
     }
 
     /**
+     * Getter method
+     * @return view
+     */
+    public View getView() {
+        return this.view;
+    }
+
+    /**
      * Initializes the Controller
      */
     public void initController() {
@@ -105,6 +113,7 @@ public class ClientController {
     public void handle(UnpickTileResponse serverMessage) {
         if(serverMessage.isSuccessful()) {
             this.view.showValidUnpick();
+            this.view.updatePickedTiles(serverMessage.getPickedTiles());
         } else {
             this.view.showInvalidUnpick();
         }
@@ -131,7 +140,11 @@ public class ClientController {
     public void handle(ConfirmColumnResponse serverMessage) {
         if(serverMessage.getValid()) {
             this.view.showValidColumn();
-            this.view.showSwapTilesOrder();
+            if(serverMessage.getNeedForSwap()) {
+                this.view.showSwapTilesOrder();
+            } else {
+                sendMessage(new ConfirmOrderNotify());
+            }
         } else {
             this.view.showInvalidColumn();
             this.view.showChooseColumn();
@@ -160,8 +173,11 @@ public class ClientController {
         this.view.updateBoard(serverMessage.getBoard());
         this.view.updateBookshelf(serverMessage.getPlayer(), serverMessage.getBookshelf());
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
+        this.view.updateCommonGoals(serverMessage.getCommonGoals());
         this.view.endTurn();
-        this.view.startTurn(serverMessage.getNextPlayer());
+        if(!serverMessage.getPlayer().equals(serverMessage.getNextPlayer())) {
+            this.view.startTurn(serverMessage.getNextPlayer());
+        }
     }
 
     /**
@@ -192,6 +208,7 @@ public class ClientController {
      */
     public void handle(PlayerDisconnectedNotify serverMessage) {
         this.view.showPlayerDisconnected(serverMessage.getDisconnectedPlayer());
+        this.view.setEndGame(true);
         this.client.close();
     }
 }

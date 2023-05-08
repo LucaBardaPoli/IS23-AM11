@@ -18,6 +18,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientRMI extends Client implements ClientRMIInterface {
     private ClientHandlerRMIInterface clientHandler;
+    private Thread connectionTester;
 
     /**
      * Class Constructor
@@ -48,6 +49,21 @@ public class ClientRMI extends Client implements ClientRMIInterface {
      * As RMI is done, there is no need to listen for messages but it is sufficient to expose objects so that methods can be called remotely.
      */
     public void start() {
+        this.connectionTester = new Thread(() -> {
+            do {
+                try {
+                    Thread.sleep(NetworkSettings.MAX_PONG_WAIT);
+                } catch (InterruptedException e) {
+                    this.close();
+                }
+                try {
+                    this.clientHandler.testConnection();
+                } catch(RemoteException e) {
+                    this.close();
+                }
+            } while(!this.stopConnection);
+        });
+        this.connectionTester.start();
     }
 
     /**
@@ -71,12 +87,18 @@ public class ClientRMI extends Client implements ClientRMIInterface {
         }
     }
 
-
     /**
      * Ends the exportation on the remote-object.
      */
     public void close() {
         try {
+            System.out.println("Closing connection with the server...");
+            this.stopConnection = true;
+            this.connectionTester.interrupt();
+            if (this.controller != null) {
+                this.controller.getView().setEndGame(true);
+                this.controller.getView().showPlayerDisconnected("Server");
+            }
             UnicastRemoteObject.unexportObject(this, true);
         } catch(NoSuchObjectException e) {
             ;

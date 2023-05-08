@@ -54,21 +54,22 @@ public class Game implements Serializable {
         // Assigns tokens based on the number of players
         this.tokens = new ArrayList<>();
         List<Token> tmpTokens = new ArrayList<>();
-        if(this.players.size() == 2) {
+        if (this.players.size() == 2) {
             tmpTokens.add(new Token(8));
             tmpTokens.add(new Token(4));
-        } else if(this.players.size() == 3) {
+        } else if (this.players.size() == 3) {
             tmpTokens.add(new Token(8));
             tmpTokens.add(new Token(6));
             tmpTokens.add(new Token(4));
-        } else if(this.players.size() == 4) {
+        } else if (this.players.size() == 4) {
             tmpTokens.add(new Token(8));
             tmpTokens.add(new Token(6));
             tmpTokens.add(new Token(4));
             tmpTokens.add(new Token(2));
         }
-        this.tokens.add(new ArrayList<>(tmpTokens));
-        this.tokens.add(new ArrayList<>(tmpTokens));
+        for (int i = 0; i < this.commonGoals.size(); i++) {
+            this.tokens.add(new ArrayList<>(tmpTokens));
+        }
     }
 
     /**
@@ -115,6 +116,21 @@ public class Game implements Serializable {
      */
     public List<CommonGoal> getCommonGoals() {
         return this.commonGoals;
+    }
+
+    /**
+     * Getter of the token on top af the given common goal
+     * @return token's value
+     */
+    public Optional<Integer> getTopToken(CommonGoal commonGoal) {
+        if(this.commonGoals.contains(commonGoal)) {
+            try {
+                return Optional.of(this.tokens.get(this.commonGoals.indexOf(commonGoal)).get(0).getValue());
+            } catch(IndexOutOfBoundsException e) {
+                return Optional.of(0);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -322,6 +338,14 @@ public class Game implements Serializable {
     }
 
     /**
+     * Checks if it would have any sense to swap the picked tiles
+     * @return false when the picked tiles are of the same type or when the player picked just one tile
+     */
+    public boolean checkNeedForSwap() {
+        return !this.pickedTiles.stream().allMatch(x -> x.equals(this.pickedTiles.get(0)));
+    }
+
+    /**
      * Moves the selected tile to the last place in the list of cards to insert in the bookshelf
      * @param index position of the selected tile
      * @return true if the rearrangement happened successfully, false otherwise
@@ -342,7 +366,7 @@ public class Game implements Serializable {
     public void confirmOrderSelectedTiles() {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
             this.gameStatus = GameStatus.UPDATE_POINTS;
-            this.players.get(this.turn).insertCards(this.currentSelectedColumn, this.pickedTiles);
+            this.players.get(this.turn).insertTiles(this.currentSelectedColumn, this.pickedTiles);
             this.currentSelectedColumn = 0;
             this.pickedTiles.clear();
             this.pickedTilesPositions.clear();

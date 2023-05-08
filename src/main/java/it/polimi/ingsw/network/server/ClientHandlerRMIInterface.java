@@ -17,6 +17,12 @@ public interface ClientHandlerRMIInterface extends Remote, Serializable {
     void registerClient(ClientRMIInterface client) throws RemoteException;
 
     /**
+     * Method used from remote RMI-clients to test whether the connection is still open
+     * @throws RemoteException
+     */
+    void testConnection() throws RemoteException;
+
+    /**
      * Receives a message from the client
      * @param clientMessage sent by the client
      * @throws RemoteException

@@ -3,16 +3,18 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
 import java.util.List;
+import java.util.Map;
 
 public interface View {
+    void setEndGame(boolean endGame);
     List<String> getPlayers();
 
 
     /* Initialization methods */
     void setClientController(ClientController clientController);
-    void startGame(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal, String nextPlayer);
+    void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
-    void setTable(Board board, List<CommonGoal> commonGoals, PersonalGoal personalGoal);
+    void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal);
 
 
     /* Methods to display the items of the game */
@@ -24,6 +26,7 @@ public interface View {
     void updateBookshelf(String player, Bookshelf bookshelf);
     void updatePickedTiles(List<Tile> pickedTiles);
     void updatePoints(String player, int points);
+    void updateCommonGoals(Map<CommonGoal, Integer> commonGoals);
 
 
     /* Methods to ask for a player's move */

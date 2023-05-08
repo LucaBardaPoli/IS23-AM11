@@ -1,13 +1,15 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.LobbyManager;
+import it.polimi.ingsw.model.CommonGoal;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.message.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -52,6 +54,22 @@ public abstract class ClientHandler implements Listener {
     }
 
     /**
+     * Setter used for testing
+     * @param nickname new nickname
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    /**
+     * Setter used for testing
+     * @param numPlayers new number of players
+     */
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
+    }
+
+    /**
      * Initializes a new game
      * @param model of the game
      * @param lobby of the players
@@ -59,7 +77,11 @@ public abstract class ClientHandler implements Listener {
     public void initGame(Game model, List<ClientHandler> lobby) {
         this.model = model;
         this.lobby = lobby;
-        this.sendMessage(new GameStartNotify(this.model.getBoard(), new ArrayList<>(this.model.getCommonGoals()), this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
+        Map<CommonGoal, Integer> commonGoals = new HashMap<>();
+        for(CommonGoal commonGoal : this.model.getCommonGoals()) {
+            commonGoals.put(commonGoal, this.model.getTopToken(commonGoal).get());
+        }
+        this.sendMessage(new GameStartNotify(this.model.getBoard(), commonGoals, this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
     }
 
     /**
@@ -146,7 +168,7 @@ public abstract class ClientHandler implements Listener {
      * @param clientMessage is a message for the confirmation of a column.
      */
     public void handle(ConfirmColumnRequest clientMessage) {
-        sendMessage(new ConfirmColumnResponse(this.model.confirmColumn(clientMessage.getColumnNumber())));
+        sendMessage(new ConfirmColumnResponse(this.model.confirmColumn(clientMessage.getColumnNumber()), this.model.checkNeedForSwap()));
     }
 
     /**
@@ -164,9 +186,16 @@ public abstract class ClientHandler implements Listener {
      */
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
-        this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+        Map<CommonGoal, Integer> commonGoals = new HashMap<>();
+        for(CommonGoal commonGoal : this.model.getCommonGoals()) {
+            commonGoals.put(commonGoal, this.model.getTopToken(commonGoal).get());
+        }
         if(this.model.getEndGame()) {
+            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).get(), commonGoals, this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).get(), this.model.getCurrentPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
             this.eventListener.notifyListeners(new GameResultNotify());
+            this.initClose();
+        } else {
+            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), commonGoals, this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
         }
     }
 
