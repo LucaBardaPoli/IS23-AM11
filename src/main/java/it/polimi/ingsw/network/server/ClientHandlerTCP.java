@@ -18,7 +18,7 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
      * Class Constructor: TCP Client Handler
      * @param socket is the assigned socket for the connection
      * @param pingPongHandler is a thread which is used to handle the PingPong
-     * @throws IOException
+     * @throws IOException TCP error
      */
     public ClientHandlerTCP(Socket socket, PingPongHandler pingPongHandler) throws IOException {
         super(pingPongHandler);
@@ -34,13 +34,14 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
      */
     public void run() {
         try {
-            while (!stopConnection) {
+            while(!stopConnection) {
                 ClientMessage clientMessage = (ClientMessage) this.inputStream.readObject();
                 clientMessage.handle(this);
             }
-        } catch (IOException | ClassNotFoundException e) {
-            this.pingPongHandler.stopPing();
-            this.initClose();
+        } catch(IOException | ClassNotFoundException e) {
+            if(!this.stopConnection) {
+                this.initClose();
+            }
         }
     }
 
@@ -54,7 +55,9 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
             this.outputStream.flush();
             this.outputStream.writeObject(serverMessage);
         } catch (IOException e) {
-            initClose();
+            if(!this.stopConnection) {
+                this.initClose();
+            }
         }
     }
 
@@ -72,7 +75,7 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
             }
             this.socket.close();
         } catch(IOException e) {
-            ;
+            System.out.println();
         }
     }
 
@@ -81,7 +84,6 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
      */
     public void initClose() {
         super.initClose();
-        this.stopConnection = true;
         this.close();
     }
 }

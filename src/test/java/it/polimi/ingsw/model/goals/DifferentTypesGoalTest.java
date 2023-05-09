@@ -121,12 +121,12 @@ public class DifferentTypesGoalTest {
         assertTrue(lotsDifferentRows.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * tests the following properties:
-     * - if the goal is not fulfilled for a certain number of minimum types it should not be fulfilled for any other greater number of minimun types
+     * - if the goal is not fulfilled for a certain number of minimum types it should not be fulfilled for any other greater number of minimum types
      * - if the goal is fulfilled for a certain number of minimum types it should be fulfilled for any other lower number of minimum types
      */
+    @Test
     public void testMinTypes(){
         Bookshelf bookshelf;
         CommonGoal differentTypes;
@@ -168,12 +168,12 @@ public class DifferentTypesGoalTest {
         }
     }
 
-    @Test
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain number of maximum types it should not be fulfilled for any other lower number of maximum types
      * - if the goal is fulfilled for a certain number of maximum types it should be fulfilled for any other greater number of maximum types
      */
+    @Test
     public void testMaxTypes(){
         Bookshelf bookshelf;
         CommonGoal differentTypes;
@@ -215,12 +215,13 @@ public class DifferentTypesGoalTest {
         }
     }
 
-    @Test
+
     /**
      * tests the following properties:
      * - if the goal is not fulfilled for a certain number of minimum rows/columns it should not be fulfilled for any other greater number of minimum rows/columns
      * - if the goal is fulfilled for a certain number of minimum rows/columns it should be fulfilled for any other lower number of minimum rows/columns
      */
+    @Test
     public void testMinNum(){
         Bookshelf bookshelf;
         CommonGoal differentTypes;

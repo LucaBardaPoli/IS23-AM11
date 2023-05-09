@@ -53,23 +53,19 @@ public class SameKindXGoal implements Predicate<Bookshelf>, Serializable {
 
             tile = bookshelf.getTile(new Position(startRow + 1, startColumn + 1));
             if (!tile.equals(Tile.EMPTY)) {
-                if (!tile.equals(currentType)) {
-                    return false;
-                }
+                return tile.equals(currentType);
             } else {
                 return false;
             }
         } else {
             return false;
         }
-
-        return true;
     }
 
     /**
      * Checks if exists a group of tails shaped as an x in every cell of the bookshelf
      * @param bookshelf the input argument
-     * @return true whether the gruop exists
+     * @return true whether the group exists
      */
     public boolean test(Bookshelf bookshelf) {
         for(int r = 1; r < GameSettings.ROWS-1; r++){

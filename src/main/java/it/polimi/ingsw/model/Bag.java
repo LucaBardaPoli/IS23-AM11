@@ -13,7 +13,7 @@ public class Bag implements Serializable {
      * Class constructor
      */
     public Bag() {
-        bag = new LinkedHashMap<Tile,Integer>();
+        bag = new LinkedHashMap<>();
         bag.put(Tile.GREEN, GameSettings.MAX_NUM_CARDS_PER_TYPE);
         bag.put(Tile.WHITE, GameSettings.MAX_NUM_CARDS_PER_TYPE);
         bag.put(Tile.YELLOW, GameSettings.MAX_NUM_CARDS_PER_TYPE);

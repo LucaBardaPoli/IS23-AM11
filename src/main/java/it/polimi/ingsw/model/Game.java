@@ -24,7 +24,7 @@ public class Game implements Serializable {
     private boolean endGame;
 
     /**
-     * Class contructor
+     * Class constructor
      * @param id game id
      * @param players list of nickname players
      * @param commonGoals two common goals of the game

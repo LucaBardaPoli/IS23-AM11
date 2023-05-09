@@ -16,14 +16,6 @@ public class EventListener {
     }
 
     /**
-     * Getter method
-     * @return the listeners
-     */
-    public List<Listener> getListeners() {
-        return this.listeners;
-    }
-
-    /**
      * Adds a listener
      * @param listener is the listener added to the list.
      */

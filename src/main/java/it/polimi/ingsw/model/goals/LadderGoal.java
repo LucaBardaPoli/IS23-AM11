@@ -43,7 +43,7 @@ public class LadderGoal implements Predicate<Bookshelf>, Serializable {
     }
 
     /**
-     * Checks if exists a ascending ladder starting from the given position towards the top-right corner
+     * Checks if exists an ascending ladder starting from the given position towards the top-right corner
      * @param startRow row of the starting point
      * @param startColumn column of the starting point
      * @param bookshelf bookshelf to execute the check on

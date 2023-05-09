@@ -4,8 +4,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.io.IOException;
-
 /**
  * Testing of ControllerManager class
  */
@@ -31,7 +29,7 @@ public class LobbyManagerTest extends TestCase {
     /**
      * Tests how insertion and deletion of a player and creation of a new game are handled
      */
-    public void testAddPlayer() throws IOException {
+    public void testAddPlayer() {
         /*assert(this.lobbyManager.addPlayer("Player1", 3));
         assert(this.lobbyManager.getCurrentGameNumPlayers() == 3);
         assert(this.lobbyManager.getLobby().contains("Player1"));

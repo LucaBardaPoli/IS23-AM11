@@ -89,10 +89,6 @@ public class LobbyManager implements Serializable {
         this.currentGameNumPlayers = GameSettings.MIN_NUM_PLAYERS;
     }
 
-    public void removeGame(Game game) {
-        this.games.remove(game);
-    }
-
     /**
      * Checks if the given nickname is already used
      * @param nickname new nickname
@@ -123,16 +119,14 @@ public class LobbyManager implements Serializable {
      * Adds a new player to the lobby
      * @param client client will participate in a game
      */
-    public boolean addPlayer(ClientHandler client) {
+    public void addPlayer(ClientHandler client) {
         if(isNicknameTaken(client.getNickname())) {
-            return false;
+            return;
         }
         if(this.lobby.isEmpty()) {
             if(client.getNumPlayers() >= GameSettings.MIN_NUM_PLAYERS && client.getNumPlayers() <= GameSettings.MAX_NUM_PLAYERS) {
                 this.currentGameNumPlayers = client.getNumPlayers();
                 this.lobby.add(client);
-            } else {
-                return false;
             }
         } else {
             this.lobby.add(client);
@@ -140,7 +134,6 @@ public class LobbyManager implements Serializable {
                 this.addGame();
             }
         }
-        return true;
     }
 
     /**
@@ -519,4 +512,3 @@ public class LobbyManager implements Serializable {
         this.games.remove(game);
     }
 }
-

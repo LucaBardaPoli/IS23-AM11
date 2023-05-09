@@ -54,22 +54,6 @@ public abstract class ClientHandler implements Listener {
     }
 
     /**
-     * Setter used for testing
-     * @param nickname new nickname
-     */
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    /**
-     * Setter used for testing
-     * @param numPlayers new number of players
-     */
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
-    }
-
-    /**
      * Initializes a new game
      * @param model of the game
      * @param lobby of the players
@@ -245,16 +229,14 @@ public abstract class ClientHandler implements Listener {
      */
     public void initClose() {
         System.out.println("Closing connection with " + this.nickname + "...");
+        this.close();
         try {
             this.lobbyManager.removePlayer(this);
-            this.lobbyManager.removeGame(this.model);
+            this.lobbyManager.endGame(this.model);
             this.eventListener.removeListener(this);
             this.eventListener.notifyListeners(new PlayerDisconnectedNotify(this.nickname));
-            this.lobby.remove(this);
-            for (ClientHandler clientHandler : this.lobby) {
-                clientHandler.close();
-            }
         } catch(Exception e) {
+            System.out.println();
         }
     }
 

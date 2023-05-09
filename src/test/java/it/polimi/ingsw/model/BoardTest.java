@@ -2,8 +2,6 @@ package it.polimi.ingsw.model;
 
 import org.junit.Test;
 
-import java.util.Optional;
-
 /**
  * Testing of Board class
  */

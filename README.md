@@ -14,8 +14,8 @@
 | Basic Rules     |   🟢  |
 | Complete Rules  |   🟢   |
 | TUI             |   🟡   |
-| GUI             |   🔴   |
-| RMI             |   🟡   |
+| GUI             |   🟡   |
+| RMI             |   🟢   |
 | Socket          |   🟢   |
 | Chat            |   🟢   |
 | Multiple Games  |   🟢   |

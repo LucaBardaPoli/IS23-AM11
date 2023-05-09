@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 public class BookshelfTest {
     private Bookshelf bookshelf;
-    private Tile card1,card2,card3,card4,card5;
-    private List<Tile> cardList,cardList2,cardList3;
+    private final Tile card1,card2,card3,card4,card5;
+    private final List<Tile> cardList,cardList2,cardList3;
 
     public BookshelfTest() {
         card1 = Tile.BLUE;
@@ -20,9 +20,9 @@ public class BookshelfTest {
         card4 = Tile.LBLUE;
         card5= Tile.WHITE;
 
-        cardList = new ArrayList<Tile>();
-        cardList2 = new ArrayList<Tile>();
-        cardList3 = new ArrayList<Tile>();
+        cardList = new ArrayList<>();
+        cardList2 = new ArrayList<>();
+        cardList3 = new ArrayList<>();
         cardList.add(card1);
         cardList.add(card2);
         cardList3.add(Tile.EMPTY);
@@ -33,9 +33,9 @@ public class BookshelfTest {
     @Test
     public void testApp1(){
         bookshelf = new Bookshelf();
-        assertEquals(6, (int) bookshelf.getFreeCells(2));
+        assertEquals(6, bookshelf.getFreeCells(2));
         bookshelf.addTiles(cardList,2);
-        assertEquals(4, (int) bookshelf.getFreeCells(2));
+        assertEquals(4, bookshelf.getFreeCells(2));
     }
 
     //test for checking the getRow method
@@ -55,7 +55,7 @@ public class BookshelfTest {
     @Test
     public void testApp3(){
         bookshelf = new Bookshelf();
-        assertEquals(30, (int) bookshelf.getFreeCells());
+        assertEquals(30, bookshelf.getFreeCells());
     }
 
     //test for checking getFreeCells(Integer columnNumber)
@@ -63,7 +63,7 @@ public class BookshelfTest {
     public void testApp4(){
         bookshelf = new Bookshelf();
         bookshelf.addTiles(cardList,4);
-        assertEquals(4,(int) bookshelf.getFreeCells(4));
+        assertEquals(4, bookshelf.getFreeCells(4));
     }
 
     //another test to check on the good functioning of the class

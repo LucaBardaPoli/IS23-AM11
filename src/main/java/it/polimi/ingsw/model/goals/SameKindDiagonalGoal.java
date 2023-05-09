@@ -44,7 +44,7 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
      * @param bookshelf bookshelf to execute the check on
      * @return true whether the anti-diagonal exists
      */
-    private boolean checkAntidiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
+    private boolean checkAntiDiagonal(Integer startRow, Integer startColumn, Bookshelf bookshelf) {
         int limit = Math.min(GameSettings.COLUMNS, GameSettings.ROWS);
         Tile tile;
         Tile currentType;
@@ -70,6 +70,6 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
 
     public boolean test(Bookshelf bookshelf) {
         return checkDiagonal(0, 0, bookshelf) || checkDiagonal(1, 0, bookshelf) ||
-                checkAntidiagonal(5, 0, bookshelf) || checkDiagonal(4, 0, bookshelf);
+                checkAntiDiagonal(5, 0, bookshelf) || checkDiagonal(4, 0, bookshelf);
     }
 }

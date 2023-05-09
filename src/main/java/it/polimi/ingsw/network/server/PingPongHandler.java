@@ -36,7 +36,6 @@ public class PingPongHandler implements Runnable {
 
             if(!isReceivedMessage) {
                 lostPackets++;
-
             } else {
                 lostPackets = 0;
                 isReceivedMessage = false;

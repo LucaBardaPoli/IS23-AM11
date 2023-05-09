@@ -157,7 +157,7 @@ public class Board implements Serializable {
 
     /**
      * Sets a tile in a given cell of the board (used for testing)
-     * @param position postion where to place the tile
+     * @param position position where to place the tile
      * @param tile tile to place on the board
      * @return true if the given position belongs to the board
      */

@@ -8,7 +8,7 @@ import java.util.List;
  * Testing of SameKindX class (common goal)
  */
 public class SameKindXGoalTest {
-    private CommonGoal goal;
+    private final CommonGoal goal;
 
     /**
      * Create the test case

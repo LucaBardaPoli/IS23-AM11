@@ -14,10 +14,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SameKindGroupsGoalTest {
-    @Test
+
     /**
      * tests an empty bookshelf
      */
+    @Test
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindGroups;
@@ -47,10 +48,10 @@ public class SameKindGroupsGoalTest {
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * tests detection of small groups (1-3 tiles)
      * */
+    @Test
     public void testSmallGroups(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindGroups;
@@ -104,10 +105,10 @@ public class SameKindGroupsGoalTest {
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * tests detection of big groups (4-7 tiles)
      */
+    @Test
     public void testBigGroups(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindGroups;
@@ -149,10 +150,10 @@ public class SameKindGroupsGoalTest {
         assertTrue(sameKindGroups.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * tests a full bookshelf
      */
+    @Test
     public void testFullBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindGroups;
@@ -204,12 +205,12 @@ public class SameKindGroupsGoalTest {
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * tests the following properties:
-     * - if the goal is not fulfilled for a certain number of minimum groups it should not be fulfilled for any other greater number of minimun groups
+     * - if the goal is not fulfilled for a certain number of minimum groups it should not be fulfilled for any other greater number of minimum groups
      * - if the goal is fulfilled for a certain number of minimum groups it should be fulfilled for any other lower number of minimum groups
      */
+    @Test
     public void testMinGroups(){
         Bookshelf bookshelf;
         CommonGoal sameKindGroups;
@@ -239,12 +240,12 @@ public class SameKindGroupsGoalTest {
         }
     }
 
-    @Test
     /**
      * tests the following properties:
-     * - if the goal is not fulfilled for a certain value of minimum size it should not be fulfilled for any other greater value of minimun size
+     * - if the goal is not fulfilled for a certain value of minimum size it should not be fulfilled for any other greater value of minimum size
      * - if the goal is fulfilled for a certain value of minimum size it should be fulfilled for any other lower value of minimum size
      */
+    @Test
     public void testMinSize(){
         Bookshelf bookshelf;
         CommonGoal sameKindGroups;

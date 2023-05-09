@@ -9,7 +9,7 @@ import java.util.List;
  * Testing of SameKindDiagonal class (common goal)
  */
 public class SameKindDiagonalGoalTest {
-    private CommonGoal goal;
+    private final CommonGoal goal;
 
     /**
      * Create the test case
@@ -18,10 +18,11 @@ public class SameKindDiagonalGoalTest {
         this.goal = new CommonGoal("", new SameKindDiagonalGoal());
     }
 
-    @Test
+
     /**
      * Test to detect the first of the two possible diagonals in the bookshelf
      */
+    @Test
     public void testDetectFirstDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -33,10 +34,10 @@ public class SameKindDiagonalGoalTest {
         assert(this.goal.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * Test to detect the second of the two possible diagonals in the bookshelf
      */
+    @Test
     public void testDetectSecondDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -48,11 +49,11 @@ public class SameKindDiagonalGoalTest {
         assert(this.goal.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * Test to detect the first of the two possible anti-diagonals in the bookshelf
      */
-    public void testDetectFirstAntidiagonal() {
+    @Test
+    public void testDetectFirstAntiDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.YELLOW), 0);
@@ -63,11 +64,11 @@ public class SameKindDiagonalGoalTest {
         assert(this.goal.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * Test to detect the second of the two possible anti-diagonals in the bookshelf
      */
-    public void testDetectSecondAntidiagonal() {
+    @Test
+    public void testDetectSecondAntiDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.YELLOW), 0);
@@ -78,10 +79,10 @@ public class SameKindDiagonalGoalTest {
         assert(this.goal.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * Test to check if detects a group of cards almost shaped as a diagonal
      */
+    @Test
     public void testDetectWrongShapeDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
@@ -93,11 +94,11 @@ public class SameKindDiagonalGoalTest {
         assert(!this.goal.checkGoal(bookshelf));
     }
 
-    @Test
     /**
      * Test to check if detects a group of cards almost shaped as an anti-diagonal
      */
-    public void testDetectWrongShapeAntidiagonal() {
+    @Test
+    public void testDetectWrongShapeAntiDiagonal() {
         Bookshelf bookshelf  = new Bookshelf();
         assert(!this.goal.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.YELLOW), 0);

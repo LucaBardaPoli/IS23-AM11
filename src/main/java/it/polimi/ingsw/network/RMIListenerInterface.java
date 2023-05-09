@@ -10,7 +10,7 @@ public interface RMIListenerInterface extends Serializable, Remote {
     /**
      * Getter method
      * @return a ClientHandlerRMI
-     * @throws RemoteException
+     * @throws RemoteException RMI error
      */
     ClientHandlerRMIInterface getHandler() throws RemoteException;
 }

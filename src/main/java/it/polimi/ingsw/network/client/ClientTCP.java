@@ -42,8 +42,8 @@ public class ClientTCP extends Client {
             return true;
         } catch (IOException e) {
             this.close();
-            return false;
         }
+        return false;
     }
 
     /**
@@ -56,7 +56,7 @@ public class ClientTCP extends Client {
                 this.executors.submit(() -> serverMessage.handle(this.controller));
             }
         } catch (IOException | ClassNotFoundException ignored) {
-            ;
+            System.out.println();
         } finally {
             this.close();
         }
@@ -83,12 +83,11 @@ public class ClientTCP extends Client {
         if(this.stopConnection) {
             return;
         }
-        this.stopConnection = true;
-        this.controller.getView().setEndGame(true);
         System.out.println("Closing connection with the server...");
+
+        this.stopConnection = true;
         if(this.controller != null) {
             this.controller.getView().setEndGame(true);
-            this.controller.getView().showPlayerDisconnected("Server");
         }
         try {
             this.executors.shutdownNow();
@@ -96,7 +95,7 @@ public class ClientTCP extends Client {
             this.outputStream.close();
             this.socket.close();
         } catch(Exception e) {
-            ;
+            System.out.println();
         }
     }
 }

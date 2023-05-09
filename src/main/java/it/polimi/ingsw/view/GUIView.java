@@ -49,7 +49,7 @@ public class GUIView extends Application implements View {
         b1.setOnAction(event -> LaunchClient.openConnection("TCP", serverIpTextField.getText(), this));
 
         Button b2 = new Button("RMI");
-        b2.setOnAction(event -> LaunchClient.openConnection("RMI", serverIpTextField.getText(), this));
+        //b2.setOnAction(event -> LaunchClient.openConnection("RMI", serverIpTextField.getText(), this));
 
         layout.setAlignment(Pos.CENTER);
         layout.setHgap(8);
@@ -83,7 +83,7 @@ public class GUIView extends Application implements View {
         Label nicknameLabel = new Label("Nickname");
 
         Button b1 = new Button("Login");
-        b1.setOnAction(event -> this.clientController.sendMessage(new LoginRequest(nicknameLabel.getText())));
+        b1.setOnAction(event -> this.clientController.sendMessage(new LoginRequest(nicknameTextField.getText())));
 
         layout.setAlignment(Pos.CENTER);
         layout.setHgap(8);

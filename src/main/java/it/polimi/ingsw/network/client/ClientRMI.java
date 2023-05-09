@@ -46,19 +46,15 @@ public class ClientRMI extends Client implements ClientRMIInterface {
     }
 
     /**
-     * As RMI is done, there is no need to listen for messages but it is sufficient to expose objects so that methods can be called remotely.
+     * As RMI is done, there is no need to listen for messages, but it is sufficient to expose objects so that methods can be called remotely.
      */
     public void start() {
         this.connectionTester = new Thread(() -> {
             do {
                 try {
                     Thread.sleep(NetworkSettings.MAX_PONG_WAIT);
-                } catch (InterruptedException e) {
-                    this.close();
-                }
-                try {
                     this.clientHandler.testConnection();
-                } catch(RemoteException e) {
+                } catch(InterruptedException | RemoteException e) {
                     this.close();
                 }
             } while(!this.stopConnection);
@@ -102,11 +98,10 @@ public class ClientRMI extends Client implements ClientRMIInterface {
             }
             if (this.controller != null) {
                 this.controller.getView().setEndGame(true);
-                this.controller.getView().showPlayerDisconnected("Server");
             }
             UnicastRemoteObject.unexportObject(this, true);
         } catch (NoSuchObjectException e) {
-            ;
+            System.out.println();
         }
     }
 }

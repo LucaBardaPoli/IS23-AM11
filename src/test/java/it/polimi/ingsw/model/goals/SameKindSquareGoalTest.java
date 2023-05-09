@@ -9,7 +9,7 @@ import java.util.List;
  * Testing of SameKindSquare class (common goal)
  */
 public class SameKindSquareGoalTest {
-    private CommonGoal goal;
+    private final CommonGoal goal;
 
     /**
      * Create the test case

@@ -23,7 +23,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
     /**
      * Registers a client
      * @param client is the client that will be registered
-     * @throws RemoteException
+     * @throws RemoteException RMI error
      */
     public void registerClient(ClientRMIInterface client) throws RemoteException {
         this.client = client;
@@ -31,7 +31,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
 
     /**
      * Method used from remote RMI-clients to test whether the connection is still open
-     * @throws RemoteException
+     * @throws RemoteException RMI error
      */
     public void testConnection() throws RemoteException {
     }
@@ -39,7 +39,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
     /**
      * Receives a client message
      * @param clientMessage sent by the client
-     * @throws RemoteException
+     * @throws RemoteException RMI error
      */
     public void receiveMessage(ClientMessage clientMessage) throws RemoteException {
         clientMessage.handle(this);
@@ -54,7 +54,9 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
             try {
                 this.client.receiveMessage(serverMessage);
             } catch(RemoteException e) {
-                this.initClose();
+                if (!this.stopConnection) {
+                    this.initClose();
+                }
             }
         }).start();
     }

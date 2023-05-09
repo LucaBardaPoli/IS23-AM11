@@ -7,7 +7,6 @@ import it.polimi.ingsw.network.server.ClientHandler;
  *
  */
 public class ChatMessage implements ClientMessage, ServerMessage {
-    // se non esiste il player è mandato in bcast
     /**
      * player is the name of the client which sends the message. (If the name is invalid, then the message is sent in broadcast)
      */
@@ -19,9 +18,6 @@ public class ChatMessage implements ClientMessage, ServerMessage {
         this.player = player;
         this.receiver = receiver;
         this.textMessage = textMessage;
-    }
-    public ChatMessage(String player, String textMessage) {
-        this(player, null, textMessage);
     }
 
     public String getPlayer() {
