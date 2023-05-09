@@ -97,7 +97,9 @@ public class ClientRMI extends Client implements ClientRMIInterface {
         this.stopConnection = true;
         try {
             System.out.println("Closing connection with the server...");
-            this.connectionTester.interrupt();
+            if(this.connectionTester != null) {
+                this.connectionTester.interrupt();
+            }
             if (this.controller != null) {
                 this.controller.getView().setEndGame(true);
                 this.controller.getView().showPlayerDisconnected("Server");

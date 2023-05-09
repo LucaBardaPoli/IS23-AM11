@@ -406,6 +406,7 @@ public class TUIView implements View {
                 System.out.println("Type:");
                 System.out.println("The column index where to insert the picked tiles.");
                 System.out.println("S to show the table.");
+                System.out.println("C to confirm the column.");
                 System.out.println("M to send a message:");
                 String s = this.readWord().toUpperCase();
                 switch(s) {
@@ -418,13 +419,16 @@ public class TUIView implements View {
                     case "M":
                         this.handleChatMessage();
                         break;
-                    default:
+                    case "C":
                         try {
                             this.clientController.sendMessage(new ConfirmColumnRequest(Integer.parseInt(s)));
                             confirmedColumn = true;
                         } catch (NumberFormatException e) {
                             System.out.println("Not a valid command!");
                         }
+                        break;
+                    default:
+                        System.out.println("Invalid command!");
                         break;
                 }
             } while(!confirmedColumn && !this.endGame);

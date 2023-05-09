@@ -84,6 +84,7 @@ public class ClientTCP extends Client {
             return;
         }
         this.stopConnection = true;
+        this.controller.getView().setEndGame(true);
         System.out.println("Closing connection with the server...");
         if(this.controller != null) {
             this.controller.getView().setEndGame(true);
