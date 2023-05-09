@@ -11,13 +11,12 @@ public class LaunchClient {
      * @param args arguments passed from command line
      */
     public static void main(String[] args) {
-        View view;
-        if (args.length > 0 && args[0].equalsIgnoreCase("TUI")) {
-            view = new GUIView();
+        if(args.length > 0 && args[0].equalsIgnoreCase("-gui")) {
+            GUIView view = new GUIView();
+            view.runGUI();
         } else { // Default is tui
-            view = new TUIView();
+            new TUIView();
         }
-        view.showChooseTypeOfConnection();
     }
 
     /**

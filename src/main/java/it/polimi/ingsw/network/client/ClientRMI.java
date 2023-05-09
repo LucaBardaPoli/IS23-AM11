@@ -91,16 +91,19 @@ public class ClientRMI extends Client implements ClientRMIInterface {
      * Ends the exportation on the remote-object.
      */
     public void close() {
+        if(this.stopConnection) {
+            return;
+        }
+        this.stopConnection = true;
         try {
             System.out.println("Closing connection with the server...");
-            this.stopConnection = true;
             this.connectionTester.interrupt();
             if (this.controller != null) {
                 this.controller.getView().setEndGame(true);
                 this.controller.getView().showPlayerDisconnected("Server");
             }
             UnicastRemoteObject.unexportObject(this, true);
-        } catch(NoSuchObjectException e) {
+        } catch (NoSuchObjectException e) {
             ;
         }
     }

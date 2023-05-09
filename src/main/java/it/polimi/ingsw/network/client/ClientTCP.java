@@ -80,12 +80,15 @@ public class ClientTCP extends Client {
      * Closes the connection previously opened with the server
      */
     public void close() {
+        if(this.stopConnection) {
+            return;
+        }
+        this.stopConnection = true;
         System.out.println("Closing connection with the server...");
         if(this.controller != null) {
             this.controller.getView().setEndGame(true);
             this.controller.getView().showPlayerDisconnected("Server");
         }
-        this.stopConnection = true;
         try {
             this.executors.shutdownNow();
             this.inputStream.close();
