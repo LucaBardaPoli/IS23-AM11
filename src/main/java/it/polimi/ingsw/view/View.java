@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface View {
-    void setEndGame(boolean endGame);
     List<String> getPlayers();
 
 
@@ -14,7 +13,6 @@ public interface View {
     void setClientController(ClientController clientController);
     void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
-    void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal);
 
 
     /* Methods to display the items of the game */
@@ -63,4 +61,5 @@ public interface View {
 
     /* Methods to show disconnection issues */
     void showPlayerDisconnected(String disconnectedPlayer);
+    void showDisconnection();
 }

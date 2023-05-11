@@ -45,11 +45,13 @@ public class GUIView extends Application implements View {
 
         Label serverIPLabel = new Label("Server IP");
 
-        Button b1 = new Button("TCP");
-        b1.setOnAction(event -> LaunchClient.openConnection("TCP", serverIpTextField.getText(), this));
+        Button b1 = new Button();
+        b1.setText("TCP");
+        b1.setOnAction(event -> LaunchClient.openConnection(b1.getText(), serverIpTextField.getText(), this));
 
-        Button b2 = new Button("RMI");
-        //b2.setOnAction(event -> LaunchClient.openConnection("RMI", serverIpTextField.getText(), this));
+        Button b2 = new Button();
+        b2.setText("RMI");
+        b2.setOnAction(event -> LaunchClient.openConnection(b2.getText(), serverIpTextField.getText(), this));
 
         layout.setAlignment(Pos.CENTER);
         layout.setHgap(8);
@@ -119,11 +121,6 @@ public class GUIView extends Application implements View {
     }
 
     @Override
-    public void setEndGame(boolean endGame) {
-
-    }
-
-    @Override
     public List<String> getPlayers() {
         return null;
     }
@@ -139,12 +136,12 @@ public class GUIView extends Application implements View {
     }
 
     @Override
-    public void setPlayers(List<String> players) {
+    public void showDisconnection() {
 
     }
 
     @Override
-    public void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
+    public void setPlayers(List<String> players) {
 
     }
 

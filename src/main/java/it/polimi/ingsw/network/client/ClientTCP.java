@@ -41,7 +41,7 @@ public class ClientTCP extends Client {
             this.inputStream = new ObjectInputStream(this.socket.getInputStream());
             return true;
         } catch (IOException e) {
-            this.close();
+            System.out.println();
         }
         return false;
     }
@@ -83,12 +83,8 @@ public class ClientTCP extends Client {
         if(this.stopConnection) {
             return;
         }
-        System.out.println("Closing connection with the server...");
-
         this.stopConnection = true;
-        if(this.controller != null) {
-            this.controller.getView().setEndGame(true);
-        }
+        this.controller.getView().showDisconnection();
         try {
             this.executors.shutdownNow();
             this.inputStream.close();

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.network.NetworkSettings;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.LaunchClient;
 import it.polimi.ingsw.network.message.*;
@@ -18,9 +17,7 @@ public class TUIView implements View {
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
-    private final Runnable chatMessageRunnable;
-    private Thread chatThread;
-    private boolean endGame;
+    private boolean changeTurn;
     private final Scanner scanner;
 
     /* Colors */
@@ -34,26 +31,7 @@ public class TUIView implements View {
 
     public TUIView() {
         this.scanner = new Scanner(System.in);
-        this.endGame = false;
-        this.chatMessageRunnable = new Thread(() -> {
-            do {
-                try {
-                    System.out.println("Type a message:");
-                    String message = this.readText();
-                    System.out.println("Type the receiver (enter to send it to everyone):");
-                    String receiver = this.readWord();
-                    this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
-                } catch(Exception e) {
-                    System.out.println("Error!");
-                }
-            } while(!this.clientController.getClient().getNickname().equals(this.currentPlayer) && !this.endGame);
-        });
-        this.chatThread = new Thread(this.chatMessageRunnable);
         this.showChooseTypeOfConnection();
-    }
-
-    public void setEndGame(boolean endGame) {
-        this.endGame = endGame;
     }
 
     public List<String> getPlayers() {
@@ -67,9 +45,11 @@ public class TUIView implements View {
             try {
                 return this.scanner.nextLine();
             } catch(InputMismatchException | IndexOutOfBoundsException e) {
-                System.out.println("Invalid input! Try again:");
+                if(!this.clientController.getClient().getStopConnection()) {
+                    System.out.println("Invalid input! Try again:");
+                }
             }
-        } while(!this.endGame);
+        } while(!this.clientController.getClient().getStopConnection());
         return "";
     }
 
@@ -82,9 +62,9 @@ public class TUIView implements View {
                 }
                 return line;
             } catch(InputMismatchException | IndexOutOfBoundsException e) {
-                System.out.println("Invalid input! Try again:");
+                ;
             }
-        } while(!this.endGame);
+        } while(!this.clientController.getClient().getStopConnection());
         return "";
     }
 
@@ -93,9 +73,11 @@ public class TUIView implements View {
             try {
                 return Integer.parseInt(this.readWord());
             } catch(InputMismatchException | IndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println("Invalid input! Try again:");
+                if(!this.clientController.getClient().getStopConnection()) {
+                    System.out.println("Invalid input! Try again:");
+                }
             }
-        } while(!this.endGame);
+        } while(!this.clientController.getClient().getStopConnection());
         return -1;
     }
 
@@ -107,11 +89,13 @@ public class TUIView implements View {
 
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
         System.out.println("\n\nGame started\n");
-        setTable(board, commonGoals, personalGoal);
+        this.setTable(board, commonGoals, personalGoal);
         this.showBoard();
         this.showCommonGoals();
         this.showPersonalGoal();
-        this.startTurn(nextPlayer);
+        this.currentPlayer = nextPlayer;
+        System.out.println(this.currentPlayer + "'s turn");
+        this.showPickATile();
     }
 
     public void setPlayers(List<String> players) {
@@ -123,7 +107,7 @@ public class TUIView implements View {
         }
     }
 
-    public void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
+    private void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
         this.board = board;
         this.commonGoals = commonGoals;
         this.personalGoal = personalGoal;
@@ -288,6 +272,16 @@ public class TUIView implements View {
 
     public void updatePoints(String player, int points) {
         this.points.replace(player, points);
+        List<String> sortedPlayers = this.points
+                .entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        Map<String, Integer> sortedPoints = new HashMap<>();
+        for(String sortedPlayer : sortedPlayers) {
+            sortedPoints.put(sortedPlayer, this.points.get(sortedPlayer));
+        }
+        this.points = sortedPoints;
     }
 
     public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
@@ -297,9 +291,19 @@ public class TUIView implements View {
 
     /* Methods to ask for a player's move */
     public void showChooseTypeOfConnection() {
-        System.out.println("Insert the type of connection: ");
-        String connection = this.readWord();
-        LaunchClient.openConnection(connection, NetworkSettings.SERVER_NAME, this);
+        boolean connected = false;
+        String connection;
+        String serverIP;
+        while(!connected) {
+            System.out.println("Insert the type of connection (RMI or TCP): ");
+            connection = this.readWord();
+            System.out.println("Insert the server IP (Type Enter for localhost): ");
+            serverIP = this.readWord();
+            connected = LaunchClient.openConnection(connection, serverIP, this);
+            if(!connected) {
+                System.out.println("Error during connection. Try again.\n");
+            }
+        }
     }
 
     public void showChooseNickname() {
@@ -363,39 +367,50 @@ public class TUIView implements View {
 
     public void showPickATile() {
         boolean tilesPicked = false;
+        boolean showError = false;
 
         do {
             System.out.println("Type:");
-            System.out.println("P to pick a tile.");
-            if(!this.pickedTiles.isEmpty()) {
-                System.out.println("U to unpick a tile.");
+            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+                System.out.println("P to pick a tile.");
+                if (!this.pickedTiles.isEmpty()) {
+                    System.out.println("U to unpick a tile.");
+                }
+                System.out.println("C to confirm the picked tiles.");
+                System.out.println("S to show the table.");
             }
-            System.out.println("C to confirm the picked tiles.");
-            System.out.println("S to show the table.");
             System.out.println("M to send a message:");
             String s = this.readWord().toUpperCase();
-            switch(s) {
-                case "P":
-                    tilesPicked = this.handlePick();
-                    break;
-                case "U":
-                    tilesPicked = this.handleUnpick();
-                    break;
-                case "C":
-                    this.clientController.sendMessage(new ConfirmPickRequest());
-                    tilesPicked = true;
-                    break;
-                case "S":
-                    this.showTable();
-                    break;
-                case "M":
-                    this.handleChatMessage();
-                    break;
-                default:
-                    System.out.println("Not a valid command!");
-                    break;
+            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+                switch(s) {
+                    case "P":
+                        tilesPicked = this.handlePick();
+                        break;
+                    case "U":
+                        tilesPicked = this.handleUnpick();
+                        break;
+                    case "C":
+                        this.clientController.sendMessage(new ConfirmPickRequest());
+                        tilesPicked = true;
+                        break;
+                    case "S":
+                        this.showTable();
+                        break;
+                    default:
+                        showError = true;
+                        break;
+                }
             }
-        } while(!tilesPicked && !this.endGame);
+            if(s.equals("M")) {
+                this.handleChatMessage();
+            } else if(showError && !this.changeTurn) {
+                System.out.println("Not a valid command!");
+            }
+            showError = false;
+            if(this.changeTurn) {
+                this.changeTurn = false;
+            }
+        } while(!tilesPicked && !this.clientController.getClient().getStopConnection());
     }
 
     public void showChooseColumn() {
@@ -406,7 +421,6 @@ public class TUIView implements View {
                 System.out.println("Type:");
                 System.out.println("The column index where to insert the picked tiles.");
                 System.out.println("S to show the table.");
-                System.out.println("C to confirm the column.");
                 System.out.println("M to send a message:");
                 String s = this.readWord().toUpperCase();
                 switch(s) {
@@ -419,7 +433,7 @@ public class TUIView implements View {
                     case "M":
                         this.handleChatMessage();
                         break;
-                    case "C":
+                    default:
                         try {
                             this.clientController.sendMessage(new ConfirmColumnRequest(Integer.parseInt(s)));
                             confirmedColumn = true;
@@ -427,11 +441,8 @@ public class TUIView implements View {
                             System.out.println("Not a valid command!");
                         }
                         break;
-                    default:
-                        System.out.println("Invalid command!");
-                        break;
                 }
-            } while(!confirmedColumn && !this.endGame);
+            } while(!confirmedColumn && !this.clientController.getClient().getStopConnection());
         }
     }
 
@@ -466,7 +477,7 @@ public class TUIView implements View {
                     }
                     break;
             }
-        } while(!confirmedTiles && !this.endGame);
+        } while(!confirmedTiles && !this.clientController.getClient().getStopConnection());
     }
 
 
@@ -510,19 +521,23 @@ public class TUIView implements View {
 
     /* Methods to handle the change of a turn */
     public void startTurn(String player) {
-        this.currentPlayer = player;
         System.out.println(player + "'s turn");
-        if(player.equals(this.clientController.getClient().getNickname())) {
+        if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+            this.currentPlayer = player;
             this.showPickATile();
         } else {
-            //this.showWriteMessage();
+            this.currentPlayer = player;
+            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+                System.out.println("Type Enter to play:");
+                this.changeTurn = true;
+            } else {
+                System.out.println("Type:");
+                System.out.println("M to send a message:");
+            }
         }
     }
 
     public void endTurn() {
-        if(this.chatThread.isAlive()) {
-            this.chatThread.interrupt();
-        }
         System.out.println(this.currentPlayer + "'s turn is over!");
         System.out.println("New Board:");
         showBoard();
@@ -533,26 +548,16 @@ public class TUIView implements View {
     }
 
     public void showEndGame() {
-        List<String> sortedPlayers = this.points
-                .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
         System.out.println("Game ended");
         System.out.println("Results:");
-        for(String player : sortedPlayers) {
-            System.out.println(player + "\t: " + this.points.get(player));
+        for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
+            System.out.println(entry.getKey() + "\t: " + entry.getValue());
         }
         this.clientController.getClient().close();
     }
 
 
     /* Methods to handle chat messages */
-    private void showWriteMessage() {
-        this.chatThread = new Thread(this.chatMessageRunnable);
-        this.chatThread.start();
-    }
-
     public void showNewChatMessageUnicast(String sender, String message) {
         System.out.println("Chat:");
         System.out.println("Message from " + sender + " to " + this.clientController.getClient().getNickname() + ": " + message);
@@ -564,9 +569,14 @@ public class TUIView implements View {
     }
 
 
-    /* Methods to show disconnection issues */
+    /* Methods to show disconnection phase */
     public void showPlayerDisconnected(String disconnectedPlayer) {
         System.out.println(disconnectedPlayer + " has disconnected!");
+        showDisconnection();
+    }
+
+    public void showDisconnection() {
+        System.out.println("Closing the connection with the server...");
         System.out.println("Type something to close the game:");
     }
 }

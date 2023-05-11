@@ -11,7 +11,7 @@ public class LaunchClient {
      * @param args arguments passed from command line
      */
     public static void main(String[] args) {
-        if(args.length > 0 && args[0].equalsIgnoreCase("-gui")) {
+        if(args.length > 0 && args[0].equalsIgnoreCase("--gui")) {
             GUIView view = new GUIView();
             view.runGUI();
         } else { // Default is tui
@@ -25,7 +25,7 @@ public class LaunchClient {
      * @param ip IP address of the client
      * @param view view of the client
      */
-    public static void openConnection(String typeOfConnection, String ip, View view) {
+    public static boolean openConnection(String typeOfConnection, String ip, View view) {
         Client client;
         if(typeOfConnection.equals("RMI")) {
             client = new ClientRMI(ip);
@@ -35,6 +35,9 @@ public class LaunchClient {
         if(client.openConnection()) {
             ClientController clientController = new ClientController(client, view);
             clientController.initController();
+            return true;
+        } else {
+            return false;
         }
     }
 }

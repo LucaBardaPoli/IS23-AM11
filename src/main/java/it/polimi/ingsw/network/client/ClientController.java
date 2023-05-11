@@ -42,8 +42,8 @@ public class ClientController {
      * Initializes the Controller
      */
     public void initController() {
+        new Thread(this.client::start).start();
         this.view.showChooseNickname();
-        this.client.start();
     }
 
     /**
@@ -60,7 +60,6 @@ public class ClientController {
      */
     public void handle(PingMessage message) {
         this.client.sendMessage(new PongMessage());
-        //System.out.println("Ping received");
     }
 
     /**
@@ -175,9 +174,7 @@ public class ClientController {
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
         this.view.updateCommonGoals(serverMessage.getCommonGoals());
         this.view.endTurn();
-        if(!serverMessage.getPlayer().equals(serverMessage.getNextPlayer())) {
-            this.view.startTurn(serverMessage.getNextPlayer());
-        }
+        this.view.startTurn(serverMessage.getNextPlayer());
     }
 
     /**
@@ -208,7 +205,6 @@ public class ClientController {
      */
     public void handle(PlayerDisconnectedNotify serverMessage) {
         this.view.showPlayerDisconnected(serverMessage.getDisconnectedPlayer());
-        this.view.setEndGame(true);
         this.client.close();
     }
 }

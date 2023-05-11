@@ -40,7 +40,6 @@ public class ClientRMI extends Client implements ClientRMIInterface {
             this.clientHandler.registerClient(this);
             return true;
         } catch (RemoteException | NotBoundException e) {
-            this.close();
             return false;
         }
     }
@@ -91,13 +90,10 @@ public class ClientRMI extends Client implements ClientRMIInterface {
             return;
         }
         this.stopConnection = true;
+        this.controller.getView().showDisconnection();
         try {
-            System.out.println("Closing connection with the server...");
             if(this.connectionTester != null) {
                 this.connectionTester.interrupt();
-            }
-            if (this.controller != null) {
-                this.controller.getView().setEndGame(true);
             }
             UnicastRemoteObject.unexportObject(this, true);
         } catch (NoSuchObjectException e) {

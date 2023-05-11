@@ -26,6 +26,14 @@ public abstract class Client {
     }
 
     /**
+     * Getter method
+     * @return true if the connection is closing
+     */
+    public boolean getStopConnection() {
+        return stopConnection;
+    }
+
+    /**
      * Setter method
      * @param clientController is the class which controls the main functions of the client.
      */
