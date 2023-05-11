@@ -32,7 +32,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
     private boolean testRows(Bookshelf bookshelf){
         int nrows = GameSettings.ROWS;
         int ncolumns = GameSettings.COLUMNS;
-        int ntypes = Tile.values().length;
+        int ntypes = Tile.numColors;
         int i, j;
         int count_types, count_rows = 0;
         boolean fullRow;
@@ -67,7 +67,7 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
     private boolean testColumns(Bookshelf bookshelf){
         int nrows = GameSettings.ROWS;
         int ncolumns = GameSettings.COLUMNS;
-        int ntypes = Tile.values().length;
+        int ntypes = Tile.numColors;
         int i, j;
         int count_types, count_columns = 0;
         boolean fullColumn;

@@ -1,15 +1,21 @@
 package it.polimi.ingsw.view;
 
+import com.sun.glass.ui.Screen;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.LaunchClient;
 import it.polimi.ingsw.network.message.LoginRequest;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -19,6 +25,10 @@ public class GUIView extends Application implements View {
     private ClientController clientController;
     private Stage mainWindow;
 
+    private double windowHeight;
+    private double windowWidth;
+
+
     public void runGUI() {
         launch();
     }
@@ -26,25 +36,46 @@ public class GUIView extends Application implements View {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.mainWindow = primaryStage;
+        this.windowHeight = Screen.getScreens().get(0).getHeight();
+        this.windowWidth = Screen.getScreens().get(0).getWidth();
+        this.mainWindow.setFullScreen(true);
         this.mainWindow.show();
         this.showChooseTypeOfConnection();
     }
 
     @Override
     public void showChooseTypeOfConnection() {
-        GridPane layout = new GridPane();
+        //this.mainWindow.setResizable(false);
 
-        Scene scene = new Scene(layout,500,300);
+        Image backgroundImage = new Image("publisher_material/Display_1.jpg");
 
-        Label text = new Label("Connection info");
-        text.setMaxWidth(Double.MAX_VALUE);
+        BorderPane mainLayout = new BorderPane();
+        mainLayout.setBackground(new Background(new BackgroundImage(backgroundImage, BackgroundRepeat.ROUND, BackgroundRepeat.ROUND, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+        GridPane connectionLayout = new GridPane();
+
+        TilePane tilePane = new TilePane();
+        tilePane.setOrientation(Orientation.VERTICAL);
+        tilePane.setHgap(10);
+        tilePane.setVgap(10);
+
+        Scene scene = new Scene(mainLayout, this.windowWidth, this.windowHeight);
+
+        Label text = new Label("Connection to server");
         text.setAlignment(Pos.CENTER);
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setFill(Color.WHITE);
+        rectangle.setWidth(400);
+        rectangle.setHeight(200);
+        rectangle.setArcHeight(20);
+        rectangle.setArcWidth(20);
 
         TextField serverIpTextField = new TextField();
         serverIpTextField.setText("127.0.0.1");
 
         Label serverIPLabel = new Label("Server IP");
-
+        tilePane.getChildren().addAll(serverIPLabel,serverIPLabel,serverIpTextField);
         Button b1 = new Button();
         b1.setText("TCP");
         b1.setOnAction(event -> LaunchClient.openConnection(b1.getText(), serverIpTextField.getText(), this));
@@ -53,16 +84,19 @@ public class GUIView extends Application implements View {
         b2.setText("RMI");
         b2.setOnAction(event -> LaunchClient.openConnection(b2.getText(), serverIpTextField.getText(), this));
 
-        layout.setAlignment(Pos.CENTER);
-        layout.setHgap(8);
-        layout.setVgap(8);
-        layout.setPadding(new Insets(5, 5, 5, 5));
+        connectionLayout.setAlignment(Pos.CENTER);
+        connectionLayout.setHgap(8);
+        connectionLayout.setVgap(8);
+        connectionLayout.setPadding(new Insets(5, 5, 5, 5));
 
-        layout.add(text,0,0,3,1);
-        layout.add(serverIPLabel,0,1);
-        layout.add(serverIpTextField,1,1,2,1);
-        layout.add(b1,1,2);
-        layout.add(b2,2,2);
+        connectionLayout.add(rectangle, 0, 0);
+        connectionLayout.add(text,0,0,3,1);
+        connectionLayout.add(serverIPLabel,0,1);
+        //connectionLayout.add(serverIpTextField,1,1,2,1);
+        //connectionLayout.add(b1,1,2);
+        //connectionLayout.add(b2,2,2);
+
+        mainLayout.setCenter(connectionLayout);
 
         this.mainWindow.setScene(scene);
         this.mainWindow.setTitle("MyShelfie");
