@@ -482,6 +482,10 @@ public class TUIView implements View {
 
 
     /* Methods to show a move's result */
+    public void showInvalidNickname() {
+        System.out.println("Nickname already taken!");
+    }
+
     public void showValidPick() {
         System.out.println("Tile picked successfully!");
     }

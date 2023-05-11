@@ -68,6 +68,7 @@ public class ClientController {
      */
     public void handle(LoginResponse serverMessage) {
         if(serverMessage.getNickname() == null) {
+            this.view.showInvalidNickname();
             this.view.showChooseNickname();
         } else {
             this.client.setNickname(serverMessage.getNickname());

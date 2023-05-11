@@ -37,6 +37,7 @@ public interface View {
 
 
     /* Methods to show a move's result */
+    void showInvalidNickname();
     void showValidPick();
     void showInvalidPick();
     void showValidUnpick();

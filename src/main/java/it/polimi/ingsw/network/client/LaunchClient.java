@@ -12,9 +12,8 @@ public class LaunchClient {
      */
     public static void main(String[] args) {
         if(args.length > 0 && args[0].equalsIgnoreCase("--gui")) {
-            GUIView view = new GUIView();
-            view.runGUI();
-        } else { // Default is tui
+            GUIView.main(null);
+        } else { // Default is TUI
             new TUIView();
         }
     }
