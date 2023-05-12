@@ -22,10 +22,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GUIView extends Application implements View {
+public class GUIView extends Application {
     private GUIViewAdapter adapter;
     private ClientController clientController;
     private Stage mainWindow;
@@ -39,6 +40,11 @@ public class GUIView extends Application implements View {
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
+
+    /* Utils */
+    private boolean changeTurn;
+    private boolean endGame;
+
 
     public static void main(String[] args) {
         launch();
@@ -204,7 +210,7 @@ public class GUIView extends Application implements View {
     }
 
     public List<String> getPlayers() {
-        return null;
+        return new ArrayList<>(bookshelves.keySet());
     }
 
     public void setClientController(ClientController clientController) {
@@ -223,8 +229,7 @@ public class GUIView extends Application implements View {
     }
 
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        this.setTable(board, commonGoals, personalGoal);
-
+        setTable(board, commonGoals, personalGoal);
         BorderPane layout = new BorderPane();
 
         Image boardImage = new Image("livingroom.png", 500, 300, true, true);
@@ -247,7 +252,12 @@ public class GUIView extends Application implements View {
     }
 
     public void setPlayers(List<String> players) {
-
+        this.bookshelves = new HashMap<>();
+        this.points = new HashMap<>();
+        for(String player : players) {
+            this.bookshelves.put(player, new Bookshelf());
+            this.points.put(player, 0);
+        }
     }
 
     public void showBookshelf(String player) {
