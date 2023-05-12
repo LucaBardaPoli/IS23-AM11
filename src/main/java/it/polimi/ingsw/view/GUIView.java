@@ -6,6 +6,8 @@ import it.polimi.ingsw.network.client.LaunchClient;
 import it.polimi.ingsw.network.message.LoginRequest;
 import it.polimi.ingsw.network.message.NumPlayersResponse;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,9 +15,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,51 +31,97 @@ public class GUIView extends Application implements View {
     private Stage mainWindow;
     private Scene scene;
 
+    /* Game's items */
+    private Board board;
+    private Map<String, Bookshelf> bookshelves;
+    private Map<CommonGoal, Integer> commonGoals;
+    private PersonalGoal personalGoal;
+    private List<Tile> pickedTiles;
+    private Map<String, Integer> points;
+    private String currentPlayer;
+
     public static void main(String[] args) {
         launch();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        this.mainWindow = primaryStage;
         this.adapter = new GUIViewAdapter(this);
+        this.mainWindow = primaryStage;
+        this.mainWindow.show();
         this.showChooseTypeOfConnection();
     }
 
     public void showChooseTypeOfConnection() {
-        GridPane layout = new GridPane();
+        /*try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/rootLayout.fxml"));
+            this.rootLayout = loader.load();
 
-        this.scene = new Scene(layout, 500, 300);
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(this.rootLayout);
+            mainWindow.setScene(scene);
 
-        Label text = new Label("Connection info");
-        text.setMaxWidth(Double.MAX_VALUE);
-        text.setAlignment(Pos.CENTER);
+            tcpButton.setOnAction(actionEvent -> LaunchClient.openConnection("TCP", serverIpTextField.getText(), this.adapter));
+            tcpButton.setOnAction(actionEvent -> LaunchClient.openConnection("RMI", serverIpTextField.getText(), this.adapter));
+
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        StackPane mainLayout = new StackPane();
+        mainLayout.setPrefHeight(400.0);
+        mainLayout.setPrefWidth(700.0);
+
+        VBox mainVBox = new VBox();
+        mainVBox.setAlignment(Pos.CENTER);
+
+        VBox titleVBox = new VBox();
+        titleVBox.setAlignment(Pos.CENTER);
+        titleVBox.setSpacing(10.0);
+
+        Label connectionLabel = new Label();
+        connectionLabel.setText("Connection info");
+
+        titleVBox.getChildren().add(connectionLabel);
+
+        HBox ipHBox = new HBox();
+        ipHBox.setAlignment(Pos.CENTER);
+        ipHBox.setPrefHeight(10.0);
+        ipHBox.setPrefWidth(200.0);
+        ipHBox.setSpacing(10);
+        ipHBox.setPadding(new Insets(20.0, 0, 20.0, 0));
+
+        Label serverIpLabel = new Label();
+        serverIpLabel.setText("Server IP");
 
         TextField serverIpTextField = new TextField();
         serverIpTextField.setText("127.0.0.1");
 
-        Label serverIPLabel = new Label("Server IP");
+        ipHBox.getChildren().addAll(serverIpLabel, serverIpTextField);
 
-        Button b1 = new Button();
-        b1.setText("TCP");
-        b1.setOnAction(event -> LaunchClient.openConnection(b1.getText(), serverIpTextField.getText(), this.adapter));
+        HBox buttonHBox = new HBox();
+        buttonHBox.setAlignment(Pos.CENTER);
+        buttonHBox.setPrefWidth(200.0);
+        buttonHBox.setSpacing(10);
 
-        Button b2 = new Button();
-        b2.setText("RMI");
-        b2.setOnAction(event -> LaunchClient.openConnection(b2.getText(), serverIpTextField.getText(), this.adapter));
+        Button tcpButton = new Button();
+        tcpButton.setText("TCP");
+        tcpButton.setOnAction(event -> LaunchClient.openConnection(tcpButton.getText(), serverIpTextField.getText(), this.adapter));
 
-        layout.setAlignment(Pos.CENTER);
-        layout.setHgap(8);
-        layout.setVgap(8);
-        layout.setPadding(new Insets(5, 5, 5, 5));
+        Button rmiButton = new Button();
+        rmiButton.setText("RMI");
+        rmiButton.setOnAction(event -> LaunchClient.openConnection(rmiButton.getText(), serverIpTextField.getText(), this.adapter));
 
-        layout.add(text, 0, 0, 3, 1);
-        layout.add(serverIPLabel, 0, 1);
-        layout.add(serverIpTextField, 1, 1, 2, 1);
-        layout.add(b1, 1, 2);
-        layout.add(b2, 2, 2);
+        buttonHBox.getChildren().addAll(tcpButton, rmiButton);
 
-        this.mainWindow.setTitle("MyShelfie");
+        mainVBox.getChildren().addAll(titleVBox, ipHBox, buttonHBox);
+
+        mainLayout.getChildren().add(mainVBox);
+
+        this.scene = new Scene(mainLayout);
         this.mainWindow.setScene(this.scene);
         this.mainWindow.show();
     }
@@ -163,8 +215,31 @@ public class GUIView extends Application implements View {
 
     }
 
-    public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
+    private void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
+        this.board = board;
+        this.commonGoals = commonGoals;
+        this.personalGoal = personalGoal;
+        this.pickedTiles = new ArrayList<>();
+    }
 
+    public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
+        this.setTable(board, commonGoals, personalGoal);
+
+        BorderPane layout = new BorderPane();
+
+        Image boardImage = new Image("livingroom.png", 500, 300, true, true);
+        ImageView boardImageView = new ImageView(boardImage);
+        layout.setCenter(boardImageView);
+
+        this.scene = new Scene(layout, 500, 300);
+        this.mainWindow.setScene(this.scene);
+        this.mainWindow.show();
+
+        /*this.showBoard();
+        this.showCommonGoals();
+        this.showPersonalGoal();
+        this.currentPlayer = nextPlayer;
+        this.showPickATile();*/
     }
 
     public void showDisconnection() {

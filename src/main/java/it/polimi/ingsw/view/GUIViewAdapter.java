@@ -20,14 +20,8 @@ public class GUIViewAdapter implements View {
     }
 
     @Override
-    public void showChooseTypeOfConnection() {
-        Platform.setImplicitExit(false);
-        Platform.runLater(this.view::showChooseTypeOfConnection);
-    }
-
-    @Override
     public void showChooseNickname() {
-        //Platform.setImplicitExit(false);
+        Platform.setImplicitExit(false);
         Platform.runLater(this.view::showChooseNickname);
     }
 
@@ -45,7 +39,7 @@ public class GUIViewAdapter implements View {
 
     @Override
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-
+        Platform.runLater(() -> this.view.startGame(board, commonGoals, personalGoal, nextPlayer));
     }
 
     @Override
@@ -90,6 +84,11 @@ public class GUIViewAdapter implements View {
 
     @Override
     public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
+
+    }
+
+    @Override
+    public void showChooseTypeOfConnection() {
 
     }
 
