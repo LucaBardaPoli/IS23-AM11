@@ -14,7 +14,7 @@ public class MyShelfie {
                 LaunchClient.main(Arrays.copyOfRange(args, 1, args.length));
             }
         } else {
-            LaunchClient.main(args);
+            LaunchClient.main(new String[] {"--gui"});
         }
     }
 }

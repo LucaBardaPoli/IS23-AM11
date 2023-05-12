@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 public class TUIView implements View {
     private ClientController clientController;
+
+    /* Game's items */
     private Board board;
     private Map<String, Bookshelf> bookshelves;
     private Map<CommonGoal, Integer> commonGoals;
@@ -17,17 +19,27 @@ public class TUIView implements View {
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
+
+    /* Utils */
     private boolean changeTurn;
+    private boolean endGame;
     private final Scanner scanner;
 
     /* Colors */
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_BLACK = "\u001B[30m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+
+    /* Commands' codes */
+    private static final String PICK = "P";
+    private static final String UNPICK = "U";
+    private static final String SHOW = "S";
+    private static final String CONFIRM = "C";
+    private static final String MESSAGE = "M";
 
     public TUIView() {
         this.scanner = new Scanner(System.in);
@@ -87,6 +99,10 @@ public class TUIView implements View {
         this.clientController = clientController;
     }
 
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
         System.out.println("\n\nGame started\n");
         this.setTable(board, commonGoals, personalGoal);
@@ -94,6 +110,7 @@ public class TUIView implements View {
         this.showCommonGoals();
         this.showPersonalGoal();
         this.currentPlayer = nextPlayer;
+        this.endGame = false;
         System.out.println(this.currentPlayer + "'s turn");
         this.showPickATile();
     }
@@ -241,8 +258,15 @@ public class TUIView implements View {
 
     private void showPoints() {
         System.out.println("Points: ");
-        for(String player : this.points.keySet()) {
-            System.out.println(player + ": " + this.points.get(player));
+
+        List<String> sortedPlayers = this.points
+                .entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        for(String sortedPlayer : sortedPlayers) {
+            System.out.println(sortedPlayer + ": " + this.points.get(sortedPlayer));
         }
         System.out.println();
     }
@@ -272,16 +296,6 @@ public class TUIView implements View {
 
     public void updatePoints(String player, int points) {
         this.points.replace(player, points);
-        List<String> sortedPlayers = this.points
-                .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-        Map<String, Integer> sortedPoints = new HashMap<>();
-        for(String sortedPlayer : sortedPlayers) {
-            sortedPoints.put(sortedPlayer, this.points.get(sortedPlayer));
-        }
-        this.points = sortedPoints;
     }
 
     public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
@@ -372,28 +386,28 @@ public class TUIView implements View {
         do {
             System.out.println("Type:");
             if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-                System.out.println("P to pick a tile.");
+                System.out.println(PICK + " to pick a tile.");
                 if (!this.pickedTiles.isEmpty()) {
-                    System.out.println("U to unpick a tile.");
+                    System.out.println(UNPICK + " to unpick a tile.");
                 }
-                System.out.println("C to confirm the picked tiles.");
-                System.out.println("S to show the table.");
+                System.out.println(CONFIRM + " to confirm the picked tiles.");
+                System.out.println(SHOW + " to show the table.");
             }
-            System.out.println("M to send a message:");
+            System.out.println(MESSAGE + " to send a message:");
             String s = this.readWord().toUpperCase();
             if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
                 switch(s) {
-                    case "P":
+                    case PICK:
                         tilesPicked = this.handlePick();
                         break;
-                    case "U":
+                    case UNPICK:
                         tilesPicked = this.handleUnpick();
                         break;
-                    case "C":
+                    case CONFIRM:
                         this.clientController.sendMessage(new ConfirmPickRequest());
                         tilesPicked = true;
                         break;
-                    case "S":
+                    case SHOW:
                         this.showTable();
                         break;
                     default:
@@ -401,7 +415,7 @@ public class TUIView implements View {
                         break;
                 }
             }
-            if(s.equals("M")) {
+            if(s.equals(MESSAGE)) {
                 this.handleChatMessage();
             } else if(showError && !this.changeTurn) {
                 System.out.println("Not a valid command!");
@@ -420,17 +434,17 @@ public class TUIView implements View {
             do {
                 System.out.println("Type:");
                 System.out.println("The column index where to insert the picked tiles.");
-                System.out.println("S to show the table.");
-                System.out.println("M to send a message:");
+                System.out.println(SHOW + " to show the table.");
+                System.out.println(MESSAGE + " to send a message:");
                 String s = this.readWord().toUpperCase();
                 switch(s) {
-                    case "S":
+                    case SHOW:
                         this.showPersonalGoal();
                         this.showCommonGoals();
                         this.showBookshelf(this.currentPlayer);
                         this.showPickedTiles();
                         break;
-                    case "M":
+                    case MESSAGE:
                         this.handleChatMessage();
                         break;
                     default:
@@ -453,19 +467,19 @@ public class TUIView implements View {
             this.showPickedTiles();
             System.out.println("Type:");
             System.out.println("The index of the picked tile that will be set as last in the list.");
-            System.out.println("C to confirm the order of the picked tiles.");
-            System.out.println("S to show table.");
-            System.out.println("M to send a message:");
+            System.out.println(CONFIRM + " to confirm the order of the picked tiles.");
+            System.out.println(SHOW + " to show table.");
+            System.out.println(MESSAGE + " to send a message:");
             String s = this.readWord().toUpperCase();
             switch(s) {
-                case "C":
+                case CONFIRM:
                     this.clientController.sendMessage(new ConfirmOrderNotify());
                     confirmedTiles = true;
                     break;
-                case "S":
+                case SHOW:
                     this.showTable();
                     break;
-                case "M":
+                case MESSAGE:
                     this.handleChatMessage();
                     break;
                 default:
@@ -525,19 +539,24 @@ public class TUIView implements View {
 
     /* Methods to handle the change of a turn */
     public void startTurn(String player) {
-        System.out.println(player + "'s turn");
-        if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-            this.currentPlayer = player;
-            this.showPickATile();
-        } else {
-            this.currentPlayer = player;
-            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-                System.out.println("Type Enter to play:");
-                this.changeTurn = true;
+        if(!this.endGame) {
+            System.out.println(player + "'s turn");
+            if (this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+                this.currentPlayer = player;
+                this.showPickATile();
             } else {
-                System.out.println("Type:");
-                System.out.println("M to send a message:");
+                this.currentPlayer = player;
+                if (this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+                    System.out.println("Type Enter to play:");
+                    this.changeTurn = true;
+                } else {
+                    System.out.println("Type:");
+                    System.out.println(MESSAGE + " to send a message:");
+                }
             }
+        } else {
+            this.changeTurn = true;
+            this.showEndGame();
         }
     }
 
@@ -551,8 +570,8 @@ public class TUIView implements View {
         showCommonGoals();
     }
 
-    public void showEndGame() {
-        System.out.println("Game ended");
+    private void showEndGame() {
+        System.out.println("\n\nGame is over!\n");
         System.out.println("Results:");
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
             System.out.println(entry.getKey() + "\t: " + entry.getValue());
@@ -563,12 +582,12 @@ public class TUIView implements View {
 
     /* Methods to handle chat messages */
     public void showNewChatMessageUnicast(String sender, String message) {
-        System.out.println("Chat:");
+        System.out.println("\nChat:");
         System.out.println("Message from " + sender + " to " + this.clientController.getClient().getNickname() + ": " + message);
     }
 
     public void showNewChatMessageBroadcast(String sender, String message) {
-        System.out.println("Chat:");
+        System.out.println("\nChat:");
         System.out.println("Message from " + sender + " to everyone: " + message);
     }
 

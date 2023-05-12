@@ -183,7 +183,7 @@ public class ClientController {
      * @param serverMessage is a message sent in order to display game results
      */
     public void handle(GameResultNotify serverMessage) {
-        this.view.showEndGame();
+        this.view.setEndGame(true);
     }
 
     /**

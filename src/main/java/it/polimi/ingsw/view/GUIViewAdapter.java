@@ -20,6 +20,30 @@ public class GUIViewAdapter implements View {
     }
 
     @Override
+    public void showChooseTypeOfConnection() {
+        Platform.setImplicitExit(false);
+        Platform.runLater(this.view::showChooseTypeOfConnection);
+    }
+
+    @Override
+    public void showChooseNickname() {
+        //Platform.setImplicitExit(false);
+        Platform.runLater(this.view::showChooseNickname);
+    }
+
+    @Override
+    public void showChooseNumPlayers() {
+        //Platform.setImplicitExit(false);
+        Platform.runLater(this.view::showChooseNumPlayers);
+    }
+
+    @Override
+    public void showInvalidNickname() {
+        //Platform.setImplicitExit(false);
+        Platform.runLater(this.view::showInvalidNickname);
+    }
+
+    @Override
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
 
     }
@@ -31,6 +55,11 @@ public class GUIViewAdapter implements View {
 
     @Override
     public void setPlayers(List<String> players) {
+
+    }
+
+    @Override
+    public void setEndGame(boolean endGame) {
 
     }
 
@@ -65,24 +94,6 @@ public class GUIViewAdapter implements View {
     }
 
     @Override
-    public void showChooseTypeOfConnection() {
-        Platform.setImplicitExit(false);
-        Platform.runLater(this.view::showChooseTypeOfConnection);
-    }
-
-    @Override
-    public void showChooseNickname() {
-        //Platform.setImplicitExit(false);
-        Platform.runLater(this.view::showChooseNickname);
-    }
-
-    @Override
-    public void showChooseNumPlayers() {
-        //Platform.setImplicitExit(false);
-        Platform.runLater(this.view::showChooseNumPlayers);
-    }
-
-    @Override
     public void showPickATile() {
 
     }
@@ -94,11 +105,6 @@ public class GUIViewAdapter implements View {
 
     @Override
     public void showSwapTilesOrder() {
-
-    }
-
-    @Override
-    public void showInvalidNickname() {
 
     }
 
@@ -154,11 +160,6 @@ public class GUIViewAdapter implements View {
 
     @Override
     public void endTurn() {
-
-    }
-
-    @Override
-    public void showEndGame() {
 
     }
 

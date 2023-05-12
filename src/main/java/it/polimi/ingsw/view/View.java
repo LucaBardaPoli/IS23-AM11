@@ -11,6 +11,7 @@ public interface View {
 
     /* Initialization methods */
     void setClientController(ClientController clientController);
+    void setEndGame(boolean endGame);
     void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
 
@@ -52,7 +53,6 @@ public interface View {
     /* Methods to handle the change of a turn */
     void startTurn(String player);
     void endTurn();
-    void showEndGame();
 
 
     /* Methods to handle chat messages */
