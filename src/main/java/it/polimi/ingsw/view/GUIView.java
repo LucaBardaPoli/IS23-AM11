@@ -2,14 +2,12 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.network.client.LaunchClient;
-import it.polimi.ingsw.network.message.LoginRequest;
 import it.polimi.ingsw.network.message.NumPlayersResponse;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +29,9 @@ public class GUIView extends Application {
     private GUIViewAdapter adapter;
     private ClientController clientController;
     private Stage mainWindow;
+    private Parent rootNode;
+    private final double screenWidth = Screen.getScreens().get(0).getBounds().getWidth();
+    private final double screenHeight = Screen.getScreens().get(0).getBounds().getHeight();
     private Scene scene;
 
     /* Game's items */
@@ -54,32 +56,36 @@ public class GUIView extends Application {
     public void start(Stage primaryStage) {
         this.adapter = new GUIViewAdapter(this);
         this.mainWindow = primaryStage;
+        this.mainWindow.setHeight(screenHeight);
+        this.mainWindow.setWidth(screenWidth);
+        this.mainWindow.setMaximized(true);
         this.mainWindow.show();
         this.showChooseTypeOfConnection();
     }
 
+    public GUIViewAdapter getAdapter() {
+        return adapter;
+    }
+
+    public ClientController getClientController() {
+        return clientController;
+    }
+
     public void showChooseTypeOfConnection() {
-        /*try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/rootLayout.fxml"));
-            this.rootLayout = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connectionLayout.fxml"));
+            loader.setController(new LoginController(this));
+            this.rootNode = loader.load();
 
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(this.rootLayout);
-            mainWindow.setScene(scene);
-
-            tcpButton.setOnAction(actionEvent -> LaunchClient.openConnection("TCP", serverIpTextField.getText(), this.adapter));
-            tcpButton.setOnAction(actionEvent -> LaunchClient.openConnection("RMI", serverIpTextField.getText(), this.adapter));
-
-            mainWindow.show();
+            Scene scene = new Scene(this.rootNode);
+            this.mainWindow.setScene(scene);
+            this.mainWindow.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
+        /*
         StackPane mainLayout = new StackPane();
-        mainLayout.setPrefHeight(400.0);
-        mainLayout.setPrefWidth(700.0);
 
         VBox mainVBox = new VBox();
         mainVBox.setAlignment(Pos.CENTER);
@@ -90,6 +96,7 @@ public class GUIView extends Application {
 
         Label connectionLabel = new Label();
         connectionLabel.setText("Connection info");
+        connectionLabel.setFont(new Font("System Bold", 16.0));
 
         titleVBox.getChildren().add(connectionLabel);
 
@@ -98,13 +105,15 @@ public class GUIView extends Application {
         ipHBox.setPrefHeight(10.0);
         ipHBox.setPrefWidth(200.0);
         ipHBox.setSpacing(10);
-        ipHBox.setPadding(new Insets(20.0, 0, 20.0, 0));
+        ipHBox.setPadding(new Insets(30.0, 0, 20.0, 0));
 
         Label serverIpLabel = new Label();
         serverIpLabel.setText("Server IP");
 
         TextField serverIpTextField = new TextField();
         serverIpTextField.setText("127.0.0.1");
+        serverIpTextField.setAlignment(Pos.CENTER);
+        serverIpTextField.setPrefWidth(110.0);
 
         ipHBox.getChildren().addAll(serverIpLabel, serverIpTextField);
 
@@ -115,11 +124,21 @@ public class GUIView extends Application {
 
         Button tcpButton = new Button();
         tcpButton.setText("TCP");
-        tcpButton.setOnAction(event -> LaunchClient.openConnection(tcpButton.getText(), serverIpTextField.getText(), this.adapter));
+        tcpButton.setPrefWidth(80.0);
+        tcpButton.setOnAction(event -> {
+            if(!LaunchClient.openConnection(tcpButton.getText(), serverIpTextField.getText(), this.adapter)) {
+                this.showConnectionError();
+            }
+        });
 
         Button rmiButton = new Button();
         rmiButton.setText("RMI");
-        rmiButton.setOnAction(event -> LaunchClient.openConnection(rmiButton.getText(), serverIpTextField.getText(), this.adapter));
+        rmiButton.setPrefWidth(80.0);
+        rmiButton.setOnAction(event -> {
+            if(!LaunchClient.openConnection(rmiButton.getText(), serverIpTextField.getText(), this.adapter)) {
+                this.showConnectionError();
+            }
+        });
 
         buttonHBox.getChildren().addAll(tcpButton, rmiButton);
 
@@ -129,13 +148,26 @@ public class GUIView extends Application {
 
         this.scene = new Scene(mainLayout);
         this.mainWindow.setScene(this.scene);
-        this.mainWindow.show();
+        this.mainWindow.show();*/
     }
 
     public void showChooseNickname() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nicknameLayout.fxml"));
+            loader.setController(new LoginController(this));
+            this.rootNode = loader.load();
+
+            Scene scene = new Scene(this.rootNode);
+            this.mainWindow.setScene(scene);
+            this.mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         GridPane layout = new GridPane();
 
-        this.scene = new Scene(layout, 500, 300);
+        this.scene = new Scene(layout);
 
         Label text = new Label("Choose a nickname");
         text.setMaxWidth(Double.MAX_VALUE);
@@ -159,10 +191,23 @@ public class GUIView extends Application {
         layout.add(b1, 2, 2);
 
         this.mainWindow.setScene(this.scene);
-        this.mainWindow.show();
+        this.mainWindow.show();*/
     }
 
     public void showChooseNumPlayers() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/numPlayersLayout.fxml"));
+            loader.setController(new LoginController(this));
+            this.rootNode = loader.load();
+
+            Scene scene = new Scene(this.rootNode);
+            this.mainWindow.setScene(scene);
+            this.mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         GridPane layout = new GridPane();
 
         Scene scene = new Scene(layout, 500, 300);
@@ -189,12 +234,11 @@ public class GUIView extends Application {
         layout.add(b1, 2, 2);
 
         this.mainWindow.setScene(scene);
-        this.mainWindow.show();
+        this.mainWindow.show();*/
     }
 
     public void showInvalidNickname() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Nickname already taken!");
-        alert.show();
+        new Alert(Alert.AlertType.ERROR, "Nickname already taken!").show();
     }
 
     public void showPickATile() {
@@ -229,7 +273,7 @@ public class GUIView extends Application {
     }
 
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        setTable(board, commonGoals, personalGoal);
+        /*setTable(board, commonGoals, personalGoal);
         BorderPane layout = new BorderPane();
 
         Image boardImage = new Image("livingroom.png", 500, 300, true, true);
@@ -240,7 +284,7 @@ public class GUIView extends Application {
         this.mainWindow.setScene(this.scene);
         this.mainWindow.show();
 
-        /*this.showBoard();
+        this.showBoard();
         this.showCommonGoals();
         this.showPersonalGoal();
         this.currentPlayer = nextPlayer;

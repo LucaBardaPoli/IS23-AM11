@@ -16,7 +16,6 @@ public class GUIViewAdapter implements View {
         this.view = view;
     }
 
-
     @Override
     public void setClientController(ClientController clientController) {
         this.view.setClientController(clientController);
@@ -30,13 +29,11 @@ public class GUIViewAdapter implements View {
 
     @Override
     public void showChooseNumPlayers() {
-        //Platform.setImplicitExit(false);
         Platform.runLater(this.view::showChooseNumPlayers);
     }
 
     @Override
     public void showInvalidNickname() {
-        //Platform.setImplicitExit(false);
         Platform.runLater(this.view::showInvalidNickname);
     }
 
