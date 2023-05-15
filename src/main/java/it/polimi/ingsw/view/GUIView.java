@@ -369,7 +369,6 @@ public class GUIView extends Application {
     }
 
     public void endTurn() {
-
     }
 
     public void showNewChatMessageUnicast(String sender, String message) {

@@ -104,7 +104,15 @@ public class TUIView implements View {
     }
 
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        System.out.println("\n\nGame started\n");
+        System.out.println("\n\n\n" +
+                "╭━╮╭━╮╱╱╱╱╭━━━┳╮╱╱╱╱╭╮╭━╮\n" +
+                "┃┃╰╯┃┃╱╱╱╱┃╭━╮┃┃╱╱╱╱┃┃┃╭╯\n" +
+                "┃╭╮╭╮┣╮╱╭╮┃╰━━┫╰━┳━━┫┣╯╰┳┳━━╮\n" +
+                "┃┃┃┃┃┃┃╱┃┃╰━━╮┃╭╮┃┃━┫┣╮╭╋┫┃━┫\n" +
+                "┃┃┃┃┃┃╰━╯┃┃╰━╯┃┃┃┃┃━┫╰┫┃┃┃┃━┫\n" +
+                "╰╯╰╯╰┻━╮╭╯╰━━━┻╯╰┻━━┻━┻╯╰┻━━╯\n" +
+                "╱╱╱╱╱╭━╯┃\n" +
+                "╱╱╱╱╱╰━━╯\n");
         this.setTable(board, commonGoals, personalGoal);
         this.showBoard();
         this.showCommonGoals();
@@ -571,7 +579,13 @@ public class TUIView implements View {
     }
 
     private void showEndGame() {
-        System.out.println("\n\nGame is over!\n");
+        System.out.println("\n\n\n" +
+                "╭━━━╮╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭╮\n" +
+                "┃╭━╮┃╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱┃┃\n" +
+                "┃┃╱╰╋━━┳╮╭┳━━╮╭━━┳╮╭┳━━┳━┫┃\n" +
+                "┃┃╭━┫╭╮┃╰╯┃┃━┫┃╭╮┃╰╯┃┃━┫╭┻╯\n" +
+                "┃╰┻━┃╭╮┃┃┃┃┃━┫┃╰╯┣╮╭┫┃━┫┃╭╮\n" +
+                "╰━━━┻╯╰┻┻┻┻━━╯╰━━╯╰╯╰━━┻╯╰╯\n");
         System.out.println("Results:");
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
             System.out.println(entry.getKey() + "\t: " + entry.getValue());
