@@ -1,17 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane id="background" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane>
-         <center>
-            <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../boards/livingroom.png" />
-               </image>
-            </ImageView>
-         </center></BorderPane>
-   </children>
-</StackPane>
+<BorderPane styleClass="background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+
+   <!-- Other Players bookshelves -->
+   <top>
+      <HBox alignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets bottom="30.0" top="50.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+
+   <!-- Player's items -->
+   <right>
+      <VBox alignment="CENTER">
+         <HBox>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin></HBox>
+         <BorderPane.margin>
+            <Insets right="100.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="30.0" />
+         </padding>
+      </VBox>
+   </right>
+
+   <!-- Chat -->
+   <left>
+      <VBox alignment="CENTER" prefHeight="700" prefWidth="200" spacing="10.0" styleClass="chatBackground">
+         <TextArea fx:id="chat" editable="false" prefHeight="600">
+
+         </TextArea>
+         <TextField fx:id="message">
+
+         </TextField>
+         <HBox spacing="5.0">
+            <ChoiceBox fx:id="messageReceiver" prefWidth="100.0" value="Players">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Everyone" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Button fx:id="chatButton" onAction="#handleChatMessage" prefWidth="100.0" text="Send" textAlignment="CENTER" />
+         </HBox>
+         <BorderPane.margin>
+            <Insets bottom="100.0" left="20.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </left>
+
+   <!-- Main Board -->
+   <center>
+      <GridPane alignment="CENTER" hgap="8.0" prefHeight="500" prefWidth="500" styleClass="board" vgap="8.0">
+      </GridPane>
+   </center>
+</BorderPane>

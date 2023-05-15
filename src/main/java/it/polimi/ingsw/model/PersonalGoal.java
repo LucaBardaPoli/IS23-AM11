@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class PersonalGoal implements Serializable {
+    private final int id;
     private final List<Position> positions;
     private final List<Tile> tiles;
     private final Map<Integer, Integer> rewards;
@@ -14,10 +15,15 @@ public class PersonalGoal implements Serializable {
      * @param tiles tiles to check
      * @param rewards number of points to assign
      */
-    public PersonalGoal(List<Position> positions, List<Tile> tiles, Map<Integer, Integer> rewards) {
+    public PersonalGoal(int id, List<Position> positions, List<Tile> tiles, Map<Integer, Integer> rewards) {
+        this.id = id;
         this.positions = new LinkedList<>(positions);
         this.tiles = new LinkedList<>(tiles);
         this.rewards = new HashMap<>(rewards);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<Position> getPositions() {

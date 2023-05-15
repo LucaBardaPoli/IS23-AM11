@@ -1,13 +1,11 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.controller;
 
 import it.polimi.ingsw.network.client.LaunchClient;
 import it.polimi.ingsw.network.message.LoginRequest;
 import it.polimi.ingsw.network.message.NumPlayersResponse;
+import it.polimi.ingsw.view.GUIView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class LoginController {
     private final GUIView gui;
@@ -26,22 +24,26 @@ public class LoginController {
     }
 
     public void handleTcpButton() {
-        if(!LaunchClient.openConnection(tcpButton.getText(), serverIpTextField.getText(), this.gui.getAdapter())) {
+        if(!LaunchClient.openConnection(this.tcpButton.getText(), this.serverIpTextField.getText(), this.gui.getAdapter())) {
             this.showConnectionError();
         }
     }
 
     public void handleRmiButton() {
-        if(!LaunchClient.openConnection(rmiButton.getText(), serverIpTextField.getText(), this.gui.getAdapter())) {
+        if(!LaunchClient.openConnection(this.rmiButton.getText(), this.serverIpTextField.getText(), this.gui.getAdapter())) {
             this.showConnectionError();
         }
     }
 
     public void handleLogin() {
-        this.gui.getClientController().sendMessage(new LoginRequest(nicknameTextField.getText()));
+        this.gui.getClientController().sendMessage(new LoginRequest(this.nicknameTextField.getText()));
     }
 
     public void handleNumPlayers() {
-        this.gui.getClientController().sendMessage(new NumPlayersResponse((Integer)numPlayersChoice.getValue()));
+        if(this.numPlayersChoice.getValue().equals("-")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid number of players!").show();
+        } else {
+            this.gui.getClientController().sendMessage(new NumPlayersResponse((Integer) this.numPlayersChoice.getValue()));
+        }
     }
 }

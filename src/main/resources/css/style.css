@@ -1,0 +1,24 @@
+.board {
+    -fx-background-position: center;
+    -fx-background-size: 50%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../boards/livingroom.png");
+}
+
+.bookshelf {
+    -fx-background-position: center;
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../boards/bookshelf_orth.png");
+}
+
+.chatBackground {
+    -fx-background-color: WHITE;
+}
+
+.background {
+    -fx-background-size: auto;
+    -fx-background-position: center;
+    -fx-background-repeat: repeat-x, repeat-x;
+    -fx-background-image: url("../misc/sfondo_parquet.jpg");
+}

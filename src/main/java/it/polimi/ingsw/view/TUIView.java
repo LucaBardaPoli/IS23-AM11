@@ -41,6 +41,7 @@ public class TUIView implements View {
     private static final String CONFIRM = "C";
     private static final String MESSAGE = "M";
 
+
     public TUIView() {
         this.scanner = new Scanner(System.in);
         this.showChooseTypeOfConnection();
@@ -198,7 +199,7 @@ public class TUIView implements View {
         }
     }
 
-    public void showBookshelf(String player) {
+    private void showBookshelf(String player) {
         System.out.println(player + "'s bookshelf: ");
 
         // Fist row with indexes

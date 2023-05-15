@@ -179,7 +179,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position( 5,2 ) );
         tiles.add(Tile.LBLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -202,7 +202,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position( 5, 4) );
         tiles.add(Tile.BLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(2, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -226,7 +226,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(5 ,0 ) );
         tiles.add(Tile.WHITE);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(3, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -250,7 +250,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(4, 2) );
         tiles.add(Tile.GREEN);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(4, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -274,7 +274,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position( 5,3 ) );
         tiles.add(Tile.GREEN);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(5, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -298,7 +298,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position( 5, 0) );
         tiles.add(Tile.PINK);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(6, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -322,7 +322,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(5 ,2 ) );
         tiles.add(Tile.WHITE);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(7, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -345,7 +345,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(5 , 3) );
         tiles.add(Tile.YELLOW);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(8, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -368,7 +368,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(5 , 0) );
         tiles.add(Tile.BLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(9, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -391,7 +391,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(5 , 3) );
         tiles.add(Tile.PINK);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(10, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -414,7 +414,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position(5 ,3 ) );
         tiles.add(Tile.LBLUE);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(11, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -437,7 +437,7 @@ public class LobbyManager implements Serializable {
         positions.add(new Position( 5, 0) );
         tiles.add(Tile.GREEN);
 
-        this.personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+        this.personalGoals.add(new PersonalGoal(12, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
 
@@ -452,47 +452,47 @@ public class LobbyManager implements Serializable {
 
         // Common Goal: Ladder Goal
         bookshelfPredicate = new LadderGoal();
-        this.commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(12, "Ladder Goal", bookshelfPredicate));
 
         // Common Goal : Lots Different Columns Goal
         bookshelfPredicate = new DifferentTypesGoal(6, GameSettings.ROWS, 2, CheckMode.VERTICAL);
-        this.commonGoals.add(new CommonGoal("Lots Different Columns",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(2, "Lots Different Columns",  bookshelfPredicate));
 
         // Common Goal: Lots Different Rows Goal
         bookshelfPredicate = new DifferentTypesGoal(5, GameSettings.COLUMNS, 2, CheckMode.HORIZONTAL);
-        this.commonGoals.add(new CommonGoal("Lots Different Rows",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(6, "Lots Different Rows",  bookshelfPredicate));
 
         // Common Goal : Few Different Columns Goal
         bookshelfPredicate = new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL);
-        this.commonGoals.add(new CommonGoal("Few Different Columns",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(5, "Few Different Columns",  bookshelfPredicate));
 
         // Common Goal: Few Different Rows Goal
         bookshelfPredicate = new DifferentTypesGoal(1, 3, 4, CheckMode.HORIZONTAL);
-        this.commonGoals.add(new CommonGoal("Few Different Rows",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(7, "Few Different Rows",  bookshelfPredicate));
 
         // Common Goal: Same Kind Diagonal Goal
         bookshelfPredicate = new SameKindDiagonalGoal();
-        this.commonGoals.add(new CommonGoal("Same Kind Diagonal",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(11, "Same Kind Diagonal",  bookshelfPredicate));
 
         // Common Goal: Same Kind Groups Goal
         bookshelfPredicate = new SameKindGroupsGoal(6, 2);
-        this.commonGoals.add(new CommonGoal("Same Kind Groups (6 groups of 2 tails each)",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(4, "Same Kind Groups (6 groups of 2 tails each)",  bookshelfPredicate));
 
         // Common Goal: Same Kind Groups Goal
         bookshelfPredicate = new SameKindGroupsGoal(4, 4);
-        this.commonGoals.add(new CommonGoal("Same Kind Groups (4 groups of 4 tails each)",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(3, "Same Kind Groups (4 groups of 4 tails each)",  bookshelfPredicate));
 
         // Common Goal: Same Kind N Goal
         bookshelfPredicate = new SameKindNGoal(8);
-        this.commonGoals.add(new CommonGoal("Same Kind N",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(9, "Same Kind N",  bookshelfPredicate));
 
         // Common Goal: Same Kind Square Goal
         bookshelfPredicate = new SameKindSquareGoal();
-        this.commonGoals.add(new CommonGoal("Same Kind Square",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(1, "Same Kind Square",  bookshelfPredicate));
 
         // Common Goal: Same Kind X Goal
         bookshelfPredicate = new SameKindXGoal();
-        this.commonGoals.add(new CommonGoal("Same Kind X",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(10, "Same Kind X",  bookshelfPredicate));
 
         // Common Goal: Given Positions Goal
         List<Position> positionList = new ArrayList<>();
@@ -501,7 +501,7 @@ public class LobbyManager implements Serializable {
         positionList.add(new Position(GameSettings.ROWS-1,0));
         positionList.add(new Position(GameSettings.ROWS-1,GameSettings.COLUMNS-1));
         bookshelfPredicate = new GivenPositionsGoal(positionList);
-        this.commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
+        this.commonGoals.add(new CommonGoal(8, "Four corners",  bookshelfPredicate));
     }
 
     /**

@@ -17,10 +17,6 @@ public interface View {
     void setPlayers(List<String> players);
 
 
-    /* Methods to display the items of the game */
-    void showBookshelf(String player);
-
-
     /* Methods to update the items */
     void updateBoard(Board board);
     void updateBookshelf(String player, Bookshelf bookshelf);
