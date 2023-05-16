@@ -28,11 +28,12 @@ public class GameController {
     public void handleChatMessage() {
         String receiver = (String) this.messageReceiver.getValue();
         String message = this.message.getText();
-
-        this.gui.getClientController().sendMessage(new ChatMessage(this.gui.getClientController().getClient().getNickname(), receiver, message));
-        this.message.setText("");
-        String chatMessage = "\nYou to " + receiver + "\n" + message + "\n";
-        this.chat.appendText(chatMessage);
+        if(!message.equals("")) {
+            this.gui.getClientController().sendMessage(new ChatMessage(this.gui.getClientController().getClient().getNickname(), receiver, message));
+            this.message.setText("");
+            String chatMessage = "\nYou to " + receiver + "\n" + message + "\n";
+            this.chat.appendText(chatMessage);
+        }
     }
 
     public void printChatMessageUnicast(String sender, String message) {

@@ -3,11 +3,13 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.message.PickTileRequest;
+import it.polimi.ingsw.network.message.UnpickTileRequest;
 import it.polimi.ingsw.view.controller.GameController;
 import it.polimi.ingsw.view.controller.LoginController;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
@@ -34,6 +36,7 @@ public class GUIView extends Application {
     private Scene scene;
     private GameController gameController;
     private GridPane boardLayout;
+    private Position lastSelectedTile;
 
     /* Game's items */
     private Board board;
@@ -193,27 +196,28 @@ public class GUIView extends Application {
 
                         Rectangle r = new Rectangle();
                         r.getStyleClass().add("tile_not_selected");
-                        r.setWidth(80);
-                        r.setHeight(80);
+                        r.heightProperty().bind(this.boardLayout.heightProperty().divide(11));
+                        r.widthProperty().bind(this.boardLayout.widthProperty().divide(11).add(1));
 
                         ImageView imgV = new ImageView(new Image(getTilePath(this.board.getTile(p))));
-                        imgV.setFitHeight(75);
-                        imgV.setFitWidth(75);
+                        imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11).subtract(3));
+                        imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11).subtract(1));
+                        img.setPreserveRatio(true);
 
                         st.getChildren().addAll(r, imgV);
 
                         st.setOnMouseClicked(event -> {
-                            if(st.getChildren().get(0).getStyleClass().contains("tile_not_selected")) {
-                                st.getChildren().get(0).getStyleClass().remove("tile_not_selected");
-                                st.getChildren().get(0).getStyleClass().add("tile_selected");
-                            } else {
-                                st.getChildren().get(0).getStyleClass().remove("tile_selected");
-                                st.getChildren().get(0).getStyleClass().add("tile_not_selected");
+                            if(this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+                                this.lastSelectedTile = p;
+                                if (st.getChildren().get(0).getStyleClass().contains("tile_not_selected")) {
+                                    this.clientController.sendMessage(new PickTileRequest(p));
+                                } else {
+                                    this.clientController.sendMessage(new UnpickTileRequest(p));
+                                }
                             }
-                            this.clientController.sendMessage(new PickTileRequest(p));
                         });
 
-                        this.boardLayout.add(st, j+3, i);
+                        this.boardLayout.add(st, j+4, i+1);
                     }
                 }
             }
@@ -222,7 +226,7 @@ public class GUIView extends Application {
             VBox vC = (VBox) this.rootNode.getLeft();
 
             HBox hC = (HBox) vC.getChildren().get(2);
-            ChoiceBox cB = (ChoiceBox) hC.getChildren().get(0);
+            ChoiceBox cB = (ChoiceBox) hC.getChildren().get(1);
             ObservableList<String> list = cB.getItems();
 
             for(Map.Entry<String, Bookshelf> entry : this.bookshelves.entrySet()) {
@@ -330,7 +334,19 @@ public class GUIView extends Application {
     }
 
     public void showValidPick() {
+        GridPane g = (GridPane) this.rootNode.getCenter();
+        ObservableList<Node> list = g.getChildren();
 
+        for(Node node : list) {
+            if(node != null) {
+                if ((GridPane.getRowIndex(node) - 1) == this.lastSelectedTile.getRow() && (GridPane.getColumnIndex(node) - 4) == this.lastSelectedTile.getColumn()) {
+                    StackPane st = (StackPane) node;
+                    st.getChildren().get(0).getStyleClass().remove("tile_not_selected");
+                    st.getChildren().get(0).getStyleClass().add("tile_selected");
+                    break;
+                }
+            }
+        }
     }
 
     public void showInvalidPick() {
@@ -338,7 +354,19 @@ public class GUIView extends Application {
     }
 
     public void showValidUnpick() {
+        GridPane g = (GridPane) this.rootNode.getCenter();
+        ObservableList<Node> list = g.getChildren();
 
+        for(Node node : list) {
+            if(node != null) {
+                if ((GridPane.getRowIndex(node) - 1) == this.lastSelectedTile.getRow() && (GridPane.getColumnIndex(node) - 4) == this.lastSelectedTile.getColumn()) {
+                    StackPane st = (StackPane) node;
+                    st.getChildren().get(0).getStyleClass().remove("tile_selected");
+                    st.getChildren().get(0).getStyleClass().add("tile_not_selected");
+                    break;
+                }
+            }
+        }
     }
 
     public void showInvalidUnpick() {
