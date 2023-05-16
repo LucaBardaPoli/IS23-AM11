@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -32,6 +33,7 @@ public class GUIView extends Application {
     private final double screenHeight = Screen.getScreens().get(0).getBounds().getHeight();
     private Scene scene;
     private GameController gameController;
+    private GridPane boardLayout;
 
     /* Game's items */
     private Board board;
@@ -59,6 +61,7 @@ public class GUIView extends Application {
         this.mainWindow.setWidth(screenWidth);
         this.mainWindow.setMaximized(true);
         this.mainWindow.show();
+        //this.mainWindow.setOnCloseRequest(event -> this.closeWindow());
         this.showChooseTypeOfConnection();
     }
 
@@ -179,17 +182,38 @@ public class GUIView extends Application {
             v.setSpacing(50);
 
             // Show Board
-            GridPane g = (GridPane) this.rootNode.getCenter();
+            this.boardLayout = (GridPane) this.rootNode.getCenter();
 
             for(int i=0; i<=8; i++) {
                 for(int j=-3; j<=5; j++) {
                     Position p = new Position(i, j);
                     if(this.board.getBoard().containsKey(p)) {
+
+                        StackPane st = new StackPane();
+
+                        Rectangle r = new Rectangle();
+                        r.getStyleClass().add("tile_not_selected");
+                        r.setWidth(80);
+                        r.setHeight(80);
+
                         ImageView imgV = new ImageView(new Image(getTilePath(this.board.getTile(p))));
-                        imgV.setOnMouseClicked(event -> this.clientController.sendMessage(new PickTileRequest(p)));
                         imgV.setFitHeight(75);
                         imgV.setFitWidth(75);
-                        g.add(imgV, j+3, i);
+
+                        st.getChildren().addAll(r, imgV);
+
+                        st.setOnMouseClicked(event -> {
+                            if(st.getChildren().get(0).getStyleClass().contains("tile_not_selected")) {
+                                st.getChildren().get(0).getStyleClass().remove("tile_not_selected");
+                                st.getChildren().get(0).getStyleClass().add("tile_selected");
+                            } else {
+                                st.getChildren().get(0).getStyleClass().remove("tile_selected");
+                                st.getChildren().get(0).getStyleClass().add("tile_not_selected");
+                            }
+                            this.clientController.sendMessage(new PickTileRequest(p));
+                        });
+
+                        this.boardLayout.add(st, j+3, i);
                     }
                 }
             }
@@ -226,7 +250,13 @@ public class GUIView extends Application {
     }
 
     public void updatePickedTiles(List<Tile> pickedTiles) {
-
+        if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+            this.pickedTiles = pickedTiles;
+            /*GridPane g = (GridPane) this.rootNode.getCenter();
+            for(Node node : g.getChildren()) {
+                if()
+            }*/
+        }
     }
 
     public void updatePoints(String player, int points) {

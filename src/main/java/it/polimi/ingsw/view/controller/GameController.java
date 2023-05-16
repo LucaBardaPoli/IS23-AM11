@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 public class GameController {
     private final GUIView gui;
@@ -16,6 +17,9 @@ public class GameController {
     TextField message;
     @FXML
     ChoiceBox messageReceiver;
+
+    @FXML
+    GridPane board;
 
     public GameController(GUIView gui) {
         this.gui = gui;
@@ -39,5 +43,9 @@ public class GameController {
     public void printChatMessageBroadcast(String sender, String message) {
         String chatMessage = "\n" + sender + " to Everyone\n" + message + "\n";
         this.chat.appendText(chatMessage);
+    }
+
+    public void handlePick() {
+
     }
 }

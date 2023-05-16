@@ -211,6 +211,14 @@ public class TUIView implements View {
             }
             System.out.print("\n");
         }
+
+        // Adjacency points
+        System.out.println("Adjacency points:");
+        System.out.println("Group of tiles | Points");
+        System.out.println("       3       |   2");
+        System.out.println("       4       |   3");
+        System.out.println("       5       |   5");
+        System.out.println("       6+      |   8");
     }
 
     private void showBookshelf(String player) {

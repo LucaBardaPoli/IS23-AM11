@@ -13,7 +13,34 @@
 }
 
 .chatBackground {
-    -fx-background-color: WHITE;
+    -fx-background-position: center;
+    -fx-background-size: 100%;
+    -fx-background-image: url("../misc/base_pagina2.jpg");
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.chat {
+    -fx-background-color: rgba(53,89,119,0.4);
+    -fx-text-fill: white;
+}
+
+.chat .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.chat .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.chat .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.pickedTiles {
+    -fx-background-position: center;
+    -fx-background-size: 100%;
+    -fx-background-image: url("../misc/base_pagina2.jpg");
 }
 
 .background {
@@ -21,4 +48,12 @@
     -fx-background-position: center;
     -fx-background-repeat: repeat-x, repeat-x;
     -fx-background-image: url("../misc/sfondo_parquet.jpg");
+}
+
+.tile_selected {
+    -fx-fill: yellow;
+}
+
+.tile_not_selected {
+    -fx-fill: black;
 }

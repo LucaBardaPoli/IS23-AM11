@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane styleClass="background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
    <!-- Other Players bookshelves -->
@@ -23,7 +24,7 @@
    <!-- Player's items -->
    <right>
       <VBox alignment="CENTER">
-         <HBox>
+         <HBox styleClass="pickedTiles" prefWidth="150">
             <VBox.margin>
                <Insets />
             </VBox.margin></HBox>
@@ -39,7 +40,7 @@
    <!-- Chat -->
    <left>
       <VBox alignment="CENTER" prefHeight="700" prefWidth="200" spacing="10.0" styleClass="chatBackground">
-         <TextArea fx:id="chat" editable="false" prefHeight="600">
+         <TextArea fx:id="chat" styleClass="chat" editable="false" prefHeight="600">
 
          </TextArea>
          <TextField fx:id="message">
@@ -66,7 +67,15 @@
 
    <!-- Main Board -->
    <center>
-      <GridPane alignment="CENTER" hgap="8.0" prefHeight="500" prefWidth="500" styleClass="board" vgap="8.0">
+      <GridPane fx:id="board" alignment="CENTER" hgap="8.0" prefHeight="800" prefWidth="800" styleClass="board" vgap="8.0">
+
       </GridPane>
    </center>
+
+   <!-- Buttons -->
+   <bottom>
+      <HBox>
+         <Button fx:id="confirmPick" onAction="#handlePick" prefWidth="100.0" text="Pick tiles" textAlignment="CENTER" />
+      </HBox>
+   </bottom>
 </BorderPane>
