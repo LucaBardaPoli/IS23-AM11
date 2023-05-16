@@ -1,8 +1,10 @@
 package it.polimi.ingsw.view.controller;
 
 import it.polimi.ingsw.network.message.ChatMessage;
+import it.polimi.ingsw.network.message.ConfirmPickRequest;
 import it.polimi.ingsw.view.GUIView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -17,9 +19,10 @@ public class GameController {
     TextField message;
     @FXML
     ChoiceBox messageReceiver;
-
     @FXML
     GridPane board;
+    @FXML
+    Button pick;
 
     public GameController(GUIView gui) {
         this.gui = gui;
@@ -47,6 +50,10 @@ public class GameController {
     }
 
     public void handlePick() {
+        this.gui.getClientController().sendMessage(new ConfirmPickRequest());
+    }
+
+    public void handleInsert() {
 
     }
 }

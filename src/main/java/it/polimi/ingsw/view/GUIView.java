@@ -62,6 +62,7 @@ public class GUIView extends Application {
         this.mainWindow = primaryStage;
         this.mainWindow.setHeight(screenHeight);
         this.mainWindow.setWidth(screenWidth);
+        this.mainWindow.setResizable(false);
         this.mainWindow.setMaximized(true);
         this.mainWindow.show();
         //this.mainWindow.setOnCloseRequest(event -> this.closeWindow());
@@ -69,17 +70,24 @@ public class GUIView extends Application {
     }
 
     public GUIViewAdapter getAdapter() {
-        return adapter;
+        return this.adapter;
     }
 
     public ClientController getClientController() {
-        return clientController;
+        return this.clientController;
     }
 
     public List<String> getPlayers() {
-        return new ArrayList<>(bookshelves.keySet());
+        return new ArrayList<>(this.bookshelves.keySet());
     }
 
+    public BorderPane getRootNode() {
+        return this.rootNode;
+    }
+
+    public List<Tile> getPickedTiles() {
+        return this.pickedTiles;
+    }
 
     /* Initialization methods */
     public void setClientController(ClientController clientController) {
@@ -190,19 +198,18 @@ public class GUIView extends Application {
             for(int i=0; i<=8; i++) {
                 for(int j=-3; j<=5; j++) {
                     Position p = new Position(i, j);
-                    if(this.board.getBoard().containsKey(p)) {
+                    if(!this.board.getTile(p).equals(Tile.EMPTY)) {
 
                         StackPane st = new StackPane();
 
                         Rectangle r = new Rectangle();
                         r.getStyleClass().add("tile_not_selected");
                         r.heightProperty().bind(this.boardLayout.heightProperty().divide(11));
-                        r.widthProperty().bind(this.boardLayout.widthProperty().divide(11).add(1));
+                        r.widthProperty().bind(this.boardLayout.widthProperty().divide(11));
 
                         ImageView imgV = new ImageView(new Image(getTilePath(this.board.getTile(p))));
-                        imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11).subtract(3));
-                        imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11).subtract(1));
-                        img.setPreserveRatio(true);
+                        imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11).subtract(2));
+                        imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11).subtract(2));
 
                         st.getChildren().addAll(r, imgV);
 
@@ -246,7 +253,7 @@ public class GUIView extends Application {
 
     /* Methods to update the items */
     public void updateBoard(Board board) {
-
+        this.board = board;
     }
 
     public void updateBookshelf(String player, Bookshelf bookshelf) {
@@ -256,10 +263,6 @@ public class GUIView extends Application {
     public void updatePickedTiles(List<Tile> pickedTiles) {
         if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
             this.pickedTiles = pickedTiles;
-            /*GridPane g = (GridPane) this.rootNode.getCenter();
-            for(Node node : g.getChildren()) {
-                if()
-            }*/
         }
     }
 
@@ -316,11 +319,21 @@ public class GUIView extends Application {
     }
 
     public void showPickATile() {
-
     }
 
     public void showChooseColumn() {
+        this.showBoard();
 
+        VBox v = (VBox) this.rootNode.getRight();
+        HBox h = (HBox) v.getChildren().get(0);
+
+        for(Tile t : this.pickedTiles) {
+            ImageView imgV = new ImageView(new Image(getTilePath(t)));
+            imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11));
+            imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11));
+            //imgV.setOnMouseClicked(event -> this.clientController.sendMessage(new SwapTilesOrderRequest(0)));
+            h.getChildren().add(imgV);
+        }
     }
 
     public void showSwapTilesOrder() {
@@ -350,7 +363,6 @@ public class GUIView extends Application {
     }
 
     public void showInvalidPick() {
-
     }
 
     public void showValidUnpick() {
@@ -370,11 +382,10 @@ public class GUIView extends Application {
     }
 
     public void showInvalidUnpick() {
-
     }
 
     public void showNoPickedTiles() {
-
+        new Alert(Alert.AlertType.ERROR, "No picked tiles!").show();
     }
 
     public void showValidColumn() {

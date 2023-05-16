@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <VBox>
-        <Label fx:id="playerName" alignment="CENTER" textAlignment="CENTER">
+        <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="150.0" textAlignment="CENTER">
          <VBox.margin>
-            <Insets left="40.0" />
+            <Insets />
          </VBox.margin></Label>
         <GridPane prefHeight="150" prefWidth="150" styleClass="bookshelf" stylesheets="@../css/style.css">
 
