@@ -36,6 +36,11 @@ public class GUIViewAdapter implements View {
         Platform.runLater(() -> this.view.setPlayers(players));
     }
 
+    @Override
+    public void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName) {
+
+    }
+
 
     /* Methods to update the items */
     public void updateBoard(Board board) {

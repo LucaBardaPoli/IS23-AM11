@@ -85,6 +85,14 @@ public class ClientController {
 
     /**
      * Handles the specific message
+     * @param serverMessage notifies the client a player has joined/left the lobby
+     */
+    public void handle(LobbyInfoMessage serverMessage){
+        this.view.updateLobbyInfo(serverMessage.getSizeLobby(), serverMessage.getLobby(), serverMessage.isNewPlayerConnected(), serverMessage.getPlayerName());
+    }
+
+    /**
+     * Handles the specific message
      * @param serverMessage is a message that notifies the beginning of a new game.
      */
     public void handle(GameStartNotify serverMessage) {
@@ -208,5 +216,6 @@ public class ClientController {
         this.view.showPlayerDisconnected(serverMessage.getDisconnectedPlayer());
         this.client.close();
     }
+
 }
 

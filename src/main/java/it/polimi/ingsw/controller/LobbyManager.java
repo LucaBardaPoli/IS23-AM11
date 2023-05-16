@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.goals.*;
+import it.polimi.ingsw.network.message.LobbyInfoMessage;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.EventListener;
 
@@ -127,9 +128,15 @@ public class LobbyManager implements Serializable {
             if(client.getNumPlayers() >= GameSettings.MIN_NUM_PLAYERS && client.getNumPlayers() <= GameSettings.MAX_NUM_PLAYERS) {
                 this.currentGameNumPlayers = client.getNumPlayers();
                 this.lobby.add(client);
+                for(ClientHandler c: lobby){
+                    c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), true, client.getNickname()));
+                }
             }
         } else {
             this.lobby.add(client);
+            for(ClientHandler c: lobby){
+                c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), true, client.getNickname()));
+            }
             if(this.lobby.size() == this.currentGameNumPlayers) {
                 this.addGame();
             }
@@ -142,6 +149,9 @@ public class LobbyManager implements Serializable {
      */
     public void removePlayer(ClientHandler client) {
         this.lobby.remove(client);
+        for(ClientHandler c: lobby){
+            c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), false, client.getNickname()));
+        }
     }
 
     /**

@@ -133,6 +133,20 @@ public class TUIView implements View {
         }
     }
 
+    public void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName) {
+        int currLobbySize = lobby.size();
+        if(newPlayerConnected){
+            System.out.println(playerName +" joined the lobby!");
+        }else{
+            System.out.println(playerName +" exited the lobby!");
+        }
+        System.out.println("Current lobby:");
+        for(String p: lobby){
+            System.out.println(p);
+        }
+        System.out.println("Waiting for other players... (" + currLobbySize + "/" + lobbySize + ")\n");
+    }
+
     private void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
         this.board = board;
         this.commonGoals = commonGoals;

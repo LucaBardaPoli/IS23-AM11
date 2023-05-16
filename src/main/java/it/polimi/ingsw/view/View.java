@@ -15,6 +15,7 @@ public interface View {
     void setEndGame(boolean endGame);
     void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
+    void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName);
 
 
     /* Methods to update the items */
