@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="1050.0" prefWidth="1680.0" styleClass="background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="1050.0" prefWidth="1600.0" styleClass="background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
 
    <!-- Other Players bookshelves -->
    <top>
@@ -226,6 +226,9 @@
          <padding>
             <Insets bottom="40.0" left="10.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
       </HBox>
    </right>
 
@@ -259,16 +262,64 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="550.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../common_goals/Common_Goals1.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="141.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../common_goals/Common_Goals2.jpg" />
-                     </image>
-                  </ImageView>
+                  <StackPane>
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../common_goals/Common_Goals1.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_2.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="81.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_4.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="81.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_6.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="81.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_8.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane>
+                     <children>
+                        <ImageView fitHeight="141.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../common_goals/Common_Goals2.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_2.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_4.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_6.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
+                           <image>
+                              <Image url="@../scoring_tokens/scoring_8.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
                <HBox.margin>
                   <Insets left="50.0" />
@@ -285,47 +336,38 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <GridPane fx:id="board" minHeight="251.0" minWidth="251.0" prefHeight="506.0" prefWidth="580.0" styleClass="board">
-               <columnConstraints>
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="4.2" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="83.13412475585938" minHeight="11.651580810546875" percentHeight="8.0" prefHeight="12.434844970703125" />
-                  <RowConstraints maxHeight="82.34841918945312" minHeight="10.865875244140625" percentHeight="10.0" prefHeight="81.56515502929688" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
-                  <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" />
-                  <RowConstraints percentHeight="8.0" />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+            <GridPane fx:id="board" styleClass="board">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="4.0" />
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.1" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="4.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints percentHeight="2.1" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="10.7" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="2.2" vgrow="SOMETIMES" />
+              </rowConstraints>
                <StackPane.margin>
-                  <Insets left="40.0" right="20.0" />
+                  <Insets left="50.0" right="10.0" />
                </StackPane.margin>
             </GridPane>
-            <ImageView fitHeight="66.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" rotate="8.5" translateX="195.0" translateY="148.0">
+            <ImageView fitHeight="68.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" rotate="8.5" translateX="255.0" translateY="162.0">
                <image>
                   <Image url="@../scoring_tokens/end_game.jpg" />
                </image>

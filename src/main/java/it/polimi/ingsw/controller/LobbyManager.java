@@ -76,7 +76,6 @@ public class LobbyManager implements Serializable {
         Collections.shuffle(personalGoals);
         Collections.shuffle(commonGoals);
 
-
         Game newGame = new Game(counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), commonGoals.subList(0,2), personalGoals.subList(0, this.lobby.size()));
         this.games.add(newGame);
         this.counterGames++;

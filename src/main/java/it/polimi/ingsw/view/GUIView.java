@@ -28,8 +28,6 @@ public class GUIView extends Application {
     private ClientController clientController;
 
     /* Gui's items */
-    private final double screenWidth = Screen.getScreens().get(0).getBounds().getWidth();
-    private final double screenHeight = Screen.getScreens().get(0).getBounds().getHeight();
     private GUIViewAdapter adapter;
     private Stage mainWindow;
     private Scene scene;
@@ -40,8 +38,14 @@ public class GUIView extends Application {
     private HBox leftLayout;
     private HBox bottomLayout;
     private GridPane boardLayout;
+    private VBox commonGoalsLayout;
+    private VBox rankingLayout;
     private GridPane bookshelfLayout;
+    private HBox bookshelvesLayout;
     private HBox pickedTilesLayout;
+    private HBox tokensLayout;
+    private final int tileSize = 64;
+    private final int rectagleSize = 66;
 
     /* Controllers */
     private GameController gameController;
@@ -71,12 +75,11 @@ public class GUIView extends Application {
         this.adapter = new GUIViewAdapter(this);
         this.mainWindow = primaryStage;
         this.mainWindow.setHeight(1050);
-        this.mainWindow.setWidth(1680   );
-        this.mainWindow.setResizable(false);
-        // this.mainWindow.setMaximized(true);
+        this.mainWindow.setWidth(1680);
+        this.mainWindow.setFullScreen(true);
 
         this.mainWindow.show();
-        //this.mainWindow.setOnCloseRequest(event -> this.closeWindow());
+        this.mainWindow.setOnCloseRequest(event -> this.closeWindow());
         this.showChooseTypeOfConnection();
     }
 
@@ -168,37 +171,41 @@ public class GUIView extends Application {
             this.gameController = new GameController(this);
             loader.setController(this.gameController);
             this.rootNode = loader.load();
+
+            // Left
             this.leftLayout = (HBox) this.rootNode.getLeft();
+            this.commonGoalsLayout = (VBox) this.leftLayout.getChildren().get(1);
+
+            // Right
             this.rightLayout = (HBox) this.rootNode.getRight();
+            VBox vBox = (VBox) this.rightLayout.getChildren().get(1);
+            this.pickedTilesLayout = (HBox) vBox.getChildren().get(0);
+            this.bookshelfLayout = (GridPane) vBox.getChildren().get(1);
+            this.tokensLayout = (HBox) vBox.getChildren().get(2);
+
+            // Top
             this.topLayout = (HBox) this.rootNode.getTop();
+            this.bookshelvesLayout = (HBox) this.topLayout.getChildren().get(1);
+            this.rankingLayout = (VBox) this.topLayout.getChildren().get(2);
+
+            // Bottom
             this.bottomLayout = (HBox) this.rootNode.getBottom();
+
+            // Center
             this.centerLayout = (StackPane) this.rootNode.getCenter();
             this.boardLayout = (GridPane) this.centerLayout.getChildren().get(0);
-            VBox v = (VBox) this.rightLayout.getChildren().get(1);
-            this.pickedTilesLayout = (HBox) v.getChildren().get(0);
-            this.bookshelfLayout = (GridPane) v.getChildren().get(1);
 
             // Show other players' bookshelves
             int index = 0;
-            for(Map.Entry<String, Bookshelf> entry : this.bookshelves.entrySet()) {
-                if(!entry.getKey().equals(this.clientController.getClient().getNickname())) {
-                    VBox vbox = (VBox) this.topLayout.getChildren().get(index);
-                    Label name = (Label) vbox.getChildren().get(0);
-                    name.setText(entry.getKey());
-                    index++;
-                }
+            if(this.bookshelves.size() == 2) {
+                vBox = (VBox) this.bookshelvesLayout.getChildren().get(0);
+                vBox.setVisible(false);
+                vBox = (VBox) this.bookshelvesLayout.getChildren().get(2);
+                vBox.setVisible(false);
+            } else if(this.bookshelves.size() == 3) {
+                vBox = (VBox) this.bookshelvesLayout.getChildren().get(1);
+                vBox.setVisible(false);
             }
-            for(; index < 3; index++) {
-                VBox vbox = (VBox) this.topLayout.getChildren().get(index);
-                vbox.setVisible(false);
-            }
-
-            // Show current player's bookshelf
-            /*ImageView img = new ImageView(new Image("/personal_goals/Personal_Goals" +  this.personalGoal.getId() + ".png"));
-            img.setFitWidth(100);
-            img.setFitHeight(100);
-            img.setPreserveRatio(true);
-            this.rightLayout.getChildren().add(2, img);*/
 
             // Show Board
             for(int i=0; i<=8; i++) {
@@ -210,12 +217,12 @@ public class GUIView extends Application {
 
                         Rectangle r = new Rectangle();
                         r.getStyleClass().add("tile_not_selected");
-                        r.heightProperty().bind(this.boardLayout.heightProperty().divide(11));
-                        r.widthProperty().bind(this.boardLayout.widthProperty().divide(11));
+                        r.setHeight(this.rectagleSize);
+                        r.setWidth(this.rectagleSize);
 
                         ImageView imgV = new ImageView(new Image(getTilePath(this.board.getTile(p))));
-                        imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11).subtract(2));
-                        imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11).subtract(2));
+                        imgV.setFitWidth(this.tileSize);
+                        imgV.setFitHeight(this.tileSize);
 
                         st.getChildren().addAll(r, imgV);
 
@@ -236,7 +243,7 @@ public class GUIView extends Application {
             }
 
             // Show chat players
-            VBox vBox = (VBox) this.leftLayout.getChildren().get(0);
+            vBox = (VBox) this.leftLayout.getChildren().get(0);
             HBox hC = (HBox) vBox.getChildren().get(2);
             ChoiceBox cB = (ChoiceBox) hC.getChildren().get(0);
             ObservableList<String> list = cB.getItems();
@@ -246,6 +253,19 @@ public class GUIView extends Application {
                     list.add(entry.getKey());
                 }
             }
+
+            // Show common goals
+            index = 0;
+            for(Map.Entry<CommonGoal, Integer> entry : this.commonGoals.entrySet()) {
+                StackPane c = (StackPane) this.commonGoalsLayout.getChildren().get(index);
+                ImageView img = (ImageView) c.getChildren().get(0);
+                img.setImage(new Image("/common_goals/Common_Goals" + entry.getKey().getId() + ".jpg"));
+                index++;
+            }
+
+            // Show personal goals
+            ImageView imgV = (ImageView) this.rightLayout.getChildren().get(0);
+            imgV.setImage(new Image("/personal_goals/Personal_Goals" + this.personalGoal.getId() + ".png"));
 
             this.scene = new Scene(this.rootNode);
             this.mainWindow.setScene(scene);
@@ -339,12 +359,12 @@ public class GUIView extends Application {
 
                     Rectangle r = new Rectangle();
                     r.getStyleClass().add("tile_not_selected");
-                    r.heightProperty().bind(this.boardLayout.heightProperty().divide(11));
-                    r.widthProperty().bind(this.boardLayout.widthProperty().divide(11));
+                    r.setHeight(this.rectagleSize);
+                    r.setWidth(this.rectagleSize);
 
                     ImageView imgV = new ImageView(new Image(getTilePath(this.board.getTile(p))));
-                    imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11).subtract(2));
-                    imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11).subtract(2));
+                    imgV.setFitWidth(this.tileSize);
+                    imgV.setFitHeight(this.tileSize);
 
                     st.getChildren().addAll(r, imgV);
 
@@ -465,6 +485,10 @@ public class GUIView extends Application {
     }
 
     public void showDisconnection() {
+
+    }
+
+    public void closeWindow() {
 
     }
 }
