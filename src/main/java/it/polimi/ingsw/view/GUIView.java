@@ -70,10 +70,11 @@ public class GUIView extends Application {
     public void start(Stage primaryStage) {
         this.adapter = new GUIViewAdapter(this);
         this.mainWindow = primaryStage;
-        this.mainWindow.setHeight(screenHeight);
-        this.mainWindow.setWidth(screenWidth);
+        this.mainWindow.setHeight(1050);
+        this.mainWindow.setWidth(1680   );
         this.mainWindow.setResizable(false);
-        this.mainWindow.setMaximized(true);
+        // this.mainWindow.setMaximized(true);
+
         this.mainWindow.show();
         //this.mainWindow.setOnCloseRequest(event -> this.closeWindow());
         this.showChooseTypeOfConnection();
