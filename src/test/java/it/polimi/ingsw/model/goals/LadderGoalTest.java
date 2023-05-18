@@ -15,7 +15,7 @@ public class LadderGoalTest {
     @Test
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
+        CommonGoal ladderGoal = new CommonGoal(1, "ladder goal", new LadderGoal());
 
         assertFalse(ladderGoal.checkGoal(bookshelf));
     }
@@ -23,7 +23,7 @@ public class LadderGoalTest {
     @Test
     public void testRandFullBookshelf(){
         Bookshelf bookshelf = BookshelfBuilder.randomFullBookshelf();
-        CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
+        CommonGoal ladderGoal = new CommonGoal(1, "ladder goal", new LadderGoal());
 
         assertFalse(ladderGoal.checkGoal(bookshelf));
     }
@@ -31,7 +31,7 @@ public class LadderGoalTest {
     @Test
     public void testLadderDescending1(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
+        CommonGoal ladderGoal = new CommonGoal(1, "ladder goal", new LadderGoal());
 
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE, Tile.YELLOW), 0);
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE), 1);
@@ -45,7 +45,7 @@ public class LadderGoalTest {
     @Test
     public void testLadderDescending2(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
+        CommonGoal ladderGoal = new CommonGoal(1, "ladder goal", new LadderGoal());
 
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW, Tile.BLUE), 0);
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE, Tile.YELLOW), 1);
@@ -59,7 +59,7 @@ public class LadderGoalTest {
     @Test
     public void testLadderAscending1(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
+        CommonGoal ladderGoal = new CommonGoal(1, "ladder goal", new LadderGoal());
 
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 0);
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE, Tile.LBLUE), 1);
@@ -73,7 +73,7 @@ public class LadderGoalTest {
     @Test
     public void testLadderAscending2(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal ladderGoal = new CommonGoal("ladder goal", new LadderGoal());
+        CommonGoal ladderGoal = new CommonGoal(1, "ladder goal", new LadderGoal());
 
         bookshelf.addTiles(List.of(Tile.PINK), 0);
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 1);

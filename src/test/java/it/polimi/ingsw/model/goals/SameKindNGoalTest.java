@@ -17,7 +17,7 @@ public class SameKindNGoalTest {
         CommonGoal sameKindGoal;
 
         for(int i = 0; i < GameSettings.ROWS * GameSettings.COLUMNS; i++){
-            sameKindGoal = new CommonGoal("same kind goal", new SameKindNGoal(i));
+            sameKindGoal = new CommonGoal(1, "same kind goal", new SameKindNGoal(i));
             assertFalse(sameKindGoal.checkGoal(bookshelf));
         }
     }
@@ -36,12 +36,12 @@ public class SameKindNGoalTest {
 
         // there are 4 PINK tiles, 4 YELLOW tiles, 5 WHITE tiles, 5 GREEN tiles, 5 BLUE tiles, 6 LBLUE tiles
         for(i = 0; i <= 6; i++){
-            sameKindNGoal = new CommonGoal("same kind n goal", new SameKindNGoal(i));
+            sameKindNGoal = new CommonGoal(1, "same kind n goal", new SameKindNGoal(i));
             assertTrue(sameKindNGoal.checkGoal(bookshelf));
         }
 
         for(i = 7; i <= 20; i++){
-            sameKindNGoal = new CommonGoal("same kind n goal", new SameKindNGoal(i));
+            sameKindNGoal = new CommonGoal(1, "same kind n goal", new SameKindNGoal(i));
             assertFalse(sameKindNGoal.checkGoal(bookshelf));
         }
     }
@@ -60,12 +60,12 @@ public class SameKindNGoalTest {
 
         // there are 2 YELLOW tiles, 2 GREEN tiles, 3 WHITE tiles, 3 BLUE tiles, 3 LBLUE tiles, 4 PINK tiles
         for(i = 0; i <= 4; i++){
-            sameKindNGoal = new CommonGoal("same kind n goal", new SameKindNGoal(i));
+            sameKindNGoal = new CommonGoal(1, "same kind n goal", new SameKindNGoal(i));
             assertTrue(sameKindNGoal.checkGoal(bookshelf));
         }
 
         for(i = 5; i <= 20; i++){
-            sameKindNGoal = new CommonGoal("same kind n goal", new SameKindNGoal(i));
+            sameKindNGoal = new CommonGoal(1, "same kind n goal", new SameKindNGoal(i));
             assertFalse(sameKindNGoal.checkGoal(bookshelf));
         }
     }

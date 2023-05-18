@@ -15,7 +15,7 @@ public class SameKindSquareGoalTest {
      * Create the test case
      */
     public SameKindSquareGoalTest() {
-        this.goal = new CommonGoal("", new SameKindSquareGoal());
+        this.goal = new CommonGoal(1, "", new SameKindSquareGoal());
     }
 
     /**

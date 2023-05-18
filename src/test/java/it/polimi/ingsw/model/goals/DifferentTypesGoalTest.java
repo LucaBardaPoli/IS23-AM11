@@ -16,10 +16,10 @@ public class DifferentTypesGoalTest {
     public void testEmptyBookshelf(){
         Bookshelf bookshelf = new Bookshelf();
 
-        CommonGoal fewDifferentColumns = new CommonGoal("3 full columns with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL));
-        CommonGoal fewDifferentRows = new CommonGoal("3 full rows with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.HORIZONTAL));
-        CommonGoal lotsDifferentColumns = new CommonGoal("2 full columns with min 6 different types", new DifferentTypesGoal(6, GameSettings.ROWS, 2, CheckMode.VERTICAL));
-        CommonGoal lotsDifferentRows = new CommonGoal("2 full rows with min 5 different types", new DifferentTypesGoal(5, GameSettings.COLUMNS, 2, CheckMode.HORIZONTAL));
+        CommonGoal fewDifferentColumns = new CommonGoal(1, "3 full columns with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL));
+        CommonGoal fewDifferentRows = new CommonGoal(1, "3 full rows with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.HORIZONTAL));
+        CommonGoal lotsDifferentColumns = new CommonGoal(1, "2 full columns with min 6 different types", new DifferentTypesGoal(6, GameSettings.ROWS, 2, CheckMode.VERTICAL));
+        CommonGoal lotsDifferentRows = new CommonGoal(1, "2 full rows with min 5 different types", new DifferentTypesGoal(5, GameSettings.COLUMNS, 2, CheckMode.HORIZONTAL));
 
         assertFalse(fewDifferentColumns.checkGoal(bookshelf));
         assertFalse(fewDifferentRows.checkGoal(bookshelf));
@@ -30,7 +30,7 @@ public class DifferentTypesGoalTest {
     @Test
     public void testFewDifferentColumns(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal fewDifferentColumns = new CommonGoal("3 full columns with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL));
+        CommonGoal fewDifferentColumns = new CommonGoal(1, "3 full columns with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.VERTICAL));
 
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.PINK, Tile.PINK, Tile.YELLOW, Tile.YELLOW), 0);
         // 1 full columns with max 3 different types (1 full column total)
@@ -52,7 +52,7 @@ public class DifferentTypesGoalTest {
     @Test
     public void testFewDifferentRows(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal fewDifferentRows = new CommonGoal("3 full rows with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.HORIZONTAL));
+        CommonGoal fewDifferentRows = new CommonGoal(1, "3 full rows with max 3 different types", new DifferentTypesGoal(1, 3, 3, CheckMode.HORIZONTAL));
 
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.PINK, Tile.PINK), 0);
         assertFalse(fewDifferentRows.checkGoal(bookshelf));
@@ -75,7 +75,7 @@ public class DifferentTypesGoalTest {
     @Test
     public void testLotsDifferentColumns(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal lotsDifferentColumns = new CommonGoal("2 columns with min 6 different types", new DifferentTypesGoal(6, GameSettings.ROWS, 2, CheckMode.VERTICAL));
+        CommonGoal lotsDifferentColumns = new CommonGoal(1, "2 columns with min 6 different types", new DifferentTypesGoal(6, GameSettings.ROWS, 2, CheckMode.VERTICAL));
 
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.PINK, Tile.PINK), 0);
         // 0 full columns with min 6 different types (1 column total)
@@ -101,7 +101,7 @@ public class DifferentTypesGoalTest {
     @Test
     public void testLotsDifferentRows(){
         Bookshelf bookshelf = new Bookshelf();
-        CommonGoal lotsDifferentRows = new CommonGoal("2 rows with min 5 different types", new DifferentTypesGoal(5, GameSettings.COLUMNS, 2, CheckMode.HORIZONTAL));
+        CommonGoal lotsDifferentRows = new CommonGoal(1, "2 rows with min 5 different types", new DifferentTypesGoal(5, GameSettings.COLUMNS, 2, CheckMode.HORIZONTAL));
 
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.PINK, Tile.PINK), 0);
         assertFalse(lotsDifferentRows.checkGoal(bookshelf));
@@ -150,18 +150,18 @@ public class DifferentTypesGoalTest {
                 minNum = Math.abs(rand.nextInt()) % (ncolumns + 1);
                 minTypes = Math.abs(rand.nextInt()) % Math.min(Tile.values().length + 1, nrows + 1);
             }
-            differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+            differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
 
             if (differentTypes.checkGoal(bookshelf)) {
                 while (minTypes > 0) {
                     minTypes--;
-                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
                     assertTrue(differentTypes.checkGoal(bookshelf));
                 }
             } else {
                 while (minTypes <= Tile.values().length) {
                     minTypes++;
-                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
                     assertFalse(differentTypes.checkGoal(bookshelf));
                 }
             }
@@ -197,18 +197,18 @@ public class DifferentTypesGoalTest {
                 minNum = Math.abs(rand.nextInt()) % (ncolumns + 1);
                 maxTypes = Math.abs(rand.nextInt()) % Math.min(Tile.values().length + 1, nrows + 1);
             }
-            differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+            differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
 
             if (differentTypes.checkGoal(bookshelf)) {
                 while (maxTypes <= Tile.values().length) {
                     maxTypes++;
-                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
                     assertTrue(differentTypes.checkGoal(bookshelf));
                 }
             } else {
                 while (maxTypes > 0) {
                     maxTypes--;
-                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
                     assertFalse(differentTypes.checkGoal(bookshelf));
                 }
             }
@@ -246,18 +246,18 @@ public class DifferentTypesGoalTest {
                 maxTypes = Math.abs(rand.nextInt()) % Math.min(Tile.values().length + 1, nrows + 1);
                 minTypes = Math.abs(rand.nextInt()) % (maxTypes + 1);
             }
-            differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+            differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
 
             if (differentTypes.checkGoal(bookshelf)) {
                 while (minNum > 0) {
                     minNum--;
-                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
                     assertTrue(differentTypes.checkGoal(bookshelf));
                 }
             } else {
                 while (minNum <= Math.max(nrows, ncolumns)) {
                     minNum++;
-                    differentTypes = new CommonGoal("same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
+                    differentTypes = new CommonGoal(1, "same kind groups", new DifferentTypesGoal(minTypes, maxTypes, minNum, mode));
                     assertFalse(differentTypes.checkGoal(bookshelf));
                 }
             }

@@ -23,28 +23,28 @@ public class SameKindGroupsGoalTest {
         Bookshelf bookshelf = new Bookshelf();
         CommonGoal sameKindGroups;
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(0, 0));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(0, 0));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(0, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(0, 1));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 0));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 0));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(-1, 3));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(-1, 3));
         // when min_groups <= 0 the goal is fulfilled for any bookshelf
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
         // every empty cell counts as a group of size 0
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(GameSettings.ROWS * GameSettings.COLUMNS, 0));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(GameSettings.ROWS * GameSettings.COLUMNS, 0));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(GameSettings.ROWS * GameSettings.COLUMNS, -1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(GameSettings.ROWS * GameSettings.COLUMNS, -1));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(GameSettings.ROWS * GameSettings.COLUMNS + 1, 0));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(GameSettings.ROWS * GameSettings.COLUMNS + 1, 0));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 1));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
@@ -60,48 +60,48 @@ public class SameKindGroupsGoalTest {
         bookshelf.addTiles(List.of(Tile.YELLOW, Tile.LBLUE), 1);
         bookshelf.addTiles(List.of(Tile.PINK, Tile.PINK), 2);
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(0, 0));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(0, 0));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(0, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(0, 1));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 0));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 0));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 2));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 2));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.BLUE), 0);
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(5, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(5, 1));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.BLUE), 2);
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(6, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(6, 1));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.BLUE), 1);
         assertFalse(sameKindGroups.checkGoal(bookshelf));
         bookshelf.addTiles(List.of(Tile.PINK, Tile.BLUE), 0);
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(4, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(4, 2));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(3, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(3, 2));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
         bookshelf.addTiles(List.of(Tile.WHITE, Tile.WHITE), 0);
         bookshelf.addTiles(List.of(Tile.YELLOW, Tile.GREEN, Tile.GREEN), 3);
         bookshelf.addTiles(List.of(Tile.YELLOW, Tile.YELLOW), 4);
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(5, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(5, 2));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(6, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(6, 2));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(7, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(7, 2));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
@@ -117,32 +117,32 @@ public class SameKindGroupsGoalTest {
         bookshelf.addTiles(List.of(Tile.YELLOW, Tile.WHITE), 1);
         bookshelf.addTiles(List.of(Tile.YELLOW, Tile.WHITE), 2);
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 4));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 4));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 4));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 4));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE), 3);
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 2);
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 4));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 4));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 5));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 5));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 5));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 5));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 2);
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 6));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 6));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 6));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 6));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 7));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 7));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
 
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 7));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 7));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         bookshelf.addTiles(List.of(Tile.WHITE), 0);
@@ -165,43 +165,43 @@ public class SameKindGroupsGoalTest {
         bookshelf.addTiles(List.of(Tile.PINK, Tile.PINK, Tile.PINK, Tile.BLUE, Tile.WHITE, Tile.YELLOW), 4);
 
         // there are 16 groups of size >= 1
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(16, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(16, 1));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(17, 1));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(17, 1));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         // there are 6 groups of size >= 2
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(6, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(6, 2));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(7, 2));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(7, 2));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         // there are 4 groups of size >= 3
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(4, 3));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(4, 3));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(5, 3));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(5, 3));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         // there are 2 groups of size >= 4
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 4));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 4));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(3, 4));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(3, 4));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         // there is 1 group of size >= 5
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 5));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 5));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 5));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 5));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         // there is 1 group of size >= 6
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 6));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 6));
         assertTrue(sameKindGroups.checkGoal(bookshelf));
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(2, 6));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(2, 6));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
 
         // there are 0 group of size >= 7
-        sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(1, 7));
+        sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(1, 7));
         assertFalse(sameKindGroups.checkGoal(bookshelf));
     }
 
@@ -222,18 +222,18 @@ public class SameKindGroupsGoalTest {
             bookshelf = BookshelfBuilder.randomFullBookshelf();
             minGroups = Math.abs(rand.nextInt()) % (GameSettings.COLUMNS * GameSettings.ROWS + 1);
             minSize = Math.abs(rand.nextInt()) % (GameSettings.COLUMNS * GameSettings.ROWS + 1);
-            sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
+            sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(minGroups, minSize));
 
             if(sameKindGroups.checkGoal(bookshelf)){
                 while(minGroups > 0){
                     minGroups--;
-                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
+                    sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertTrue(sameKindGroups.checkGoal(bookshelf));
                 }
             } else {
                 while(minGroups < GameSettings.COLUMNS * GameSettings.ROWS + 1){
                     minGroups++;
-                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
+                    sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertFalse(sameKindGroups.checkGoal(bookshelf));
                 }
             }
@@ -257,18 +257,18 @@ public class SameKindGroupsGoalTest {
             bookshelf = BookshelfBuilder.randomFullBookshelf();
             minGroups = Math.abs(rand.nextInt()) % (GameSettings.COLUMNS * GameSettings.ROWS + 1);
             minSize = Math.abs(rand.nextInt()) % (GameSettings.COLUMNS * GameSettings.ROWS + 1);
-            sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
+            sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(minGroups, minSize));
 
             if (sameKindGroups.checkGoal(bookshelf)) {
                 while (minSize > 0) {
                     minSize--;
-                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
+                    sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertTrue(sameKindGroups.checkGoal(bookshelf));
                 }
             } else {
                 while (minSize <= GameSettings.COLUMNS * GameSettings.ROWS + 1) {
                     minSize++;
-                    sameKindGroups = new CommonGoal("same kind groups", new SameKindGroupsGoal(minGroups, minSize));
+                    sameKindGroups = new CommonGoal(1, "same kind groups", new SameKindGroupsGoal(minGroups, minSize));
                     assertFalse(sameKindGroups.checkGoal(bookshelf));
                 }
             }

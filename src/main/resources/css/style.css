@@ -3,6 +3,7 @@
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-image: url("../boards/livingroom.png");
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 50, 0, 0, 0);
 }
 
 .bookshelf {
@@ -41,6 +42,7 @@
     -fx-background-position: center;
     -fx-background-size: 100%;
     -fx-background-image: url("../misc/base_pagina2.jpg");
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }
 
 .background {

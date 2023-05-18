@@ -6,127 +6,234 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="1050.0" prefWidth="1680.0" styleClass="background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
 
    <!-- Other Players bookshelves -->
    <top>
-      <HBox alignment="CENTER" prefHeight="182.0" prefWidth="1680.0">
+      <HBox alignment="CENTER" prefHeight="182.0" prefWidth="1094.0" spacing="40.0" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <BorderPane.margin>
             <Insets bottom="30.0" top="50.0" />
          </BorderPane.margin>
+         <children>
+            <VBox>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="149.0" text="Label" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../boards/bookshelf_orth.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="152.0" text="Label" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../boards/bookshelf_orth.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="149.0" text="Label" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../boards/bookshelf_orth.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="80.0" />
+         </padding>
       </HBox>
    </top>
 
    <!-- Player's items -->
    <right>
-      <VBox alignment="CENTER" prefHeight="668.0" prefWidth="433.0">
-         <HBox alignment="CENTER" prefHeight="101.0" prefWidth="328.0" spacing="15.0" styleClass="pickedTiles">
-            <VBox.margin>
-               <Insets left="70.0" right="70.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-            <padding>
-               <Insets bottom="10.0" top="10.0" />
-            </padding></HBox>
-         <BorderPane.margin>
-            <Insets left="30.0" right="20.0" />
-         </BorderPane.margin>
+      <HBox alignment="BOTTOM_CENTER" prefHeight="654.0" prefWidth="447.0">
+         <children>
+            <ImageView fitHeight="168.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../personal_goals/Personal_Goals1.png" />
+               </image>
+               <HBox.margin>
+                  <Insets bottom="100.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox alignment="BOTTOM_CENTER" spacing="30.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="78.0" prefWidth="234.0" spacing="10.0" styleClass="pickedTiles">
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <GridPane hgap="10.0" prefHeight="350.0" prefWidth="375.0" styleClass="bookshelf" vgap="7.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.3106689453125" minWidth="10.0" percentWidth="13.0" prefWidth="52.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="62.1866455078125" minWidth="0.0" percentWidth="17.0" prefWidth="31.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="58.250244140625" minWidth="0.0" percentWidth="20.0" prefWidth="36.27392578125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.51220703125" minWidth="10.0" percentWidth="19.0" prefWidth="38.72607421875" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="18.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="19.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="51.64031982421875" minHeight="0.0" prefHeight="50.4268798828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="42.17987060546875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="51.6343994140625" minHeight="10.0" prefHeight="40.32012939453125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="49.5948486328125" minHeight="10.0" prefHeight="42.9268798828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="40.32012939453125" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="50.7806396484375" minHeight="0.0" prefHeight="40.67987060546875" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="60.0" minHeight="1.87701416015625" prefHeight="23.4268798828125" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children>
+            </VBox>
+         </children>
          <padding>
-            <Insets bottom="30.0" />
+            <Insets bottom="40.0" left="10.0" />
          </padding>
-      </VBox>
+      </HBox>
    </right>
 
    <!-- Chat -->
    <left>
-      <VBox alignment="CENTER" prefHeight="568.0" prefWidth="241.0" spacing="10.0" styleClass="chatBackground">
-         <TextArea fx:id="chat" editable="false" prefHeight="486.0" prefWidth="404.0" styleClass="chat">
+      <HBox prefHeight="575.0" prefWidth="491.0">
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" top="20.0" />
+         </BorderPane.margin>
+         <children>
+            <VBox alignment="CENTER" prefHeight="568.0" prefWidth="241.0" spacing="10.0" styleClass="chatBackground">
+               <TextArea fx:id="chat" editable="false" prefHeight="486.0" prefWidth="404.0" styleClass="chat">
 
          </TextArea>
-         <TextField fx:id="message" prefHeight="3.0" prefWidth="190.0">
+               <TextField fx:id="message" prefHeight="3.0" prefWidth="190.0">
 
          </TextField>
-         <HBox alignment="CENTER" spacing="5.0">
-            <Button fx:id="chatButton" onAction="#handleChatMessage" prefWidth="100.0" text="Send" textAlignment="CENTER" />
-            <ChoiceBox fx:id="messageReceiver" prefWidth="100.0" value="Players">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Everyone" />
-                  </FXCollections>
-               </items>
-            </ChoiceBox>
-         </HBox>
-         <BorderPane.margin>
-            <Insets bottom="100.0" left="30.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
+               <HBox alignment="CENTER" spacing="5.0">
+                  <ChoiceBox fx:id="messageReceiver" prefWidth="100.0" value="Players">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Everyone" />
+                        </FXCollections>
+                     </items>
+                  </ChoiceBox>
+                  <Button fx:id="chatButton" onAction="#handleChatMessage" prefWidth="100.0" text="Send" textAlignment="CENTER" />
+               </HBox>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="550.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../common_goals/Common_Goals1.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="141.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../common_goals/Common_Goals2.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
    </left>
 
    <!-- Main Board -->
    <center>
-      <GridPane fx:id="board" minHeight="251.0" minWidth="251.0" styleClass="board" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="649.0" prefWidth="692.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets left="300.0" />
+            <Insets />
          </BorderPane.margin>
-         <columnConstraints>
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="4.2" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="4.3" />
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints percentHeight="8.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="10.0" />
-            <RowConstraints percentHeight="8.0" />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></GridPane>
+         <children>
+            <GridPane fx:id="board" minHeight="251.0" minWidth="251.0" prefHeight="506.0" prefWidth="580.0" styleClass="board">
+               <columnConstraints>
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="4.2" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" percentWidth="10.1" />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="83.13412475585938" minHeight="11.651580810546875" percentHeight="8.0" prefHeight="12.434844970703125" />
+                  <RowConstraints maxHeight="82.34841918945312" minHeight="10.865875244140625" percentHeight="10.0" prefHeight="81.56515502929688" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" />
+                  <RowConstraints percentHeight="8.0" />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <StackPane.margin>
+                  <Insets left="40.0" right="20.0" />
+               </StackPane.margin>
+            </GridPane>
+            <ImageView fitHeight="66.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" rotate="8.5" translateX="195.0" translateY="148.0">
+               <image>
+                  <Image url="@../scoring_tokens/end_game.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
    </center>
 
    <!-- Buttons -->
    <bottom>
-      <HBox prefHeight="30.0" prefWidth="603.0" spacing="40.0" BorderPane.alignment="CENTER">
-         <Button fx:id="pick" alignment="CENTER" contentDisplay="CENTER" onAction="#handlePick" prefHeight="30.0" prefWidth="100.0" text="Pick" textAlignment="CENTER" />
-         <Button fx:id="insert" alignment="CENTER" contentDisplay="CENTER" onAction="#handleInsert" prefHeight="30.0" prefWidth="100.0" text="Insert" textAlignment="CENTER" />
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="603.0" spacing="40.0" BorderPane.alignment="CENTER">
+         <Button fx:id="pick" alignment="CENTER" contentDisplay="CENTER" onAction="#handlePick" prefHeight="35.0" prefWidth="100.0" text="Pick" textAlignment="CENTER" />
+         <Button fx:id="insert" alignment="CENTER" contentDisplay="CENTER" onAction="#handleInsert" prefHeight="35.0" prefWidth="100.0" text="Insert" textAlignment="CENTER" />
          <BorderPane.margin>
-            <Insets bottom="50.0" left="500.0" right="500.0" top="40.0" />
+            <Insets bottom="50.0" left="500.0" right="500.0" />
          </BorderPane.margin>
          <padding>
             <Insets left="250.0" />

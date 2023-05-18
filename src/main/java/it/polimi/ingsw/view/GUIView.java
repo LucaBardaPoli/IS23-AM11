@@ -28,15 +28,24 @@ public class GUIView extends Application {
     private ClientController clientController;
 
     /* Gui's items */
-    private GUIViewAdapter adapter;
-    private Stage mainWindow;
-    private BorderPane rootNode;
     private final double screenWidth = Screen.getScreens().get(0).getBounds().getWidth();
     private final double screenHeight = Screen.getScreens().get(0).getBounds().getHeight();
+    private GUIViewAdapter adapter;
+    private Stage mainWindow;
     private Scene scene;
-    private GameController gameController;
+    private BorderPane rootNode;
+    private StackPane centerLayout;
+    private HBox rightLayout;
+    private HBox topLayout;
+    private HBox leftLayout;
+    private HBox bottomLayout;
     private GridPane boardLayout;
-    private Position lastSelectedTile;
+    private GridPane bookshelfLayout;
+    private HBox pickedTilesLayout;
+
+    /* Controllers */
+    private GameController gameController;
+    private LoginController loginController;
 
     /* Game's items */
     private Board board;
@@ -46,6 +55,7 @@ public class GUIView extends Application {
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
+    private Position lastSelectedTile;
 
     /* Utils */
     private boolean changeTurn;
@@ -125,7 +135,8 @@ public class GUIView extends Application {
     /* Methods to display the items of the game */
     private String getTilePath(Tile tile) {
         Random rand = new Random();
-        int tileNumber = rand.nextInt(3) + 1;
+        //int tileNumber = rand.nextInt(3) + 1;
+        int tileNumber = 1;
         String tilePath = "/item_tiles";
         switch(tile) {
             case BLUE:
@@ -156,45 +167,39 @@ public class GUIView extends Application {
             this.gameController = new GameController(this);
             loader.setController(this.gameController);
             this.rootNode = loader.load();
+            this.leftLayout = (HBox) this.rootNode.getLeft();
+            this.rightLayout = (HBox) this.rootNode.getRight();
+            this.topLayout = (HBox) this.rootNode.getTop();
+            this.bottomLayout = (HBox) this.rootNode.getBottom();
+            this.centerLayout = (StackPane) this.rootNode.getCenter();
+            this.boardLayout = (GridPane) this.centerLayout.getChildren().get(0);
+            VBox v = (VBox) this.rightLayout.getChildren().get(1);
+            this.pickedTilesLayout = (HBox) v.getChildren().get(0);
+            this.bookshelfLayout = (GridPane) v.getChildren().get(1);
 
             // Show other players' bookshelves
-            HBox h = (HBox) this.rootNode.getTop();
+            int index = 0;
             for(Map.Entry<String, Bookshelf> entry : this.bookshelves.entrySet()) {
                 if(!entry.getKey().equals(this.clientController.getClient().getNickname())) {
-                    loader = new FXMLLoader(getClass().getResource("/fxml/bookshelf.fxml"));
-                    StackPane s = (StackPane) loader.load();
-                    VBox v = (VBox) s.getChildren().get(0);
-                    Label l = (Label) v.getChildren().get(0);
-                    l.setText(entry.getKey());
-
-                    h.getChildren().add(s);
+                    VBox vbox = (VBox) this.topLayout.getChildren().get(index);
+                    Label name = (Label) vbox.getChildren().get(0);
+                    name.setText(entry.getKey());
+                    index++;
                 }
+            }
+            for(; index < 3; index++) {
+                VBox vbox = (VBox) this.topLayout.getChildren().get(index);
+                vbox.setVisible(false);
             }
 
             // Show current player's bookshelf
-            VBox v = (VBox) this.rootNode.getRight();
-
-            loader = new FXMLLoader(getClass().getResource("/fxml/bookshelf.fxml"));
-            StackPane s = (StackPane) loader.load();
-            VBox vB = (VBox) s.getChildren().get(0);
-
-            Label l = (Label) vB.getChildren().get(0);
-            l.setText(this.clientController.getClient().getNickname());
-
-            GridPane gp = (GridPane) vB.getChildren().get(1);
-            gp.setPrefSize(200, 200);
-
-            ImageView img = new ImageView(new Image("/personal_goals/Personal_Goals" +  this.personalGoal.getId() + ".png"));
-            img.setFitWidth(200);
-            img.setFitHeight(300);
-
-            v.getChildren().add(1, s);
-            v.getChildren().add(2, img);
-            v.setSpacing(50);
+            /*ImageView img = new ImageView(new Image("/personal_goals/Personal_Goals" +  this.personalGoal.getId() + ".png"));
+            img.setFitWidth(100);
+            img.setFitHeight(100);
+            img.setPreserveRatio(true);
+            this.rightLayout.getChildren().add(2, img);*/
 
             // Show Board
-            this.boardLayout = (GridPane) this.rootNode.getCenter();
-
             for(int i=0; i<=8; i++) {
                 for(int j=-3; j<=5; j++) {
                     Position p = new Position(i, j);
@@ -230,10 +235,9 @@ public class GUIView extends Application {
             }
 
             // Show chat players
-            VBox vC = (VBox) this.rootNode.getLeft();
-
-            HBox hC = (HBox) vC.getChildren().get(2);
-            ChoiceBox cB = (ChoiceBox) hC.getChildren().get(1);
+            VBox vBox = (VBox) this.leftLayout.getChildren().get(0);
+            HBox hC = (HBox) vBox.getChildren().get(2);
+            ChoiceBox cB = (ChoiceBox) hC.getChildren().get(0);
             ObservableList<String> list = cB.getItems();
 
             for(Map.Entry<String, Bookshelf> entry : this.bookshelves.entrySet()) {
@@ -322,17 +326,49 @@ public class GUIView extends Application {
     }
 
     public void showChooseColumn() {
-        this.showBoard();
+        this.boardLayout.getChildren().clear();
 
-        VBox v = (VBox) this.rootNode.getRight();
-        HBox h = (HBox) v.getChildren().get(0);
+        // Show Board
+        for(int i=0; i<=8; i++) {
+            for(int j=-3; j<=5; j++) {
+                Position p = new Position(i, j);
+                if(!this.board.getTile(p).equals(Tile.EMPTY)) {
+
+                    StackPane st = new StackPane();
+
+                    Rectangle r = new Rectangle();
+                    r.getStyleClass().add("tile_not_selected");
+                    r.heightProperty().bind(this.boardLayout.heightProperty().divide(11));
+                    r.widthProperty().bind(this.boardLayout.widthProperty().divide(11));
+
+                    ImageView imgV = new ImageView(new Image(getTilePath(this.board.getTile(p))));
+                    imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11).subtract(2));
+                    imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11).subtract(2));
+
+                    st.getChildren().addAll(r, imgV);
+
+                    st.setOnMouseClicked(event -> {
+                        if(this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+                            this.lastSelectedTile = p;
+                            if (st.getChildren().get(0).getStyleClass().contains("tile_not_selected")) {
+                                this.clientController.sendMessage(new PickTileRequest(p));
+                            } else {
+                                this.clientController.sendMessage(new UnpickTileRequest(p));
+                            }
+                        }
+                    });
+
+                    this.boardLayout.add(st, j+4, i+1);
+                }
+            }
+        }
 
         for(Tile t : this.pickedTiles) {
             ImageView imgV = new ImageView(new Image(getTilePath(t)));
             imgV.fitHeightProperty().bind(this.boardLayout.heightProperty().divide(11));
             imgV.fitWidthProperty().bind(this.boardLayout.widthProperty().divide(11));
             //imgV.setOnMouseClicked(event -> this.clientController.sendMessage(new SwapTilesOrderRequest(0)));
-            h.getChildren().add(imgV);
+            this.pickedTilesLayout.getChildren().add(imgV);
         }
     }
 
@@ -347,8 +383,7 @@ public class GUIView extends Application {
     }
 
     public void showValidPick() {
-        GridPane g = (GridPane) this.rootNode.getCenter();
-        ObservableList<Node> list = g.getChildren();
+        ObservableList<Node> list = this.boardLayout.getChildren();
 
         for(Node node : list) {
             if(node != null) {
@@ -366,8 +401,7 @@ public class GUIView extends Application {
     }
 
     public void showValidUnpick() {
-        GridPane g = (GridPane) this.rootNode.getCenter();
-        ObservableList<Node> list = g.getChildren();
+        ObservableList<Node> list = this.boardLayout.getChildren();
 
         for(Node node : list) {
             if(node != null) {

@@ -14,7 +14,7 @@ public class SameKindXGoalTest {
      * Create the test case
      */
     public SameKindXGoalTest() {
-        this.goal = new CommonGoal("", new SameKindXGoal());
+        this.goal = new CommonGoal(1, "", new SameKindXGoal());
     }
 
     /**

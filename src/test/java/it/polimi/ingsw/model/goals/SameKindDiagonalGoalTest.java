@@ -15,7 +15,7 @@ public class SameKindDiagonalGoalTest {
      * Create the test case
      */
     public SameKindDiagonalGoalTest() {
-        this.goal = new CommonGoal("", new SameKindDiagonalGoal());
+        this.goal = new CommonGoal(1,"", new SameKindDiagonalGoal());
     }
 
 

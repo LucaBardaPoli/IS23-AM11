@@ -48,7 +48,7 @@ public class PlayerTest {
     positions.add(new Position( 5,2 ) );
     tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -71,7 +71,7 @@ public class PlayerTest {
     positions.add(new Position( 5, 4) );
     tiles.add(Tile.BLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -95,7 +95,7 @@ public class PlayerTest {
     positions.add(new Position(5 ,0 ) );
     tiles.add(Tile.WHITE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -119,7 +119,7 @@ public class PlayerTest {
     positions.add(new Position(4, 2) );
     tiles.add(Tile.GREEN);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -129,11 +129,11 @@ public class PlayerTest {
 
     // Common Goal: DifferentGroupColumn Goal
     bookshelfPredicate = new DifferentTypesGoal(6,6,2, CheckMode.VERTICAL);
-    commonGoals.add(new CommonGoal("Different Group Column",  bookshelfPredicate));
+    commonGoals.add(new CommonGoal(1, "Different Group Column",  bookshelfPredicate));
 
     // Common Goal: Ladder Goal
     bookshelfPredicate = new LadderGoal();
-    commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
+    commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new Bag());
@@ -177,7 +177,7 @@ public class PlayerTest {
     positions.add(new Position( 5,2 ) );
     tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -200,7 +200,7 @@ public class PlayerTest {
     positions.add(new Position( 5,2 ) );
     tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -223,7 +223,7 @@ public class PlayerTest {
     positions.add(new Position( 5, 4) );
     tiles.add(Tile.BLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -247,7 +247,7 @@ public class PlayerTest {
     positions.add(new Position(5 ,0 ) );
     tiles.add(Tile.WHITE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -271,7 +271,7 @@ public class PlayerTest {
     positions.add(new Position(4, 2) );
     tiles.add(Tile.GREEN);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -286,11 +286,11 @@ public class PlayerTest {
     positionList.add(new Position(5,0));
     positionList.add(new Position(5,4));
     bookshelfPredicate = new GivenPositionsGoal(positionList);
-    commonGoals.add(new CommonGoal("Given Positions",  bookshelfPredicate));
+    commonGoals.add(new CommonGoal(1, "Given Positions",  bookshelfPredicate));
 
     // Common Goal: Ladder Goal
     bookshelfPredicate = new LadderGoal();
-    commonGoals.add(new CommonGoal("Ladder Goal", bookshelfPredicate));
+    commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new Bag());
@@ -334,7 +334,7 @@ public class PlayerTest {
     positions.add(new Position( 5,2 ) );
     tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -357,7 +357,7 @@ public class PlayerTest {
     positions.add(new Position( 5,2 ) );
     tiles.add(Tile.LBLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -380,7 +380,7 @@ public class PlayerTest {
     positions.add(new Position( 5, 4) );
     tiles.add(Tile.BLUE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -404,7 +404,7 @@ public class PlayerTest {
     positions.add(new Position(5 ,0 ) );
     tiles.add(Tile.WHITE);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -428,7 +428,7 @@ public class PlayerTest {
     positions.add(new Position(4, 2) );
     tiles.add(Tile.GREEN);
 
-    personalGoals.add(new PersonalGoal(positions, tiles, rewards));
+    personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
     positions.clear();
     tiles.clear();
 
@@ -438,11 +438,11 @@ public class PlayerTest {
 
     // Common Goal: Same Kind Square Goal
     bookshelfPredicate = new SameKindSquareGoal();
-    commonGoals.add(new CommonGoal("Same Kind Square",  bookshelfPredicate));
+    commonGoals.add(new CommonGoal(1, "Same Kind Square",  bookshelfPredicate));
 
     // Common Goal: Same Kind X Goal
     bookshelfPredicate = new SameKindXGoal();
-    commonGoals.add(new CommonGoal("Same Kind X",  bookshelfPredicate));
+    commonGoals.add(new CommonGoal(1, "Same Kind X",  bookshelfPredicate));
 
     return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new Bag());
