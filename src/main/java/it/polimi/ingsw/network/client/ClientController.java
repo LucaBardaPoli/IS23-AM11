@@ -135,6 +135,7 @@ public class ClientController {
     public void handle(ConfirmPickResponse serverMessage) {
         if(serverMessage.isValid()) {
             this.view.updateBoard(serverMessage.getBoard());
+            // SHOW BOARD !!!!!!!
             this.view.showChooseColumn();
         } else {
             this.view.showNoPickedTiles();

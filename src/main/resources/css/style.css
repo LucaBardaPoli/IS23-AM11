@@ -3,7 +3,6 @@
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-image: url("../boards/livingroom.png");
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 50, 0, 0, 0);
 }
 
 .bookshelf {
@@ -42,14 +41,33 @@
     -fx-background-position: center;
     -fx-background-size: 100%;
     -fx-background-image: url("../misc/base_pagina2.jpg");
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.background_shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 40, 0, 0, 0);
 }
 
 .background {
-    -fx-background-size: auto;
+    -fx-background-size: 100%;
     -fx-background-position: center;
     -fx-background-repeat: repeat-x, repeat-x;
     -fx-background-image: url("../misc/sfondo_parquet.jpg");
+}
+
+.background_login {
+    -fx-background-size: 100%;
+    -fx-background-position: center;
+    -fx-background-repeat: repeat-x, repeat-x;
+    -fx-background-image: url("../publisher_material/Display_5.jpg");
+}
+
+.logo {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 5, 5, 5);
+}
+
+.login {
+    -fx-background-color: rgba(0, 10, 30, 0.6);
+    -fx-background-radius: 50 50 50 50;
 }
 
 .tile_selected {
@@ -58,4 +76,9 @@
 
 .tile_not_selected {
     -fx-fill: black;
+}
+
+.column_selected {
+    -fx-background-color: yellow;
+    -fx-opacity: 0.4;
 }

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view.controller;
 
 import it.polimi.ingsw.network.message.ChatMessage;
+import it.polimi.ingsw.network.message.ConfirmColumnRequest;
+import it.polimi.ingsw.network.message.ConfirmOrderNotify;
 import it.polimi.ingsw.network.message.ConfirmPickRequest;
 import it.polimi.ingsw.view.GUIView;
 import javafx.fxml.FXML;
@@ -30,6 +32,7 @@ public class GameController {
 
     public void handleChatMessage() {
         String receiver = (String) this.messageReceiver.getValue();
+        receiver = receiver.equals("-") ? "Everyone" : receiver;
         String message = this.message.getText();
         if(!message.equals("")) {
             this.gui.getClientController().sendMessage(new ChatMessage(this.gui.getClientController().getClient().getNickname(), receiver, message));
@@ -54,6 +57,6 @@ public class GameController {
     }
 
     public void handleInsert() {
-
+        this.gui.getClientController().sendMessage(new ConfirmOrderNotify());
     }
 }

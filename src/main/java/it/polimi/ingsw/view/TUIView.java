@@ -28,11 +28,14 @@ public class TUIView implements View {
     /* Colors */
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
+    private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_YELLOW = "\u001B[33m";
     private static final String ANSI_BLUE = "\u001B[34m";
     private static final String ANSI_PURPLE = "\u001B[35m";
     private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_BACKGROUND_BLACK = "\033[40m";
+    private final String tile_char = "██";
 
     /* Commands' codes */
     private static final String PICK = "P";
@@ -105,15 +108,6 @@ public class TUIView implements View {
     }
 
     public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        System.out.println("\n\n\n" +
-                "╭━╮╭━╮╱╱╱╱╭━━━┳╮╱╱╱╱╭╮╭━╮\n" +
-                "┃┃╰╯┃┃╱╱╱╱┃╭━╮┃┃╱╱╱╱┃┃┃╭╯\n" +
-                "┃╭╮╭╮┣╮╱╭╮┃╰━━┫╰━┳━━┫┣╯╰┳┳━━╮\n" +
-                "┃┃┃┃┃┃┃╱┃┃╰━━╮┃╭╮┃┃━┫┣╮╭╋┫┃━┫\n" +
-                "┃┃┃┃┃┃╰━╯┃┃╰━╯┃┃┃┃┃━┫╰┫┃┃┃┃━┫\n" +
-                "╰╯╰╯╰┻━╮╭╯╰━━━┻╯╰┻━━┻━┻╯╰┻━━╯\n" +
-                "╱╱╱╱╱╭━╯┃\n" +
-                "╱╱╱╱╱╰━━╯\n");
         this.setTable(board, commonGoals, personalGoal);
         this.showBoard();
         this.showCommonGoals();
@@ -135,9 +129,9 @@ public class TUIView implements View {
 
     public void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName) {
         int currLobbySize = lobby.size();
-        if(newPlayerConnected){
+        if(newPlayerConnected) {
             System.out.println(playerName +" joined the lobby!");
-        }else{
+        } else{
             System.out.println(playerName +" exited the lobby!");
         }
         System.out.println("Current lobby:");
@@ -159,25 +153,25 @@ public class TUIView implements View {
     private void printTile(Tile tile) {
         switch(tile) {
             case BLUE:
-                System.out.print(ANSI_BLUE + "\u25A0" + ANSI_RESET);
+                System.out.print(ANSI_BLUE + this.tile_char + ANSI_RESET);
                 break;
             case PINK:
-                System.out.print(ANSI_PURPLE + "\u25A0" + ANSI_RESET);
+                System.out.print(ANSI_PURPLE + this.tile_char + ANSI_RESET);
                 break;
             case WHITE:
-                System.out.print("\u25A0");
+                System.out.print(this.tile_char);
                 break;
             case YELLOW:
-                System.out.print(ANSI_YELLOW + "\u25A0" + ANSI_RESET);
+                System.out.print(ANSI_YELLOW + this.tile_char + ANSI_RESET);
                 break;
             case LBLUE:
-                System.out.print(ANSI_CYAN + "\u25A0" + ANSI_RESET);
+                System.out.print(ANSI_CYAN + this.tile_char + ANSI_RESET);
                 break;
             case GREEN:
-                System.out.print(ANSI_GREEN + "\u25A0" + ANSI_RESET);
+                System.out.print(ANSI_GREEN + this.tile_char + ANSI_RESET);
                 break;
             case EMPTY:
-                System.out.print(ANSI_BLACK + "\u25A0" + ANSI_RESET);
+                System.out.print(ANSI_BLACK + this.tile_char + ANSI_RESET);
                 break;
         }
     }
@@ -186,27 +180,22 @@ public class TUIView implements View {
         System.out.println("Board:");
 
         // Fist row with indexes
-        System.out.print("  ");
-        for(int i=-3; i<=5; i++) {
-            if(i >= 0) {
-                System.out.print(" " + i + " ");
-            } else {
-                System.out.print(i + " ");
-            }
+        System.out.print(ANSI_BACKGROUND_BLACK + "  ");
+        for(int i=0; i<=8; i++) {
+            System.out.print(ANSI_BACKGROUND_BLACK + " " + i + " " + ANSI_RESET);
         }
         System.out.print("\n");
 
         // Board
         for(int i=0; i<=8; i++) {
-            System.out.print(i + " ");
-            for(int j=-3; j<=5; j++) {
-                Position p = new Position(i, j);
+            System.out.print(ANSI_BACKGROUND_BLACK + i + " " + ANSI_RESET);
+            for(int j=0; j<=8; j++) {
+                Position p = new Position(i, j-3);
                 if(this.board.getBoard().containsKey(p)) {
-                    System.out.print(" ");
                     printTile(this.board.getBoard().get(p));
-                    System.out.print(" ");
+                    System.out.print(ANSI_BACKGROUND_BLACK + " " + ANSI_RESET);
                 } else {
-                    System.out.print("   ");
+                    System.out.print(ANSI_BACKGROUND_BLACK + "   " + ANSI_RESET);
                 }
             }
             System.out.print("\n");
@@ -225,6 +214,7 @@ public class TUIView implements View {
         System.out.println(player + "'s bookshelf: ");
 
         // Fist row with indexes
+        System.out.print(" ");
         for(int i=0; i<=4; i++) {
             System.out.print(" " + i + " ");
         }
@@ -232,8 +222,8 @@ public class TUIView implements View {
 
         // Bookshelf
         for(int i=0; i<=5; i++) {
+            System.out.print(" ");
             for(int j=0; j<=4; j++) {
-                System.out.print(" ");
                 printTile(this.bookshelves.get(player).getTile(new Position(i, j)));
                 System.out.print(" ");
             }
@@ -244,10 +234,18 @@ public class TUIView implements View {
 
     private void showPersonalGoal() {
         System.out.println("Your personal goal: ");
+
+        // Fist row with indexes
+        System.out.print(" ");
+        for(int i=0; i<=4; i++) {
+            System.out.print(" " + i + " ");
+        }
+        System.out.print("\n");
+
         Position position;
         for(int i=0; i<=5; i++) {
+            System.out.print(" ");
             for(int j=0; j<=4; j++) {
-                System.out.print(" ");
                 position = new Position(i, j);
                 if(this.personalGoal.getPositions().contains(position)) {
                     printTile(this.personalGoal.getTiles().get(this.personalGoal.getPositions().indexOf(position)));
@@ -276,14 +274,12 @@ public class TUIView implements View {
 
     private void showPickedTiles() {
         System.out.println("Picked tiles: ");
-        for(int i=0; i<this.pickedTiles.size(); i++) {
+        for(int i=this.pickedTiles.size()-1; i>=0; i--) {
             System.out.print(i + " ");
+            this.printTile(this.pickedTiles.get(i));
+            System.out.print("\n");
         }
-        System.out.print("\n");
-        for(Tile t : this.pickedTiles) {
-            printTile(t);
-            System.out.print(" ");
-        }
+
         System.out.println();
     }
 
@@ -335,7 +331,18 @@ public class TUIView implements View {
 
 
     /* Methods to ask for a player's move */
+    private void showLogo() {
+        System.out.println(ANSI_RED + "\n" +
+                "███╗   ███╗██╗   ██╗ ██████╗██╗  ██╗███████╗██╗     ███████╗██╗███████╗\n" +
+                "████╗ ████║╚██╗ ██╔╝██╔════╝██║  ██║██╔════╝██║     ██╔════╝██║██╔════╝\n" +
+                "██╔████╔██║ ╚████╔╝ ╚█████╗ ███████║█████╗  ██║     █████╗  ██║█████╗  \n" +
+                "██║╚██╔╝██║  ╚██╔╝   ╚═══██╗██╔══██║██╔══╝  ██║     ██╔══╝  ██║██╔══╝  \n" +
+                "██║ ╚═╝ ██║   ██║   ██████╔╝██║  ██║███████╗███████╗██║     ██║███████╗\n" +
+                "╚═╝     ╚═╝   ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═╝╚══════╝" + ANSI_RESET);
+    }
+
     public void showChooseTypeOfConnection() {
+        this.showLogo();
         boolean connected = false;
         String connection;
         String serverIP;
@@ -369,7 +376,7 @@ public class TUIView implements View {
             System.out.println("Insert the row:");
             position.setRow(this.readInt());
             System.out.println("Insert the column:");
-            position.setColumn(this.readInt());
+            position.setColumn(this.readInt() - 3);
             this.clientController.sendMessage(new PickTileRequest(position));
             return true;
         } catch(NumberFormatException | InputMismatchException e) {
@@ -385,7 +392,7 @@ public class TUIView implements View {
                 System.out.println("Insert the row:");
                 position.setRow(this.readInt());
                 System.out.println("Insert the column:");
-                position.setColumn(this.readInt());
+                position.setColumn(this.readInt() - 3);
                 this.clientController.sendMessage(new UnpickTileRequest(position));
                 return true;
             } catch (NumberFormatException e) {
@@ -572,13 +579,18 @@ public class TUIView implements View {
     public void startTurn(String player) {
         if(!this.endGame) {
             System.out.println(player + "'s turn");
-            if (this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
                 this.currentPlayer = player;
                 this.showPickATile();
             } else {
                 this.currentPlayer = player;
                 if (this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-                    System.out.println("Type Enter to play:");
+                    System.out.println("Type:");
+                    System.out.println(PICK + " to pick a tile.");
+                    System.out.println(CONFIRM + " to confirm the picked tiles.");
+                    System.out.println(SHOW + " to show the table.");
+                    System.out.println(MESSAGE + " to send a message:");
+                    //System.out.println("Type Enter to play:");
                     this.changeTurn = true;
                 } else {
                     System.out.println("Type:");

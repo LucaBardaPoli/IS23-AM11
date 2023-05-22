@@ -20,7 +20,9 @@ public class LoginController {
     }
 
     public void showConnectionError() {
-        new Alert(Alert.AlertType.ERROR, "Connection with the server failed!").show();
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Connection with the server failed!");
+        alert.initOwner(this.gui.getMainWindow());
+        alert.show();
     }
 
     public void handleTcpButton() {
@@ -41,7 +43,9 @@ public class LoginController {
 
     public void handleNumPlayers() {
         if(this.numPlayersChoice.getValue().equals("-")) {
-            new Alert(Alert.AlertType.ERROR, "Invalid number of players!").show();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid number of players!");
+            alert.initOwner(this.gui.getMainWindow());
+            alert.show();
         } else {
             this.gui.getClientController().sendMessage(new NumPlayersResponse((Integer) this.numPlayersChoice.getValue()));
         }

@@ -1,32 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane id="background" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox alignment="CENTER">
-        <VBox alignment="CENTER" spacing="10.0">
-            <Label text="Connection info">
+<BorderPane prefHeight="1050.0" prefWidth="1600.0" styleClass="background_login" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+       <VBox alignment="TOP_CENTER" prefHeight="606.0" prefWidth="1027.0" styleClass="login">
+         <ImageView fitHeight="201.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" styleClass="logo">
+            <image>
+               <Image url="@../publisher_material/Title_2000x618.png" />
+            </image>
+            <VBox.margin>
+               <Insets top="70.0" />
+            </VBox.margin>
+         </ImageView>
+            <Label text="Login" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font name="System Bold" size="16.0" />
+               <Font name="System Bold" size="35.0" />
             </font>
+            <VBox.margin>
+               <Insets top="40.0" />
+            </VBox.margin>
             </Label>
-        </VBox>
-        <HBox alignment="CENTER" prefHeight="10.0" prefWidth="200.0" spacing="10">
-            <Label text="Server IP" />
-            <TextField fx:id="serverIpTextField" alignment="CENTER" prefWidth="110.0" text="127.0.0.1" />
-         <padding>
-            <Insets bottom="20.0" top="30.0" />
-         </padding>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-        </HBox>
-        <HBox alignment="CENTER" prefWidth="200.0" spacing="10">
-            <Button fx:id="tcpButton" onAction="#handleTcpButton" prefWidth="80.0" text="TCP" />
-            <Button fx:id="rmiButton" onAction="#handleRmiButton" prefWidth="80.0" text="RMI" />
-        </HBox>
-    </VBox>
-</StackPane>
+           <HBox alignment="CENTER" prefHeight="10.0" prefWidth="200.0" spacing="10">
+               <Label text="Server IP" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Label>
+               <TextField fx:id="serverIpTextField" alignment="CENTER" prefHeight="35.0" prefWidth="124.0" text="127.0.0.1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <padding>
+               <Insets bottom="40.0" top="50.0" />
+            </padding>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+           </HBox>
+           <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+               <Button fx:id="tcpButton" onAction="#handleTcpButton" prefHeight="35.0" prefWidth="120.0" text="TCP">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+               <Button fx:id="rmiButton" onAction="#handleRmiButton" prefHeight="35.0" prefWidth="120.0" text="RMI">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+           </HBox>
+       </VBox>
+   </center>
+   <left>
+      <StackPane prefHeight="750.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
+   </left>
+   <top>
+      <StackPane prefHeight="236.0" prefWidth="1600.0" BorderPane.alignment="CENTER" />
+   </top>
+   <right>
+      <StackPane prefHeight="750.0" prefWidth="417.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <StackPane prefHeight="205.0" prefWidth="1600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
