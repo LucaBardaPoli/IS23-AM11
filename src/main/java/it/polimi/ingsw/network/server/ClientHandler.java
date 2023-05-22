@@ -7,9 +7,8 @@ import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.message.*;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -61,11 +60,12 @@ public abstract class ClientHandler implements Listener {
     public void initGame(Game model, List<ClientHandler> lobby) {
         this.model = model;
         this.lobby = lobby;
-        Map<CommonGoal, Integer> commonGoals = new HashMap<>();
+
+        List<Integer> commonGoalsTokens = new ArrayList<>();
         for(CommonGoal commonGoal : this.model.getCommonGoals()) {
-            commonGoals.put(commonGoal, this.model.getTopToken(commonGoal).get());
+            commonGoalsTokens.add(this.model.getTopToken(commonGoal).get());
         }
-        this.sendMessage(new GameStartNotify(this.model.getBoard(), commonGoals, this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
+        this.sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), commonGoalsTokens, this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
     }
 
     /**
@@ -170,16 +170,17 @@ public abstract class ClientHandler implements Listener {
      */
     public void handle(ConfirmOrderNotify clientMessage) {
         this.model.confirmOrderSelectedTiles();
-        Map<CommonGoal, Integer> commonGoals = new HashMap<>();
+
+        List<Integer> commonGoalsTokens = new ArrayList<>();
         for(CommonGoal commonGoal : this.model.getCommonGoals()) {
-            commonGoals.put(commonGoal, this.model.getTopToken(commonGoal).get());
+            commonGoalsTokens.add(this.model.getTopToken(commonGoal).get());
         }
         if(this.model.getEndGame()) {
             this.eventListener.notifyListeners(new GameResultNotify());
-            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).get(), commonGoals, this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).get(), this.model.getCurrentPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).get(), this.model.getCurrentPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
             this.initClose();
         } else {
-            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), commonGoals, this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
         }
     }
 

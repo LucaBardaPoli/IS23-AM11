@@ -3,7 +3,6 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
 import java.util.List;
-import java.util.Map;
 
 public interface View {
 
@@ -13,7 +12,7 @@ public interface View {
     /* Initialization methods */
     void setClientController(ClientController clientController);
     void setEndGame(boolean endGame);
-    void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer);
+    void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
     void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName);
 
@@ -23,7 +22,7 @@ public interface View {
     void updateBookshelf(String player, Bookshelf bookshelf);
     void updatePickedTiles(List<Tile> pickedTiles);
     void updatePoints(String player, int points);
-    void updateCommonGoals(Map<CommonGoal, Integer> commonGoals);
+    void updateCommonGoals(List<Integer> commonGoalsTokens);
 
 
     /* Methods to ask for a player's move */

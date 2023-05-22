@@ -97,7 +97,7 @@ public class ClientController {
      */
     public void handle(GameStartNotify serverMessage) {
         this.view.setPlayers(serverMessage.getPlayers());
-        this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
+        this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getCommonGoalsTokens(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
     }
 
     /**
@@ -183,7 +183,7 @@ public class ClientController {
         this.view.updateBoard(serverMessage.getBoard());
         this.view.updateBookshelf(serverMessage.getPlayer(), serverMessage.getBookshelf());
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
-        this.view.updateCommonGoals(serverMessage.getCommonGoals());
+        this.view.updateCommonGoals(serverMessage.getCommonGoalsTokens());
         this.view.endTurn();
         this.view.startTurn(serverMessage.getNextPlayer());
     }

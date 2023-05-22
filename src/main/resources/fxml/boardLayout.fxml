@@ -181,20 +181,20 @@
             </ImageView>
             <VBox alignment="BOTTOM_CENTER" spacing="30.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="78.0" prefWidth="260.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="84.0" prefWidth="260.0" spacing="10.0">
                      <VBox.margin>
                         <Insets left="40.0" right="40.0" />
                      </VBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                     </padding>
                      <styleClass>
                         <String fx:value="pickedTiles" />
                         <String fx:value="background_shadow" />
                      </styleClass>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
                   </HBox>
                   <StackPane>
                      <children>
@@ -252,10 +252,7 @@
                         </GridPane>
                      </children>
                   </StackPane>
-                  <HBox alignment="CENTER" prefHeight="78.0" prefWidth="0.0" spacing="10.0">
-                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                     </padding>
+                  <HBox alignment="CENTER" prefHeight="84.0" prefWidth="260.0" spacing="10.0">
                      <VBox.margin>
                         <Insets left="40.0" right="40.0" />
                      </VBox.margin>
@@ -263,6 +260,9 @@
                         <String fx:value="pickedTiles" />
                         <String fx:value="background_shadow" />
                      </styleClass>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
@@ -323,21 +323,6 @@
                               <Image url="@../common_goals/Common_Goals1.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
-                           <image>
-                              <Image url="@../scoring_tokens/scoring_2.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="81.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
-                           <image>
-                              <Image url="@../scoring_tokens/scoring_4.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="81.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
-                           <image>
-                              <Image url="@../scoring_tokens/scoring_6.jpg" />
-                           </image>
-                        </ImageView>
                         <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="81.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
                            <image>
                               <Image url="@../scoring_tokens/scoring_8.jpg" />
@@ -350,21 +335,6 @@
                         <ImageView fitHeight="141.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="background_shadow">
                            <image>
                               <Image url="@../common_goals/Common_Goals2.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
-                           <image>
-                              <Image url="@../scoring_tokens/scoring_2.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
-                           <image>
-                              <Image url="@../scoring_tokens/scoring_4.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">
-                           <image>
-                              <Image url="@../scoring_tokens/scoring_6.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="60.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" rotate="-8.5" translateX="46.0" translateY="-5.0">

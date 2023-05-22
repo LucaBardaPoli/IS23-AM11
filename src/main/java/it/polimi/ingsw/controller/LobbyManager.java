@@ -43,14 +43,10 @@ public class LobbyManager implements Serializable {
      * @return current ControllerManager's instance if present, otherwise it creates and returns a new instance
      */
     public static LobbyManager getInstance() {
-        if (instance == null) {
-            instance = new LobbyManager();
+        if(LobbyManager.instance == null) {
+            LobbyManager.instance = new LobbyManager();
         }
-        return instance;
-    }
-
-    public Object readResolve(){
-        return instance;
+        return LobbyManager.instance;
     }
 
     /**
@@ -73,10 +69,10 @@ public class LobbyManager implements Serializable {
      * Creates a new controller that handles the evolution of the new game
      */
     private void addGame() {
-        Collections.shuffle(personalGoals);
-        Collections.shuffle(commonGoals);
+        Collections.shuffle(this.personalGoals);
+        Collections.shuffle(this.commonGoals);
 
-        Game newGame = new Game(counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), commonGoals.subList(0,2), personalGoals.subList(0, this.lobby.size()));
+        Game newGame = new Game(this.counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), new ArrayList<>(this.commonGoals.subList(0,2)), new ArrayList<>(this.personalGoals.subList(0, this.lobby.size())));
         this.games.add(newGame);
         this.counterGames++;
         EventListener eventListener = new EventListener();
@@ -127,14 +123,14 @@ public class LobbyManager implements Serializable {
             if(client.getNumPlayers() >= GameSettings.MIN_NUM_PLAYERS && client.getNumPlayers() <= GameSettings.MAX_NUM_PLAYERS) {
                 this.currentGameNumPlayers = client.getNumPlayers();
                 this.lobby.add(client);
-                for(ClientHandler c: lobby){
-                    c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), true, client.getNickname()));
+                for(ClientHandler c: this.lobby) {
+                    c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), true, client.getNickname()));
                 }
             }
         } else {
             this.lobby.add(client);
-            for(ClientHandler c: lobby){
-                c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), true, client.getNickname()));
+            for(ClientHandler c: this.lobby){
+                c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), true, client.getNickname()));
             }
             if(this.lobby.size() == this.currentGameNumPlayers) {
                 this.addGame();
@@ -148,8 +144,8 @@ public class LobbyManager implements Serializable {
      */
     public void removePlayer(ClientHandler client) {
         this.lobby.remove(client);
-        for(ClientHandler c: lobby){
-            c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), false, client.getNickname()));
+        for(ClientHandler c: this.lobby){
+            c.sendMessage(new LobbyInfoMessage(this.currentGameNumPlayers, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), false, client.getNickname()));
         }
     }
 

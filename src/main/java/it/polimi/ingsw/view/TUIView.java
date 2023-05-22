@@ -14,7 +14,8 @@ public class TUIView implements View {
     /* Game's items */
     private Board board;
     private Map<String, Bookshelf> bookshelves;
-    private Map<CommonGoal, Integer> commonGoals;
+    private List<CommonGoal> commonGoals;
+    private List<Integer> commonGoalsTokens;
     private PersonalGoal personalGoal;
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
@@ -107,8 +108,8 @@ public class TUIView implements View {
         this.endGame = endGame;
     }
 
-    public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        this.setTable(board, commonGoals, personalGoal);
+    public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
+        this.setTable(board, commonGoals, commonGoalsTokens, personalGoal);
         this.showBoard();
         this.showCommonGoals();
         this.showPersonalGoal();
@@ -141,9 +142,10 @@ public class TUIView implements View {
         System.out.println("Waiting for other players... (" + currLobbySize + "/" + lobbySize + ")\n");
     }
 
-    private void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
+    private void setTable(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal) {
         this.board = board;
         this.commonGoals = commonGoals;
+        this.commonGoalsTokens = commonGoalsTokens;
         this.personalGoal = personalGoal;
         this.pickedTiles = new ArrayList<>();
     }
@@ -266,8 +268,8 @@ public class TUIView implements View {
 
     private void showCommonGoals() {
         System.out.println("\nCommon goals: ");
-        for(Map.Entry<CommonGoal, Integer> entry : this.commonGoals.entrySet()) {
-            System.out.println(entry.getKey() + " -> Points: " + entry.getValue());
+        for(int i=0; i<this.commonGoals.size(); i++) {
+            System.out.println(this.commonGoals.get(i) + " -> Points: " + this.commonGoalsTokens.get(i));
         }
         System.out.println();
     }
@@ -325,8 +327,8 @@ public class TUIView implements View {
         this.points.replace(player, points);
     }
 
-    public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
-        this.commonGoals = commonGoals;
+    public void updateCommonGoals(List<Integer> commonGoalsTokens) {
+        this.commonGoalsTokens = commonGoalsTokens;
     }
 
 

@@ -6,18 +6,19 @@ import it.polimi.ingsw.model.PersonalGoal;
 import it.polimi.ingsw.network.client.ClientController;
 
 import java.util.List;
-import java.util.Map;
 
 public class GameStartNotify implements ServerMessage {
     private final Board board;
-    private final Map<CommonGoal, Integer> commonGoals;
+    private final List<CommonGoal> commonGoals;
+    private final List<Integer> commonGoalsTokens;
     private final PersonalGoal personalGoal;
     private final List<String> players;
     private final String nextPlayer;
 
-    public GameStartNotify(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, List<String> players, String nextPlayer) {
+    public GameStartNotify(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, List<String> players, String nextPlayer) {
         this.board = board;
         this.commonGoals = commonGoals;
+        this.commonGoalsTokens = commonGoalsTokens;
         this.personalGoal = personalGoal;
         this.players = players;
         this.nextPlayer = nextPlayer;
@@ -27,8 +28,12 @@ public class GameStartNotify implements ServerMessage {
         return board;
     }
 
-    public Map<CommonGoal, Integer> getCommonGoals() {
+    public List<CommonGoal> getCommonGoals() {
         return commonGoals;
+    }
+
+    public List<Integer> getCommonGoalsTokens() {
+        return commonGoalsTokens;
     }
 
     public PersonalGoal getPersonalGoal() {

@@ -29,7 +29,6 @@ public class GUIView extends Application {
     /* Gui's items */
     private GUIViewAdapter adapter;
     private Stage mainWindow;
-    private Scene scene;
     private StackPane root;
     private BorderPane rootNode;
     private StackPane centerLayout;
@@ -55,7 +54,8 @@ public class GUIView extends Application {
     /* Game's items */
     private Board board;
     private Map<String, Bookshelf> bookshelves;
-    private Map<CommonGoal, Integer> commonGoals;
+    private List<CommonGoal> commonGoals;
+    private List<Integer> commonGoalsTokens;
     private PersonalGoal personalGoal;
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
@@ -177,8 +177,8 @@ public class GUIView extends Application {
         this.endGame = endGame;
     }
 
-    public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        setTable(board, commonGoals, personalGoal);
+    public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
+        setTable(board, commonGoals, commonGoalsTokens, personalGoal);
         this.currentPlayer = nextPlayer;
         this.loadTable();
 
@@ -196,9 +196,10 @@ public class GUIView extends Application {
         }
     }
 
-    private void setTable(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal) {
+    private void setTable(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal) {
         this.board = board;
         this.commonGoals = commonGoals;
+        this.commonGoalsTokens = commonGoalsTokens;
         this.personalGoal = personalGoal;
         this.pickedTiles = new ArrayList<>();
     }
@@ -206,7 +207,7 @@ public class GUIView extends Application {
 
     /* Methods to display the items of the game */
     private String getTilePath(Tile tile) {
-        Random rand = new Random();
+        //Random rand = new Random();
         //int tileNumber = rand.nextInt(3) + 1;
         int tileNumber = 1;
         String tilePath = "/item_tiles";
@@ -271,31 +272,21 @@ public class GUIView extends Application {
     }
 
     private void showCommonGoals() {
-        int index = 0;
-        for(Map.Entry<CommonGoal, Integer> entry : this.commonGoals.entrySet()) {
-            StackPane stackPane = (StackPane) this.commonGoalsLayout.getChildren().get(index);
+        for(int i=0; i<this.commonGoals.size(); i++) {
+            StackPane stackPane = (StackPane) this.commonGoalsLayout.getChildren().get(i);
 
             // Change common goal
             ImageView imageView = (ImageView) stackPane.getChildren().get(0);
-            imageView.setImage(new Image("/common_goals/Common_Goals" + entry.getKey().getId() + ".jpg"));
+            imageView.setImage(new Image("/common_goals/Common_Goals" + this.commonGoals.get(i).getId() + ".jpg"));
 
-            // Remove not used tokens
-            switch (this.bookshelves.size()) {
-                case 2:
-                    imageView = (ImageView) stackPane.getChildren().get(1);
-                    imageView.setVisible(false);
-                    imageView = (ImageView) stackPane.getChildren().get(3);
-                    imageView.setVisible(false);
-                    break;
-                case 3:
-                    imageView = (ImageView) stackPane.getChildren().get(1);
-                    imageView.setVisible(false);
-                    break;
-                default:
-                    break;
+            // Change token
+            try {
+                imageView = (ImageView) stackPane.getChildren().get(1);
+                imageView.setImage(new Image("/scoring_tokens/scoring_" + this.commonGoalsTokens.get(i) + ".jpg"));
+            } catch(IllegalArgumentException e) {
+                imageView = (ImageView) stackPane.getChildren().get(1);
+                imageView.setVisible(false);
             }
-
-            index++;
         }
     }
 
@@ -401,8 +392,16 @@ public class GUIView extends Application {
         this.points.replace(player, points);
     }
 
-    public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
-        this.commonGoals = commonGoals;
+    public void updateCommonGoals(List<Integer> commonGoalsTokens) {
+        for(int i=0; i<this.commonGoalsTokens.size(); i++) {
+            if(!this.commonGoalsTokens.get(i).equals(commonGoalsTokens.get(i)) && this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+                ImageView imgV = new ImageView(new Image("/scoring_tokens/scoring_" + this.commonGoalsTokens.get(i) + ".jpg"));
+                imgV.setFitWidth(this.tileSizeBoard);
+                imgV.setFitHeight(this.tileSizeBoard);
+                this.tokensLayout.getChildren().add(imgV);
+            }
+        }
+        this.commonGoalsTokens = commonGoalsTokens;
     }
 
 
@@ -619,11 +618,15 @@ public class GUIView extends Application {
 
     /* Methods to show disconnection phase */
     public void showPlayerDisconnected(String disconnectedPlayer) {
-
+        Alert alert = new Alert(Alert.AlertType.ERROR, disconnectedPlayer + " has disconnected!");
+        alert.initOwner(this.mainWindow);
+        alert.show();
     }
 
     public void showDisconnection() {
-
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Closing the connection with the server!");
+        alert.initOwner(this.mainWindow);
+        alert.show();
     }
 
     public void closeWindow() {

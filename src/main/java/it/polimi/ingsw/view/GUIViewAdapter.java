@@ -5,7 +5,6 @@ import it.polimi.ingsw.network.client.ClientController;
 import javafx.application.Platform;
 
 import java.util.List;
-import java.util.Map;
 
 public class GUIViewAdapter implements View {
     private final GUIView view;
@@ -28,8 +27,8 @@ public class GUIViewAdapter implements View {
         Platform.runLater(() -> this.view.setEndGame(endGame));
     }
 
-    public void startGame(Board board, Map<CommonGoal, Integer> commonGoals, PersonalGoal personalGoal, String nextPlayer) {
-        Platform.runLater(() -> this.view.startGame(board, commonGoals, personalGoal, nextPlayer));
+    public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
+        Platform.runLater(() -> this.view.startGame(board, commonGoals, commonGoalsTokens, personalGoal, nextPlayer));
     }
 
     public void setPlayers(List<String> players) {
@@ -58,8 +57,8 @@ public class GUIViewAdapter implements View {
         Platform.runLater(() -> this.view.updatePoints(player, points));
     }
 
-    public void updateCommonGoals(Map<CommonGoal, Integer> commonGoals) {
-        Platform.runLater(() -> this.view.updateCommonGoals(commonGoals));
+    public void updateCommonGoals(List<Integer> commonGoalsTokens) {
+        Platform.runLater(() -> this.view.updateCommonGoals(commonGoalsTokens));
     }
 
 
