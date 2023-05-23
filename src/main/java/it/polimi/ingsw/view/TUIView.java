@@ -137,7 +137,7 @@ public class TUIView implements View {
         }
         System.out.println("Current lobby:");
         for(String p: lobby){
-            System.out.println(p);
+            System.out.println("\t- " + p);
         }
         System.out.println("Waiting for other players... (" + currLobbySize + "/" + lobbySize + ")\n");
     }
