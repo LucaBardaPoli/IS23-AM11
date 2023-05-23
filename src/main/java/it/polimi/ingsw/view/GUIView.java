@@ -98,6 +98,9 @@ public class GUIView extends Application {
         return mainWindow;
     }
 
+    public int getSelectedColumn() {
+        return selectedColumn;
+    }
 
     /* Initialization methods */
     public void setClientController(ClientController clientController) {
@@ -551,19 +554,18 @@ public class GUIView extends Application {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "It's " + player + "'s turn!");
             alert.initOwner(this.mainWindow);
             alert.show();
+            this.currentPlayer = player;
             if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-                this.currentPlayer = player;
-                this.showPickATile();
                 Button b = (Button) this.bottomLayout.getChildren().get(0);
-                b.setDisable(true);
+                b.setDisable(false);
                 b = (Button) this.bottomLayout.getChildren().get(1);
-                b.setDisable(true);
+                b.setDisable(false);
             } else {
                 this.currentPlayer = player;
                 Button b = (Button) this.bottomLayout.getChildren().get(0);
-                b.setDisable(false);
+                b.setDisable(true);
                 b = (Button) this.bottomLayout.getChildren().get(1);
-                b.setDisable(false);
+                b.setDisable(true);
             }
         } else {
             this.showEndGame();
@@ -621,15 +623,21 @@ public class GUIView extends Application {
         Alert alert = new Alert(Alert.AlertType.ERROR, disconnectedPlayer + " has disconnected!");
         alert.initOwner(this.mainWindow);
         alert.show();
+        this.closeWindow();
     }
 
     public void showDisconnection() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Closing the connection with the server!");
         alert.initOwner(this.mainWindow);
         alert.show();
+        this.closeWindow();
     }
 
     public void closeWindow() {
-
+        if(this.clientController != null) {
+            this.clientController.getClient().close();
+        }
+        this.mainWindow.close();
+        System.exit(0);
     }
 }

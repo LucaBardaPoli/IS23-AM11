@@ -16,6 +16,6 @@ public class NetworkSettings {
 
     /* Ping pong info */
     public static final int MAX_LOST_PACKETS = 5;
-    public static final int MAX_PONG_WAIT = 10000;
+    public static final int MAX_PONG_WAIT = 30000;
     public static final int INIT_TIME = 2000;
 }

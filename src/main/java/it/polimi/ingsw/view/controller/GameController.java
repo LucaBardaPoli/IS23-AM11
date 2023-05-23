@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.controller;
 
 import it.polimi.ingsw.network.message.ChatMessage;
-import it.polimi.ingsw.network.message.ConfirmColumnRequest;
 import it.polimi.ingsw.network.message.ConfirmOrderNotify;
 import it.polimi.ingsw.network.message.ConfirmPickRequest;
 import it.polimi.ingsw.view.GUIView;
@@ -52,11 +51,11 @@ public class GameController {
         this.chat.appendText(chatMessage);
     }
 
-    public void handlePick() {
-        this.gui.getClientController().sendMessage(new ConfirmPickRequest());
-    }
+    public void handlePick() {this.gui.getClientController().sendMessage(new ConfirmPickRequest());}
 
     public void handleInsert() {
-        this.gui.getClientController().sendMessage(new ConfirmOrderNotify());
+        if(this.gui.getSelectedColumn() != -1) {
+            this.gui.getClientController().sendMessage(new ConfirmOrderNotify());
+        }
     }
 }
