@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.Tile;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.message.*;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Server-side handler for a generic client
  */
-public abstract class ClientHandler implements Listener {
+public abstract class ClientHandler extends UnicastRemoteObject implements Listener {
     private String nickname;
     private int numPlayers;
     private final LobbyManager lobbyManager;
@@ -28,7 +30,9 @@ public abstract class ClientHandler implements Listener {
      * Class Constructor
      * @param pingPongHandler is a thread that handles the PingPong
      */
-    public ClientHandler(PingPongHandler pingPongHandler) {
+
+    public ClientHandler(PingPongHandler pingPongHandler) throws RemoteException {
+        super();
         this.lobbyManager = LobbyManager.getInstance();
         this.stopConnection = false;
         this.pingPongHandler = pingPongHandler;

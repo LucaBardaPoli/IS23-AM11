@@ -36,10 +36,10 @@ public class ClientRMI extends Client implements ClientRMIInterface {
             Registry registry = LocateRegistry.getRegistry(this.serverIp);
             RMIListenerInterface rmiListener = (RMIListenerInterface) registry.lookup(NetworkSettings.RMI_REMOTE_OBJECT);
             UnicastRemoteObject.exportObject(this, NetworkSettings.CLIENT_PORT_RMI);
-            this.clientHandler = rmiListener.getHandler();
-            this.clientHandler.registerClient(this);
+            this.clientHandler = rmiListener.getHandler(this);
             return true;
         } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -78,6 +78,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
         try {
             this.clientHandler.receiveMessage(clientMessage);
         } catch(RemoteException e) {
+            e.printStackTrace();
             close();
         }
     }
@@ -98,6 +99,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
             UnicastRemoteObject.unexportObject(this, true);
         } catch (NoSuchObjectException e) {
             System.out.println();
+            e.printStackTrace();
         }
     }
 }

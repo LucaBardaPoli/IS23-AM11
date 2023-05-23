@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.message.ClientMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Server-side handler for an RMI client
@@ -16,17 +17,9 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
      * Class Constructor
      * @param pingPongHandler is a thread used to handle the PingPong
      */
-    public ClientHandlerRMI(PingPongHandler pingPongHandler) {
+    public ClientHandlerRMI(ClientRMIInterface clientRMIInterface, PingPongHandler pingPongHandler) throws RemoteException {
         super(pingPongHandler);
-    }
-
-    /**
-     * Registers a client
-     * @param client is the client that will be registered
-     * @throws RemoteException RMI error
-     */
-    public void registerClient(ClientRMIInterface client) throws RemoteException {
-        this.client = client;
+        this.client = clientRMIInterface;
     }
 
     /**
@@ -50,6 +43,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
      * @param serverMessage sent to the client
      */
     public void sendMessage(ServerMessage serverMessage) {
+        // Fare coda
         new Thread(() -> {
             try {
                 this.client.receiveMessage(serverMessage);
@@ -57,6 +51,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
                 if (!this.stopConnection) {
                     this.initClose();
                 }
+                e.printStackTrace();
             }
         }).start();
     }

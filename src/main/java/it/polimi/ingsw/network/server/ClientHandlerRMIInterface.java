@@ -7,14 +7,9 @@ import it.polimi.ingsw.network.message.ServerMessage;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 public interface ClientHandlerRMIInterface extends Remote, Serializable {
-    /**
-     * Registers a client
-     * @param client is the client that will be registered
-     * @throws RemoteException RMI error
-     */
-    void registerClient(ClientRMIInterface client) throws RemoteException;
 
     /**
      * Method used from remote RMI-clients to test whether the connection is still open

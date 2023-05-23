@@ -6,7 +6,7 @@ public class NetworkSettings {
      */
     /* Server info */
     public static final int SERVER_PORT_TCP = 11500;
-    public static final int SERVER_PORT_RMI = 1099;
+    public static int SERVER_PORT_RMI = 1099;
 
     /* Client info */
     public static final int CLIENT_PORT_RMI = 0;
