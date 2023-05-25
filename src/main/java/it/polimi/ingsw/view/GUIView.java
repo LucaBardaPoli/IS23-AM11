@@ -45,6 +45,7 @@ public class GUIView extends Application {
     private HBox pickedTilesLayout;
     private HBox tokensLayout;
     private final int tileSizeBookshelf = 38;
+    private final int tileSizeBookshelves = 18;
     private final int tileSizeBoard = 64;
     private final int rectangleSizeBoard = 66;
 
@@ -140,7 +141,7 @@ public class GUIView extends Application {
             this.centerLayout = (StackPane) this.rootNode.getCenter();
             this.boardLayout = (GridPane) this.centerLayout.getChildren().get(0);
 
-            this.showBookshelves();
+            this.initBookshelves();
             this.showBoard();
             this.showCommonGoals();
             this.showPoints();
@@ -305,7 +306,7 @@ public class GUIView extends Application {
         }
     }
 
-    private void showBookshelves() {
+    private void initBookshelves() {
         VBox vBox;
         switch(this.bookshelves.size()) {
             case 2:
@@ -348,6 +349,61 @@ public class GUIView extends Application {
         }
     }
 
+    private void showBookshelves() {
+        switch(this.bookshelves.size()) {
+            case 2:
+                int index = 1;
+                VBox vBox = (VBox) this.bookshelvesLayout.getChildren().get(index);
+                Label label = (Label) vBox.getChildren().get(0);
+                GridPane gridPane = (GridPane) vBox.getChildren().get(1);
+                Bookshelf bookshelf = this.bookshelves.get(label.getText());
+                for(int i = 0; i < 6; i++) {
+                    for(int j = 0; j < 5; j++) {
+                        Position position = new Position(i, j);
+                        ImageView imgV = new ImageView(new Image(getTilePath(bookshelf.getTile(position))));
+                        imgV.setFitWidth(this.tileSizeBookshelves);
+                        imgV.setFitHeight(this.tileSizeBookshelves);
+                        gridPane.add(imgV, j+1, i+1);
+                    }
+                }
+                break;
+            case 3:
+                for(index=0; index<3; index+=2) {
+                    vBox = (VBox) this.bookshelvesLayout.getChildren().get(index);
+                    label = (Label) vBox.getChildren().get(0);
+                    gridPane = (GridPane) vBox.getChildren().get(1);
+                    bookshelf = this.bookshelves.get(label.getText());
+                    for(int i = 0; i < 6; i++) {
+                        for(int j = 0; j < 5; j++) {
+                            Position position = new Position(i, j);
+                            ImageView imgV = new ImageView(new Image(getTilePath(bookshelf.getTile(position))));
+                            imgV.setFitWidth(this.tileSizeBookshelves);
+                            imgV.setFitHeight(this.tileSizeBookshelves);
+                            gridPane.add(imgV, j+1, i+1);
+                        }
+                    }
+                }
+                break;
+            case 4:
+                for(index=0; index<3; index++) {
+                    vBox = (VBox) this.bookshelvesLayout.getChildren().get(index);
+                    label = (Label) vBox.getChildren().get(0);
+                    gridPane = (GridPane) vBox.getChildren().get(1);
+                    bookshelf = this.bookshelves.get(label.getText());
+                    for(int i = 0; i < 6; i++) {
+                        for(int j = 0; j < 5; j++) {
+                            Position position = new Position(i, j);
+                            ImageView imgV = new ImageView(new Image(getTilePath(bookshelf.getTile(position))));
+                            imgV.setFitWidth(this.tileSizeBookshelves);
+                            imgV.setFitHeight(this.tileSizeBookshelves);
+                            gridPane.add(imgV, j+1, i+1);
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
     public void showPickedTiles() {
         this.pickedTilesLayout.getChildren().clear();
         for(Tile t : this.pickedTiles) {
@@ -381,6 +437,7 @@ public class GUIView extends Application {
     /* Methods to update the items */
     public void updateBoard(Board board) {
         this.board = board;
+        this.showBoard();
     }
 
     public void updateBookshelf(String player, Bookshelf bookshelf) {
@@ -578,7 +635,7 @@ public class GUIView extends Application {
         this.showCommonGoals();
         this.showPoints();
 
-        // Highlight bookshelf columns
+        // Remove highlight bookshelf columns
         for(Node node : this.bookshelfMaskLayout.getChildren()) {
             if(GridPane.getColumnIndex(node) > 0 && GridPane.getColumnIndex(node) < 6) {
                 node.getStyleClass().remove("column_selected");
@@ -589,7 +646,7 @@ public class GUIView extends Application {
         }
 
         this.showBookshelf();
-        //this.showBookshelves();
+        this.showBookshelves();
     }
 
     private void showEndGame() {

@@ -5,8 +5,8 @@ import it.polimi.ingsw.network.RMIListener;
 import it.polimi.ingsw.network.RMIListenerInterface;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.UncheckedIOException;
+import java.net.*;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -43,14 +43,21 @@ public class ServerController {
 
         // RMI
         try {
-            System.setProperty("java.rmi.hostname", "127.0.0.1");
-            RMIListenerInterface rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), NetworkSettings.SERVER_PORT_RMI);
-            Registry registry = LocateRegistry.createRegistry(NetworkSettings.SERVER_PORT_RMI);
-            registry.rebind(NetworkSettings.RMI_REMOTE_OBJECT, rmiListener);
-            System.out.println("Exposed remote obj...");
-        } catch (RemoteException e) {
-            this.close();
-            return;
+            DatagramSocket socket = new DatagramSocket();
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            String ip = socket.getLocalAddress().getHostAddress();
+            System.setProperty("java.rmi.server.hostname", ip);
+        } catch(SocketException | UnknownHostException | UncheckedIOException e) {
+            System.out.println("Connecting to locahost...");
+        } finally {
+            try {
+                Registry registry = LocateRegistry.createRegistry(NetworkSettings.SERVER_PORT_RMI);
+                RMIListenerInterface rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), NetworkSettings.SERVER_PORT_RMI);
+                registry.rebind(NetworkSettings.RMI_REMOTE_OBJECT, rmiListener);
+                System.out.println("Exposed remote obj...");
+            } catch(RemoteException | UncheckedIOException e) {
+                this.close();
+            }
         }
 
         System.out.println("Server ready...");

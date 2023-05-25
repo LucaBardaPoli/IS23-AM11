@@ -48,18 +48,18 @@
                         </Label>
                         <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="20.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
-                            <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
-                            <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                            <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
@@ -78,18 +78,18 @@
                         </Label>
                         <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="20.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
@@ -108,18 +108,18 @@
                         </Label>
                         <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="20.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />

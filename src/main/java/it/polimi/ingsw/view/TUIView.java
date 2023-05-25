@@ -311,6 +311,7 @@ public class TUIView implements View {
     /* Methods to update the items */
     public void updateBoard(Board board) {
         this.board = board;
+        this.showBoard();
     }
 
     public void updateBookshelf(String player, Bookshelf bookshelf) {
