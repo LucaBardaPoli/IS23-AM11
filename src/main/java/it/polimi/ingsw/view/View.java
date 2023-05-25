@@ -7,6 +7,7 @@ import java.util.List;
 public interface View {
 
     List<String> getPlayers();
+    String getCurrentPlayer();
 
 
     /* Initialization methods */

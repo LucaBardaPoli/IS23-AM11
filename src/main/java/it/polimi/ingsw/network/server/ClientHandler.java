@@ -144,7 +144,7 @@ public abstract class ClientHandler implements Listener {
      * @param clientMessage is a message for the confirmation of a selected tile.
      */
     public void handle(ConfirmPickRequest clientMessage) {
-        sendMessage(new ConfirmPickResponse(this.model.confirmPick(), this.model.getBoard()));
+        this.eventListener.notifyListeners(new ConfirmPickResponse(this.model.confirmPick(), this.model.getBoard()));
     }
 
     /**

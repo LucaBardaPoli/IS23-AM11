@@ -55,6 +55,9 @@ public class TUIView implements View {
         return new ArrayList<>(this.points.keySet());
     }
 
+    public String getCurrentPlayer() {
+        return this.currentPlayer;
+    }
 
     /* Methods to read/write on console */
     private String readText() {
@@ -132,7 +135,7 @@ public class TUIView implements View {
         int currLobbySize = lobby.size();
         if(newPlayerConnected) {
             System.out.println(playerName +" joined the lobby!");
-        } else{
+        } else {
             System.out.println(playerName +" exited the lobby!");
         }
         System.out.println("Current lobby:");
@@ -635,12 +638,12 @@ public class TUIView implements View {
     /* Methods to handle chat messages */
     public void showNewChatMessageUnicast(String sender, String message) {
         System.out.println("\nChat:");
-        System.out.println("Message from " + sender + " to " + this.clientController.getClient().getNickname() + ": " + message);
+        System.out.println("Message from " + sender + " to " + ANSI_GREEN + this.clientController.getClient().getNickname() + ANSI_RESET + ": " + message);
     }
 
     public void showNewChatMessageBroadcast(String sender, String message) {
         System.out.println("\nChat:");
-        System.out.println("Message from " + sender + " to everyone: " + message);
+        System.out.println("Message from " + sender + " to " + ANSI_RED + "Everyone" + ANSI_RESET + ": " + message);
     }
 
 

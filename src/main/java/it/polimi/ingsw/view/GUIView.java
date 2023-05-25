@@ -11,17 +11,22 @@ import it.polimi.ingsw.view.controller.LoginController;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GUIView extends Application {
     private ClientController clientController;
@@ -44,6 +49,7 @@ public class GUIView extends Application {
     private HBox bookshelvesLayout;
     private HBox pickedTilesLayout;
     private HBox tokensLayout;
+    private List<Tile> tilesLobby;
     private final int tileSizeBookshelf = 38;
     private final int tileSizeBookshelves = 18;
     private final int tileSizeBoard = 64;
@@ -103,6 +109,11 @@ public class GUIView extends Application {
         return selectedColumn;
     }
 
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+
     /* Initialization methods */
     public void setClientController(ClientController clientController) {
         this.clientController = clientController;
@@ -144,7 +155,7 @@ public class GUIView extends Application {
             this.initBookshelves();
             this.showBoard();
             this.showCommonGoals();
-            this.showPoints();
+            this.initPoints();
 
             // Show chat players
             vBox = (VBox) this.leftLayout.getChildren().get(0);
@@ -197,6 +208,44 @@ public class GUIView extends Application {
         for(String player : players) {
             this.bookshelves.put(player, new Bookshelf());
             this.points.put(player, 0);
+        }
+    }
+
+    public void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName) {
+        try {
+            if (playerName.equals(this.clientController.getClient().getNickname())) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/lobbyLayout.fxml"));
+                this.rootNode = loader.load();
+                this.root.getChildren().set(0, this.rootNode);
+
+                this.tilesLobby = new ArrayList<>(List.of(Tile.values()));
+                this.tilesLobby.remove(Tile.EMPTY);
+                Collections.shuffle(this.tilesLobby);
+            }
+
+            VBox vBox = (VBox) this.rootNode.getCenter();
+            Label label = (Label) vBox.getChildren().get(1);
+            label.setText("Waiting for the other players...  " + lobby.size() + " / " + lobbySize);
+            HBox hBox = (HBox) vBox.getChildren().get(2);
+            hBox.getChildren().clear();
+
+            for(int i=0; i<lobby.size(); i++) {
+                ImageView imageView = new ImageView(new Image(getTilePath(this.tilesLobby.get(i))));
+                imageView.setFitHeight(140);
+                imageView.setFitWidth(140);
+                imageView.getStyleClass().add("background_shadow");
+                label = new Label();
+                label.setText(lobby.get(i));
+                label.setTextFill(Paint.valueOf("WHITE"));
+                label.setFont(Font.font(24));
+                label.setTextAlignment(TextAlignment.CENTER);
+                vBox = new VBox(imageView, label);
+                vBox.setSpacing(20);
+                vBox.setAlignment(Pos.CENTER);
+                hBox.getChildren().add(i, vBox);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -417,7 +466,7 @@ public class GUIView extends Application {
         }
     }
 
-    public void showPoints() {
+    private void initPoints() {
         int index = 1;
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
             HBox hBox = (HBox) this.rankingLayout.getChildren().get(index);
@@ -430,6 +479,24 @@ public class GUIView extends Application {
         for(int j=index; j<5; j++) {
             HBox hBox = (HBox) this.rankingLayout.getChildren().get(j);
             hBox.setVisible(false);
+        }
+    }
+
+    public void showPoints() {
+        List<String> sortedPlayers = this.points
+                .entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        int index = 1;
+        for(String sortedPlayer : sortedPlayers) {
+            HBox hBox = (HBox) this.rankingLayout.getChildren().get(index);
+            Label l = (Label) hBox.getChildren().get(0);
+            l.setText(sortedPlayer);
+            l = (Label) hBox.getChildren().get(1);
+            l.setText(this.points.get(sortedPlayer).toString());
+            index++;
         }
     }
 

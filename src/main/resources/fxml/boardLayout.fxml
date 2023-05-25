@@ -34,7 +34,7 @@
                   <Image url="@../publisher_material/Title_2000x618.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER_LEFT" prefHeight="230.0" prefWidth="691.0" spacing="40.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="230.0" prefWidth="676.0" spacing="40.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -131,7 +131,7 @@
                   </VBox>
                </children>
                <HBox.margin>
-                  <Insets />
+                  <Insets left="30.0" />
                </HBox.margin>
             </HBox>
             <VBox alignment="CENTER" prefHeight="186.0" prefWidth="403.0">
@@ -152,63 +152,75 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Label text="Label">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label text="Label">
+                        <Label prefWidth="200.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
-                     <children>
-                        <Label text="Label">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
                         </Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Label text="Label">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label text="Label">
+                        <Label prefWidth="200.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
                         </Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Label text="Label">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label text="Label">
+                        <Label prefWidth="200.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefWidth="200.0" text="0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
                         </Label>
                      </children>
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="40.0" />
+                  <Insets bottom="40.0" left="50.0" right="50.0" />
                </padding>
             </VBox>
          </children>

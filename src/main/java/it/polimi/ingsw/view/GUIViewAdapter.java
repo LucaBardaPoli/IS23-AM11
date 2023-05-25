@@ -17,6 +17,10 @@ public class GUIViewAdapter implements View {
         return this.view.getPlayers();
     }
 
+    public String getCurrentPlayer() {
+        return this.view.getCurrentPlayer();
+    }
+
 
     /* Initialization methods */
     public void setClientController(ClientController clientController) {
@@ -36,7 +40,7 @@ public class GUIViewAdapter implements View {
     }
 
     public void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName) {
-        // TO DO!!!
+        Platform.runLater(() -> this.view.updateLobbyInfo(lobbySize, lobby, newPlayerConnected, playerName));
     }
 
 

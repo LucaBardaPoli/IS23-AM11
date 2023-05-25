@@ -12,6 +12,7 @@ public class LobbyInfoMessage implements ServerMessage {
 
     private final boolean newPlayerConnected;
 
+    // True -> connected, False -> disconnected
     private final String playerName;
 
     public LobbyInfoMessage(int sizeLobby, List<String> lobby, boolean newPlayerConnected, String playerName){

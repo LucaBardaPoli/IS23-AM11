@@ -87,7 +87,7 @@ public class ClientController {
      * Handles the specific message
      * @param serverMessage notifies the client a player has joined/left the lobby
      */
-    public void handle(LobbyInfoMessage serverMessage){
+    public void handle(LobbyInfoMessage serverMessage) {
         this.view.updateLobbyInfo(serverMessage.getSizeLobby(), serverMessage.getLobby(), serverMessage.isNewPlayerConnected(), serverMessage.getPlayerName());
     }
 
@@ -135,7 +135,9 @@ public class ClientController {
     public void handle(ConfirmPickResponse serverMessage) {
         if(serverMessage.isValid()) {
             this.view.updateBoard(serverMessage.getBoard());
-            this.view.showChooseColumn();
+            if(this.client.getNickname().equals(this.view.getCurrentPlayer())) {
+                this.view.showChooseColumn();
+            }
         } else {
             this.view.showNoPickedTiles();
             this.view.showPickATile();
