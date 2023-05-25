@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.network.client.ClientRMIInterface;
 import it.polimi.ingsw.network.server.ClientHandlerRMIInterface;
 
 import java.io.Serializable;
@@ -13,5 +12,5 @@ public interface RMIListenerInterface extends Serializable, Remote {
      * @return a ClientHandlerRMI
      * @throws RemoteException RMI error
      */
-    ClientHandlerRMIInterface getHandler(ClientRMIInterface clientRMIInterface) throws RemoteException;
+    ClientHandlerRMIInterface getHandler() throws RemoteException;
 }

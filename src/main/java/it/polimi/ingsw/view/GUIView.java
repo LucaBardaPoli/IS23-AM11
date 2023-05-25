@@ -623,14 +623,14 @@ public class GUIView extends Application {
         Alert alert = new Alert(Alert.AlertType.ERROR, disconnectedPlayer + " has disconnected!");
         alert.initOwner(this.mainWindow);
         alert.show();
-        this.closeWindow();
+        alert.setOnCloseRequest(event -> this.closeWindow());
     }
 
     public void showDisconnection() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Closing the connection with the server!");
         alert.initOwner(this.mainWindow);
         alert.show();
-        this.closeWindow();
+        alert.setOnCloseRequest(event -> this.closeWindow());
     }
 
     public void closeWindow() {

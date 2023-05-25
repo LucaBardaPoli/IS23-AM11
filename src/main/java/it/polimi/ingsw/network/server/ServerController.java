@@ -43,6 +43,7 @@ public class ServerController {
 
         // RMI
         try {
+            System.setProperty("java.rmi.hostname", "127.0.0.1");
             RMIListenerInterface rmiListener = (RMIListenerInterface) UnicastRemoteObject.exportObject(new RMIListener(), NetworkSettings.SERVER_PORT_RMI);
             Registry registry = LocateRegistry.createRegistry(NetworkSettings.SERVER_PORT_RMI);
             registry.rebind(NetworkSettings.RMI_REMOTE_OBJECT, rmiListener);

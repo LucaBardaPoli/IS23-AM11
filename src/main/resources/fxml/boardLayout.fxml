@@ -29,7 +29,7 @@
             <Insets top="50.0" />
          </BorderPane.margin>
          <children>
-            <ImageView fitHeight="323.0" fitWidth="614.0" pickOnBounds="true" preserveRatio="true" styleClass="logo">
+            <ImageView fitHeight="323.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" styleClass="logo">
                <image>
                   <Image url="@../publisher_material/Title_2000x618.png" />
                </image>
@@ -46,11 +46,27 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../boards/bookshelf_orth.png" />
-                           </image>
-                        </ImageView>
+                        <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="20.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="15.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
+                            <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                            <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                      </children>
                   </VBox>
                   <VBox>
@@ -60,11 +76,27 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../boards/bookshelf_orth.png" />
-                           </image>
-                        </ImageView>
+                        <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="20.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="15.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
                      </children>
                   </VBox>
                   <VBox>
@@ -74,11 +106,27 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../boards/bookshelf_orth.png" />
-                           </image>
-                        </ImageView>
+                        <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="20.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="15.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
                      </children>
                   </VBox>
                </children>

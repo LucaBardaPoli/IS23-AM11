@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.network.client.ClientRMIInterface;
 import it.polimi.ingsw.network.server.ClientHandlerRMI;
 import it.polimi.ingsw.network.server.ClientHandlerRMIInterface;
 import it.polimi.ingsw.network.server.PingPongHandler;
@@ -18,9 +17,10 @@ public class RMIListener implements RMIListenerInterface {
      * @return a ClientHandlerRMI after it has been exported for the RMI procedures.
      * @throws RemoteException RMI error
      */
-    public ClientHandlerRMIInterface getHandler(ClientRMIInterface clientRMIInterface) throws RemoteException {
-        ClientHandlerRMI handler = new ClientHandlerRMI(clientRMIInterface, new PingPongHandler());
+    public ClientHandlerRMIInterface getHandler() throws RemoteException {
+        ClientHandlerRMI handler = new ClientHandlerRMI(new PingPongHandler());
         System.out.println("New RMI client accepted");
-        return handler;
+        NetworkSettings.SERVER_PORT_RMI++;
+        return (ClientHandlerRMIInterface) UnicastRemoteObject.exportObject(handler, NetworkSettings.SERVER_PORT_RMI);
     }
 }
