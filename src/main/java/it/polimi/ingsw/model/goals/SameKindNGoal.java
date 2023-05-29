@@ -12,7 +12,7 @@ public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {
 
     public SameKindNGoal(int n) {
         this.n = n;
-        count_types = new int[Tile.values().length];
+        count_types = new int[Tile.numColors];
         // initialize the counters
         Arrays.fill(count_types, 0);
     }
@@ -23,15 +23,16 @@ public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {
         int ncolumns = GameSettings.COLUMNS;
         Tile tile;
         Position position = new Position();
+        Arrays.fill(count_types, 0);
         int row_idx, col_idx;
 
         for(row_idx = 0; row_idx < nrows; row_idx++){
+            position.setRow(row_idx);
             for(col_idx = 0; col_idx < ncolumns; col_idx++){
-                position.setRow(row_idx);
                 position.setColumn(col_idx);
                 tile = bookshelf.getTile(position);
                 // tile.ifPresent(cardType -> count_types[cardType.ordinal()]++);
-                if(!tile.equals(Tile.EMPTY)){
+                if(tile != Tile.EMPTY){
                     if(++count_types[tile.ordinal()] >= n){
                         return true;
                     }
