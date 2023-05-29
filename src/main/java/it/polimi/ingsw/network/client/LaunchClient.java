@@ -34,17 +34,16 @@ public class LaunchClient {
         Client client;
         if(typeOfConnection.equals("RMI")) {
             client = new ClientRMI(ip);
+            try {
+                DatagramSocket socket = new DatagramSocket();
+                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+                String privateIp = socket.getLocalAddress().getHostAddress();
+                System.setProperty("java.rmi.server.hostname", privateIp);
+            } catch(SocketException | UnknownHostException | UncheckedIOException e) {
+                ;
+            }
         } else { // Default is socket
             client = new ClientTCP(ip, NetworkSettings.SERVER_PORT_TCP);
-        }
-
-        try {
-            DatagramSocket socket = new DatagramSocket();
-            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-            String privateIp = socket.getLocalAddress().getHostAddress();
-            System.setProperty("java.rmi.server.hostname", privateIp);
-        } catch(SocketException | UnknownHostException | UncheckedIOException e) {
-            ;
         }
 
         if(client.openConnection()) {

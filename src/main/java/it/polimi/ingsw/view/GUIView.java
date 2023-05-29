@@ -756,25 +756,55 @@ public class GUIView extends Application {
     }
 
     private void showEndGame() {
-        /*
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/resultsLayout.fxml"));
+            this.rootNode = loader.load();
+            this.root.getChildren().set(0, this.rootNode);
 
+            List<String> sortedPlayers = this.points
+                    .entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
 
-            TO DO!!!!
+            Button button = new Button();
+            button.setText("Close game");
+            button.setAlignment(Pos.CENTER);
+            button.setContentDisplay(ContentDisplay.CENTER);
+            button.setPrefHeight(35);
+            button.setPrefWidth(100);
+            button.getStyleClass().add("background_shadow");
+            button.setTextAlignment(TextAlignment.CENTER);
+            button.setOnMouseClicked(event -> this.closeWindow());
 
+            VBox vBox = (VBox) this.rootNode.getCenter();
+            vBox.getChildren().add(button);
 
-        */
-        System.out.println("\n\n\n" +
-                "╭━━━╮╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭╮\n" +
-                "┃╭━╮┃╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱┃┃\n" +
-                "┃┃╱╰╋━━┳╮╭┳━━╮╭━━┳╮╭┳━━┳━┫┃\n" +
-                "┃┃╭━┫╭╮┃╰╯┃┃━┫┃╭╮┃╰╯┃┃━┫╭┻╯\n" +
-                "┃╰┻━┃╭╮┃┃┃┃┃━┫┃╰╯┣╮╭┫┃━┫┃╭╮\n" +
-                "╰━━━┻╯╰┻┻┻┻━━╯╰━━╯╰╯╰━━┻╯╰╯\n");
-        System.out.println("Results:");
-        for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
-            System.out.println(entry.getKey() + "\t: " + entry.getValue());
+            HBox hBox = (HBox) vBox.getChildren().get(1);
+
+            for(int i=0; i<sortedPlayers.size(); i++) {
+                Label labelNumber = new Label();
+                labelNumber.setText(i + 1 + "° (" + this.points.get(sortedPlayers.get(i)) + " pt)");
+                labelNumber.setTextFill(Paint.valueOf("WHITE"));
+                labelNumber.setFont(Font.font(24));
+                labelNumber.setTextAlignment(TextAlignment.CENTER);
+                ImageView imageView = new ImageView(new Image(getTilePath(this.tilesLobby.get(i))));
+                imageView.setFitHeight(140);
+                imageView.setFitWidth(140);
+                imageView.getStyleClass().add("background_shadow");
+                Label label = new Label();
+                label.setText(sortedPlayers.get(i));
+                label.setTextFill(Paint.valueOf("WHITE"));
+                label.setFont(Font.font(24));
+                label.setTextAlignment(TextAlignment.CENTER);
+                vBox = new VBox(labelNumber, imageView, label);
+                vBox.setSpacing(20);
+                vBox.setAlignment(Pos.CENTER);
+                hBox.getChildren().add(i, vBox);
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
         }
-        this.clientController.getClient().close(false);
     }
 
 
