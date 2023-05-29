@@ -54,6 +54,7 @@ public class GUIView extends Application {
     private final int tileSizeBookshelves = 18;
     private final int tileSizeBoard = 64;
     private final int rectangleSizeBoard = 66;
+    private int tileNumber;
 
     /* Controllers */
     private GameController gameController;
@@ -87,6 +88,8 @@ public class GUIView extends Application {
 
         this.mainWindow.setOnCloseRequest(event -> this.closeWindow());
         this.showChooseTypeOfConnection();
+
+        this.tileNumber = new Random().nextInt(3) + 1;
     }
 
     public GUIViewAdapter getAdapter() {
@@ -224,9 +227,9 @@ public class GUIView extends Application {
             }
 
             VBox vBox = (VBox) this.rootNode.getCenter();
-            Label label = (Label) vBox.getChildren().get(1);
-            label.setText("Waiting for the other players...  " + lobby.size() + " / " + lobbySize);
-            HBox hBox = (HBox) vBox.getChildren().get(2);
+            ProgressBar progressBar = (ProgressBar) vBox.getChildren().get(2);
+            progressBar.setProgress(((double) lobby.size()) / lobbySize);
+            HBox hBox = (HBox) vBox.getChildren().get(3);
             hBox.getChildren().clear();
 
             for(int i=0; i<lobby.size(); i++) {
@@ -234,7 +237,7 @@ public class GUIView extends Application {
                 imageView.setFitHeight(140);
                 imageView.setFitWidth(140);
                 imageView.getStyleClass().add("background_shadow");
-                label = new Label();
+                Label label = new Label();
                 label.setText(lobby.get(i));
                 label.setTextFill(Paint.valueOf("WHITE"));
                 label.setFont(Font.font(24));
@@ -260,28 +263,25 @@ public class GUIView extends Application {
 
     /* Methods to display the items of the game */
     private String getTilePath(Tile tile) {
-        //Random rand = new Random();
-        //int tileNumber = rand.nextInt(3) + 1;
-        int tileNumber = 1;
         String tilePath = "/item_tiles";
         switch(tile) {
             case BLUE:
-                tilePath += "/Cornici1." + tileNumber + ".png";
+                tilePath += "/Cornici1." + this.tileNumber + ".png";
                 break;
             case PINK:
-                tilePath += "/Piante1." + tileNumber + ".png";
+                tilePath += "/Piante1." + this.tileNumber + ".png";
                 break;
             case WHITE:
-                tilePath += "/Libri1." + tileNumber + ".png";
+                tilePath += "/Libri1." + this.tileNumber + ".png";
                 break;
             case YELLOW:
-                tilePath += "/Giochi1." + tileNumber + ".png";
+                tilePath += "/Giochi1." + this.tileNumber + ".png";
                 break;
             case LBLUE:
-                tilePath += "/Trofei1." + tileNumber + ".png";
+                tilePath += "/Trofei1." + this.tileNumber + ".png";
                 break;
             case GREEN:
-                tilePath += "/Gatti1." + tileNumber + ".png";
+                tilePath += "/Gatti1." + this.tileNumber + ".png";
                 break;
         }
         return tilePath;
@@ -344,6 +344,7 @@ public class GUIView extends Application {
     }
 
     private void showBookshelf() {
+        this.bookshelfLayout.getChildren().clear();
         for(int i = 0; i < 6; i++) {
             for(int j = 0; j < 5; j++) {
                 Position position = new Position(i, j);
@@ -405,6 +406,7 @@ public class GUIView extends Application {
                 VBox vBox = (VBox) this.bookshelvesLayout.getChildren().get(index);
                 Label label = (Label) vBox.getChildren().get(0);
                 GridPane gridPane = (GridPane) vBox.getChildren().get(1);
+                gridPane.getChildren().clear();
                 Bookshelf bookshelf = this.bookshelves.get(label.getText());
                 for(int i = 0; i < 6; i++) {
                     for(int j = 0; j < 5; j++) {
@@ -421,6 +423,7 @@ public class GUIView extends Application {
                     vBox = (VBox) this.bookshelvesLayout.getChildren().get(index);
                     label = (Label) vBox.getChildren().get(0);
                     gridPane = (GridPane) vBox.getChildren().get(1);
+                    gridPane.getChildren().clear();
                     bookshelf = this.bookshelves.get(label.getText());
                     for(int i = 0; i < 6; i++) {
                         for(int j = 0; j < 5; j++) {
@@ -438,6 +441,7 @@ public class GUIView extends Application {
                     vBox = (VBox) this.bookshelvesLayout.getChildren().get(index);
                     label = (Label) vBox.getChildren().get(0);
                     gridPane = (GridPane) vBox.getChildren().get(1);
+                    gridPane.getChildren().clear();
                     bookshelf = this.bookshelves.get(label.getText());
                     for(int i = 0; i < 6; i++) {
                         for(int j = 0; j < 5; j++) {
@@ -455,12 +459,13 @@ public class GUIView extends Application {
 
     public void showPickedTiles() {
         this.pickedTilesLayout.getChildren().clear();
-        for(Tile t : this.pickedTiles) {
-            ImageView imgV = new ImageView(new Image(getTilePath(t)));
+        for(int index=0; index<this.pickedTiles.size(); index++) {
+            ImageView imgV = new ImageView(new Image(getTilePath(this.pickedTiles.get(index))));
             imgV.setFitWidth(this.tileSizeBoard);
             imgV.setFitHeight(this.tileSizeBoard);
             if(this.selectedColumn != -1) {
-                imgV.setOnMouseClicked(event -> this.clientController.sendMessage(new SwapTilesOrderRequest(this.pickedTiles.indexOf(t))));
+                int i = index;
+                imgV.setOnMouseClicked(event -> this.clientController.sendMessage(new SwapTilesOrderRequest(i)));
             }
             this.pickedTilesLayout.getChildren().add(imgV);
         }
@@ -529,6 +534,23 @@ public class GUIView extends Application {
             }
         }
         this.commonGoalsTokens = commonGoalsTokens;
+    }
+
+    public void updateEndGame(boolean endGame) {
+        if(endGame) {
+            if(this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+                ImageView imgV = new ImageView(new Image("/scoring_tokens/end_game.jpg"));
+                imgV.setFitWidth(this.tileSizeBoard);
+                imgV.setFitHeight(this.tileSizeBoard);
+                this.tokensLayout.getChildren().add(imgV);
+            }
+            try {
+                StackPane stackPane = (StackPane) this.rootNode.getCenter();
+                stackPane.getChildren().remove(1);
+            } catch(IndexOutOfBoundsException e) {
+                ;
+            }
+        }
     }
 
 
@@ -660,7 +682,7 @@ public class GUIView extends Application {
     }
 
     public void showInvalidColumn() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Not a valid column!");
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid column!");
         alert.initOwner(this.mainWindow);
         alert.show();
     }
@@ -714,9 +736,17 @@ public class GUIView extends Application {
 
         this.showBookshelf();
         this.showBookshelves();
+        this.selectedColumn = -1;
     }
 
     private void showEndGame() {
+        /*
+
+
+            TO DO!!!!
+
+
+        */
         System.out.println("\n\n\n" +
                 "╭━━━╮╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭╮\n" +
                 "┃╭━╮┃╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱┃┃\n" +
@@ -728,7 +758,7 @@ public class GUIView extends Application {
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
             System.out.println(entry.getKey() + "\t: " + entry.getValue());
         }
-        this.clientController.getClient().close();
+        this.clientController.getClient().close(false);
     }
 
 
@@ -758,9 +788,6 @@ public class GUIView extends Application {
     }
 
     public void closeWindow() {
-        if(this.clientController != null) {
-            this.clientController.getClient().close();
-        }
         this.mainWindow.close();
         System.exit(0);
     }

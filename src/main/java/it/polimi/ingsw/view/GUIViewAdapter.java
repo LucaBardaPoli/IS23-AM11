@@ -65,6 +65,10 @@ public class GUIViewAdapter implements View {
         Platform.runLater(() -> this.view.updateCommonGoals(commonGoalsTokens));
     }
 
+    public void updateEndGame(boolean endGame) {
+        Platform.runLater(() -> this.view.updateEndGame(endGame));
+    }
+
 
     /* Methods to ask for a player's move */
     public void showChooseTypeOfConnection() {

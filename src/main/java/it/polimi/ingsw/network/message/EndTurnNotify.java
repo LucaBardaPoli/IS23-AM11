@@ -12,14 +12,16 @@ public class EndTurnNotify implements ServerMessage {
     private final Bookshelf bookshelf;
     private final List<Integer> commonGoalsTokens;
     private final int points;
+    private final boolean endGame;
     private final String player;
     private final String nextPlayer;
 
-    public EndTurnNotify(Board board, Bookshelf bookshelf, List<Integer> commonGoalsTokens, int points, String player, String nextPlayer) {
+    public EndTurnNotify(Board board, Bookshelf bookshelf, List<Integer> commonGoalsTokens, int points, boolean endGame, String player, String nextPlayer) {
         this.board = board;
         this.bookshelf = bookshelf;
         this.commonGoalsTokens = commonGoalsTokens;
         this.points = points;
+        this.endGame = endGame;
         this.player = player;
         this.nextPlayer = nextPlayer;
     }
@@ -38,6 +40,10 @@ public class EndTurnNotify implements ServerMessage {
 
     public int getPoints() {
         return points;
+    }
+
+    public boolean getEndGame() {
+        return this.endGame;
     }
 
     public String getPlayer() {

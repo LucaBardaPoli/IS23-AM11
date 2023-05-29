@@ -58,7 +58,7 @@ public class ClientTCP extends Client {
         } catch (IOException | ClassNotFoundException ignored) {
             System.out.println();
         } finally {
-            this.close();
+            this.close(false);
         }
     }
 
@@ -72,19 +72,21 @@ public class ClientTCP extends Client {
             this.outputStream.flush();
             this.outputStream.writeObject(clientMessage);
         } catch(IOException e) {
-            this.close();
+            this.close(false);
         }
     }
 
     /**
      * Closes the connection previously opened with the server
      */
-    public void close() {
+    public void close(boolean messageFromServer) {
         if(this.stopConnection) {
             return;
         }
         this.stopConnection = true;
-        this.controller.getView().showDisconnection();
+        if(!messageFromServer) {
+            this.controller.getView().showDisconnection();
+        }
         try {
             this.executors.shutdownNow();
             this.inputStream.close();

@@ -185,6 +185,7 @@ public class ClientController {
         this.view.updateBookshelf(serverMessage.getPlayer(), serverMessage.getBookshelf());
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
         this.view.updateCommonGoals(serverMessage.getCommonGoalsTokens());
+        this.view.updateEndGame(serverMessage.getEndGame());
         this.view.endTurn();
         this.view.startTurn(serverMessage.getNextPlayer());
     }
@@ -217,8 +218,7 @@ public class ClientController {
      */
     public void handle(PlayerDisconnectedNotify serverMessage) {
         this.view.showPlayerDisconnected(serverMessage.getDisconnectedPlayer());
-        this.client.close();
+        this.client.close(true);
     }
-
 }
 

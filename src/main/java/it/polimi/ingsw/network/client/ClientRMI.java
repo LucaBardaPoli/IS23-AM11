@@ -54,7 +54,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
                     Thread.sleep(NetworkSettings.MAX_PONG_WAIT);
                     this.clientHandler.testConnection();
                 } catch(InterruptedException | RemoteException e) {
-                    this.close();
+                    this.close(false);
                 }
             } while(!this.stopConnection);
         });
@@ -78,19 +78,21 @@ public class ClientRMI extends Client implements ClientRMIInterface {
         try {
             this.clientHandler.receiveMessage(clientMessage);
         } catch(RemoteException e) {
-            close();
+            this.close(false);
         }
     }
 
     /**
      * Ends the exportation on the remote-object.
      */
-    public void close() {
+    public void close(boolean messageFromServer) {
         if(this.stopConnection) {
             return;
         }
         this.stopConnection = true;
-        this.controller.getView().showDisconnection();
+        if(!messageFromServer) {
+            this.controller.getView().showDisconnection();
+        }
         try {
             if(this.connectionTester != null) {
                 this.connectionTester.interrupt();

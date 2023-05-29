@@ -185,6 +185,10 @@ public class Game implements Serializable {
         return endGame;
     }
 
+    public boolean getIsLastTurn() {
+        return isLastTurn;
+    }
+
     /**
      * Checks if a given nickname is already taken
      * @param nickname nickname

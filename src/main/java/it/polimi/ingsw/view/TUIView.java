@@ -335,6 +335,19 @@ public class TUIView implements View {
         this.commonGoalsTokens = commonGoalsTokens;
     }
 
+    public void updateEndGame(boolean endGame) {
+        /*
+
+
+            FIX THIS
+
+
+         */
+        if(endGame && this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+            System.out.println("Won EndGame token!");
+        }
+    }
+
 
     /* Methods to ask for a player's move */
     private void showLogo() {
@@ -461,7 +474,7 @@ public class TUIView implements View {
             }
             if(s.equals(MESSAGE)) {
                 this.handleChatMessage();
-            } else if(showError && !this.changeTurn) {
+            } else if(showError && !this.changeTurn && !this.clientController.getClient().getStopConnection()) {
                 System.out.println("Not a valid command!");
             }
             showError = false;
@@ -495,8 +508,10 @@ public class TUIView implements View {
                         try {
                             this.clientController.sendMessage(new ConfirmColumnRequest(Integer.parseInt(s)));
                             confirmedColumn = true;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Not a valid command!");
+                        } catch(NumberFormatException e) {
+                            if(!this.clientController.getClient().getStopConnection()) {
+                                System.out.println("Not a valid command!");
+                            }
                         }
                         break;
                 }
@@ -531,7 +546,9 @@ public class TUIView implements View {
                         this.clientController.sendMessage(new SwapTilesOrderRequest(Integer.parseInt(s)));
                         confirmedTiles = true;
                     } catch(NumberFormatException e) {
-                        System.out.println("Not a valid command!");
+                        if(!this.clientController.getClient().getStopConnection()) {
+                            System.out.println("Not a valid command!");
+                        }
                     }
                     break;
             }
@@ -631,7 +648,7 @@ public class TUIView implements View {
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
             System.out.println(entry.getKey() + "\t: " + entry.getValue());
         }
-        this.clientController.getClient().close();
+        this.clientController.getClient().close(false);
     }
 
 
@@ -649,8 +666,16 @@ public class TUIView implements View {
 
     /* Methods to show disconnection phase */
     public void showPlayerDisconnected(String disconnectedPlayer) {
-        System.out.println(disconnectedPlayer + " has disconnected!");
-        showDisconnection();
+        System.out.println("\n\n\n\n\n");
+        System.out.println(ANSI_RED + "\n" +
+                " █████╗ ██╗  ██╗  ███╗  ██╗ █████╗  ██╗\n" +
+                "██╔══██╗██║  ██║  ████╗ ██║██╔══██╗ ██║\n" +
+                "██║  ██║███████║  ██╔██╗██║██║  ██║ ██║\n" +
+                "██║  ██║██╔══██║  ██║╚████║██║  ██║ ╚═╝\n" +
+                "╚█████╔╝██║  ██║  ██║ ╚███║╚█████╔╝ ██╗\n" +
+                " ╚════╝ ╚═╝  ╚═╝  ╚═╝  ╚══╝ ╚════╝  ╚═╝" + ANSI_RESET);
+        System.out.println("\n" + disconnectedPlayer + " has disconnected!");
+        this.showDisconnection();
     }
 
     public void showDisconnection() {

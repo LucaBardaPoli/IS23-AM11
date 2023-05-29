@@ -69,5 +69,5 @@ public abstract class Client {
     /**
      * Closes the connection opened before with the server.
      */
-    public abstract void close();
+    public abstract void close(boolean messageFromServer);
 }

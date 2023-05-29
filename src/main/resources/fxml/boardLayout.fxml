@@ -135,11 +135,8 @@
                </HBox.margin>
             </HBox>
             <VBox alignment="CENTER" prefHeight="186.0" prefWidth="403.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
                <children>
-                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="371.0" text="Ranking">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="371.0" style="-fx-border-color: black; -fx-border-width: 1;" text="Ranking">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -150,14 +147,17 @@
                         <Insets bottom="10.0" />
                      </padding>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                  <HBox alignment="CENTER" depthTest="DISABLE" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 0 20 0 0; -fx-border-color: black;" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </Label>
-                        <Label prefWidth="200.0" text="0">
+                        <Label prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -167,14 +167,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 0 20 0 0; -fx-border-color: black;" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label prefWidth="200.0" text="0">
+                        <Label prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -184,14 +184,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 0 20 0 0; -fx-border-color: black;" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label prefWidth="200.0" text="0">
+                        <Label prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -201,14 +201,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="200.0" text="Label" textAlignment="RIGHT">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 0 20 0 0; -fx-border-color: black;" text="Label" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label prefWidth="200.0" text="0">
+                        <Label prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>

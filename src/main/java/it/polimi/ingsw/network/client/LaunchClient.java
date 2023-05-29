@@ -5,6 +5,12 @@ import it.polimi.ingsw.view.GUIView;
 import it.polimi.ingsw.view.TUIView;
 import it.polimi.ingsw.view.View;
 
+import java.io.UncheckedIOException;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 public class LaunchClient {
     /**
      * Main
@@ -31,6 +37,16 @@ public class LaunchClient {
         } else { // Default is socket
             client = new ClientTCP(ip, NetworkSettings.SERVER_PORT_TCP);
         }
+
+        try {
+            DatagramSocket socket = new DatagramSocket();
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            String privateIp = socket.getLocalAddress().getHostAddress();
+            System.setProperty("java.rmi.server.hostname", privateIp);
+        } catch(SocketException | UnknownHostException | UncheckedIOException e) {
+            ;
+        }
+
         if(client.openConnection()) {
             ClientController clientController = new ClientController(client, view);
             clientController.initController();

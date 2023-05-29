@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,15 +19,22 @@
                   <Image url="@../publisher_material/Title_2000x618.png" />
               </image>
               <VBox.margin>
-                  <Insets top="70.0" />
+                  <Insets top="50.0" />
               </VBox.margin>
           </ImageView>
-         <Label alignment="CENTER" prefHeight="61.0" prefWidth="541.0" textAlignment="CENTER" textFill="WHITE">
+         <Label alignment="CENTER" prefHeight="56.0" prefWidth="526.0" text="Waiting for other players..." textFill="WHITE">
             <font>
-               <Font size="30.0" />
+               <Font size="24.0" />
             </font>
+            <padding>
+               <Insets bottom="5.0" />
+            </padding>
          </Label>
-         <HBox alignment="CENTER" prefHeight="300.0" prefWidth="200.0" spacing="30.0" />
+         <ProgressBar prefHeight="55.0" prefWidth="526.0" progress="0.0" />
+         <HBox alignment="CENTER" prefHeight="243.0" prefWidth="785.0" spacing="30.0">
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin></HBox>
       </VBox>
     </center>
     <left>

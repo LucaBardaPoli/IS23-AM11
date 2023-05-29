@@ -50,6 +50,13 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
      * @param serverMessage sent to the client
      */
     public void sendMessage(ServerMessage serverMessage) {
+        /*
+
+
+            FIX THIS (ADD QUEUE)!!!
+
+
+        */
         new Thread(() -> {
             try {
                 this.client.receiveMessage(serverMessage);

@@ -24,6 +24,7 @@ public interface View {
     void updatePickedTiles(List<Tile> pickedTiles);
     void updatePoints(String player, int points);
     void updateCommonGoals(List<Integer> commonGoalsTokens);
+    void updateEndGame(boolean endGame);
 
 
     /* Methods to ask for a player's move */
