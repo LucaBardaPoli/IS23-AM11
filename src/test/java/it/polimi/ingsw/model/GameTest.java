@@ -570,7 +570,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(0));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer());
@@ -608,7 +608,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
 
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -643,7 +643,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(2));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -718,7 +718,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(3));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the cards which are misaligned with the first are still on the board
         assertFalse(game2.getBoard().getTile(positionToTest1) != Tile.EMPTY);
@@ -778,7 +778,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(4));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the card which is misaligned with the first is still on the board
         assert(game2.getBoard().getTile(positionToTest1) != Tile.EMPTY);
@@ -832,7 +832,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert(game2.confirmColumn(4));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the card which is misaligned with the first is still on the board
         assertFalse(game2.getBoard().getTile(positionToTest1) != Tile.EMPTY);
@@ -869,7 +869,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(5));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -896,7 +896,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assertFalse (game2.confirmColumn(5));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -1010,103 +1010,6 @@ public class GameTest {
     }
 
     @Test
-    public void testValidRearrangeCards(){
-        Game game2;
-
-        game2 = InitializeGames2();
-        // Carte Prendibili in GAME2
-        Position positionToTest1 = new Position(1,0);
-        Position positionToTest2 = new Position(1,1);
-
-        List<Tile> cardTypesList = new ArrayList<>();
-
-        game2.pickTile(positionToTest1);
-        assert(game2.getBoard().getTile(positionToTest1) != Tile.EMPTY);
-        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
-
-        game2.pickTile(positionToTest2);
-        assert(game2.getBoard().getTile(positionToTest2) != Tile.EMPTY);
-        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
-
-        Player currentPlayer = game2.getCurrentPlayer();
-        Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
-        assertNotNull(currentPlayerBookshelf);
-
-        // Confirm the choice of the selected cards
-        assert(game2.confirmPick());
-        // Confirm the column where to insert the selected cards
-        assert(game2.confirmColumn(0));
-
-        // Puts the first card selected in the last position
-        game2.rearrangeTiles(0);
-        List<Tile> rearrangedCards = game2.getPickedTiles();
-        assertEquals(rearrangedCards.get(0),cardTypesList.get(1));
-        assertEquals(rearrangedCards.get(1),cardTypesList.get(0));
-
-        // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
-
-        // Check if the turn changed correctly
-        assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
-
-        // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getTile(new Position(5,0)),cardTypesList.get(1));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,0)),cardTypesList.get(0));
-
-    }
-
-    @Test
-    public void testDoubleRearrangeCards(){
-        Game game2;
-
-        game2 = InitializeGames2();
-        // Carte Prendibili in GAME2
-        Position positionToTest1 = new Position(1,0);
-        Position positionToTest2 = new Position(1,1);
-
-        List<Tile> cardTypesList = new ArrayList<>();
-
-        game2.pickTile(positionToTest1);
-        assert(game2.getBoard().getTile(positionToTest1) != Tile.EMPTY);
-        cardTypesList.add(game2.getBoard().getTile(positionToTest1));
-
-        game2.pickTile(positionToTest2);
-        assert(game2.getBoard().getTile(positionToTest2) != Tile.EMPTY);
-        cardTypesList.add(game2.getBoard().getTile(positionToTest2));
-
-        Player currentPlayer = game2.getCurrentPlayer();
-        Bookshelf currentPlayerBookshelf = currentPlayer.getBookshelf();
-        assertNotNull(currentPlayerBookshelf);
-
-        // Confirm the choice of the selected cards
-        assert (game2.confirmPick());
-        // Confirm the column where to insert the selected cards
-        assert (game2.confirmColumn(0));
-
-        // Puts the first card selected in the last position
-        game2.rearrangeTiles(0);
-        List<Tile> rearrangedCards = game2.getPickedTiles();
-        assertEquals(rearrangedCards.get(0),cardTypesList.get(1));
-        assertEquals(rearrangedCards.get(1),cardTypesList.get(0));
-
-        game2.rearrangeTiles(0);
-        rearrangedCards = game2.getPickedTiles();
-        assertEquals(rearrangedCards.get(0),cardTypesList.get(0));
-        assertEquals(rearrangedCards.get(1),cardTypesList.get(1));
-
-        // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
-
-        // Check if the turn changed correctly
-        assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
-
-        // Check if the insertion of the cards in the bookshelf is correct
-        assertEquals(currentPlayerBookshelf.getTile(new Position(5,0)),cardTypesList.get(0));
-        assertEquals(currentPlayerBookshelf.getTile(new Position(4,0)),cardTypesList.get(1));
-
-    }
-
-    @Test
     public void testValidUnpickCard1(){
 
         Game game2;
@@ -1141,7 +1044,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -1186,7 +1089,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -1225,7 +1128,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
 
@@ -1256,7 +1159,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game2.confirmColumn(1));
         // Insert the cards in the order decided before
-        game2.confirmOrderSelectedTiles();
+        game2.confirmOrderSelectedTiles(game2.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game2.getCurrentPlayer().getNickname());
@@ -1295,7 +1198,7 @@ public class GameTest {
         // Confirm the column where to  insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
@@ -1326,7 +1229,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
@@ -1358,7 +1261,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
@@ -1397,7 +1300,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
 
@@ -1433,7 +1336,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert(game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
@@ -1465,7 +1368,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
@@ -1497,7 +1400,7 @@ public class GameTest {
         // Confirm the column where to insert the selected cards
         assert (game4.confirmColumn(1));
         // Insert the cards in the order decided before
-        game4.confirmOrderSelectedTiles();
+        game4.confirmOrderSelectedTiles(game4.getPickedTiles());
 
         // Check if the turn changed correctly
         assertNotSame(currentPlayer.getNickname(), game4.getCurrentPlayer().getNickname());
@@ -1585,7 +1488,7 @@ public class GameTest {
         assert(!game.confirmColumn(3));
         assert(!game.confirmColumn(5));
         assert(game.confirmColumn(4));
-        game.confirmOrderSelectedTiles();
+        game.confirmOrderSelectedTiles(game.getPickedTiles());
 
         assert(game.getPlayers().get(0).getEndGamePoint());
         assert(!game.getPlayers().get(1).getEndGamePoint());
@@ -1608,7 +1511,7 @@ public class GameTest {
         game.confirmPick();
         assert(!game.confirmColumn(5));
         assert(game.confirmColumn(0));
-        game.confirmOrderSelectedTiles();
+        game.confirmOrderSelectedTiles(game.getPickedTiles());
         assert(!game.getPlayers().get(0).getEndGamePoint());
         assert(!game.getPlayers().get(1).getEndGamePoint());
         assert(game.getGameStatus().equals(GameStatus.PICK_CARDS));
@@ -1618,7 +1521,7 @@ public class GameTest {
         assert(!game.confirmColumn(5));
         assert(!game.confirmColumn(3));
         assert(game.confirmColumn(4));
-        game.confirmOrderSelectedTiles();
+        game.confirmOrderSelectedTiles(game.getPickedTiles());
         assert(!game.getPlayers().get(0).getEndGamePoint());
         assert(game.getPlayers().get(1).getEndGamePoint());
         assert(game.getGameStatus().equals(GameStatus.UPDATE_POINTS));

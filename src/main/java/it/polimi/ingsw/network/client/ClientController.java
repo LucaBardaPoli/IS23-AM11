@@ -99,6 +99,7 @@ public class ClientController {
         this.view.setPlayers(serverMessage.getPlayers());
         this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getCommonGoalsTokens(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
     }
+    
 
     /**
      * Handles the specific message
@@ -154,26 +155,12 @@ public class ClientController {
             if(serverMessage.getNeedForSwap()) {
                 this.view.showSwapTilesOrder();
             } else {
-                sendMessage(new ConfirmOrderNotify());
+                sendMessage(new ConfirmOrderNotify(this.view.getPickedTiles()));
             }
         } else {
             this.view.showInvalidColumn();
             this.view.showChooseColumn();
         }
-    }
-
-    /**
-     * Handles the specific message
-     * @param serverMessage  is a message sent to notify the status of the tiles previously swapped.
-     */
-    public void handle(SwapTilesOrderResponse serverMessage) {
-        if(serverMessage.getSuccessful()) {
-            this.view.showValidSwap();
-        } else {
-            this.view.showInvalidSwap();
-        }
-        this.view.updatePickedTiles(serverMessage.getPickedCards());
-        this.view.showSwapTilesOrder();
     }
 
     /**

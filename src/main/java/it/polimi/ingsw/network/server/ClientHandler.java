@@ -157,19 +157,10 @@ public abstract class ClientHandler implements Listener {
 
     /**
      * Handles the specific message
-     * @param clientMessage is a message for a Tile-Swapping request.
-     */
-    public void handle(SwapTilesOrderRequest clientMessage) {
-        boolean result = this.model.rearrangeTiles(clientMessage.getIndex());
-        sendMessage(new SwapTilesOrderResponse(this.model.getPickedTiles(), result));
-    }
-
-    /**
-     * Handles the specific message
      * @param clientMessage is a message for the confirmation of the selected cards order.
      */
     public void handle(ConfirmOrderNotify clientMessage) {
-        this.model.confirmOrderSelectedTiles();
+        this.model.confirmOrderSelectedTiles(clientMessage.getPickedTiles());
 
         List<Integer> commonGoalsTokens = new ArrayList<>();
         for(CommonGoal commonGoal : this.model.getCommonGoals()) {

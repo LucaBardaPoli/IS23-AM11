@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.message.ConfirmColumnRequest;
 import it.polimi.ingsw.network.message.PickTileRequest;
-import it.polimi.ingsw.network.message.SwapTilesOrderRequest;
 import it.polimi.ingsw.network.message.UnpickTileRequest;
 import it.polimi.ingsw.view.controller.GameController;
 import it.polimi.ingsw.view.controller.LoginController;
@@ -114,6 +113,10 @@ public class GUIView extends Application {
 
     public String getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public List<Tile> getPickedTiles() {
+        return this.pickedTiles;
     }
 
 
@@ -465,7 +468,10 @@ public class GUIView extends Application {
             imgV.setFitHeight(this.tileSizeBoard);
             if(this.selectedColumn != -1) {
                 int i = index;
-                imgV.setOnMouseClicked(event -> this.clientController.sendMessage(new SwapTilesOrderRequest(i)));
+                imgV.setOnMouseClicked(event -> {
+                    this.rearrangeTiles(i);
+                    this.showSwapTilesOrder();
+                });
             }
             this.pickedTilesLayout.getChildren().add(imgV);
         }
@@ -551,6 +557,16 @@ public class GUIView extends Application {
                 ;
             }
         }
+    }
+
+    public boolean rearrangeTiles(int index) {
+        if(index >= 0 && index < this.pickedTiles.size()) {
+            Tile tmp = this.pickedTiles.get(index);
+            this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
+            this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);
+            return true;
+        }
+        return false;
     }
 
 

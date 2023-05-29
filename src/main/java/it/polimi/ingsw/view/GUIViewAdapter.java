@@ -21,6 +21,10 @@ public class GUIViewAdapter implements View {
         return this.view.getCurrentPlayer();
     }
 
+    public List<Tile> getPickedTiles() {
+        return this.view.getPickedTiles();
+    }
+
 
     /* Initialization methods */
     public void setClientController(ClientController clientController) {

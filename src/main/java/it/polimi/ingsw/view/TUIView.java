@@ -59,6 +59,10 @@ public class TUIView implements View {
         return this.currentPlayer;
     }
 
+    public List<Tile> getPickedTiles() {
+        return this.pickedTiles;
+    }
+
     /* Methods to read/write on console */
     private String readText() {
         do {
@@ -348,6 +352,16 @@ public class TUIView implements View {
         }
     }
 
+    public boolean rearrangeTiles(int index) {
+        if(index >= 0 && index < this.pickedTiles.size()) {
+            Tile tmp = this.pickedTiles.get(index);
+            this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
+            this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);
+            return true;
+        }
+        return false;
+    }
+
 
     /* Methods to ask for a player's move */
     private void showLogo() {
@@ -532,7 +546,7 @@ public class TUIView implements View {
             String s = this.readWord().toUpperCase();
             switch(s) {
                 case CONFIRM:
-                    this.clientController.sendMessage(new ConfirmOrderNotify());
+                    this.clientController.sendMessage(new ConfirmOrderNotify(this.pickedTiles));
                     confirmedTiles = true;
                     break;
                 case SHOW:
@@ -543,7 +557,12 @@ public class TUIView implements View {
                     break;
                 default:
                     try {
-                        this.clientController.sendMessage(new SwapTilesOrderRequest(Integer.parseInt(s)));
+                        if(this.rearrangeTiles(Integer.parseInt(s))) {
+                            this.showValidSwap();
+                        } else {
+                            this.showInvalidSwap();
+                        }
+                        this.showSwapTilesOrder();
                         confirmedTiles = true;
                     } catch(NumberFormatException e) {
                         if(!this.clientController.getClient().getStopConnection()) {

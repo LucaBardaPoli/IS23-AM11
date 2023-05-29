@@ -55,7 +55,7 @@ public class GameController {
 
     public void handleInsert() {
         if(this.gui.getSelectedColumn() != -1) {
-            this.gui.getClientController().sendMessage(new ConfirmOrderNotify());
+            this.gui.getClientController().sendMessage(new ConfirmOrderNotify(this.gui.getPickedTiles()));
         }
     }
 }

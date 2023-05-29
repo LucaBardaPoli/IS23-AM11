@@ -17,7 +17,7 @@ public class Game implements Serializable {
     private final List<CommonGoal> commonGoals;
     private final List<List<Token>> tokens;
     private final List<Position> pickedTilesPositions;
-    private final List<Tile> pickedTiles;
+    private List<Tile> pickedTiles;
     private GameStatus gameStatus;
     private final Bag bag;
     private int currentSelectedColumn;
@@ -350,25 +350,11 @@ public class Game implements Serializable {
     }
 
     /**
-     * Moves the selected tile to the last place in the list of cards to insert in the bookshelf
-     * @param index position of the selected tile
-     * @return true if the rearrangement happened successfully, false otherwise
-     */
-    public boolean rearrangeTiles(int index) {
-        if(this.gameStatus.equals(GameStatus.SELECT_ORDER) && index >= 0 && index < this.pickedTiles.size()) {
-            Tile tmp = this.pickedTiles.get(index);
-            this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
-            this.pickedTiles.set(this.pickedTiles.size() - 1, tmp);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Checks if the current tiles order is valid. If so it inserts them in the bookshelf
      */
-    public void confirmOrderSelectedTiles() {
+    public void confirmOrderSelectedTiles(List<Tile> pickedTiles) {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
+            this.pickedTiles = pickedTiles;
             this.gameStatus = GameStatus.UPDATE_POINTS;
             this.players.get(this.turn).insertTiles(this.currentSelectedColumn, this.pickedTiles);
             this.currentSelectedColumn = 0;

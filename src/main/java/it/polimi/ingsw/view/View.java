@@ -8,6 +8,7 @@ public interface View {
 
     List<String> getPlayers();
     String getCurrentPlayer();
+    List<Tile> getPickedTiles();
 
 
     /* Initialization methods */
