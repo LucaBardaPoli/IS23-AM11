@@ -13,8 +13,8 @@
 |-----------------|--------|
 | Basic Rules     |   🟢  |
 | Complete Rules  |   🟢   |
-| TUI             |   🟡   |
-| GUI             |   🟡   |
+| TUI             |   🟢   |
+| GUI             |   🟢   |
 | RMI             |   🟢   |
 | Socket          |   🟢   |
 | Chat            |   🟢   |
