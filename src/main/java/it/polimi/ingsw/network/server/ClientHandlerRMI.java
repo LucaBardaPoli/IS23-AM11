@@ -5,12 +5,15 @@ import it.polimi.ingsw.network.message.ClientMessage;
 import it.polimi.ingsw.network.message.ServerMessage;
 
 import java.rmi.RemoteException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Server-side handler for an RMI client
  */
 public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMIInterface {
     private ClientRMIInterface client;
+    private ExecutorService executors;
 
     /**
      * Class Constructor
@@ -18,6 +21,7 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
      */
     public ClientHandlerRMI(PingPongHandler pingPongHandler) {
         super(pingPongHandler);
+        this.executors = Executors.newCachedThreadPool();
     }
 
     /**
@@ -50,22 +54,15 @@ public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMII
      * @param serverMessage sent to the client
      */
     public void sendMessage(ServerMessage serverMessage) {
-        /*
-
-
-            FIX THIS (ADD QUEUE)!!!
-
-
-        */
-        new Thread(() -> {
+        this.executors.submit(() -> {
             try {
-                this.client.receiveMessage(serverMessage);
-            } catch(RemoteException e) {
+                client.receiveMessage(serverMessage);
+            } catch (RemoteException e) {
                 if (!this.stopConnection) {
                     this.initClose();
                 }
             }
-        }).start();
+        });
     }
 
     /**

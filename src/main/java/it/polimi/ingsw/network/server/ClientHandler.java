@@ -197,7 +197,7 @@ public abstract class ClientHandler implements Listener {
      */
     public void handle(PongMessage clientMessage) {
         this.pingPongHandler.notifyReceivedMessage();
-        System.out.println("Pong received");
+        //System.out.println("Pong received");
     }
 
     /**
