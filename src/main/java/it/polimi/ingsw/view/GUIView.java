@@ -695,6 +695,8 @@ public class GUIView extends Application {
                 node.setOnMouseClicked(event -> {});
             }
         }
+        /* Testing */
+        //this.showEndGame();
     }
 
     public void showInvalidColumn() {
@@ -780,7 +782,7 @@ public class GUIView extends Application {
             VBox vBox = (VBox) this.rootNode.getCenter();
             vBox.getChildren().add(button);
 
-            HBox hBox = (HBox) vBox.getChildren().get(1);
+            HBox hBox = (HBox) vBox.getChildren().get(2);
 
             for(int i=0; i<sortedPlayers.size(); i++) {
                 Label labelNumber = new Label();
@@ -789,8 +791,8 @@ public class GUIView extends Application {
                 labelNumber.setFont(Font.font(24));
                 labelNumber.setTextAlignment(TextAlignment.CENTER);
                 ImageView imageView = new ImageView(new Image(getTilePath(this.tilesLobby.get(i))));
-                imageView.setFitHeight(140);
-                imageView.setFitWidth(140);
+                imageView.setFitHeight(125);
+                imageView.setFitWidth(125);
                 imageView.getStyleClass().add("background_shadow");
                 Label label = new Label();
                 label.setText(sortedPlayers.get(i));

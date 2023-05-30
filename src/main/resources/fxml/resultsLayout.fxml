@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="1050.0" prefWidth="1600.0" styleClass="background_login" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <center>
@@ -16,12 +18,17 @@
                   <Image url="@../publisher_material/Title_2000x618.png" />
               </image>
               <VBox.margin>
-                  <Insets top="50.0" />
+                  <Insets top="30.0" />
               </VBox.margin>
           </ImageView>
+         <Label alignment="CENTER" prefHeight="29.0" prefWidth="550.0" text="Results" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
          <HBox alignment="CENTER" prefHeight="243.0" prefWidth="785.0" spacing="30.0">
             <VBox.margin>
-               <Insets top="10.0" />
+               <Insets bottom="20.0" top="10.0" />
             </VBox.margin></HBox>
       </VBox>
     </center>
