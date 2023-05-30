@@ -69,8 +69,7 @@ public class GUIView extends Application {
     private String currentPlayer;
     private Position lastSelectedTile;
     private int selectedColumn;
-
-    /* Utils */
+    private boolean isLastTurn;
     private boolean endGame;
 
 
@@ -194,13 +193,11 @@ public class GUIView extends Application {
         }
     }
 
-    public void setEndGame(boolean endGame) {
-        this.endGame = endGame;
-    }
-
     public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
         setTable(board, commonGoals, commonGoalsTokens, personalGoal);
         this.currentPlayer = nextPlayer;
+        this.isLastTurn = false;
+        this.endGame = false;
         this.loadTable();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "It's " + nextPlayer + "'s turn!");
@@ -543,13 +540,14 @@ public class GUIView extends Application {
     }
 
     public void updateEndGame(boolean endGame) {
-        if(endGame) {
+        if(!this.isLastTurn && endGame) {
             if(this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
                 ImageView imgV = new ImageView(new Image("/scoring_tokens/end_game.jpg"));
                 imgV.setFitWidth(this.tileSizeBoard);
                 imgV.setFitHeight(this.tileSizeBoard);
                 this.tokensLayout.getChildren().add(imgV);
             }
+            this.isLastTurn = true;
             try {
                 StackPane stackPane = (StackPane) this.rootNode.getCenter();
                 stackPane.getChildren().remove(1);
@@ -695,8 +693,6 @@ public class GUIView extends Application {
                 node.setOnMouseClicked(event -> {});
             }
         }
-        /* Testing */
-        //this.showEndGame();
     }
 
     public void showInvalidColumn() {
@@ -714,12 +710,11 @@ public class GUIView extends Application {
 
     /* Methods to handle the change of a turn */
     public void startTurn(String player) {
-        if(!this.endGame) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "It's " + player + "'s turn!");
-            alert.initOwner(this.mainWindow);
-            alert.show();
-            this.currentPlayer = player;
-            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "It's " + player + "'s turn!");
+        alert.initOwner(this.mainWindow);
+        alert.show();
+        this.currentPlayer = player;
+        if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
                 Button b = (Button) this.bottomLayout.getChildren().get(0);
                 b.setDisable(false);
                 b = (Button) this.bottomLayout.getChildren().get(1);
@@ -731,9 +726,6 @@ public class GUIView extends Application {
                 b = (Button) this.bottomLayout.getChildren().get(1);
                 b.setDisable(true);
             }
-        } else {
-            this.showEndGame();
-        }
     }
 
     public void endTurn() {
@@ -757,7 +749,8 @@ public class GUIView extends Application {
         this.selectedColumn = -1;
     }
 
-    private void showEndGame() {
+    public void showEndGame() {
+        this.endGame = true;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/resultsLayout.fxml"));
             this.rootNode = loader.load();
@@ -822,17 +815,21 @@ public class GUIView extends Application {
 
     /* Methods to show disconnection phase */
     public void showPlayerDisconnected(String disconnectedPlayer) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, disconnectedPlayer + " has disconnected!");
-        alert.initOwner(this.mainWindow);
-        alert.show();
-        alert.setOnCloseRequest(event -> this.closeWindow());
+        if(!this.endGame) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, disconnectedPlayer + " has disconnected!");
+            alert.initOwner(this.mainWindow);
+            alert.show();
+            alert.setOnCloseRequest(event -> this.closeWindow());
+        }
     }
 
     public void showDisconnection() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Closing the connection with the server!");
-        alert.initOwner(this.mainWindow);
-        alert.show();
-        alert.setOnCloseRequest(event -> this.closeWindow());
+        if(!this.endGame) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Closing the connection with the server!");
+            alert.initOwner(this.mainWindow);
+            alert.show();
+            alert.setOnCloseRequest(event -> this.closeWindow());
+        }
     }
 
     public void closeWindow() {

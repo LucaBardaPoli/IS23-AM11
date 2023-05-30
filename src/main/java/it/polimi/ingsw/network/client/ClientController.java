@@ -99,7 +99,6 @@ public class ClientController {
         this.view.setPlayers(serverMessage.getPlayers());
         this.view.startGame(serverMessage.getBoard(), serverMessage.getCommonGoals(), serverMessage.getCommonGoalsTokens(), serverMessage.getPersonalGoal(), serverMessage.getNextPlayer());
     }
-    
 
     /**
      * Handles the specific message
@@ -173,8 +172,10 @@ public class ClientController {
         this.view.updatePoints(serverMessage.getPlayer(), serverMessage.getPoints());
         this.view.updateCommonGoals(serverMessage.getCommonGoalsTokens());
         this.view.updateEndGame(serverMessage.getEndGame());
-        this.view.endTurn();
-        this.view.startTurn(serverMessage.getNextPlayer());
+        if(!serverMessage.getNextPlayer().equals(serverMessage.getPlayer())) {
+            this.view.endTurn();
+            this.view.startTurn(serverMessage.getNextPlayer());
+        }
     }
 
     /**
@@ -182,7 +183,7 @@ public class ClientController {
      * @param serverMessage is a message sent in order to display game results
      */
     public void handle(GameResultNotify serverMessage) {
-        this.view.setEndGame(true);
+        this.view.showEndGame();
     }
 
     /**
@@ -205,7 +206,6 @@ public class ClientController {
      */
     public void handle(PlayerDisconnectedNotify serverMessage) {
         this.view.showPlayerDisconnected(serverMessage.getDisconnectedPlayer());
-        this.client.close(true);
     }
 }
 

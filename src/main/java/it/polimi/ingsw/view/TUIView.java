@@ -20,10 +20,11 @@ public class TUIView implements View {
     private List<Tile> pickedTiles;
     private Map<String, Integer> points;
     private String currentPlayer;
+    private boolean isLastTurn;
+    private boolean endGame;
 
     /* Utils */
     private boolean changeTurn;
-    private boolean endGame;
     private final Scanner scanner;
 
     /* Colors */
@@ -111,16 +112,13 @@ public class TUIView implements View {
         this.clientController = clientController;
     }
 
-    public void setEndGame(boolean endGame) {
-        this.endGame = endGame;
-    }
-
     public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
         this.setTable(board, commonGoals, commonGoalsTokens, personalGoal);
         this.showBoard();
         this.showCommonGoals();
         this.showPersonalGoal();
         this.currentPlayer = nextPlayer;
+        this.isLastTurn = false;
         this.endGame = false;
         System.out.println(this.currentPlayer + "'s turn");
         this.showPickATile();
@@ -340,14 +338,8 @@ public class TUIView implements View {
     }
 
     public void updateEndGame(boolean endGame) {
-        /*
-
-
-            FIX THIS
-
-
-         */
-        if(endGame && this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+        if(!this.isLastTurn && endGame && this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
+            this.isLastTurn = true;
             System.out.println("Won EndGame token!");
         }
     }
@@ -619,29 +611,23 @@ public class TUIView implements View {
 
     /* Methods to handle the change of a turn */
     public void startTurn(String player) {
-        if(!this.endGame) {
-            System.out.println(player + "'s turn");
-            if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-                this.currentPlayer = player;
-                this.showPickATile();
-            } else {
-                this.currentPlayer = player;
-                if (this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
-                    System.out.println("Type:");
-                    System.out.println(PICK + " to pick a tile.");
-                    System.out.println(CONFIRM + " to confirm the picked tiles.");
-                    System.out.println(SHOW + " to show the table.");
-                    System.out.println(MESSAGE + " to send a message:");
-                    //System.out.println("Type Enter to play:");
-                    this.changeTurn = true;
-                } else {
-                    System.out.println("Type:");
-                    System.out.println(MESSAGE + " to send a message:");
-                }
-            }
+        System.out.println(player + "'s turn");
+        if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+            this.currentPlayer = player;
+            this.showPickATile();
         } else {
-            this.changeTurn = true;
-            this.showEndGame();
+            this.currentPlayer = player;
+            if (this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
+                System.out.println("Type:");
+                System.out.println(PICK + " to pick a tile.");
+                System.out.println(CONFIRM + " to confirm the picked tiles.");
+                System.out.println(SHOW + " to show the table.");
+                System.out.println(MESSAGE + " to send a message:");
+                this.changeTurn = true;
+            } else {
+                System.out.println("Type:");
+                System.out.println(MESSAGE + " to send a message:");
+            }
         }
     }
 
@@ -655,7 +641,8 @@ public class TUIView implements View {
         showCommonGoals();
     }
 
-    private void showEndGame() {
+    public void showEndGame() {
+        this.endGame = true;
         System.out.println("\n\n\n" +
                 "╭━━━╮╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭╮\n" +
                 "┃╭━╮┃╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱┃┃\n" +
@@ -667,7 +654,8 @@ public class TUIView implements View {
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
             System.out.println(entry.getKey() + "\t: " + entry.getValue());
         }
-        this.clientController.getClient().close(false);
+        System.out.println("Type something to close the game...");
+        System.exit(0);
     }
 
 
@@ -685,20 +673,22 @@ public class TUIView implements View {
 
     /* Methods to show disconnection phase */
     public void showPlayerDisconnected(String disconnectedPlayer) {
-        System.out.println("\n\n\n\n\n");
-        System.out.println(ANSI_RED + "\n" +
-                " █████╗ ██╗  ██╗  ███╗  ██╗ █████╗  ██╗\n" +
-                "██╔══██╗██║  ██║  ████╗ ██║██╔══██╗ ██║\n" +
-                "██║  ██║███████║  ██╔██╗██║██║  ██║ ██║\n" +
-                "██║  ██║██╔══██║  ██║╚████║██║  ██║ ╚═╝\n" +
-                "╚█████╔╝██║  ██║  ██║ ╚███║╚█████╔╝ ██╗\n" +
-                " ╚════╝ ╚═╝  ╚═╝  ╚═╝  ╚══╝ ╚════╝  ╚═╝" + ANSI_RESET);
-        System.out.println("\n" + disconnectedPlayer + " has disconnected!");
-        this.showDisconnection();
+        if(!this.endGame) {
+            System.out.println("\n\n\n\n\n");
+            System.out.println(ANSI_RED + "\n" +
+                    " █████╗ ██╗  ██╗  ███╗  ██╗ █████╗  ██╗\n" +
+                    "██╔══██╗██║  ██║  ████╗ ██║██╔══██╗ ██║\n" +
+                    "██║  ██║███████║  ██╔██╗██║██║  ██║ ██║\n" +
+                    "██║  ██║██╔══██║  ██║╚████║██║  ██║ ╚═╝\n" +
+                    "╚█████╔╝██║  ██║  ██║ ╚███║╚█████╔╝ ██╗\n" +
+                    " ╚════╝ ╚═╝  ╚═╝  ╚═╝  ╚══╝ ╚════╝  ╚═╝" + ANSI_RESET);
+            System.out.println("\n" + disconnectedPlayer + " has disconnected!");
+            this.showDisconnection();
+        }
     }
 
     public void showDisconnection() {
         System.out.println("Closing the connection with the server...");
-        System.out.println("Type something to close the game:");
+        System.exit(0);
     }
 }

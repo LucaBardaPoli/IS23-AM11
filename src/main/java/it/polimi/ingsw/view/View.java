@@ -13,7 +13,6 @@ public interface View {
 
     /* Initialization methods */
     void setClientController(ClientController clientController);
-    void setEndGame(boolean endGame);
     void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer);
     void setPlayers(List<String> players);
     void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName);
@@ -53,6 +52,7 @@ public interface View {
     /* Methods to handle the change of a turn */
     void startTurn(String player);
     void endTurn();
+    void showEndGame();
 
 
     /* Methods to handle chat messages */

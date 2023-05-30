@@ -31,10 +31,6 @@ public class GUIViewAdapter implements View {
         this.view.setClientController(clientController);
     }
 
-    public void setEndGame(boolean endGame) {
-        Platform.runLater(() -> this.view.setEndGame(endGame));
-    }
-
     public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
         Platform.runLater(() -> this.view.startGame(board, commonGoals, commonGoalsTokens, personalGoal, nextPlayer));
     }
@@ -150,6 +146,10 @@ public class GUIViewAdapter implements View {
 
     public void endTurn() {
         Platform.runLater(this.view::endTurn);
+    }
+
+    public void showEndGame() {
+        Platform.runLater(this.view::showEndGame);
     }
 
 
