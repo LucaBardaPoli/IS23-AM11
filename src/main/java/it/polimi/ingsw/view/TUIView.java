@@ -650,11 +650,16 @@ public class TUIView implements View {
                 "┃┃╭━┫╭╮┃╰╯┃┃━┫┃╭╮┃╰╯┃┃━┫╭┻╯\n" +
                 "┃╰┻━┃╭╮┃┃┃┃┃━┫┃╰╯┣╮╭┫┃━┫┃╭╮\n" +
                 "╰━━━┻╯╰┻┻┻┻━━╯╰━━╯╰╯╰━━┻╯╰╯\n");
+
         System.out.println("Results:");
-        for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
-            System.out.println(entry.getKey() + "\t: " + entry.getValue());
+        List<String> sortedPlayers = this.points
+                .entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        for(String sortedPlayer : sortedPlayers) {
+            System.out.println(sortedPlayer + "\t: " + this.points.get(sortedPlayer));
         }
-        System.out.println("Type something to close the game...");
         System.exit(0);
     }
 
