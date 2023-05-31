@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
  * Server-side handler for a generic client
  */
 public abstract class ClientHandler implements Listener {
-    private String nickname;
-    private int numPlayers;
+    protected String nickname;
+    protected int numPlayers;
     private final LobbyManager lobbyManager;
     protected List<ClientHandler> lobby;
     protected Game model;

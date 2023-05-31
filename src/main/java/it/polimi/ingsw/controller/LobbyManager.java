@@ -65,6 +65,10 @@ public class LobbyManager implements Serializable {
         return this.currentGameNumPlayers;
     }
 
+    public List<Game> getGames() {
+        return this.games;
+    }
+
     /**
      * Creates a new controller that handles the evolution of the new game
      */

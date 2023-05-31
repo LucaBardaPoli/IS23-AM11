@@ -95,6 +95,33 @@ public class SameKindSquareGoalTest {
     }
 
     /**
+     * Test to check if it correctly detects a group of cards shaped as a square
+     */
+    @Test
+    public void testAlmostOneSquare1() {
+        Bookshelf bookshelf  = new Bookshelf();
+        assert(!this.goal.checkGoal(bookshelf));
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 0);
+        assert(!this.goal.checkGoal(bookshelf));
+    }
+
+    /**
+     * Test to check if it correctly detects a group of cards shaped as a square
+     */
+    @Test
+    public void testAlmostOneSquare2() {
+        Bookshelf bookshelf  = new Bookshelf();
+        assert(!this.goal.checkGoal(bookshelf));
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.BLUE, Tile.BLUE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.PINK, Tile.PINK, Tile.YELLOW, Tile.YELLOW), 1);
+        assert(!this.goal.checkGoal(bookshelf));
+    }
+
+    /**
      * Test to check if detects two groups of cards almost shaped as a square (except for a corner)
      */
     @Test

@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  */
 public class ClientHandlerRMI extends ClientHandler implements ClientHandlerRMIInterface {
     private ClientRMIInterface client;
-    private ExecutorService executors;
+    private final ExecutorService executors;
 
     /**
      * Class Constructor

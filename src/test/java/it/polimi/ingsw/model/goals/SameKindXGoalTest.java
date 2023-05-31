@@ -58,4 +58,30 @@ public class SameKindXGoalTest {
         bookshelf.addTiles(List.of(Tile.BLUE, Tile.WHITE, Tile.GREEN), 2);
         assert(!this.goal.checkGoal(bookshelf));
     }
+
+    /**
+     * Test to check if detects a group of cards almost shaped as an X (except for a corner)
+     */
+    @Test
+    public void testAlmostAnX1() {
+        Bookshelf bookshelf  = new Bookshelf();
+        assert(!this.goal.checkGoal(bookshelf));
+        bookshelf.addTiles(List.of(Tile.GREEN, Tile.WHITE, Tile.BLUE), 0);
+        bookshelf.addTiles(List.of(Tile.WHITE, Tile.BLUE, Tile.WHITE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.WHITE, Tile.BLUE), 2);
+        assert(!this.goal.checkGoal(bookshelf));
+    }
+
+    /**
+     * Test to check if detects a group of cards almost shaped as an X (except for a corner)
+     */
+    @Test
+    public void testAlmostAnX2() {
+        Bookshelf bookshelf  = new Bookshelf();
+        assert(!this.goal.checkGoal(bookshelf));
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.WHITE, Tile.GREEN), 0);
+        bookshelf.addTiles(List.of(Tile.WHITE, Tile.BLUE, Tile.WHITE), 1);
+        bookshelf.addTiles(List.of(Tile.BLUE, Tile.WHITE, Tile.BLUE), 2);
+        assert(!this.goal.checkGoal(bookshelf));
+    }
 }
