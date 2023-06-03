@@ -23,3 +23,18 @@
 #### Status meaning
 |🔴 Not implemented | 🟡 Working on it | 🟢 Completed|
 |-------------------|-------------------|-------------|
+
+### Run the server
+```bat
+java -jar AM11.jar --server
+```
+
+### Run a TUI client
+```bat
+java -jar AM11.jar --client --tui
+```
+
+### Run a GUI client
+```bat
+java -jar AM11.jar --client --gui
+```
