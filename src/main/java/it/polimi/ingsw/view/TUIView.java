@@ -434,7 +434,11 @@ public class TUIView implements View {
         try {
             System.out.println("Type the message:");
             String message = this.readText();
-            System.out.println("Type the receiver (enter to send it to everyone): ");
+            System.out.print("Type the receiver ( ");
+            for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
+                System.out.print(entry.getKey() + " | ");
+            }
+            System.out.print("Everyone ):\n");
             String receiver = this.readWord();
             this.clientController.sendMessage(new ChatMessage(this.clientController.getClient().getNickname(), receiver, message));
         } catch(Exception e) {

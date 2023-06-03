@@ -34,106 +34,118 @@
                   <Image url="@../publisher_material/Title_2000x618.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER_LEFT" prefHeight="230.0" prefWidth="676.0" spacing="40.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <children>
-                  <VBox>
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="149.0" text="Label">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
-                            <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                            <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                     </children>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="152.0" text="Label">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </children>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="149.0" text="Label">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </children>
-                  </VBox>
-               </children>
+            <VBox>
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
-            </HBox>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="230.0" prefWidth="676.0" spacing="40.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="149.0" text="Label">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
+                                  <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                  <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="152.0" text="Label">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="149.0" text="Label">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <GridPane hgap="4.0" prefHeight="150.0" prefWidth="150.0" styleClass="bookshelf" vgap="2.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="19.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="24.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="17.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints prefHeight="13.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="24.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="23.0" vgrow="SOMETIMES" />
+                                    <RowConstraints prefHeight="20.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="438.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="55.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
             <VBox alignment="CENTER" prefHeight="186.0" prefWidth="403.0">
                <children>
                   <Label alignment="CENTER" prefHeight="35.0" prefWidth="371.0" style="-fx-border-color: black; -fx-border-width: 1;" text="Ranking">
@@ -229,7 +241,7 @@
 
    <!-- Player's items -->
    <right>
-      <HBox alignment="BOTTOM_CENTER" prefHeight="686.0" prefWidth="447.0">
+      <HBox alignment="BOTTOM_CENTER" prefHeight="565.0" prefWidth="447.0">
          <children>
             <ImageView fitHeight="168.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true" styleClass="background_shadow">
                <image>
@@ -239,8 +251,13 @@
                   <Insets bottom="150.0" />
                </HBox.margin>
             </ImageView>
-            <VBox alignment="BOTTOM_CENTER" spacing="30.0">
+            <VBox alignment="BOTTOM_CENTER" spacing="10.0">
                <children>
+                  <Label prefHeight="17.0" prefWidth="235.0" text="  Bottom                          Top">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                   <HBox alignment="CENTER" prefHeight="84.0" prefWidth="260.0" spacing="10.0">
                      <VBox.margin>
                         <Insets left="40.0" right="40.0" />
@@ -312,6 +329,11 @@
                         </GridPane>
                      </children>
                   </StackPane>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="246.0" text="Won tokens">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                   <HBox alignment="CENTER" prefHeight="84.0" prefWidth="260.0" spacing="10.0">
                      <VBox.margin>
                         <Insets left="40.0" right="40.0" />
@@ -328,7 +350,7 @@
             </VBox>
          </children>
          <padding>
-            <Insets bottom="40.0" left="10.0" />
+            <Insets bottom="10.0" left="10.0" />
          </padding>
          <BorderPane.margin>
             <Insets right="20.0" />
@@ -344,9 +366,11 @@
          </BorderPane.margin>
          <children>
             <VBox alignment="CENTER" prefHeight="568.0" prefWidth="241.0" spacing="10.0">
-               <TextArea fx:id="chat" editable="false" prefHeight="486.0" prefWidth="404.0" styleClass="chat">
-
-         </TextArea>
+               <TextArea fx:id="chat" editable="false" prefHeight="486.0" prefWidth="404.0">
+                  <styleClass>
+                     <String fx:value="transparentBackground" />
+                     <String fx:value="chat" />
+                  </styleClass></TextArea>
                <TextField fx:id="message" prefHeight="3.0" prefWidth="190.0">
 
          </TextField>
@@ -376,6 +400,19 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="570.0" prefWidth="174.0" spacing="20.0">
                <children>
+                  <TextArea prefHeight="212.0" prefWidth="200.0" text="Game turn:&#10;1. Pick up to 3 adjacent tiles&#10;2. Click the Pick button&#10;3. Choose the column where&#10;     to insert the picked tiles&#10;4. Click on the picked tiles to&#10;     change the order&#10;5. Click the Insert button to&#10;     insert the tiles ">
+                     <styleClass>
+                        <String fx:value="transparentBackground" />
+                        <String fx:value="rules" />
+                        <String fx:value="background_shadow" />
+                     </styleClass>
+                     <padding>
+                        <Insets bottom="10.0" left="13.0" right="10.0" top="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextArea>
                   <StackPane>
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="background_shadow">
@@ -479,10 +516,10 @@
                <Cursor fx:constant="HAND" />
             </cursor></Button>
          <BorderPane.margin>
-            <Insets bottom="50.0" left="500.0" right="500.0" />
+            <Insets bottom="20.0" left="500.0" right="500.0" />
          </BorderPane.margin>
          <padding>
-            <Insets left="250.0" />
+            <Insets left="270.0" />
          </padding>
       </HBox>
    </bottom>

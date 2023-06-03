@@ -25,15 +25,20 @@
     -fx-text-fill: white;
 }
 
-.chat .scroll-pane {
+.rules {
+    -fx-background-color: rgba(53,89,119,0.2);
+    -fx-text-fill: white;
+}
+
+.transparentBackground .scroll-pane {
     -fx-background-color: transparent;
 }
 
-.chat .scroll-pane .viewport{
+.transparentBackground .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
 
-.chat .scroll-pane .content{
+.transparentBackground .scroll-pane .content{
     -fx-background-color: transparent;
 }
 

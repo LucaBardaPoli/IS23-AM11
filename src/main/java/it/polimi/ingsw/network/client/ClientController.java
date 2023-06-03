@@ -139,8 +139,10 @@ public class ClientController {
                 this.view.showChooseColumn();
             }
         } else {
-            this.view.showNoPickedTiles();
-            this.view.showPickATile();
+            if(this.client.getNickname().equals(this.view.getCurrentPlayer())) {
+                this.view.showNoPickedTiles();
+                this.view.showPickATile();
+            }
         }
     }
 

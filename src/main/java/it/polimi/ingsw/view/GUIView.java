@@ -48,6 +48,7 @@ public class GUIView extends Application {
     private HBox bookshelvesLayout;
     private HBox pickedTilesLayout;
     private HBox tokensLayout;
+    private Label turnLayout;
     private List<Tile> tilesLobby;
     private final int tileSizeBookshelf = 38;
     private final int tileSizeBookshelves = 18;
@@ -139,15 +140,17 @@ public class GUIView extends Application {
             // Right
             this.rightLayout = (HBox) this.rootNode.getRight();
             VBox vBox = (VBox) this.rightLayout.getChildren().get(1);
-            this.pickedTilesLayout = (HBox) vBox.getChildren().get(0);
-            StackPane stackPane = (StackPane) vBox.getChildren().get(1);
+            this.pickedTilesLayout = (HBox) vBox.getChildren().get(1);
+            StackPane stackPane = (StackPane) vBox.getChildren().get(2);
             this.bookshelfMaskLayout = (GridPane) stackPane.getChildren().get(1);
             this.bookshelfLayout = (GridPane) stackPane.getChildren().get(0);
-            this.tokensLayout = (HBox) vBox.getChildren().get(2);
+            this.tokensLayout = (HBox) vBox.getChildren().get(4);
 
             // Top
             this.topLayout = (HBox) this.rootNode.getTop();
-            this.bookshelvesLayout = (HBox) this.topLayout.getChildren().get(1);
+            vBox = (VBox) this.topLayout.getChildren().get(1);
+            this.bookshelvesLayout = (HBox) vBox.getChildren().get(0);
+            this.turnLayout = (Label) vBox.getChildren().get(1);
             this.rankingLayout = (VBox) this.topLayout.getChildren().get(2);
 
             // Bottom
@@ -200,9 +203,7 @@ public class GUIView extends Application {
         this.endGame = false;
         this.loadTable();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "It's " + nextPlayer + "'s turn!");
-        alert.initOwner(this.mainWindow);
-        alert.show();
+        this.turnLayout.setText("Current player: " + nextPlayer);
     }
 
     public void setPlayers(List<String> players) {
@@ -326,7 +327,7 @@ public class GUIView extends Application {
 
     private void showCommonGoals() {
         for(int i=0; i<this.commonGoals.size(); i++) {
-            StackPane stackPane = (StackPane) this.commonGoalsLayout.getChildren().get(i);
+            StackPane stackPane = (StackPane) this.commonGoalsLayout.getChildren().get(i+1);
 
             // Change common goal
             ImageView imageView = (ImageView) stackPane.getChildren().get(0);
@@ -710,9 +711,7 @@ public class GUIView extends Application {
 
     /* Methods to handle the change of a turn */
     public void startTurn(String player) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "It's " + player + "'s turn!");
-        alert.initOwner(this.mainWindow);
-        alert.show();
+        this.turnLayout.setText("Current player: " + player);
         this.currentPlayer = player;
         if(this.currentPlayer.equals(this.clientController.getClient().getNickname())) {
                 Button b = (Button) this.bottomLayout.getChildren().get(0);

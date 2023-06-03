@@ -169,6 +169,11 @@ public abstract class ClientHandler implements Listener {
         if(this.model.getEndGame()) {
             this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).get(), this.model.getIsLastTurn(), this.model.getCurrentPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
             this.eventListener.notifyListeners(new GameResultNotify());
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                ;
+            }
             this.initClose();
         } else {
             this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getIsLastTurn(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
