@@ -29,6 +29,11 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         this.mode = mode;
     }
 
+    /**
+     * Tests the common goal's properties on each row
+     * @param bookshelf the bookshelf to check
+     * @return true whether the goal is achieved
+     */
     private boolean testRows(Bookshelf bookshelf){
         int nrows = GameSettings.ROWS;
         int ncolumns = GameSettings.COLUMNS;
@@ -64,6 +69,11 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         return count_rows >= min_num;
     }
 
+    /**
+     * Tests the common goal's properties on each column
+     * @param bookshelf the bookshelf to check
+     * @return true whether the goal is achieved
+     */
     private boolean testColumns(Bookshelf bookshelf){
         int nrows = GameSettings.ROWS;
         int ncolumns = GameSettings.COLUMNS;
@@ -99,6 +109,11 @@ public class DifferentTypesGoal implements Predicate<Bookshelf>, Serializable {
         return count_columns >= min_num;
     }
 
+    /**
+     * Test method of the predicate
+     * @param bookshelf the input argument
+     * @return true whether the goal is achieved
+     */
     @Override
     public boolean test(Bookshelf bookshelf) {
         if(mode == CheckMode.HORIZONTAL){

@@ -8,6 +8,10 @@ import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * Remote server interface given to the clients to be able to exchange messages
+ */
+
 public interface ClientHandlerRMIInterface extends Remote, Serializable {
     /**
      * Registers a client

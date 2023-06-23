@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles all possible actions that can be performed by a single player
+ */
 public class Player implements Serializable {
     private final String nickname;
     private final PersonalGoal personalGoal;
@@ -33,6 +36,10 @@ public class Player implements Serializable {
         this.commonGoalFulfilled = new ArrayList<>(List.of(false, false));
     }
 
+    /**
+     * Bookshelf setter (used for testing)
+     * @param bookshelf new bookshelf
+     */
     public void setBookshelf(Bookshelf bookshelf){
         this.bookshelf = bookshelf;
     }
@@ -88,14 +95,6 @@ public class Player implements Serializable {
     }
 
     /**
-     * Getter of the free cells in a certain column of the bookshelf
-     * @return number of free cells in a certain column of the bookshelf
-     */
-    public int getFreeCells(){
-        return this.bookshelf.getFreeCells();
-    }
-
-    /**
      * Check the progress of a player's goals & adjacency and update their score based on this
      * @param commonGoals list of common goals that should be completed
      * @return boolean depending on whether the player has or not filled his bookshelf
@@ -138,9 +137,9 @@ public class Player implements Serializable {
     }
 
     /**
-     Checks if the player has in his bookshelf adjacency Goals
-     @param bookshelf is the bookshelf of the player
-     @return the score based on the number of adjacency present in the player's bookshelf
+     * Checks if the player has in his bookshelf adjacency Goals
+     * @param bookshelf is the bookshelf of the player
+     * @return the score based on the number of adjacency present in the player's bookshelf
      */
     public int checkAdjacency(Bookshelf bookshelf) {
         //int numGroup = 0;
@@ -176,13 +175,13 @@ public class Player implements Serializable {
     }
 
     /**
-     Finds the Adjacent tiles present in the bookshelf
-     @param bookshelf is the bookshelf of the player
-     @param visited is a matrix of bool which takes into account whether a Card has been visited or not
-     @param row is the index of the row of the card that should be checked
-     @param column is the index of the column of the Card that should be checked
-     @param type is the type of the tile that should be checked
-     @return the size of the group with tiles of the same type
+     * Finds the Adjacent tiles present in the bookshelf
+     * @param bookshelf is the bookshelf of the player
+     * @param visited is a matrix of bool which takes into account whether a Card has been visited or not
+     * @param row is the index of the row of the card that should be checked
+     * @param column is the index of the column of the Card that should be checked
+     * @param type is the type of the tile that should be checked
+     * @return the size of the group with tiles of the same type
      */
     private int findAdjacentGroupTiles(Bookshelf bookshelf, boolean[][] visited, int row, int column, Tile type) {
 
@@ -211,20 +210,35 @@ public class Player implements Serializable {
         return groupSize;
     }
 
+    /**
+     * Personal goals points getter
+     * @return personal goals points
+     */
     public int getPersonalGoalPoints() {
         return personalGoalPoints;
     }
 
+    /**
+     * Common goals points getter
+     * @return common goals points
+     */
     public int getCommonGoalPoints() {
         return commonGoalPoints;
     }
 
+    /**
+     * Adjacent points getter
+     * @return adjacent points
+     */
     public int getAdjacentPoints() {
         return adjacentPoints;
     }
 
+    /**
+     * End game point getter
+     * @return end game point
+     */
     public boolean getEndGamePoint() {
         return endGamePoint;
     }
 }
-

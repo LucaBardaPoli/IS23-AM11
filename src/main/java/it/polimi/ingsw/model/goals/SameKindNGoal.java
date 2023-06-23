@@ -17,6 +17,11 @@ public class SameKindNGoal implements Predicate<Bookshelf>, Serializable {
         Arrays.fill(count_types, 0);
     }
 
+    /**
+     * Test method of the predicate
+     * @param bookshelf the input argument
+     * @return true whether the goal is achieved
+     */
     @Override
     public boolean test(Bookshelf bookshelf) {
         int nrows = GameSettings.ROWS;

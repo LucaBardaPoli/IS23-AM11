@@ -12,7 +12,6 @@ public class PlayerTest {
 
   private Game InitializeGames2(){
     //Game ID & List of Players
-    int gameId = 0;
     List<String> players2 = new ArrayList<>(List.of("Brancaleone", "Arnaldo"));
 
     // List of the personal Goals that wil be present in this game
@@ -135,13 +134,12 @@ public class PlayerTest {
     bookshelfPredicate = new LadderGoal();
     commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
-    return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
+    return new Game(players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new Bag());
   }
 
   private Game InitializeGames2DiffGoals(){
     //Game ID & List of Players
-    Integer gameId = 0;
     List<String> players2 = new ArrayList<>(List.of("Brancaleone", "Arnaldo"));
 
     // ## Personal Goals ##
@@ -292,13 +290,12 @@ public class PlayerTest {
     bookshelfPredicate = new LadderGoal();
     commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
-    return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
+    return new Game(players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new Bag());
   }
 
   private Game InitializeGames2DiffGoals2(){
     //Game ID & List of Players
-    Integer gameId = 0;
     List<String> players2 = new ArrayList<>(List.of("Brancaleone", "Arnaldo"));
 
     // ## Personal Goals ##
@@ -444,7 +441,7 @@ public class PlayerTest {
     bookshelfPredicate = new SameKindXGoal();
     commonGoals.add(new CommonGoal(1, "Same Kind X",  bookshelfPredicate));
 
-    return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
+    return new Game(players2, commonGoals, personalGoals.subList(0, 2));
     //game2.getBoard().fillBoard(new Bag());
   }
 

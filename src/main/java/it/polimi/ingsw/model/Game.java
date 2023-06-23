@@ -8,43 +8,40 @@ import java.util.stream.Collectors;
  * Game class that handles the game moves and the way it evolves
  */
 public class Game implements Serializable {
-    private final int id;
     private final Board board;
     private final List<Player> players;
     private int turn;
     private boolean isLastTurn;
-    private final List<PersonalGoal> personalGoals;
     private final List<CommonGoal> commonGoals;
     private final List<List<Token>> tokens;
     private final List<Position> pickedTilesPositions;
     private List<Tile> pickedTiles;
     private GameStatus gameStatus;
-    private final Bag bag;
     private int currentSelectedColumn;
     private boolean endGame;
 
     /**
      * Class constructor
-     * @param id game id
      * @param players list of nickname players
      * @param commonGoals two common goals of the game
      * @param personalGoals players personal goals
      */
-    public Game(int id, List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
-        this.id = id;
-        this.bag = new Bag();
-        this.board = new Board(players.size(), bag);
+    public Game(List<String> players, List<CommonGoal> commonGoals, List<PersonalGoal> personalGoals) {
+        // Board creation
+        this.board = new Board(players.size(), new Bag());
         this.board.fillBoard();
+
+        // Goals creation and assignment
         this.players = new ArrayList<>();
-        this.personalGoals = personalGoals;
-        Collections.shuffle(this.personalGoals);
+        Collections.shuffle(personalGoals);
         for (int i = 0; i < players.size(); i++) {
-            this.players.add(new Player(players.get(i), this.personalGoals.get(i), this));
+            this.players.add(new Player(players.get(i), personalGoals.get(i), this));
         }
         Collections.shuffle(this.players);
+        this.commonGoals = commonGoals;
+
         this.turn = 0;
         this.isLastTurn = false;
-        this.commonGoals = commonGoals;
         this.gameStatus = GameStatus.PICK_CARDS;
         this.pickedTiles = new ArrayList<>();
         this.pickedTilesPositions = new ArrayList<>();
@@ -70,22 +67,6 @@ public class Game implements Serializable {
         for (int i = 0; i < this.commonGoals.size(); i++) {
             this.tokens.add(new ArrayList<>(tmpTokens));
         }
-    }
-
-    /**
-     * Getter of game id
-     * @return game id
-     */
-    public int getId() {
-        return this.id;
-    }
-
-    /**
-     * Getter of cards counter
-     * @return cards counter
-     */
-    public Bag getBag() {
-        return this.bag;
     }
 
     /**
@@ -177,14 +158,26 @@ public class Game implements Serializable {
         return this.gameStatus;
     }
 
+    /**
+     * Getter of the tiles currently picked
+     * @return picked tiles
+     */
     public List<Tile> getPickedTiles() {
         return this.pickedTiles;
     }
 
+    /**
+     * End game getter
+     * @return end game
+     */
     public boolean getEndGame() {
         return endGame;
     }
 
+    /**
+     * Last turn getter
+     * @return whether it's the last turn
+     */
     public boolean getIsLastTurn() {
         return isLastTurn;
     }
@@ -419,14 +412,5 @@ public class Game implements Serializable {
         List<Token> wonTokenList = this.tokens.get(commonGoal);
         Token wonToken = wonTokenList.remove(0);
         return wonToken.getValue();
-    }
-
-    /**
-     * Checks if the given player is the one who's currently playing
-     * @param player player who played the move
-     * @return true whether the given player is the one who's currently playing
-     */
-    public boolean isCurrentPlayer(String player) {
-        return getCurrentPlayer().getNickname().equals(player);
     }
 }

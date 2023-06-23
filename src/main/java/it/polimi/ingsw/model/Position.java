@@ -3,6 +3,9 @@ package it.polimi.ingsw.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Class that represents the position either of a bookshelf cell or of a board cell
+ */
 public class Position implements Serializable {
 
     private int row;

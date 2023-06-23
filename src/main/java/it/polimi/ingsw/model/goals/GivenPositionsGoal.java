@@ -16,6 +16,11 @@ public class GivenPositionsGoal implements Predicate<Bookshelf>, Serializable {
         this.positions = new ArrayList<>(positions);
     }
 
+    /**
+     * Test method of the predicate
+     * @param bookshelf the input argument
+     * @return true whether the goal is achieved
+     */
     @Override
     public boolean test(Bookshelf bookshelf) {
         Tile optionalTile;

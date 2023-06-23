@@ -11,11 +11,11 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+/**
+ * Client main class that starts a new game
+ */
 public class LaunchClient {
-    /**
-     * Main
-     * @param args arguments passed from command line
-     */
+
     public static void main(String[] args) {
         if(args.length > 0 && args[0].equalsIgnoreCase("--gui")) {
             GUIView.main(null);
@@ -35,12 +35,13 @@ public class LaunchClient {
         if(typeOfConnection.equals("RMI")) {
             client = new ClientRMI(ip);
             try {
+                // Gets the private IP address
                 DatagramSocket socket = new DatagramSocket();
                 socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
                 String privateIp = socket.getLocalAddress().getHostAddress();
                 System.setProperty("java.rmi.server.hostname", privateIp);
-            } catch(SocketException | UnknownHostException | UncheckedIOException e) {
-                ;
+            } catch(SocketException | UnknownHostException | UncheckedIOException ignored) {
+
             }
         } else { // Default is socket
             client = new ClientTCP(ip, NetworkSettings.SERVER_PORT_TCP);

@@ -5,6 +5,9 @@ import it.polimi.ingsw.network.server.LaunchServer;
 
 import java.util.Arrays;
 
+/**
+ * Application launcher
+ */
 public class MyShelfie {
     public static void main(String[] args) {
         if(args.length > 0) {

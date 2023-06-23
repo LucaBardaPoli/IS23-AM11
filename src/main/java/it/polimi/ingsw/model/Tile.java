@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 
+/**
+ * Class that represents all possible tile types
+ */
 public enum Tile implements Serializable {
     BLUE,
     GREEN,

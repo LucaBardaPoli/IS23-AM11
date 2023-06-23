@@ -3,6 +3,9 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.network.NetworkSettings;
 import it.polimi.ingsw.network.message.PingMessage;
 
+/**
+ * Class used to test the connection between client and server
+ */
 public class PingPongHandler implements Runnable {
     private ClientHandler clientHandler;
     private boolean isReceivedMessage;

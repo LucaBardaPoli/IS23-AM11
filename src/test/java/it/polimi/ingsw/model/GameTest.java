@@ -16,7 +16,6 @@ public class GameTest {
     @Deprecated
     private void InitializeGames(Game game2, Game game3, Game game4) {
         //Game ID & List of Players
-        Integer gameId = 0;
         List<String> players2 = new ArrayList<>(List.of("Pluto", "Pippo"));
         List<String> players3 = new ArrayList<>(List.of("Raffaele", "Michael", "Simone"));
         List<String> players4 = new ArrayList<>(List.of("Luca", "Francesca", "Gaetano", "Mariam"));
@@ -141,13 +140,13 @@ public class GameTest {
         bookshelfPredicate = new LadderGoal();
         commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
-        game2 = new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
+        game2 = new Game(players2, commonGoals, personalGoals.subList(0, 2));
         //game2.getBoard().fillBoard(new Bag());
 
-        game3 = new Game(gameId++, players3, commonGoals, personalGoals.subList(0, 3));
+        game3 = new Game(players3, commonGoals, personalGoals.subList(0, 3));
         //game3.getBoard().fillBoard(new Bag());
 
-        game4 = new Game(gameId++, players4, commonGoals, personalGoals);
+        game4 = new Game(players4, commonGoals, personalGoals);
         //game4.getBoard().fillBoard(new Bag());
 
     }
@@ -155,7 +154,6 @@ public class GameTest {
     // Initializes a game with 2 players
     private Game InitializeGames2(){
         //Game ID & List of Players
-        Integer gameId = 0;
         List<String> players2 = new ArrayList<>(List.of("Pluto", "Pippo"));
 
         // ## Personal Goals ##
@@ -278,14 +276,13 @@ public class GameTest {
         bookshelfPredicate = new LadderGoal();
         commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
-        return new Game(gameId, players2, commonGoals, personalGoals.subList(0, 2));
+        return new Game(players2, commonGoals, personalGoals.subList(0, 2));
         //game2.getBoard().fillBoard(new Bag());
     }
 
     // Initializes a game with 3 players
     private Game InitializeGames3(){
         //Game ID & List of Players
-        Integer gameId = 0;
         List<String> players3 = new ArrayList<>(List.of("Raffaele", "Michael", "Simone"));
 
         // ## Personal Goals ##
@@ -408,14 +405,13 @@ public class GameTest {
         bookshelfPredicate = new LadderGoal();
         commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
-        return new Game(gameId, players3, commonGoals, personalGoals.subList(0, 3));
+        return new Game(players3, commonGoals, personalGoals.subList(0, 3));
         //game2.getBoard().fillBoard(new Bag());
     }
 
     // Initializes a game with 4 players
     private Game InitializeGames4(){
         //Game ID & List of Players
-        Integer gameId = 0;
         List<String> players4 = new ArrayList<>(List.of("Luca", "Francesca", "Gaetano", "Mariam"));
 
         // ## Personal Goals ##
@@ -538,7 +534,7 @@ public class GameTest {
         bookshelfPredicate = new LadderGoal();
         commonGoals.add(new CommonGoal(1, "Ladder Goal", bookshelfPredicate));
 
-        return new Game(gameId, players4, commonGoals, personalGoals);
+        return new Game(players4, commonGoals, personalGoals);
         //game2.getBoard().fillBoard(new Bag());
     }
 

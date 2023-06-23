@@ -74,8 +74,8 @@ public class ClientHandlerTCP extends ClientHandler implements Runnable {
                 this.inputStream.close();
             }
             this.socket.close();
-        } catch(IOException e) {
-            System.out.println();
+        } catch(IOException ignored) {
+
         }
     }
 

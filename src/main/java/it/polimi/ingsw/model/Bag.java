@@ -5,6 +5,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Class that handles the tiles of the game
+ */
 public class Bag implements Serializable {
     private final LinkedHashMap<Tile, Integer> bag;
     private int currentNumberOfTiles;

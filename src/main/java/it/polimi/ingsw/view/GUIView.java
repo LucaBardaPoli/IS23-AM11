@@ -78,6 +78,10 @@ public class GUIView extends Application {
         launch();
     }
 
+    /**
+     * Sets up the graphical environment
+     * @param primaryStage main stage of the application
+     */
     @Override
     public void start(Stage primaryStage) {
         this.adapter = new GUIViewAdapter(this);
@@ -91,40 +95,75 @@ public class GUIView extends Application {
         this.tileNumber = new Random().nextInt(3) + 1;
     }
 
+    /**
+     * Adapter getter
+     * @return adapter
+     */
     public GUIViewAdapter getAdapter() {
         return this.adapter;
     }
 
+    /**
+     * Client controller getter
+     * @return client controller
+     */
     public ClientController getClientController() {
         return this.clientController;
     }
 
+    /**
+     * Players getter
+     * @return players
+     */
     public List<String> getPlayers() {
         return new ArrayList<>(this.bookshelves.keySet());
     }
 
+    /**
+     * Main window getter
+     * @return main window
+     */
     public Stage getMainWindow() {
         return mainWindow;
     }
 
+    /**
+     * Selected column getter
+     * @return selected column
+     */
     public int getSelectedColumn() {
         return selectedColumn;
     }
 
+    /**
+     * Current player getter
+     * @return current player
+     */
     public String getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Picked tiles getter
+     * @return picked tiles
+     */
     public List<Tile> getPickedTiles() {
         return this.pickedTiles;
     }
 
 
     /* Initialization methods */
+    /**
+     * Client controller setter
+     * @param clientController new client controller
+     */
     public void setClientController(ClientController clientController) {
         this.clientController = clientController;
     }
 
+    /**
+     * Loads the main window items from the fxml file
+     */
     private void loadTable() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardLayout.fxml"));
@@ -196,6 +235,14 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Methods that saves the information about the new game which is about to start
+     * @param board new board
+     * @param commonGoals new common goals
+     * @param commonGoalsTokens new common goals tokens
+     * @param personalGoal new personal goals
+     * @param nextPlayer next player to play
+     */
     public void startGame(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal, String nextPlayer) {
         setTable(board, commonGoals, commonGoalsTokens, personalGoal);
         this.currentPlayer = nextPlayer;
@@ -206,6 +253,10 @@ public class GUIView extends Application {
         this.turnLayout.setText("Current player: " + nextPlayer);
     }
 
+    /**
+     * Players setter
+     * @param players new list of players
+     */
     public void setPlayers(List<String> players) {
         this.bookshelves = new HashMap<>();
         this.points = new HashMap<>();
@@ -215,6 +266,13 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Handles the lobby before the start of the game
+     * @param lobbySize size of the lobby
+     * @param lobby lobby of the game
+     * @param newPlayerConnected true if connected, false if disconnected
+     * @param playerName name of the player
+     */
     public void updateLobbyInfo(int lobbySize, List<String> lobby, boolean newPlayerConnected, String playerName) {
         try {
             if (playerName.equals(this.clientController.getClient().getNickname())) {
@@ -253,6 +311,13 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Table setter
+     * @param board new board
+     * @param commonGoals new common goals
+     * @param commonGoalsTokens new common goals tokens
+     * @param personalGoal new personal goal
+     */
     private void setTable(Board board, List<CommonGoal> commonGoals, List<Integer> commonGoalsTokens, PersonalGoal personalGoal) {
         this.board = board;
         this.commonGoals = commonGoals;
@@ -263,6 +328,11 @@ public class GUIView extends Application {
 
 
     /* Methods to display the items of the game */
+    /**
+     * Returns the file path of the image related to the given tile
+     * @param tile which we need the image path of
+     * @return image path
+     */
     private String getTilePath(Tile tile) {
         String tilePath = "/item_tiles";
         switch(tile) {
@@ -288,6 +358,9 @@ public class GUIView extends Application {
         return tilePath;
     }
 
+    /**
+     * Shows the board
+     */
     private void showBoard() {
         this.boardLayout.getChildren().clear();
         for(int i=0; i<=8; i++) {
@@ -325,6 +398,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows the common goals
+     */
     private void showCommonGoals() {
         for(int i=0; i<this.commonGoals.size(); i++) {
             StackPane stackPane = (StackPane) this.commonGoalsLayout.getChildren().get(i+1);
@@ -344,6 +420,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows the bookshelf
+     */
     private void showBookshelf() {
         this.bookshelfLayout.getChildren().clear();
         for(int i = 0; i < 6; i++) {
@@ -357,6 +436,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Displays only the used bookshelves
+     */
     private void initBookshelves() {
         VBox vBox;
         switch(this.bookshelves.size()) {
@@ -400,6 +482,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows all the bookshelves
+     */
     private void showBookshelves() {
         switch(this.bookshelves.size()) {
             case 2:
@@ -458,7 +543,10 @@ public class GUIView extends Application {
         }
     }
 
-    public void showPickedTiles() {
+    /**
+     * Shows the picked tiles
+     */
+    private void showPickedTiles() {
         this.pickedTilesLayout.getChildren().clear();
         for(int index=0; index<this.pickedTiles.size(); index++) {
             ImageView imgV = new ImageView(new Image(getTilePath(this.pickedTiles.get(index))));
@@ -475,6 +563,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Displays only the current players in the standings
+     */
     private void initPoints() {
         int index = 1;
         for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
@@ -491,7 +582,10 @@ public class GUIView extends Application {
         }
     }
 
-    public void showPoints() {
+    /**
+     * Shows the standings
+     */
+    private void showPoints() {
         List<String> sortedPlayers = this.points
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -511,23 +605,45 @@ public class GUIView extends Application {
 
 
     /* Methods to update the items */
+    /**
+     * Updates the current board
+     * @param board new board
+     */
     public void updateBoard(Board board) {
         this.board = board;
         this.showBoard();
     }
 
+    /**
+     * Updates a player's bookshelf
+     * @param player name of the player
+     * @param bookshelf new bookshelf
+     */
     public void updateBookshelf(String player, Bookshelf bookshelf) {
         this.bookshelves.replace(player, bookshelf);
     }
 
+    /**
+     * Updates the currently picked tiles
+     * @param pickedTiles picked tiles
+     */
     public void updatePickedTiles(List<Tile> pickedTiles) {
         this.pickedTiles = pickedTiles;
     }
 
+    /**
+     * Updates a player's points
+     * @param player name of the player
+     * @param points new points
+     */
     public void updatePoints(String player, int points) {
         this.points.replace(player, points);
     }
 
+    /**
+     * Updates the common goals tokens
+     * @param commonGoalsTokens new common goals tokens
+     */
     public void updateCommonGoals(List<Integer> commonGoalsTokens) {
         for(int i=0; i<this.commonGoalsTokens.size(); i++) {
             if(!this.commonGoalsTokens.get(i).equals(commonGoalsTokens.get(i)) && this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
@@ -540,6 +656,10 @@ public class GUIView extends Application {
         this.commonGoalsTokens = commonGoalsTokens;
     }
 
+    /**
+     * Updates the end game value
+     * @param endGame new end game value
+     */
     public void updateEndGame(boolean endGame) {
         if(!this.isLastTurn && endGame) {
             if(this.clientController.getClient().getNickname().equals(this.currentPlayer)) {
@@ -552,13 +672,18 @@ public class GUIView extends Application {
             try {
                 StackPane stackPane = (StackPane) this.rootNode.getCenter();
                 stackPane.getChildren().remove(1);
-            } catch(IndexOutOfBoundsException e) {
-                ;
+            } catch(IndexOutOfBoundsException ignored) {
+
             }
         }
     }
 
-    public boolean rearrangeTiles(int index) {
+    /**
+     * Rearrange the picked tiles
+     * @param index of the picked tile to move to the end
+     * @return result of the action
+     */
+    private boolean rearrangeTiles(int index) {
         if(index >= 0 && index < this.pickedTiles.size()) {
             Tile tmp = this.pickedTiles.get(index);
             this.pickedTiles.set(index, this.pickedTiles.get(this.pickedTiles.size() - 1));
@@ -570,6 +695,9 @@ public class GUIView extends Application {
 
 
     /* Methods to ask for a player's move */
+    /**
+     * Asks for the type of connection
+     */
     public void showChooseTypeOfConnection() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connectionLayout.fxml"));
@@ -586,6 +714,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Asks for the nickname
+     */
     public void showChooseNickname() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nicknameLayout.fxml"));
@@ -597,6 +728,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Asks for the number of players
+     */
     public void showChooseNumPlayers() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/numPlayersLayout.fxml"));
@@ -608,9 +742,15 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Asks to pick a tile
+     */
     public void showPickATile() {
     }
 
+    /**
+     * Asks to choose the column where to insert the picked tiles
+     */
     public void showChooseColumn() {
         Button pick = (Button) this.bottomLayout.getChildren().get(0);
         pick.setDisable(true);
@@ -633,18 +773,27 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Asks to swap the picked tiles order
+     */
     public void showSwapTilesOrder() {
         this.showPickedTiles();
     }
 
 
     /* Methods to show a move's result */
+    /**
+     * Shows that the nickname is not valid
+     */
     public void showInvalidNickname() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Nickname already taken!");
         alert.initOwner(this.mainWindow);
         alert.show();
     }
 
+    /**
+     * Shows that the pick is valid
+     */
     public void showValidPick() {
         ObservableList<Node> list = this.boardLayout.getChildren();
         for(Node node : list) {
@@ -659,9 +808,15 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows that the pick is not valid
+     */
     public void showInvalidPick() {
     }
 
+    /**
+     * Shows that the tile unpick is valid
+     */
     public void showValidUnpick() {
         ObservableList<Node> list = this.boardLayout.getChildren();
 
@@ -677,15 +832,24 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows that the tile unpick is not valid
+     */
     public void showInvalidUnpick() {
     }
 
+    /**
+     * Shows that no tiles are picked
+     */
     public void showNoPickedTiles() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "No picked tiles!");
         alert.initOwner(this.mainWindow);
         alert.show();
     }
 
+    /**
+     * Shows that the selected column is valid
+     */
     public void showValidColumn() {
         for(Node node : this.bookshelfMaskLayout.getChildren()) {
             if(GridPane.getColumnIndex(node) > 0 && GridPane.getColumnIndex(node) < 6) {
@@ -696,20 +860,33 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows that the selected column is not valid
+     */
     public void showInvalidColumn() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid column!");
         alert.initOwner(this.mainWindow);
         alert.show();
     }
 
+    /**
+     * Shows that the swap is valid
+     */
     public void showValidSwap() {
     }
 
+    /**
+     * Shows that the swap is not valid
+     */
     public void showInvalidSwap() {
     }
 
 
     /* Methods to handle the change of a turn */
+    /**
+     * Handles the start of a new turn
+     * @param player name of the player who is now playing
+     */
     public void startTurn(String player) {
         this.turnLayout.setText("Current player: " + player);
         this.currentPlayer = player;
@@ -727,6 +904,9 @@ public class GUIView extends Application {
             }
     }
 
+    /**
+     * Handles the end of a player's turn
+     */
     public void endTurn() {
         this.pickedTilesLayout.getChildren().clear();
         this.showBoard();
@@ -748,6 +928,9 @@ public class GUIView extends Application {
         this.selectedColumn = -1;
     }
 
+    /**
+     * Shows a recap of the game
+     */
     public void showEndGame() {
         this.endGame = true;
         try {
@@ -803,16 +986,30 @@ public class GUIView extends Application {
 
 
     /* Methods to handle chat messages */
+    /**
+     * Shows an unicast message
+     * @param sender sender of the message
+     * @param message message sent
+     */
     public void showNewChatMessageUnicast(String sender, String message) {
         this.gameController.printChatMessageUnicast(sender, message);
     }
 
+    /**
+     * Shows a broadcast message
+     * @param sender sender of the message
+     * @param message message sent
+     */
     public void showNewChatMessageBroadcast(String sender, String message) {
         this.gameController.printChatMessageBroadcast(sender, message);
     }
 
 
     /* Methods to show disconnection phase */
+    /**
+     * Shows a message when a player has disconnected
+     * @param disconnectedPlayer name of the player
+     */
     public void showPlayerDisconnected(String disconnectedPlayer) {
         if(!this.endGame) {
             Alert alert = new Alert(Alert.AlertType.ERROR, disconnectedPlayer + " has disconnected!");
@@ -822,6 +1019,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Shows a message when there's a connection issue
+     */
     public void showDisconnection() {
         if(!this.endGame) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Closing the connection with the server!");
@@ -831,6 +1031,9 @@ public class GUIView extends Application {
         }
     }
 
+    /**
+     * Closes the game
+     */
     public void closeWindow() {
         this.mainWindow.close();
         System.exit(0);

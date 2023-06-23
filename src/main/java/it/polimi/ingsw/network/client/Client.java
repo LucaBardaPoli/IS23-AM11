@@ -12,6 +12,10 @@ public abstract class Client {
     protected ClientController controller;
     protected boolean stopConnection;
 
+    /**
+     * Class constructor
+     * @param serverIp server ip to connect to
+     */
     public Client(String serverIp) {
         this.serverIp = serverIp;
         this.stopConnection = false;

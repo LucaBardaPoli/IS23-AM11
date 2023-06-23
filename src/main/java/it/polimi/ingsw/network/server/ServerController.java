@@ -48,7 +48,7 @@ public class ServerController {
             String ip = socket.getLocalAddress().getHostAddress();
             System.setProperty("java.rmi.server.hostname", ip);
         } catch(SocketException | UnknownHostException | UncheckedIOException e) {
-            System.out.println("Connecting to locahost...");
+            System.out.println("Connecting to localhost...");
         } finally {
             try {
                 Registry registry = LocateRegistry.createRegistry(NetworkSettings.SERVER_PORT_RMI);
@@ -67,7 +67,6 @@ public class ServerController {
      * Waits for players to connect
      */
     public void run() {
-        // We could save the handlers!
         while(!this.closeConnection) {
             try {
                 System.out.println("Waiting...");

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class that contains some data (constants) related to the whole model
+ */
 public class GameSettings {
     public static final int MIN_NUM_PLAYERS = 2;
     public static final int MAX_NUM_PLAYERS = 4;

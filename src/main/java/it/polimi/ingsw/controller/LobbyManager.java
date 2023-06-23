@@ -12,13 +12,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Class that handles the games creation
+ * Class that handles the creation of the games
  */
 public class LobbyManager implements Serializable {
     private static LobbyManager instance;
     private final List<ClientHandler> lobby;
     private final List<Game> games;
-    private Integer counterGames;
     private Integer currentGameNumPlayers;
     private final List<CommonGoal> commonGoals;
     private final List<PersonalGoal> personalGoals;
@@ -29,7 +28,6 @@ public class LobbyManager implements Serializable {
     private LobbyManager() {
         this.lobby = new ArrayList<>();
         this.games = new ArrayList<>();
-        this.counterGames = 0;
         this.currentGameNumPlayers = 0;
         this.commonGoals = new ArrayList<>();
         this.personalGoals = new ArrayList<>();
@@ -65,20 +63,23 @@ public class LobbyManager implements Serializable {
         return this.currentGameNumPlayers;
     }
 
+    /**
+     * Getter of the list of games (used for testing)
+     * @return list of games
+     */
     public List<Game> getGames() {
         return this.games;
     }
 
     /**
-     * Creates a new controller that handles the evolution of the new game
+     * Creates a new game and notifies the controllers of all the clients playing the game
      */
     private void addGame() {
         Collections.shuffle(this.personalGoals);
         Collections.shuffle(this.commonGoals);
 
-        Game newGame = new Game(this.counterGames, this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), new ArrayList<>(this.commonGoals.subList(0,2)), new ArrayList<>(this.personalGoals.subList(0, this.lobby.size())));
+        Game newGame = new Game(this.lobby.stream().map(ClientHandler::getNickname).collect(Collectors.toList()), new ArrayList<>(this.commonGoals.subList(0,2)), new ArrayList<>(this.personalGoals.subList(0, this.lobby.size())));
         this.games.add(newGame);
-        this.counterGames++;
         EventListener eventListener = new EventListener();
         for(ClientHandler c : this.lobby) {
             c.initGame(newGame, new ArrayList<>(this.lobby));
@@ -117,7 +118,7 @@ public class LobbyManager implements Serializable {
 
     /**
      * Adds a new player to the lobby
-     * @param client client will participate in a game
+     * @param client that will participate in the game
      */
     public void addPlayer(ClientHandler client) {
         if(isNicknameTaken(client.getNickname())) {
@@ -191,6 +192,7 @@ public class LobbyManager implements Serializable {
         this.personalGoals.add(new PersonalGoal(1, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
+
 
         //Personal Goal x2
         positions.add(new Position(1 ,1 ) );
@@ -335,6 +337,7 @@ public class LobbyManager implements Serializable {
         positions.clear();
         tiles.clear();
 
+
         //Personal Goal x8
         positions.add(new Position( 0,4 ) );
         tiles.add(Tile.BLUE);
@@ -357,6 +360,7 @@ public class LobbyManager implements Serializable {
         this.personalGoals.add(new PersonalGoal(8, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
+
 
         //Personal Goal x9
         positions.add(new Position( 0, 2) );
@@ -381,6 +385,7 @@ public class LobbyManager implements Serializable {
         positions.clear();
         tiles.clear();
 
+
         //Personal Goal x10
         positions.add(new Position( 0,4 ) );
         tiles.add(Tile.LBLUE);
@@ -403,6 +408,7 @@ public class LobbyManager implements Serializable {
         this.personalGoals.add(new PersonalGoal(10, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
+
 
         //Personal Goal x11
         positions.add(new Position(0 ,2 ) );
@@ -427,6 +433,7 @@ public class LobbyManager implements Serializable {
         positions.clear();
         tiles.clear();
 
+
         //Personal Goal x12
         positions.add(new Position(0 ,2 ) );
         tiles.add(Tile.WHITE);
@@ -449,7 +456,6 @@ public class LobbyManager implements Serializable {
         this.personalGoals.add(new PersonalGoal(12, positions, tiles, rewards));
         positions.clear();
         tiles.clear();
-
     }
 
     /**
@@ -515,7 +521,7 @@ public class LobbyManager implements Serializable {
 
     /**
      * Ends the game for the players
-     * @param game controller that handles the game to end
+     * @param game to end
      */
     public void endGame(Game game) {
         this.games.remove(game);

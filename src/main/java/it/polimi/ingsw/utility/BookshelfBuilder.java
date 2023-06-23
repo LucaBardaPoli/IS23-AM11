@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * methods that facilitate testing
+ * Utility methods used for testing
  */
 public class BookshelfBuilder{
     public static Bookshelf randomBookshelf(){

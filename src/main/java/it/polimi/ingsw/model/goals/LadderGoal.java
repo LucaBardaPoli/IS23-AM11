@@ -9,6 +9,11 @@ import it.polimi.ingsw.model.Position;
 
 public class LadderGoal implements Predicate<Bookshelf>, Serializable {
 
+    /**
+     * Test method of the predicate
+     * @param bookshelf the input argument
+     * @return true whether the goal is achieved
+     */
     @Override
     public boolean test(Bookshelf bookshelf) {
         return testDescendingLadder(0, 0, bookshelf) ||

@@ -5,6 +5,9 @@ import it.polimi.ingsw.network.message.ServerMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used to implement an observer-observable pattern
+ */
 public class EventListener {
     private final List<Listener> listeners;
 

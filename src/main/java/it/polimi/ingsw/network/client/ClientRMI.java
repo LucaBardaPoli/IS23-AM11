@@ -29,7 +29,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
     }
 
     /**
-     * Open RMI connection type.
+     * Opens RMI connection type
      */
     public boolean openConnection() {
         try {
@@ -83,7 +83,7 @@ public class ClientRMI extends Client implements ClientRMIInterface {
     }
 
     /**
-     * Ends the exportation on the remote-object.
+     * Unexports the remote-object.
      */
     public void close(boolean messageFromServer) {
         if(this.stopConnection) {

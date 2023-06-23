@@ -63,9 +63,15 @@ public abstract class ClientHandler implements Listener {
 
         List<Integer> commonGoalsTokens = new ArrayList<>();
         for(CommonGoal commonGoal : this.model.getCommonGoals()) {
-            commonGoalsTokens.add(this.model.getTopToken(commonGoal).get());
+            if(this.model.getTopToken(commonGoal).isPresent()) {
+                commonGoalsTokens.add(this.model.getTopToken(commonGoal).get());
+            } else {
+                return;
+            }
         }
-        this.sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), commonGoalsTokens, this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
+        if(this.model.getPersonalGoal(this.nickname).isPresent()) {
+            this.sendMessage(new GameStartNotify(this.model.getBoard(), this.model.getCommonGoals(), commonGoalsTokens, this.model.getPersonalGoal(this.nickname).get(), this.model.getPlayers().stream().map(Player::getNickname).collect(Collectors.toList()), this.model.getCurrentPlayer().getNickname()));
+        }
     }
 
     /**
@@ -87,7 +93,6 @@ public abstract class ClientHandler implements Listener {
      * Handles the specific message
      * @param clientMessage is a request of login
      */
-    //connecting a new player checking if the username is either valid or not
     public void handle(LoginRequest clientMessage) {
         if(this.lobbyManager.isNicknameTaken(clientMessage.getNickname())) {
             sendMessage(new LoginResponse(null));
@@ -164,19 +169,27 @@ public abstract class ClientHandler implements Listener {
 
         List<Integer> commonGoalsTokens = new ArrayList<>();
         for(CommonGoal commonGoal : this.model.getCommonGoals()) {
-            commonGoalsTokens.add(this.model.getTopToken(commonGoal).get());
+            if(this.model.getTopToken(commonGoal).isPresent()) {
+                commonGoalsTokens.add(this.model.getTopToken(commonGoal).get());
+            } else {
+                return;
+            }
         }
         if(this.model.getEndGame()) {
-            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).get(), this.model.getIsLastTurn(), this.model.getCurrentPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
-            this.eventListener.notifyListeners(new GameResultNotify());
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                ;
+            if(this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).isPresent() && this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).isPresent()) {
+                this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getCurrentPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getCurrentPlayer().getNickname()).get(), this.model.getIsLastTurn(), this.model.getCurrentPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+                this.eventListener.notifyListeners(new GameResultNotify());
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ignored) {
+
+                }
+                this.initClose();
             }
-            this.initClose();
         } else {
-            this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getIsLastTurn(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+            if(this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).isPresent() && this.model.getBookshelf(this.model.getLastPlayer().getNickname()).isPresent()) {
+                this.eventListener.notifyListeners(new EndTurnNotify(this.model.getBoard(), this.model.getBookshelf(this.model.getLastPlayer().getNickname()).get(), commonGoalsTokens, this.model.getPlayerPoints(this.model.getLastPlayer().getNickname()).get(), this.model.getIsLastTurn(), this.model.getLastPlayer().getNickname(), this.model.getCurrentPlayer().getNickname()));
+            }
         }
     }
 
@@ -202,7 +215,6 @@ public abstract class ClientHandler implements Listener {
      */
     public void handle(PongMessage clientMessage) {
         this.pingPongHandler.notifyReceivedMessage();
-        //System.out.println("Pong received");
     }
 
     /**

@@ -68,6 +68,11 @@ public class SameKindDiagonalGoal implements Predicate<Bookshelf>, Serializable 
         return true;
     }
 
+    /**
+     * Test method of the predicate
+     * @param bookshelf the input argument
+     * @return true whether the goal is achieved
+     */
     public boolean test(Bookshelf bookshelf) {
         return checkDiagonal(0, 0, bookshelf) || checkDiagonal(1, 0, bookshelf) ||
                 checkAntiDiagonal(5, 0, bookshelf) || checkDiagonal(4, 0, bookshelf);

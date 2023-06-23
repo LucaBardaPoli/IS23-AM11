@@ -3,6 +3,9 @@ package it.polimi.ingsw.model;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * Class that handles all possible actions that can be performed on the board
+ */
 public class Board implements Serializable {
     private final HashMap<Position, Tile> board;
     private final Bag bag;
@@ -17,6 +20,10 @@ public class Board implements Serializable {
         this.createBoardCells(numPlayers);
     }
 
+    /**
+     * Getter of the board
+     * @return board attribute
+     */
     public HashMap<Position, Tile> getBoard() {
         return board;
     }

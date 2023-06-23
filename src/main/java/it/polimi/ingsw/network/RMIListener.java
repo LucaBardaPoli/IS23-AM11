@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Object exposed by the server to allow RMI-clients to get an RMI handler
+ * Object exposed by the server to allow RMI-clients to get their own RMI handler
  */
 public class RMIListener implements RMIListenerInterface {
 

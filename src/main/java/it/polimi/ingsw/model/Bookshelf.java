@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles all possible actions that can be performed on a bookshelf
+ */
 public class Bookshelf implements Serializable {
     private final Tile[][] bookshelf;
 

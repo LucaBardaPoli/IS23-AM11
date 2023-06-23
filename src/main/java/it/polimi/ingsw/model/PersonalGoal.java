@@ -3,6 +3,9 @@ package it.polimi.ingsw.model;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Class that represents a specific personal goal of the game
+ */
 public class PersonalGoal implements Serializable {
     private final int id;
     private final List<Position> positions;
@@ -11,6 +14,7 @@ public class PersonalGoal implements Serializable {
 
     /**
      * Class constructor
+     * @param id used to link the common goal to its image
      * @param positions positions to check
      * @param tiles tiles to check
      * @param rewards number of points to assign
@@ -22,18 +26,34 @@ public class PersonalGoal implements Serializable {
         this.rewards = new HashMap<>(rewards);
     }
 
+    /**
+     * Id getter
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Getter of the positions to check
+     * @return positions
+     */
     public List<Position> getPositions() {
         return positions;
     }
 
+    /**
+     * Getter of the tiles to check
+     * @return tiles
+     */
     public List<Tile> getTiles() {
         return tiles;
     }
 
+    /**
+     * Rewards getter
+     * @return rewards
+     */
     public Map<Integer, Integer> getRewards() {
         return rewards;
     }

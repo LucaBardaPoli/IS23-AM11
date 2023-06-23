@@ -15,6 +15,14 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>, Serializable {
         this.min_size = min_size;
     }
 
+    /**
+     * Recursive method that checks for adjacent tiles (tile group)
+     * @param bookshelf bookshelf to execute the check on
+     * @param visited flag that needs to keep track of the visited tiles
+     * @param i x coordinate
+     * @param j y coordinate
+     * @return group size
+     */
     private int floodFill(Bookshelf bookshelf, boolean[][] visited, int i, int j) {
 
         if (i < 0 || i >= GameSettings.ROWS || j < 0 || j >= GameSettings.COLUMNS) {
@@ -60,6 +68,11 @@ public class SameKindGroupsGoal implements Predicate<Bookshelf>, Serializable {
         return groupSize;
     }
 
+    /**
+     * Test method of the predicate
+     * @param bookshelf the input argument
+     * @return true whether the goal is achieved
+     */
     @Override
     public boolean test(Bookshelf bookshelf) {
         int count = 0;

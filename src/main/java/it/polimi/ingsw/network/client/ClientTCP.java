@@ -32,7 +32,7 @@ public class ClientTCP extends Client {
     }
 
     /**
-     * Opens the connection by opening a socket and couple streams.
+     * Opens the connection by opening a socket and the input/output streams.
      */
     public boolean openConnection() {
         try {
@@ -40,8 +40,8 @@ public class ClientTCP extends Client {
             this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
             this.inputStream = new ObjectInputStream(this.socket.getInputStream());
             return true;
-        } catch (IOException e) {
-            System.out.println();
+        } catch (IOException ignored) {
+
         }
         return false;
     }
@@ -56,7 +56,7 @@ public class ClientTCP extends Client {
                 this.executors.submit(() -> serverMessage.handle(this.controller));
             }
         } catch (IOException | ClassNotFoundException ignored) {
-            System.out.println();
+
         } finally {
             this.close(false);
         }
@@ -92,8 +92,8 @@ public class ClientTCP extends Client {
             this.inputStream.close();
             this.outputStream.close();
             this.socket.close();
-        } catch(Exception e) {
-            System.out.println();
+        } catch(Exception ignored) {
+
         }
     }
 }
