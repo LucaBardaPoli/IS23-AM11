@@ -72,6 +72,7 @@ public abstract class Client {
 
     /**
      * Closes the connection opened before with the server.
+     * @param messageFromServer flag to know who discovered the disconnection
      */
     public abstract void close(boolean messageFromServer);
 }

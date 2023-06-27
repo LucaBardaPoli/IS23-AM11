@@ -6,9 +6,13 @@ import java.io.Serializable;
  * Class used when evaluating common goals
  */
 public enum CheckMode implements Serializable {
-    // Refers to a group of tiles placed vertically
+    /**
+     * Refers to a group of tiles placed vertically
+     */
     VERTICAL,
 
-    // Refers to a group of tiles placed horizontally
+    /**
+     * Refers to a group of tiles placed horizontally
+     */
     HORIZONTAL,
 }

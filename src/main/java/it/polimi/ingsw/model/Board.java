@@ -13,6 +13,7 @@ public class Board implements Serializable {
     /**
      * Class constructor
      * @param numPlayers creates a different board depending on the number of players
+     * @param bag tiles to use during the game
      */
     public Board(Integer numPlayers, Bag bag) {
         this.board = new HashMap<>();

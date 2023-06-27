@@ -95,7 +95,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * Check the progress of a player's goals & adjacency and update their score based on this
+     * Check the progress of a player's goals and adjacency and update their score based on this
      * @param commonGoals list of common goals that should be completed
      * @return boolean depending on whether the player has or not filled his bookshelf
      */

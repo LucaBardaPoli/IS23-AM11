@@ -101,6 +101,7 @@ public class Game implements Serializable {
 
     /**
      * Getter of the token on top af the given common goal
+     * @param commonGoal common goal
      * @return token's value
      */
     public Optional<Integer> getTopToken(CommonGoal commonGoal) {
@@ -343,7 +344,8 @@ public class Game implements Serializable {
     }
 
     /**
-     * Checks if the current tiles order is valid. If so it inserts them in the bookshelf
+     * Checks if the current tiles order is valid. If so it inserts them in the bookshelf+
+     * @param pickedTiles list of picked tiles
      */
     public void confirmOrderSelectedTiles(List<Tile> pickedTiles) {
         if (this.gameStatus.equals(GameStatus.SELECT_ORDER)) {
