@@ -243,9 +243,10 @@ public abstract class ClientHandler implements Listener {
             this.lobbyManager.removePlayer(this);
             this.lobbyManager.endGame(this.model);
             this.eventListener.removeListener(this);
-            this.eventListener.notifyListeners(new PlayerDisconnectedNotify(this.nickname));
-        } catch(Exception e) {
-            System.out.println();
+            if(this.nickname != null) {
+                this.eventListener.notifyListeners(new PlayerDisconnectedNotify(this.nickname));
+            }
+        } catch(Exception ignored) {
         }
     }
 

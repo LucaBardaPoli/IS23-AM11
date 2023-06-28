@@ -570,7 +570,9 @@ public class TUIView implements View {
             String message = this.readText();
             System.out.print("Type the receiver ( ");
             for(Map.Entry<String, Integer> entry : this.points.entrySet()) {
-                System.out.print(entry.getKey() + " | ");
+                if(!entry.getKey().equals(this.clientController.getClient().getNickname())) {
+                    System.out.print(entry.getKey() + " | ");
+                }
             }
             System.out.print("Everyone ):\n");
             String receiver = this.readWord();
