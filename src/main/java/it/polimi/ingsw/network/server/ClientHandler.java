@@ -182,7 +182,6 @@ public abstract class ClientHandler implements Listener {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ignored) {
-
                 }
                 this.initClose();
             }
