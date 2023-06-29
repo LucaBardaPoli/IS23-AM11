@@ -51,7 +51,7 @@
   </properties>
 
   <dependencies>
-    <dependency>
+      <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
@@ -62,6 +62,18 @@
           <artifactId>junit-jupiter</artifactId>
           <version>RELEASE</version>
           <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-graphics</artifactId>
+          <classifier>win</classifier>
+          <version>19</version>
+      </dependency>
+      <dependency>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-graphics</artifactId>
+          <classifier>mac</classifier>
+          <version>19</version>
       </dependency>
       <dependency>
           <groupId>org.openjfx</groupId>
