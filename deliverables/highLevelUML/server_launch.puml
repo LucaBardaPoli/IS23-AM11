@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+LaunchServer -> ServerController: create server controller
+LaunchServer -> ServerController: start server
+LaunchServer -> ServerController: run server
+loop
+    ServerController -> ClientHandler: accept TCP client and assign handler
+end
+@enduml
