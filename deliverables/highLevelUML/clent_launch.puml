@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+participant LaunchClient
+participant ClientController
 
 LaunchClient -> View: create view (GUI/TUI)
 View -> LaunchClient: serverIP + connection choice (TCP/RMI)
