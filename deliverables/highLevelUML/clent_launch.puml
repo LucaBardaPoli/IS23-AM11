@@ -13,4 +13,6 @@ ClientController -> Client: set controller
 LaunchClient -> ClientController: initialize controller
 ClientController -> Client: start
 ClientController -> View: show choose nickname
+View -> ClientController: chosen nickname
+ClientController -> Client: sendMessage(LoginRequest)
 @enduml

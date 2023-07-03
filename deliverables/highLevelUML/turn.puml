@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+participant Player
+participant Board
+participant Game
+
+ClientHandler -> Client: GameStartNotify
+Client -> ClientController: handle GameStartNotify
+ClientController -> View: set players
+ClientController -> View: start game
+View -> View: show pick a tile
+
+loop
+    View -> ClientController: picked tile
+    ClientController -> Client: send PickTileRequest
+    Client -> ClientHandler: PickTileRequest
+    ClientHandler -> Game: pick tile
+    Game -> Board: get tile
+    Board -> Game: tile
+    Game -> ClientHandler: valid pick
+    ClientHandler -> Client: PickTileResponse
+    Client -> ClientController: handle PickTileResponse
+
+    alt pick is valid
+        ClientController -> View: show valid pick
+        ClientController -> View: update picked tiles
+    else pick is not valid
+        ClientController -> View: show invalid pick
+    end
+
+    View -> View: show pick a tile
+end
+
+View -> ClientController: confirm picked tiles
+ClientController -> Client: send ConfirmPickRequest
+Client -> ClientHandler: ConfirmPickRequest
+ClientHandler -> Game: confirm picked tiles
+
+loop for all picked tiles
+    Game -> Board: remove from board
+end
+
+Game -> ClientHandler: valid picked tiles
+
+loop to all players
+    ClientHandler -> Client: ConfirmPickResponse
+    Client -> ClientController: handle ConfirmPickResponse
+    ClientController -> View: update board
+end
+
+ClientController -> View: show choose column
+View -> ClientController: chosen column
+ClientController -> Client: send ConfirmColumnRequest
+Client -> ClientHandler: ConfirmColumnRequest
+ClientHandler -> Game: confirm column
+Game -> ClientHandler: valid column
+ClientHandler -> Client: ConfirmColumnResponse
+Client -> ClientController: handle ConfirmColumnResponse
+ClientController -> View: show valid column
+
+alt swap is possible
+    ClientController -> View: show swap tiles order
+end
+
+View -> ClientController: tiles order
+ClientController -> Client: send ConfirmOrderNotify
+Client -> ClientHandler: ConfirmOrderNotify
+ClientHandler -> Game: confirm order of selected tiles
+
+activate Game
+Game -> Player: insert tiles (picked tiles, column)
+Game -> Game: update points
+Game -> Player: check bookshelf for goals
+Game -> Game: end turn
+
+alt board has to be refilled
+    Game -> Board: refill board
+end
+
+ClientHandler -> Game: get current player points
+deactivate Game
+
+Game -> ClientHandler: current player points
+
+loop over all players
+    ClientHandler -> Client: EndTurnNotify
+    Client -> ClientController: handle EndTurnNotify
+    ClientController -> View: update board
+    ClientController -> View: update bookshelf
+    ClientController -> View: update points
+    ClientController -> View: update common goals
+    ClientController -> View: end turn
+    ClientController -> View: start new turn
+    View -> View: show pick a tile
+end
+
+
+
+@enduml

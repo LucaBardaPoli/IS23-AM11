@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+Client -> ClientHandler: LoginRequest
+alt nickname is not taken
+    ClientHandler -> Client: LoginResponse(ok)
+    alt lobby is empty
+        ClientHandler -> Client: NumPlayersRequest
+        Client -> ClientHandler: NumPlayersResponse
+    end
+    ClientHandler -> LobbyManager: add player
+    loop over all players in the lobby
+                    LobbyManager -> ClientHandler: send lobby update
+                    ClientHandler -> Client: LobbyInfo
+    end
+    alt lobby is now full
+        loop over all players in the lobby
+            LobbyManager -> ClientHandler: initialize game
+            ClientHandler -> Client: GameStartNotify
+        end
+    end
+else nickname is taken
+ClientHandler -> Client: LoginResponse(fail)
+
+end
+
+
+@enduml
