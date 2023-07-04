@@ -5,6 +5,7 @@ participant LaunchClient
 participant ClientController
 
 LaunchClient -> View: create view (GUI/TUI)
+View -> View: show choose type of connection
 View -> LaunchClient: serverIP + connection choice (TCP/RMI)
 
 LaunchClient -> Client: create client (TCP/RMI)
